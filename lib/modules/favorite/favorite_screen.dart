@@ -1,0 +1,72 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import '../../shared/constants/assets_helper.dart';
+import '../../shared/utils/size_utils.dart';
+import '../../shared/widgets/stateful/DestinationItem.dart';
+import '../home/widgets/ListDestination.dart';
+
+class FavotiteScreen extends StatefulWidget {
+  const FavotiteScreen({super.key});
+
+  @override
+  State<FavotiteScreen> createState() => _FavotiteScreenState();
+}
+
+class _FavotiteScreenState extends State<FavotiteScreen> {
+  List<String> widgetList = ['Geeks', 'for', 'Geeks'];
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: SafeArea(
+        // đổ dữ liệu vào sau:
+        // child: MasonryGridView.count(
+        //   crossAxisCount: 2,
+        //   mainAxisSpacing: 4,
+        //   crossAxisSpacing: 4,
+        //   itemCount: 12,
+        //   itemBuilder: (context, index) {
+        //     double randomItemHeight = 0;
+        //     index % 2 == 0 ? randomItemHeight = 220 : randomItemHeight = 192;
+        //     return Container(
+        //       alignment: Alignment.center,
+        //       margin: const EdgeInsets.all(4),
+        //       child: DestinationItem(
+        //         size: size,
+        //         heightSize: randomItemHeight,
+        //         textDes: index.toString(),
+        //         img: AssetHelper.des1,
+        //       ),
+        //     );
+        //   },
+        // ),
+
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const Text(
+                  "Favorite",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                ListDestination(size: size),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  double randomHeight() {
+    var random = Random();
+    return random.nextInt(2) == 0 ? 192 : 220;
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "997595921202",
+    "firebase_url": "https://doan-final-travel-default-rtdb.firebaseio.com",
+    "project_id": "doan-final-travel",
+    "storage_bucket": "doan-final-travel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997595921202:android:f72bbf84b5ebfe912fb52b",
+        "android_client_info": {
+          "package_name": "com.example.doan_clean_achitec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997595921202-hmk6ae1hadnvjna7ns1tpb9t3kvjdvgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHthPE5I3tqFM0IH27imDAQlsduedNNNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997595921202-hmk6ae1hadnvjna7ns1tpb9t3kvjdvgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

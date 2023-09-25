@@ -1,0 +1,77 @@
+import 'package:doan_clean_achitec/routes/app_pages.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
+import 'package:doan_clean_achitec/shared/shared.dart';
+import 'package:flutter/material.dart';
+
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+
+class HomeHeader extends StatelessWidget {
+  const HomeHeader({
+    super.key,
+    required this.size,
+    this.titleCenter,
+    this.avatar,
+  });
+
+  final Size size;
+  final String? titleCenter;
+  final bool? avatar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(right: getSize(6)),
+                  child: Icon(
+                    FontAwesomeIcons.bars,
+                    size: getSize(kTop26Padding),
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+              Text(
+                titleCenter ?? "",
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              avatar != null
+                  ? GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.PROFILE,
+                            arguments: stringConst.userName);
+                      },
+                      child: Container(
+                        width: getSize(36),
+                        height: getSize(36),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        decoration: const BoxDecoration(
+                          color: ColorConstants.secondColor,
+                          borderRadius: kDefaultBorderRadius,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(AssetHelper.imgInfo),
+                          ),
+                        ),
+                      ),
+                    )
+                  : SizedBox(width: getSize(36)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
