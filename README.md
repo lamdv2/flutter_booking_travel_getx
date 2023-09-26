@@ -1,2 +1,2 @@
-# flutter_booking_travel_getx
-booking travel getx firebase
+# flutter_travel_clean_architect
+app flutter project travel app clean architecture getX

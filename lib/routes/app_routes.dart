@@ -25,4 +25,6 @@ abstract class Routes {
   static const TOUR = '/tour';
   static const TOUR_DETAILS = '/tour_details';
   static const OTP_SCREEN = '/otp_screen';
+  static const PAY_SCREEN = '/pay_screen';
+  static const BOOKING_REQUIED = '/booking_requied';
 }

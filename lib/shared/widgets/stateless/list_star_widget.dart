@@ -26,7 +26,7 @@ class ListStarWidget extends StatelessWidget {
           const StarHalfWidget(),
         Text(
           ' (${desti.starDes})',
-          style: AppStyles.while000Size13FfMont,
+          style: AppStyles.white000Size13FfMont,
         ),
       ],
     );

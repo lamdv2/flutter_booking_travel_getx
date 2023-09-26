@@ -2,17 +2,20 @@ import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 class SeviceItemWidget extends StatelessWidget {
   OnTap? onTap;
   String icon;
   String seviceTitle;
+  bool isCheckActive;
 
   SeviceItemWidget({
     this.onTap,
     required this.icon,
     required this.seviceTitle,
+    required this.isCheckActive,
     super.key,
   });
 
@@ -25,7 +28,8 @@ class SeviceItemWidget extends StatelessWidget {
       ),
       width: getSize(84),
       decoration: BoxDecoration(
-        color: ColorConstants.white,
+        color:
+            isCheckActive ? ColorConstants.primaryButton : ColorConstants.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: ColorConstants.darkGray.withOpacity(.2),
@@ -38,10 +42,16 @@ class SeviceItemWidget extends StatelessWidget {
             onTap: () => onTap,
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Image.asset(
+              child: SvgPicture.asset(
                 icon,
-                height: 30,
-                width: 30,
+                height: isCheckActive ? getSize(36) : getSize(30),
+                width: isCheckActive ? getSize(36) : getSize(30),
+                colorFilter: ColorFilter.mode(
+                  isCheckActive
+                      ? ColorConstants.white
+                      : ColorConstants.titleSearch,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),
@@ -53,7 +63,9 @@ class SeviceItemWidget extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             softWrap: false,
-            style: AppStyles.black000Size12Fw400FfMont,
+            style: isCheckActive
+                ? AppStyles.white000Size12Fw400FfMont
+                : AppStyles.black000Size12Fw400FfMont,
           ),
         ],
       ),

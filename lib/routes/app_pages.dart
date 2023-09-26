@@ -1,3 +1,5 @@
+import 'package:doan_clean_achitec/modules/booking/booking.dart';
+import 'package:doan_clean_achitec/modules/booking/booking_requied.dart';
 import 'package:doan_clean_achitec/modules/call_firebase/image_binding.dart';
 import 'package:doan_clean_achitec/modules/call_firebase/loading_image.dart';
 import 'package:doan_clean_achitec/modules/detail_place/detail_place.dart';
@@ -12,6 +14,7 @@ import 'package:doan_clean_achitec/modules/intro/intro_binding.dart';
 import 'package:doan_clean_achitec/modules/intro/intro_screen.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_binding.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_screen.dart';
+import 'package:doan_clean_achitec/modules/pay/pay.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/profile.dart';
 import 'package:doan_clean_achitec/modules/room/room.dart';
@@ -136,6 +139,16 @@ class AppPages {
       name: Routes.TOUR_DETAILS,
       page: () => const TourDetailsScreen(),
       binding: TourBinding(),
+    ),
+    GetPage(
+      name: Routes.PAY_SCREEN,
+      page: () => const PayScreen(),
+      binding: PayBinding(),
+    ),
+    GetPage(
+      name: Routes.BOOKING_REQUIED,
+      page: () => const BookingRequiedScreen(),
+      binding: BookingBinding(),
     ),
   ];
 }

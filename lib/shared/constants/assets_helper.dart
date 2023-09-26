@@ -5,16 +5,15 @@ class AssetHelper {
   static const String icoHeart = 'assets/icons/heart.png';
   static const String icoStar = 'assets/icons/ic_star.png';
   static const String icoStarSvg = 'assets/icons/ic_star.svg';
-  static const String icoHotel = 'assets/icons/ico_hotel.png';
-  static const String icoPlane = 'assets/icons/ico_plane.png';
-  static const String icoRestau = 'assets/icons/ico_restau.png';
-  static const String icoCar = 'assets/icons/ico_car.png';
+  static const String icoHotel = 'assets/icons/ic_hotel.svg';
+  static const String icoPlane = 'assets/icons/ic_plane.svg';
+  static const String icoRestau = 'assets/icons/ic_restaur.svg';
+  static const String icoCar = 'assets/icons/ic_car.svg';
   static const String icoSun = 'assets/icons/ico_sun.png';
 
   static const String icoNextRight = 'assets/icons/ic_next_right.svg';
   static const String icoNextLeft = 'assets/icons/ic_next_left.svg';
   static const String icoArrowLeft = 'assets/icons/ic_arrow_left.svg';
-  static const String icoGetBack = 'assets/icons/ic_get_back.svg';
   static const String icoDestination = 'assets/icons/ic_destination.svg';
   static const String icoHotelChoose = 'assets/icons/ic_hotel_choose.svg';
   static const String icoCalender = 'assets/icons/ic_calender.svg';
@@ -28,6 +27,7 @@ class AssetHelper {
   static const String icoBooking = 'assets/icons/ic_booking.png';
   static const String icoRoom = 'assets/icons/ic_room.png';
   static const String icoTour = 'assets/icons/ic_tour.png';
+  static const String icoWifi = 'assets/icons/ic_wifi.svg';
 
   // icon new
   static const String icoCalenderNew = 'assets/icons/ic_calender.png';

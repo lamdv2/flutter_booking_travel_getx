@@ -11,19 +11,19 @@ class ItemUtilityDetailHotelWidget extends StatelessWidget {
       'name': 'Restaurant',
     },
     {
-      'icon': AssetHelper.icoHotel,
+      'icon': AssetHelper.icCalling,
       'name': 'Wifi',
     },
     {
-      'icon': AssetHelper.icoBooking,
+      'icon': AssetHelper.icBag,
       'name': 'Currency\nExchange',
     },
     {
-      'icon': AssetHelper.heart,
-      'name': '24-hour\nFront Desk',
+      'icon': AssetHelper.icShieldDone,
+      'name': '24-hour/Front Desk',
     },
     {
-      'icon': AssetHelper.icoHamburgerMenu,
+      'icon': AssetHelper.icCategory,
       'name': 'More',
     },
   ];
@@ -31,7 +31,11 @@ class ItemUtilityDetailHotelWidget extends StatelessWidget {
   Widget _buildItemUtilityHotel(String icon, String name) {
     return Row(
       children: [
-        SeviceItemWidget(icon: icon, seviceTitle: name),
+        SeviceItemWidget(
+          icon: icon,
+          seviceTitle: name,
+          isCheckActive: false,
+        ),
         SizedBox(
           width: getSize(16),
         ),

@@ -1,4 +1,6 @@
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
@@ -20,6 +22,7 @@ class TourDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     final TourController tourController = Get.find();
+    final tourModel = Get.arguments as TourModel;
 
     return Scaffold(
       body: Stack(
@@ -114,54 +117,58 @@ class TourDetailsScreen extends StatelessWidget {
                         controller: scrollController,
                         padding: EdgeInsets.zero,
                         children: [
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                tourModel.nameTour,
+                                style: const TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: getSize(kPadding),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
-                                  Text(
-                                    "Mường Thanh",
-                                    style: TextStyle(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.bold,
+                                  SvgPicture.asset(
+                                    AssetHelper.icoDestination,
+                                    width: getSize(
+                                      kPadding,
                                     ),
                                   ),
-                                  Spacer(),
+                                  SizedBox(
+                                    width: getSize(kItemPadding),
+                                  ),
                                   Text(
-                                    '\$${123}',
-                                    style: TextStyle(
+                                    tourModel.idCity ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    '\$${tourModel.price.toString()}',
+                                    style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                       color: ColorConstants.botTitle,
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     '/night',
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                AssetHelper.icoDestination,
-                                width: getSize(
-                                  kPadding,
-                                ),
-                              ),
-                              SizedBox(
-                                width: getSize(kItemPadding),
-                              ),
-                              const Text(
-                                "34 Hải Châu, Đà Nẵng",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
                               ),
                             ],
                           ),
@@ -186,14 +193,14 @@ class TourDetailsScreen extends StatelessWidget {
                                   kTopPadding,
                                 ),
                               ),
-                              const Text(
-                                '${4.5}/5 ',
-                                style: TextStyle(
+                              Text(
+                                '${tourModel.rating}/5 ',
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
-                                '(${123456} review)',
+                                '(${tourModel.reviews?.length} review)',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.blueGrey.shade500,
@@ -301,7 +308,7 @@ class TourDetailsScreen extends StatelessWidget {
                             style: TextStyle(fontSize: 16),
                           ),
                           SizedBox(
-                            height: getSize(kPadding),
+                            height: getSize(kTop28Padding),
                           ),
                           const Text(
                             'Photo Gallary',
@@ -318,22 +325,24 @@ class TourDetailsScreen extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
-                                    right: 8,
-                                    bottom: 8,
+                                    right: 12,
+                                    bottom: 12,
                                   ),
-                                  child: Image.asset(
-                                    AssetHelper.city_1,
-                                    fit: BoxFit.fitWidth,
-                                    width: 50,
-                                    height: 50,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      getSize(8),
+                                    ),
+                                    child: Image.asset(
+                                      AssetHelper.city_1,
+                                      fit: BoxFit.cover,
+                                      width: 50,
+                                      height: 50,
+                                    ),
                                   ),
                                 );
                               },
                               itemCount: 6,
                             ),
-                          ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
                           ),
                           const Text(
                             'Location',
@@ -369,9 +378,9 @@ class TourDetailsScreen extends StatelessWidget {
                             height: getSize(kMediumPadding),
                           ),
                           ButtonWidget(
-                            textBtn: 'Select Room',
+                            textBtn: 'Book Tour',
                             onTap: () {
-                              // Get.toNamed(page)
+                              Get.toNamed(Routes.BOOKING_REQUIED);
                             },
                           ),
                           SizedBox(

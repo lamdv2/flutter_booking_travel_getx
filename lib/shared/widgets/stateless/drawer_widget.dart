@@ -125,7 +125,7 @@ class DrawerWidget extends StatelessWidget {
           ListTile(
             title: Row(
               children: [
-                Image.asset(
+                SvgPicture.asset(
                   AssetHelper.icoHotel,
                   color: ColorConstants.graySub,
                   width: getSize(24),

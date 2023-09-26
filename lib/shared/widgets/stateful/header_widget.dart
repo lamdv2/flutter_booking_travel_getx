@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../constants/assets_helper.dart';
-import '../../constants/colors.dart';
 import '../../utils/size_utils.dart';
 
 class HeaderWidget extends StatefulWidget {
@@ -29,6 +27,8 @@ class HeaderWidget extends StatefulWidget {
 }
 
 class _HeaderWidgetState extends State<HeaderWidget> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -38,8 +38,9 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         InkWell(
           onTap: () {
             Get.back();
+            scaffoldKey.currentState!.openDrawer();
           },
-          splashColor: ColorConstants.titleSearch, // Màu khi nhấn
+          splashColor: ColorConstants.titleSearch,
           radius: getSize(20),
           child: Container(
             width: getSize(36),

@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             child: Column(
               children: [
-                Center(
+                const Center(
                   child: Text(
                     "Your Journey In",
                     style: TextStyle(
@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                 ),
-                Center(
+                const Center(
                   child: Text(
                     "Your Hands",
                     style: TextStyle(

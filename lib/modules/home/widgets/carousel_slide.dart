@@ -86,7 +86,7 @@ class _CarouselSliderDesState extends State<CarouselSliderDes> {
                                 ),
                                 child: Text(
                                   desList.nameDes.toString(),
-                                  style: AppStyles.while000Size18FfMont,
+                                  style: AppStyles.white000Size18FfMont,
                                 ),
                               ),
                               Container(

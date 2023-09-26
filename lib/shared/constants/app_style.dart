@@ -9,46 +9,67 @@ class FontFamily {
 
 class AppStyles {
   // white
-  static TextStyle while000Size30Fw600FfMont = const TextStyle(
+  static TextStyle white000Size30Fw600FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 30.00,
     fontWeight: FontWeight.w600,
     color: ColorConstants.white,
   );
 
-  static TextStyle while000Size24Fw400FfMont = const TextStyle(
+  static TextStyle white000Size24Fw400FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 24.00,
     fontWeight: FontWeight.w400,
     color: ColorConstants.white,
   );
 
-  static TextStyle while000Size18FfMont = const TextStyle(
+  static TextStyle white000Size18FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 18.72,
     color: ColorConstants.white,
   );
 
-  static TextStyle while000Size18Fw500FfMont = const TextStyle(
+  static TextStyle white000Size18Fw500FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 18.72,
     fontWeight: FontWeight.w500,
     color: ColorConstants.white,
   );
 
-  static TextStyle while000Size16FfMont = const TextStyle(
+  static TextStyle white000Size16FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 16.00,
     color: ColorConstants.white,
   );
 
-  static TextStyle while000Size13FfMont = const TextStyle(
+  static TextStyle white000Size13FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 13.28,
     color: ColorConstants.white,
   );
 
-  static TextStyle while000Size10FfMont = const TextStyle(
+  static TextStyle white000Size14Fw400FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: ColorConstants.white,
+  );
+
+  static TextStyle white000Size14Fw500FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: ColorConstants.white,
+  );
+
+  static TextStyle white000Size12Fw400FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: ColorConstants.white,
+  );
+
+  static TextStyle white000Size10FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 10.72,
     color: ColorConstants.white,

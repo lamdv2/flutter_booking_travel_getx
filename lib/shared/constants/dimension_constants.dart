@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 const double kTop36Padding = 36.0;
 const double kTop32Padding = 32.0;
+const double kTop28Padding = 28.0;
 const double kTop26Padding = 26.0;
 const double kMediumPadding = 24.0;
 const double kBigIconSize = 22;

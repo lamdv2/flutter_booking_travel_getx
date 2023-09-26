@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -8,7 +9,9 @@ import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
 class TourItemWidget extends StatelessWidget {
-  const TourItemWidget({
+  TourModel listTour;
+  TourItemWidget({
+    required this.listTour,
     super.key,
   });
 
@@ -16,7 +19,7 @@ class TourItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isFavor = false;
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.TOUR_DETAILS),
+      onTap: () => Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour),
       child: Container(
         width: MediaQuery.of(context).size.width - getSize(40),
         decoration: BoxDecoration(
@@ -95,7 +98,7 @@ class TourItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Royal Palm Heritage",
+                      listTour.nameTour.isNotEmpty ? listTour.nameTour : '',
                       style: AppStyles.botTitle000Size20Fw600FfMont,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -113,7 +116,9 @@ class TourItemWidget extends StatelessWidget {
                             alignment: PlaceholderAlignment.middle,
                           ),
                           TextSpan(
-                            text: "  Purwokerto, Jateng",
+                            text: listTour.idCity!.isNotEmpty
+                                ? '  ${listTour.idCity}'
+                                : '',
                             style: AppStyles.botTitle000Size14Fw400FfMont,
                           ),
                         ],
@@ -131,14 +136,18 @@ class TourItemWidget extends StatelessWidget {
                           width: getSize(8.0),
                         ),
                         Text(
-                          "4.5",
+                          listTour.rating != 0
+                              ? listTour.rating.toString()
+                              : "",
                           style: AppStyles.botTitle000Size14Fw400FfMont,
                         ),
                         SizedBox(
                           width: getSize(8.0),
                         ),
                         Text(
-                          "(3241 reviews)",
+                          listTour.reviews!.isNotEmpty
+                              ? '${listTour.reviews?.length} reviews'
+                              : '',
                           style: AppStyles.graySecondSize14Fw400FfMont,
                         ),
                       ],
@@ -149,9 +158,11 @@ class TourItemWidget extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         children: [
-                          const TextSpan(
-                            text: "\$143",
-                            style: TextStyle(
+                          TextSpan(
+                            text: listTour.price != 0
+                                ? '\$${listTour.price}'
+                                : "\$143",
+                            style: const TextStyle(
                               color: ColorConstants.botTitle,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
