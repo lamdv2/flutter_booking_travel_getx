@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
+import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
@@ -277,10 +278,8 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(
                             height: getSize(kDefaultPadding),
                           ),
-                          const Text(
-                            'You will find every comfort because many of the '
-                            'services that the hotel offers for travellers and of'
-                            'course the hotel is very comfortable.',
+                          Text(
+                            tourModel.description ?? '',
                             style: TextStyle(fontSize: 16),
                           ),
                           SizedBox(
@@ -298,14 +297,41 @@ class TourDetailsScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          const Text(
-                            'You will find every comfort because many of the '
-                            'services that the hotel offers for travellers and of'
-                            'course the hotel is very comfortable.',
-                            style: TextStyle(fontSize: 16),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: tourModel.itinerary?.length ?? 0,
+                            itemBuilder: (BuildContext context, int rowIndex) {
+                              String itinerary = tourModel.itinerary![rowIndex];
+
+                              List<String> parts = itinerary.split('/');
+
+                              String titleTourDay = parts[0].trim();
+                              String description =
+                                  parts.length > 1 ? parts[1].trim() : '';
+
+                              return Column(
+                                children: [
+                                  if (rowIndex > 0)
+                                    SizedBox(
+                                      height: getSize(20),
+                                    ),
+                                  Text(
+                                    titleTourDay,
+                                    style: AppStyles.black000Size16Fw500FfMont,
+                                  ),
+                                  SizedBox(
+                                    height: getSize(12),
+                                  ),
+                                  if (description.isNotEmpty)
+                                    Text(
+                                      description,
+                                      style:
+                                          AppStyles.black000Size14Fw400FfMont,
+                                    ),
+                                ],
+                              );
+                            },
                           ),
                           SizedBox(
                             height: getSize(kTop28Padding),
@@ -316,7 +342,7 @@ class TourDetailsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           SizedBox(
-                            height: 300,
+                            // height: 300,
                             child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(

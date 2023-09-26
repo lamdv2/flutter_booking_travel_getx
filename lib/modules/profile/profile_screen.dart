@@ -3,13 +3,11 @@ import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/drawer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
 import '../../shared/constants/app_style.dart';
 import '../../shared/utils/size_utils.dart';
-import '../../shared/widgets/stateful/header_widget.dart';
 import '../../shared/widgets/stateful/profile_widget.dart';
 import '../auth/user_controller.dart';
 
