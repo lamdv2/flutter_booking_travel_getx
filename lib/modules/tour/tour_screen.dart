@@ -51,7 +51,6 @@ class _TourScreenState extends State<TourScreen> {
   @override
   Widget build(BuildContext context) {
     tourController.getAllTourModel();
-    // tourController.getListTour.addAll(tourController.getAllTourModel());
 
     return Scaffold(
       appBar: CustomAppBar(),

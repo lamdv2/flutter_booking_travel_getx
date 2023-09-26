@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
@@ -23,7 +24,10 @@ class TourDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     final TourController tourController = Get.find();
-    final tourModel = Get.arguments as TourModel;
+    final TourModel tourModel = Get.arguments;
+    // final CityModel cityModel =
+    //     tourController.loadCityData(tourModel.idCity.toString());
+    tourController.loadCityData(tourModel.idCity.toString());
 
     return Scaffold(
       body: Stack(
@@ -113,10 +117,11 @@ class TourDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: getSize(kDefaultPadding),
                     ),
-                    Expanded(
+                    Flexible(
                       child: ListView(
                         controller: scrollController,
                         padding: EdgeInsets.zero,
+                        shrinkWrap: true,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +153,7 @@ class TourDetailsScreen extends StatelessWidget {
                                     width: getSize(kItemPadding),
                                   ),
                                   Text(
-                                    tourModel.idCity ?? '',
+                                    tourController.cityModel?.nameCity ?? '',
                                     style: const TextStyle(
                                       fontSize: 14,
                                     ),
@@ -224,6 +229,7 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(
                             height: getSize(32),
                             child: ListView.builder(
+                              shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: tourController.detailsHotelList.length,
                               itemBuilder: (context, index) {
@@ -342,12 +348,13 @@ class TourDetailsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           SizedBox(
-                            // height: 300,
                             child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                               ),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
@@ -370,6 +377,9 @@ class TourDetailsScreen extends StatelessWidget {
                               itemCount: 6,
                             ),
                           ),
+                          SizedBox(
+                            height: getSize(24),
+                          ),
                           const Text(
                             'Location',
                             style: TextStyle(
@@ -380,11 +390,9 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(
                             height: getSize(kDefaultPadding),
                           ),
-                          const Text(
-                            'Located in the famous neighborhood of Seoul, '
-                            'Grand Luxury’s is set in a building built in the'
-                            '2010s.',
-                            style: TextStyle(
+                          Text(
+                            tourController.cityModel?.descriptionCity ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
                             ),
