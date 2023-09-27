@@ -17,6 +17,7 @@ class TourModel {
   final List<String>? reviews;
   final double? rating;
   final bool active;
+  final String? status;
   final List<String>? specialOffers;
 
   TourModel({
@@ -37,6 +38,7 @@ class TourModel {
     this.rating,
     required this.active,
     this.specialOffers,
+    this.status,
   });
 
   factory TourModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -72,6 +74,7 @@ class TourModel {
       specialOffers: json['specialOffers'] != null
           ? List<String>.from(json['specialOffers'])
           : null,
+      status: json['status'],
     );
   }
 
@@ -94,6 +97,7 @@ class TourModel {
       'rating': rating,
       'active': active,
       'specialOffers': specialOffers,
+      'status': status,
     };
   }
 }

@@ -38,7 +38,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         InkWell(
           onTap: () {
             Get.back();
-            scaffoldKey.currentState!.openDrawer();
           },
           splashColor: ColorConstants.titleSearch,
           radius: getSize(20),

@@ -137,7 +137,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.TOUR_DETAILS,
-      page: () => const TourDetailsScreen(),
+      page: () => TourDetailsScreen(),
       binding: TourBinding(),
     ),
     GetPage(

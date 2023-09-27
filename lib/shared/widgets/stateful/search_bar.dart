@@ -10,10 +10,13 @@ class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({
     super.key,
     this.hintText,
+    this.textEditingController,
+    this.onChanged,
   });
 
   final String? hintText;
-
+  final TextEditingController? textEditingController;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,6 +38,7 @@ class SearchBarWidget extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
+              controller: textEditingController,
               decoration: InputDecoration(
                 hintText: hintText,
                 hintStyle: AppStyles.titleSearchSize16Fw400FfMont,
@@ -45,9 +49,7 @@ class SearchBarWidget extends StatelessWidget {
                 alignLabelWithHint: true,
               ),
               style: AppStyles.titleSearchSize16Fw400FfMont,
-              onChanged: (value) {
-                // print('Input changed: $value');
-              },
+              onChanged: onChanged,
             ),
           ),
         ],

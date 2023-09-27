@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TourController extends GetxController {
@@ -10,9 +11,11 @@ class TourController extends GetxController {
 
   RxBool isCheckSearch = false.obs;
   RxString idTour = ''.obs;
-  RxList<TourModel> getListTour = RxList<TourModel>();
-  CityModel? cityModel;
-  final getListTourData = Rxn<List<TourModel>>();
+  RxString selectedValue = 'Popular'.obs;
+  final cityModel = Rxn<CityModel>();
+  final getListTour = Rxn<List<TourModel>>();
+  final filterListTourData = Rxn<List<TourModel>>();
+  TextEditingController searchController = TextEditingController();
 
   Future<TourModel> getTourDetailsById(String id) async {
     final snapShot = await _db.collection('tourModel').doc(id).get();
@@ -35,6 +38,10 @@ class TourController extends GetxController {
     }
   }
 
+  Future<void> refreshTourList() async {
+    getAllTourModel();
+  }
+
   Future<void> updateTour(TourModel updatedTour) async {
     try {
       final tourRef = _db.collection('tourModel').doc(updatedTour.idTour);
@@ -45,17 +52,13 @@ class TourController extends GetxController {
     }
   }
 
-  Future<List<TourModel>> getAllTourModel() async {
+  Future<void> getAllTourModel() async {
     final snapShot = await _db.collection('tourModel').get();
     final listTourData =
         snapShot.docs.map((doc) => TourModel.fromJson(doc)).toList();
 
-    getListTour.assignAll(listTourData);
-    return listTourData;
-  }
-
-  void loadCityData(String idCity) async {
-    cityModel = await getCityById(idCity);
+    getListTour.value = listTourData;
+    filterListTourData.value = listTourData;
   }
 
   Future<CityModel> getCityById(String idCity) async {
@@ -73,17 +76,31 @@ class TourController extends GetxController {
     return CityModel(nameCity: '');
   }
 
-  // Future<void> getCityById(String idCity) async {
-  //   final snapShot = await _db
-  //       .collection('cityModel')
-  //       .where('idCity', isEqualTo: idCity)
-  //       .get();
+  Future<void> filterListTourByName(String keyword) async {
+    if (keyword.isEmpty) {
+      getListTour.value = filterListTourData.value;
+    } else {
+      getListTour.value = filterListTourData.value
+          ?.where(
+            (listTour) => listTour.nameTour.toLowerCase().contains(
+                  keyword.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+  }
 
-  //   if (snapShot.docs.isNotEmpty) {
-  //     final cityModelById =
-  //         snapShot.docs.map((e) => CityModel.fromJson(e)).single;
-
-  //     cityModel = cityModelById;
-  //   }
-  // }
+  Future<void> filterListTourByState(String keyword) async {
+    if (keyword.isEmpty) {
+      getListTour.value = filterListTourData.value;
+    } else {
+      getListTour.value = filterListTourData.value
+          ?.where(
+            (listTour) => listTour.status!.toLowerCase().contains(
+                  keyword.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+  }
 }
