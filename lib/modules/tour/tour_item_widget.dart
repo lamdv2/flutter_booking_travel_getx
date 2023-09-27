@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/tour/tour_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -14,6 +15,8 @@ class TourItemWidget extends StatelessWidget {
     required this.listTour,
     super.key,
   });
+
+  TourController tourController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +118,13 @@ class TourItemWidget extends StatelessWidget {
                             child: SvgPicture.asset(AssetHelper.icoMaps),
                             alignment: PlaceholderAlignment.middle,
                           ),
+                          const WidgetSpan(
+                            child: SizedBox(
+                              width: 6,
+                            ),
+                          ),
                           TextSpan(
-                            text: listTour.idCity!.isNotEmpty
-                                ? '  ${listTour.idCity}'
-                                : '',
+                            text: listTour.idCity,
                             style: AppStyles.botTitle000Size14Fw400FfMont,
                           ),
                         ],

@@ -1,4 +1,8 @@
-import 'package:doan_clean_achitec/models/city/city_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
@@ -12,79 +16,37 @@ import 'package:doan_clean_achitec/shared/widgets/button_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/item_utility_detail_hotel_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/dash_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 
 class TourDetailsScreen extends StatelessWidget {
-  const TourDetailsScreen({super.key});
+  TourDetailsScreen({Key? key}) : super(key: key);
+  final TourController tourController = Get.find();
+  final TourModel? tourModel = Get.arguments;
+  final int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
-    final TourController tourController = Get.find();
-    final TourModel? tourModel = Get.arguments;
-    // final CityModel cityModel =
-    //     tourController.loadCityData(tourModel.idCity.toString());
-    if (tourModel != null) {
-      tourController.loadCityData(tourModel.idCity.toString());
-    }
-
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Positioned.fill(
-            child: ImageHelper.loadFromAsset(AssetHelper.hotel_3,
-                boxFit: BoxFit.fill),
+            child: ImageHelper.loadFromAsset(
+              AssetHelper.hotel_3,
+              boxFit: BoxFit.fill,
+            ),
           ),
           Positioned(
             top: getSize(kMediumPadding * 2),
             left: getSize(kPadding),
             child: InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                height: getSize(36),
-                width: getSize(36),
-                padding: EdgeInsets.all(getSize(kItemPadding)),
-                decoration: const BoxDecoration(
-                  color: ColorConstants.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(kIconRadius),
-                  ),
-                ),
-                child: SvgPicture.asset(
-                  AssetHelper.icoNextLeft,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.titleSearch,
-                    BlendMode.srcIn,
-                  ),
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+              onTap: () => Get.back(),
+              child: _buildBackButton(),
             ),
           ),
           Positioned(
             top: kMediumPadding * 2,
             right: kPadding,
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.all(getSize(kItemPadding)),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(kDefaultPadding)),
-                ),
-                child: const Icon(
-                  FontAwesomeIcons.heart,
-                  color: Colors.red,
-                ),
-              ),
-            ),
+            child: _buildFavoriteButton(),
           ),
           DraggableScrollableSheet(
             initialChildSize: 0.4,
@@ -103,326 +65,35 @@ class TourDetailsScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: kDefaultPadding),
-                      child: Container(
-                        height: 5,
-                        width: 60,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(kDefaultPadding)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: getSize(kDefaultPadding),
-                    ),
+                    _buildDragIndicator(),
+                    SizedBox(height: getSize(kDefaultPadding)),
                     Flexible(
                       child: ListView(
                         controller: scrollController,
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tourModel?.nameTour ?? '',
-                                style: const TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: getSize(kPadding),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    AssetHelper.icoDestination,
-                                    width: getSize(
-                                      kPadding,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: getSize(kItemPadding),
-                                  ),
-                                  Text(
-                                    tourController.cityModel?.nameCity ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '\$${tourModel?.price.toString()}',
-                                    style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: ColorConstants.botTitle,
-                                    ),
-                                  ),
-                                  const Text(
-                                    '/night',
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: getSize(kTopPadding),
-                          ),
+                          _buildTourInfo(tourModel, tourController),
+                          SizedBox(height: getSize(kTopPadding)),
                           const DashLineWidget(),
-                          SizedBox(
-                            height: getSize(kTopPadding),
-                          ),
-                          Row(
-                            children: [
-                              ImageHelper.loadFromAsset(
-                                AssetHelper.icoStar,
-                                width: getSize(
-                                  kTop32Padding,
-                                ),
-                                boxFit: BoxFit.fitWidth,
-                              ),
-                              SizedBox(
-                                width: getSize(
-                                  kTopPadding,
-                                ),
-                              ),
-                              Text(
-                                '${tourModel?.rating}/5 ',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                '(${tourModel?.reviews?.length} review)',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.blueGrey.shade500,
-                                ),
-                              ),
-                              const Spacer(),
-                              const Text(
-                                'See All',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorConstants.primaryButton),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: getSize(kItemPadding),
-                          ),
-                          const DashLineWidget(),
-                          SizedBox(
-                            height: getSize(32),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: tourController.detailsHotelList.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    // setState(() {
-                                    //   selectedIndex = index;
-                                    // });
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                    ),
-                                    decoration: selectedIndex == index
-                                        ? const BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Gradients.lightBlue1,
-                                                Gradients.lightBlue2,
-                                              ],
-                                            ),
-                                            borderRadius: kDefaultBorderRadius,
-                                          )
-                                        : BoxDecoration(
-                                            color: ColorConstants.transparent,
-                                            borderRadius: kDefaultBorderRadius,
-                                          ),
-                                    child: Text(
-                                      tourController.detailsHotelList[index]
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: selectedIndex == index
-                                            ? ColorConstants.white
-                                            : ColorConstants.black,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: getSize(kMediumPadding),
-                          ),
-                          const Text(
-                            'Information',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          Text(
-                            tourModel?.description ?? '',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: ItemUtilityDetailHotelWidget(),
-                          ),
-                          SizedBox(
-                            height: getSize(kPadding),
-                          ),
-                          const Text(
-                            'Trip Plan',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: tourModel?.itinerary?.length ?? 0,
-                            itemBuilder: (BuildContext context, int rowIndex) {
-                              String itinerary =
-                                  tourModel!.itinerary![rowIndex];
-
-                              List<String> parts = itinerary.split('/');
-
-                              String titleTourDay = parts[0].trim();
-                              String description =
-                                  parts.length > 1 ? parts[1].trim() : '';
-
-                              return Column(
-                                children: [
-                                  if (rowIndex > 0)
-                                    SizedBox(
-                                      height: getSize(20),
-                                    ),
-                                  Text(
-                                    titleTourDay,
-                                    style: AppStyles.black000Size16Fw500FfMont,
-                                  ),
-                                  SizedBox(
-                                    height: getSize(12),
-                                  ),
-                                  if (description.isNotEmpty)
-                                    Text(
-                                      description,
-                                      style:
-                                          AppStyles.black000Size14Fw400FfMont,
-                                    ),
-                                ],
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            height: getSize(kTop28Padding),
-                          ),
-                          const Text(
-                            'Photo Gallary',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          SizedBox(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                              ),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: 12,
-                                    bottom: 12,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                      getSize(8),
-                                    ),
-                                    child: Image.asset(
-                                      AssetHelper.city_1,
-                                      fit: BoxFit.cover,
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                  ),
-                                );
-                              },
-                              itemCount: 6,
-                            ),
-                          ),
-                          SizedBox(
-                            height: getSize(24),
-                          ),
-                          const Text(
-                            'Location',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          Text(
-                            tourController.cityModel?.descriptionCity ?? '',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          Positioned(
-                            child: GestureDetector(
-                              onDoubleTap: () {
-                                // Get.toNamed(page)
-                              },
-                              child: const GoogleMapWidget(),
-                            ),
-                          ),
-                          SizedBox(
-                            height: getSize(kMediumPadding),
-                          ),
+                          SizedBox(height: getSize(kTopPadding)),
+                          _buildTourRating(),
+                          SizedBox(height: getSize(kItemPadding)),
+                          _buildTourDescription(tourModel),
+                          SizedBox(height: getSize(kDefaultPadding)),
+                          _buildTourUtilities(),
+                          SizedBox(height: getSize(kPadding)),
+                          _buildTripPlan(tourModel),
+                          SizedBox(height: getSize(kTop28Padding)),
+                          _buildPhotoGallery(),
+                          SizedBox(height: getSize(kTop28Padding)),
+                          _buildLocation(tourController),
+                          SizedBox(height: getSize(kMediumPadding)),
                           ButtonWidget(
                             textBtn: 'Book Tour',
-                            onTap: () {
-                              Get.toNamed(Routes.BOOKING_REQUIED);
-                            },
+                            onTap: () => Get.toNamed(Routes.BOOKING_REQUIED),
                           ),
-                          SizedBox(
-                            height: getSize(kMediumPadding),
-                          ),
+                          SizedBox(height: getSize(kMediumPadding)),
                         ],
                       ),
                     ),
@@ -433,6 +104,283 @@ class TourDetailsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildBackButton() {
+    return Container(
+      height: getSize(36),
+      width: getSize(36),
+      padding: EdgeInsets.all(getSize(kItemPadding)),
+      decoration: const BoxDecoration(
+        color: ColorConstants.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(kIconRadius),
+        ),
+      ),
+      child: SvgPicture.asset(
+        AssetHelper.icoNextLeft,
+        colorFilter: const ColorFilter.mode(
+          ColorConstants.titleSearch,
+          BlendMode.srcIn,
+        ),
+        fit: BoxFit.fitHeight,
+      ),
+    );
+  }
+
+  Widget _buildFavoriteButton() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.all(getSize(kItemPadding)),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(kDefaultPadding)),
+        ),
+        child: const Icon(
+          FontAwesomeIcons.heart,
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDragIndicator() {
+    return Container(
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(top: kDefaultPadding),
+      child: Container(
+        height: 5,
+        width: 60,
+        decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.all(
+            Radius.circular(kDefaultPadding),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTourInfo(TourModel? tourModel, TourController tourController) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          tourModel?.nameTour ?? '',
+          style: const TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: getSize(kPadding)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset(
+                  AssetHelper.icoDestination,
+                  width: getSize(kPadding),
+                ),
+                SizedBox(width: getSize(kItemPadding)),
+                Obx(
+                  () => Text(
+                    tourController.cityModel.value?.nameCity ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  '\$${tourModel?.price.toString()}',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: ColorConstants.botTitle,
+                  ),
+                ),
+                const Text(
+                  '/night',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTourRating() {
+    return Row(
+      children: [
+        ImageHelper.loadFromAsset(
+          AssetHelper.icoStar,
+          width: getSize(kTop32Padding),
+          boxFit: BoxFit.fitWidth,
+        ),
+        SizedBox(width: getSize(kTopPadding)),
+        Text(
+          '${tourModel?.rating}/5 ',
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          '(${tourModel?.reviews?.length} review)',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.blueGrey.shade500,
+          ),
+        ),
+        const Spacer(),
+        const Text(
+          'See All',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ColorConstants.primaryButton,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTourDescription(TourModel? tourModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Information',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(height: getSize(kDefaultPadding)),
+        Text(
+          tourModel?.description ?? '',
+          style: TextStyle(fontSize: 16),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTourUtilities() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: ItemUtilityDetailHotelWidget(),
+    );
+  }
+
+  Widget _buildTripPlan(TourModel? tourModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Trip Plan',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: tourModel?.itinerary?.length ?? 0,
+          itemBuilder: (BuildContext context, int rowIndex) {
+            String itinerary = tourModel!.itinerary![rowIndex];
+            List<String> parts = itinerary.split('/');
+            String titleTourDay = parts[0].trim();
+            String description = parts.length > 1 ? parts[1].trim() : '';
+
+            return Column(
+              children: [
+                if (rowIndex > 0) SizedBox(height: getSize(20)),
+                Text(
+                  titleTourDay,
+                  style: AppStyles.black000Size16Fw500FfMont,
+                ),
+                SizedBox(height: getSize(12)),
+                if (description.isNotEmpty)
+                  Text(
+                    description,
+                    style: AppStyles.black000Size14Fw400FfMont,
+                  ),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhotoGallery() {
+    return SizedBox(
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.only(
+              right: 12,
+              bottom: 12,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                getSize(8),
+              ),
+              child: Image.asset(
+                AssetHelper.city_1,
+                fit: BoxFit.cover,
+                width: 50,
+                height: 50,
+              ),
+            ),
+          );
+        },
+        itemCount: 6,
+      ),
+    );
+  }
+
+  Widget _buildLocation(TourController tourController) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Location',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(height: getSize(kDefaultPadding)),
+        Text(
+          tourController.cityModel.value?.descriptionCity ?? '',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        SizedBox(height: getSize(kDefaultPadding)),
+        Positioned(
+          child: GestureDetector(
+            onDoubleTap: () {},
+            child: const GoogleMapWidget(),
+          ),
+        ),
+        SizedBox(height: getSize(kMediumPadding)),
+      ],
     );
   }
 }
