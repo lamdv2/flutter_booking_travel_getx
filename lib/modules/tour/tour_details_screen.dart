@@ -1,6 +1,8 @@
+import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
+import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
@@ -22,7 +24,12 @@ class TourDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     final TourController tourController = Get.find();
-    final tourModel = Get.arguments as TourModel;
+    final TourModel? tourModel = Get.arguments;
+    // final CityModel cityModel =
+    //     tourController.loadCityData(tourModel.idCity.toString());
+    if (tourModel != null) {
+      tourController.loadCityData(tourModel.idCity.toString());
+    }
 
     return Scaffold(
       body: Stack(
@@ -112,16 +119,17 @@ class TourDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: getSize(kDefaultPadding),
                     ),
-                    Expanded(
+                    Flexible(
                       child: ListView(
                         controller: scrollController,
                         padding: EdgeInsets.zero,
+                        shrinkWrap: true,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                tourModel.nameTour,
+                                tourModel?.nameTour ?? '',
                                 style: const TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
@@ -147,7 +155,7 @@ class TourDetailsScreen extends StatelessWidget {
                                     width: getSize(kItemPadding),
                                   ),
                                   Text(
-                                    tourModel.idCity ?? '',
+                                    tourController.cityModel?.nameCity ?? '',
                                     style: const TextStyle(
                                       fontSize: 14,
                                     ),
@@ -157,7 +165,7 @@ class TourDetailsScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    '\$${tourModel.price.toString()}',
+                                    '\$${tourModel?.price.toString()}',
                                     style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
@@ -194,13 +202,13 @@ class TourDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${tourModel.rating}/5 ',
+                                '${tourModel?.rating}/5 ',
                                 style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
-                                '(${tourModel.reviews?.length} review)',
+                                '(${tourModel?.reviews?.length} review)',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.blueGrey.shade500,
@@ -223,6 +231,7 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(
                             height: getSize(32),
                             child: ListView.builder(
+                              shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: tourController.detailsHotelList.length,
                               itemBuilder: (context, index) {
@@ -277,10 +286,8 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(
                             height: getSize(kDefaultPadding),
                           ),
-                          const Text(
-                            'You will find every comfort because many of the '
-                            'services that the hotel offers for travellers and of'
-                            'course the hotel is very comfortable.',
+                          Text(
+                            tourModel?.description ?? '',
                             style: TextStyle(fontSize: 16),
                           ),
                           SizedBox(
@@ -298,14 +305,42 @@ class TourDetailsScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
-                          SizedBox(
-                            height: getSize(kDefaultPadding),
-                          ),
-                          const Text(
-                            'You will find every comfort because many of the '
-                            'services that the hotel offers for travellers and of'
-                            'course the hotel is very comfortable.',
-                            style: TextStyle(fontSize: 16),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: tourModel?.itinerary?.length ?? 0,
+                            itemBuilder: (BuildContext context, int rowIndex) {
+                              String itinerary =
+                                  tourModel!.itinerary![rowIndex];
+
+                              List<String> parts = itinerary.split('/');
+
+                              String titleTourDay = parts[0].trim();
+                              String description =
+                                  parts.length > 1 ? parts[1].trim() : '';
+
+                              return Column(
+                                children: [
+                                  if (rowIndex > 0)
+                                    SizedBox(
+                                      height: getSize(20),
+                                    ),
+                                  Text(
+                                    titleTourDay,
+                                    style: AppStyles.black000Size16Fw500FfMont,
+                                  ),
+                                  SizedBox(
+                                    height: getSize(12),
+                                  ),
+                                  if (description.isNotEmpty)
+                                    Text(
+                                      description,
+                                      style:
+                                          AppStyles.black000Size14Fw400FfMont,
+                                    ),
+                                ],
+                              );
+                            },
                           ),
                           SizedBox(
                             height: getSize(kTop28Padding),
@@ -316,12 +351,13 @@ class TourDetailsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           SizedBox(
-                            height: 300,
                             child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                               ),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
@@ -344,6 +380,9 @@ class TourDetailsScreen extends StatelessWidget {
                               itemCount: 6,
                             ),
                           ),
+                          SizedBox(
+                            height: getSize(24),
+                          ),
                           const Text(
                             'Location',
                             style: TextStyle(
@@ -354,11 +393,9 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(
                             height: getSize(kDefaultPadding),
                           ),
-                          const Text(
-                            'Located in the famous neighborhood of Seoul, '
-                            'Grand Luxury’s is set in a building built in the'
-                            '2010s.',
-                            style: TextStyle(
+                          Text(
+                            tourController.cityModel?.descriptionCity ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
                             ),
