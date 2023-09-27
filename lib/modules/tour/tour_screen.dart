@@ -148,7 +148,7 @@ class _TourScreenState extends State<TourScreen> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                'Vicinity',
+                                'All',
                                 style: tourController.isCheckSearch.value
                                     ? AppStyles.black000Size18Fw500FfMont
                                     : AppStyles.white000Size18Fw500FfMont,
