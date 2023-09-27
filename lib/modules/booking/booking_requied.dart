@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doan_clean_achitec/models/user/user_model.dart';
-import 'package:doan_clean_achitec/modules/auth/auth_controller.dart';
-import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
-import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/shared/constants/app_style.dart';
+import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class BookingRequiedScreen extends StatelessWidget {
@@ -11,239 +10,213 @@ class BookingRequiedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileController _profileController = Get.find();
-    final AuthController _authController = Get.put(AuthController());
-    final _formKey = GlobalKey<FormState>();
-    String _username = '';
-
-    final List<Widget> tabs = [
-      const Tab(text: 'Tab 1'),
-      const Tab(text: 'Tab 2'),
-      const Tab(text: 'Firebase'),
-      const Tab(text: 'Tab 4'),
-    ];
+    final TourController tourController = Get.put(TourController());
 
     return Scaffold(
+      // appBar: CustomAppBar(),
+      backgroundColor: ColorConstants.graySecond,
       resizeToAvoidBottomInset: false,
-      body: DefaultTabController(
-        length: tabs.length,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Tab Example'),
-            bottom: TabBar(
-              isScrollable: true,
-              tabs: tabs,
-            ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                _profileController.clearController();
-                Get.back();
-              },
-            ),
-          ),
-          body: TabBarView(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Center(
-                    // child: PointChart(),
-                    ),
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: getSize(60),
+          bottom: getSize(40),
+          right: getSize(40),
+          left: getSize(40),
+        ),
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(
+                getSize(28),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Get.toNamed(Routes.LOADING_IMAGE);
-                      },
-                      child: const Text("Loading images firebase"),
-                    ),
-                  ],
+              decoration: BoxDecoration(
+                color: ColorConstants.white,
+                borderRadius: BorderRadius.circular(
+                  getSize(8),
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: getSize(16),
+                  ),
+                  Text(
+                    'Tour Da Nang - Hoi An - Hue - Quang Binh',
+                    style: AppStyles.black000Size18Fw600FfMont,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                  ),
+                  SizedBox(height: getSize(16)),
+                  Text(
+                    '5 ngay 4 dem',
+                    style: AppStyles.black000Size14Fw400FfMont,
+                  ),
+                  SizedBox(height: getSize(16)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              controller: _profileController.emailController,
-                              decoration: const InputDecoration(
-                                hintText: 'enter your email',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            TextFormField(
-                              controller:
-                                  _profileController.firstNameController,
-                              decoration: const InputDecoration(
-                                hintText: 'enter your first name',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            TextFormField(
-                              controller: _profileController.lastNameController,
-                              decoration: const InputDecoration(
-                                hintText: 'enter your last name',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            TextFormField(
-                              controller: _profileController.passWordController,
-                              decoration: const InputDecoration(
-                                hintText: 'enter your password',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            TextFormField(
-                              controller:
-                                  _profileController.imageAvatarController,
-                              decoration: const InputDecoration(
-                                hintText: 'enter your image',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            TextFormField(
-                              controller:
-                                  _profileController.phoneNumberController,
-                              decoration: const InputDecoration(
-                                hintText: 'enter your phone number',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: getSize(48),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  final UserModel userModel = UserModel(
-                                    email: _profileController
-                                        .emailController.text
-                                        .trim(),
-                                    firstName: _profileController
-                                        .firstNameController.text
-                                        .trim(),
-                                    lastName: _profileController
-                                        .lastNameController.text
-                                        .trim(),
-                                    passWord: _profileController
-                                        .passWordController.text
-                                        .trim(),
-                                    imgAvatar: _profileController
-                                        .imageAvatarController.text
-                                        .trim(),
-                                    phoneNub: _profileController
-                                        .phoneNumberController.text
-                                        .trim(),
-                                    isActive: true,
-                                  );
-
-                                  _authController.signInPhoneAuthentication(
-                                      _profileController
-                                          .phoneNumberController.text
-                                          .trim(),
-                                      userModel);
-                                }
-                              },
-                              child: const Text("Add Account"),
-                            ),
-                          ],
-                        ),
+                      Text(
+                        'Price:',
+                        style: AppStyles.black000Size14Fw400FfMont,
                       ),
-                      StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('userModel')
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          List<Row> accountWidgets = [];
-                          if (snapshot.hasData) {
-                            final accounts =
-                                snapshot.data?.docs.reversed.toList();
-                            for (var item in accounts!) {
-                              final email = item['email'] ?? 'N/A';
-                              final firstName = item['firstName'] ?? 'N/A';
-                              final lastName = item['lastName'] ?? 'N/A';
-                              final phoneNub = item['phoneNub'] ?? 'N/A';
-
-                              final clientWidget = Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(email),
-                                  Text(firstName),
-                                  Text(lastName),
-                                  Text(phoneNub),
-                                  IconButton(
-                                    onPressed: () {
-                                      var collection = FirebaseFirestore
-                                          .instance
-                                          .collection('userModel');
-                                      collection.doc(item.id).delete();
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              );
-                              accountWidgets.add(clientWidget);
-                            }
-                          }
-                          return Expanded(
-                            child: ListView(
-                              children: accountWidgets,
-                            ),
-                          );
-                        },
+                      Text(
+                        '\$ 810000',
+                        style: AppStyles.black000Size16Fw500FfMont,
                       ),
                     ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  padding: const EdgeInsets.all(48),
-                  color: Colors.blueAccent,
-                  child: const Center(
-                    child: Text(
-                      'data 1',
-                      style: TextStyle(color: Colors.red, fontSize: 24),
+                  ),
+                  SizedBox(
+                    height: getSize(50),
+                  ),
+                  Text(
+                    'Service Excluded',
+                    style: AppStyles.black000Size18Fw500FfMont,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                  ),
+                  SizedBox(height: getSize(16)),
+                  Text(
+                    'Booking vip room',
+                    style: AppStyles.black000Size14Fw400FfMont,
+                  ),
+                  SizedBox(height: getSize(16)),
+                  Text(
+                    'Buffet Breakfast',
+                    style: AppStyles.black000Size14Fw400FfMont,
+                  ),
+                  SizedBox(height: getSize(60)),
+                  Text(
+                    'Payment Method',
+                    style: AppStyles.black000Size18Fw500FfMont,
+                  ),
+                  SizedBox(height: getSize(16)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(
+                            getSize(10),
+                          ),
+                          decoration: BoxDecoration(
+                            color: ColorConstants.grayTextField,
+                            borderRadius: BorderRadius.circular(
+                              getSize(16),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                AssetHelper.icScan,
+                                height: getSize(36),
+                                width: getSize(36),
+                              ),
+                              SizedBox(height: getSize(28)),
+                              Text(
+                                'QR Code',
+                                style: AppStyles.black000Size12Fw400FfMont,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: getSize(20),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(
+                            getSize(10),
+                          ),
+                          decoration: BoxDecoration(
+                            color: ColorConstants.grayTextField,
+                            borderRadius: BorderRadius.circular(
+                              getSize(16),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                AssetHelper.icBag,
+                                height: getSize(36),
+                                width: getSize(36),
+                              ),
+                              SizedBox(height: getSize(28)),
+                              Text(
+                                'Cash',
+                                style: AppStyles.black000Size12Fw400FfMont,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: getSize(20),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(
+                            getSize(10),
+                          ),
+                          decoration: BoxDecoration(
+                            color: ColorConstants.grayTextField,
+                            borderRadius: BorderRadius.circular(
+                              getSize(16),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                AssetHelper.icWallet,
+                                height: getSize(36),
+                                width: getSize(36),
+                              ),
+                              SizedBox(height: getSize(28)),
+                              Text(
+                                'Wallet',
+                                style: AppStyles.black000Size12Fw400FfMont,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getSize(40),
+                    ),
+                    child: ButtonWidget(
+                      textBtn: 'Yêu cầu đặt',
+                      onTap: () {
+                        // Get.toNamed(Routes.BOOKING_REQUIED);
+                      },
                     ),
                   ),
-                ),
+                  SizedBox(height: getSize(28)),
+                ],
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              top: getSize(8),
+              right: getSize(8),
+              child: InkWell(
+                onTap: () => Get.back(),
+                child: SvgPicture.asset(AssetHelper.icCloseSquare),
+              ),
+            ),
+          ],
         ),
       ),
     );
