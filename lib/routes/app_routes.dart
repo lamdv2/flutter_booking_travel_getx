@@ -27,4 +27,5 @@ abstract class Routes {
   static const OTP_SCREEN = '/otp_screen';
   static const PAY_SCREEN = '/pay_screen';
   static const BOOKING_REQUIED = '/booking_requied';
+  static const SELECT_DATE = '/select_date';
 }

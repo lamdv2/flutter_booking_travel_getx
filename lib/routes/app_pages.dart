@@ -22,7 +22,7 @@ import 'package:doan_clean_achitec/modules/setting/setting_screen.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_binding.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_screen.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
-import 'package:doan_clean_achitec/modules/tour/tour_details_screen.dart';
+import 'package:doan_clean_achitec/shared/utils/select_date.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/auth_binding.dart';
@@ -148,6 +148,13 @@ class AppPages {
     GetPage(
       name: Routes.BOOKING_REQUIED,
       page: () => const BookingRequiedScreen(),
+      binding: BookingBinding(),
+    ),
+
+    // Select Date
+    GetPage(
+      name: Routes.SELECT_DATE,
+      page: () => SelectDateScreen(),
       binding: BookingBinding(),
     ),
   ];
