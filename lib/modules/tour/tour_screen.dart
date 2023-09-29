@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/modules/auth/auth.dart';
+import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
@@ -24,6 +25,7 @@ class TourScreen extends StatefulWidget {
 final ProfileController profileController = Get.find();
 final AuthController authController = Get.put(AuthController());
 final TourController tourController = Get.put(TourController());
+final BookingController bookingController = Get.find();
 
 class _TourScreenState extends State<TourScreen> {
   IconData? iconHeart = FontAwesomeIcons.solidHeart;
@@ -43,12 +45,12 @@ class _TourScreenState extends State<TourScreen> {
       'bounce',
       autoplay: true,
     );
+
+    tourController.getAllTourModelData();
   }
 
   @override
   Widget build(BuildContext context) {
-    tourController.getAllTourModel();
-
     return Scaffold(
       appBar: CustomAppBar(),
       body: Obx(
@@ -100,8 +102,12 @@ class _TourScreenState extends State<TourScreen> {
                       children: [
                         Expanded(
                           child: InkWell(
-                            onTap: () => tourController.isCheckSearch.value =
-                                !tourController.isCheckSearch.value,
+                            onTap: () {
+                              tourController.isCheckSearch.value =
+                                  !tourController.isCheckSearch.value;
+                              tourController.filterListTourByCity(
+                                  bookingController.selectedValue.value);
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                 vertical: getSize(20),
@@ -131,8 +137,11 @@ class _TourScreenState extends State<TourScreen> {
                         ),
                         Expanded(
                           child: InkWell(
-                            onTap: () => tourController.isCheckSearch.value =
-                                !tourController.isCheckSearch.value,
+                            onTap: () {
+                              tourController.isCheckSearch.value =
+                                  !tourController.isCheckSearch.value;
+                              tourController.getAllTour();
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                 vertical: getSize(20),
@@ -298,53 +307,6 @@ class _TourScreenState extends State<TourScreen> {
                             },
                           ),
                         ),
-                  // SizedBox(
-                  //   height: 500,
-                  //   child: StreamBuilder<QuerySnapshot>(
-                  //     stream: FirebaseFirestore.instance
-                  //         .collection('tourModel')
-                  //         .snapshots(),
-                  //     builder: (context, snapshot) {
-                  //       List<Row> accountWidgets = [];
-                  //       if (snapshot.hasData) {
-                  //         final accounts = snapshot.data?.docs.reversed.toList();
-                  //         for (var item in accounts!) {
-                  //           final email = item['duration'] ?? 'N/A';
-                  //           final firstName = item['idCity'] ?? 'N/A';
-                  //           final lastName = item['duration'] ?? 'N/A';
-                  //           final phoneNub = item['duration'] ?? 'N/A';
-
-                  //           final clientWidget = Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Text(email),
-                  //               Text(firstName),
-                  //               Text(lastName),
-                  //               Text(phoneNub),
-                  //               IconButton(
-                  //                 onPressed: () {
-                  //                   var collection = FirebaseFirestore.instance
-                  //                       .collection('tourModel');
-                  //                   collection.doc(item.id).delete();
-                  //                 },
-                  //                 icon: const Icon(
-                  //                   Icons.delete,
-                  //                   color: Colors.black,
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           );
-                  //           accountWidgets.add(clientWidget);
-                  //         }
-                  //       }
-                  //       return Expanded(
-                  //         child: ListView(
-                  //           children: accountWidgets,
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                 ],
               ),
             ),

@@ -124,7 +124,8 @@ class TourItemWidget extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: listTour.idCity,
+                            text: tourController
+                                .getNameCityById(listTour.idCity ?? ''),
                             style: AppStyles.botTitle000Size14Fw400FfMont,
                           ),
                         ],

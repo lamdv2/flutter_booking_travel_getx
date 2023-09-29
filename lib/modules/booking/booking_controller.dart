@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class BookingController extends GetxController {
+  final _db = FirebaseFirestore.instance;
+
   RxString selectedValue = '50HCM'.obs;
 
   String convertToDDMM(String inputDate) {
@@ -11,6 +14,14 @@ class BookingController extends GetxController {
       final day = parts[2];
       return '$day/$month';
     }
-    return inputDate; // Trả về nguyên bản nếu không thể chuyển đổi
+    return inputDate;
+  }
+
+  Future<void> bookingTour(String userId, String tourId) async {
+    await _db.collection('historyModel').add({
+      'idUser': userId,
+      'idTour': tourId,
+      'isActive': true,
+    });
   }
 }

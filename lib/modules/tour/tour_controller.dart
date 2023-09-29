@@ -15,7 +15,10 @@ class TourController extends GetxController {
   final cityModel = Rxn<CityModel>();
   final getListTour = Rxn<List<TourModel>>();
   final filterListTourData = Rxn<List<TourModel>>();
+  final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
+
+  // Tour Details Call Firebase
 
   Future<TourModel> getTourDetailsById(String id) async {
     final snapShot = await _db.collection('tourModel').doc(id).get();
@@ -38,9 +41,14 @@ class TourController extends GetxController {
     }
   }
 
+  // Refresh Tour List
+
   Future<void> refreshTourList() async {
-    getAllTourModel();
+    getAllTourModelData();
+    getAllCity();
   }
+
+  // Edit Tour
 
   Future<void> updateTour(TourModel updatedTour) async {
     try {
@@ -52,7 +60,9 @@ class TourController extends GetxController {
     }
   }
 
-  Future<void> getAllTourModel() async {
+  // Get All Tour
+
+  Future<void> getAllTourModelData() async {
     final snapShot = await _db.collection('tourModel').get();
     final listTourData =
         snapShot.docs.map((doc) => TourModel.fromJson(doc)).toList();
@@ -61,21 +71,31 @@ class TourController extends GetxController {
     filterListTourData.value = listTourData;
   }
 
-  Future<CityModel> getCityById(String idCity) async {
-    final snapShot = await _db
-        .collection('cityModel')
-        .where('idCity', isEqualTo: idCity)
-        .get();
+  Future<void> getAllCity() async {
+    final snapShot = await _db.collection('cityModel').get();
 
     if (snapShot.docs.isNotEmpty) {
       final cityModelById =
-          snapShot.docs.map((e) => CityModel.fromJson(e)).single;
+          snapShot.docs.map((e) => CityModel.fromJson(e)).toList();
 
-      return cityModelById;
+      cityList.value ??= [];
+      cityList.value?.clear();
+
+      for (var element in cityModelById) {
+        Map<String, String> item = {'${element.idCity}': element.nameCity};
+        cityList.value!.add(item);
+      }
     }
-    return CityModel(nameCity: '');
   }
 
+  // Filter List Tour
+
+  // Filter get all
+  void getAllTour() {
+    getListTour.value = filterListTourData.value;
+  }
+
+  // Filter by Name Tour
   Future<void> filterListTourByName(String keyword) async {
     if (keyword.isEmpty) {
       getListTour.value = filterListTourData.value;
@@ -90,6 +110,7 @@ class TourController extends GetxController {
     }
   }
 
+  // Filter by State
   Future<void> filterListTourByState(String keyword) async {
     if (keyword.isEmpty) {
       getListTour.value = filterListTourData.value;
@@ -102,5 +123,50 @@ class TourController extends GetxController {
           )
           .toList();
     }
+  }
+
+  // Filter by Date
+
+  Future<void> filterListTourByDateStart(String keyword) async {
+    if (keyword.isEmpty) {
+      getListTour.value = filterListTourData.value;
+    } else {
+      getListTour.value = filterListTourData.value
+          ?.where(
+            (listTour) => listTour.startDate.toString().toLowerCase().contains(
+                  keyword.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+  }
+
+  // Filter by City
+  Future<void> filterListTourByCity(String keyword) async {
+    if (keyword.isEmpty) {
+      getListTour.value = filterListTourData.value;
+    } else {
+      getListTour.value = filterListTourData.value
+          ?.where(
+            (listTour) => listTour.idCity!.toLowerCase().contains(
+                  keyword.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+  }
+
+  String getNameCityById(String cityId) {
+    if (cityList.value != null) {
+      for (var cityMap in cityList.value!) {
+        var key = cityMap.keys.first;
+
+        if (key == cityId) {
+          var value = cityMap.values.first;
+          return value;
+        }
+      }
+    }
+    return '';
   }
 }
