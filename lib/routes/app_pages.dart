@@ -25,6 +25,7 @@ import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/utils/select_date.dart';
 import 'package:get/get.dart';
 
+import '../models/history_tour/history_tour_screen.dart';
 import '../modules/auth/auth_binding.dart';
 import '../modules/auth/auth_login_screen.dart';
 import '../modules/auth/auth_register_screen.dart';
@@ -147,15 +148,18 @@ class AppPages {
     ),
     GetPage(
       name: Routes.BOOKING_REQUIED,
-      page: () => const BookingRequiedScreen(),
+      page: () => BookingRequiedScreen(),
       binding: BookingBinding(),
     ),
-
-    // Select Date
     GetPage(
       name: Routes.SELECT_DATE,
       page: () => SelectDateScreen(),
       binding: BookingBinding(),
+    ),
+    GetPage(
+      name: Routes.HISTORY_TOUR_SCREEN,
+      page: () => HistoryScreen(),
+      binding: HomeBinding(),
     ),
   ];
 }

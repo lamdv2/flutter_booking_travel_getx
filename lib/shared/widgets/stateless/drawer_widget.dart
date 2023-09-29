@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/models/history_tour/history_tour_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -218,7 +219,8 @@ class DrawerWidget extends StatelessWidget {
               ],
             ),
             onTap: () {
-              // Get.toNamed(Routes.History);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HistoryScreen()));
             },
           ),
           Divider(

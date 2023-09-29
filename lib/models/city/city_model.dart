@@ -5,12 +5,14 @@ class CityModel {
   final String? idCity;
   final String nameCity;
   final String? descriptionCity;
+  final String? imageCity;
 
   CityModel({
     this.id,
     this.idCity,
     required this.nameCity,
     this.descriptionCity,
+    this.imageCity,
   });
 
   factory CityModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -20,6 +22,7 @@ class CityModel {
       idCity: json['idCity'],
       nameCity: json['nameCity'],
       descriptionCity: json['descriptionCity'],
+      imageCity: json['imageCity'],
     );
   }
 
@@ -29,6 +32,7 @@ class CityModel {
       'idCity': idCity,
       'nameCity': nameCity,
       'descriptionCity': descriptionCity,
+      'imageCity': imageCity,
     };
   }
 }

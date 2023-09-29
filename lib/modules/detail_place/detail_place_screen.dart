@@ -122,8 +122,8 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                           left: size.width / 2.6,
                           child: Row(
                             children: [
-                              SvgPicture.asset(
-                                AssetHelper.icArrowLeft,
+                              Image.asset(
+                                AssetHelper.icoSun,
                                 color: ColorConstants.white,
                                 width: getSize(24),
                                 height: getSize(24),
@@ -310,24 +310,18 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24, left: 16),
-                  child: Text(
-                    "Top-pick Articles",
-                    style: TextStyle(
-                      color: ColorConstants.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                    ),
-                  ),
+                SizedBox(
+                  height: getSize(28),
+                ),
+                Text(
+                  "Top-pick Articles",
+                  style: AppStyles.black000Size18Fw500FfMont,
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(
-                            top: 16, left: 16, bottom: 16),
                         height: size.height / 5,
                         width: size.width / 3 * 2,
                         decoration: BoxDecoration(

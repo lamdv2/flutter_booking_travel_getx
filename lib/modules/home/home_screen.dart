@@ -2,6 +2,7 @@ import 'package:doan_clean_achitec/models/Destination.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/favorite/favorite.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ final user = FirebaseAuth.instance.currentUser!;
 final userName = user.email.toString().substring(0, 3);
 final UserController userController = Get.find();
 final HomeController homeController = Get.find();
+final TourController tourController = Get.put(TourController());
 
 class _HomeScreenState extends State<HomeScreen> {
   User? user;
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     initializeUser();
     _loadDestination();
+    tourController.getAllCity();
   }
 
   void initializeUser() {

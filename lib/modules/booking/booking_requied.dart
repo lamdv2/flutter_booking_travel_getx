@@ -1,4 +1,8 @@
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
+import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +10,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class BookingRequiedScreen extends StatelessWidget {
-  const BookingRequiedScreen({super.key});
+  BookingRequiedScreen({super.key});
+
+  final TourModel? tourModel = Get.arguments;
+  final UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
     final TourController tourController = Get.put(TourController());
+    final BookingController bookingController = Get.put(BookingController());
 
     return Scaffold(
       // appBar: CustomAppBar(),
@@ -121,6 +129,9 @@ class BookingRequiedScreen extends StatelessWidget {
                               Text(
                                 'QR Code',
                                 style: AppStyles.black000Size12Fw400FfMont,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                softWrap: false,
                               ),
                             ],
                           ),
@@ -153,6 +164,9 @@ class BookingRequiedScreen extends StatelessWidget {
                               Text(
                                 'Cash',
                                 style: AppStyles.black000Size12Fw400FfMont,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                softWrap: false,
                               ),
                             ],
                           ),
@@ -185,6 +199,9 @@ class BookingRequiedScreen extends StatelessWidget {
                               Text(
                                 'Wallet',
                                 style: AppStyles.black000Size12Fw400FfMont,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                softWrap: false,
                               ),
                             ],
                           ),
@@ -199,8 +216,11 @@ class BookingRequiedScreen extends StatelessWidget {
                     ),
                     child: ButtonWidget(
                       textBtn: 'Yêu cầu đặt',
-                      onTap: () {
-                        // Get.toNamed(Routes.BOOKING_REQUIED);
+                      onTap: () async {
+                        await bookingController.bookingTour(
+                            userController.userModel.value?.id ?? '',
+                            tourModel?.idTour ?? '');
+                        Get.toNamed(Routes.HISTORY_TOUR_SCREEN);
                       },
                     ),
                   ),

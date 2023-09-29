@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   List<Widget>? actions;
 
-  OnTap? onTap;
+  Function()? onTap;
 
   @override
   Widget build(BuildContext context) {

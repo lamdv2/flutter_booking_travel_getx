@@ -10,10 +10,13 @@ class UserController extends GetxController {
   RxString userName = ''.obs;
   RxString userEmail = ''.obs;
 
+  final userModel = Rxn<UserModel>();
+
   @override
   void onInit() {
     super.onInit();
     initializeUser();
+    getUserDetails(userEmail.value);
   }
 
   void initializeUser() {
@@ -36,13 +39,13 @@ class UserController extends GetxController {
     }
   }
 
-  Future<UserModel> getUserDetails(String email) async {
+  Future<void> getUserDetails(String email) async {
     final snapShot = await _db
         .collection('userModel')
         .where('email', isEqualTo: email)
         .get();
-    final userData = snapShot.docs.map((e) => UserModel.fromSnapshot(e)).single;
-    return userData;
+    userModel.value =
+        snapShot.docs.map((e) => UserModel.fromSnapshot(e)).single;
   }
 
   Future<List<UserModel>> getAllUserModel() async {

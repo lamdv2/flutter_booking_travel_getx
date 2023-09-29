@@ -91,7 +91,8 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(height: getSize(kMediumPadding)),
                           ButtonWidget(
                             textBtn: 'Book Tour',
-                            onTap: () => Get.toNamed(Routes.BOOKING_REQUIED),
+                            onTap: () => Get.toNamed(Routes.BOOKING_REQUIED,
+                                arguments: tourModel),
                           ),
                           SizedBox(height: getSize(kMediumPadding)),
                         ],
@@ -187,7 +188,7 @@ class TourDetailsScreen extends StatelessWidget {
                 SizedBox(width: getSize(kItemPadding)),
                 Obx(
                   () => Text(
-                    tourController.cityModel.value?.nameCity ?? '',
+                    tourController.getNameCityById(tourModel?.idCity ?? ''),
                     style: const TextStyle(
                       fontSize: 14,
                     ),
