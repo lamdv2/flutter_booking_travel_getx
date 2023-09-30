@@ -11,41 +11,23 @@ class UserController extends GetxController {
   RxString userEmail = ''.obs;
 
   final userModel = Rxn<UserModel>();
+  var user = Rxn<User>();
 
   @override
   void onInit() {
     super.onInit();
     initializeUser();
-    getUserDetails(userEmail.value);
   }
 
   void initializeUser() {
-    User? user = FirebaseAuth.instance.currentUser;
+    user.value = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final email = user.email;
+      final email = user.value?.email;
       if (email != null && email.isNotEmpty) {
         userName.value = email.substring(0, 5);
         userEmail.value = email;
       }
     }
-  }
-
-  getUserData() {
-    final email = FirebaseAuth.instance.currentUser?.email;
-    if (email != null) {
-      return getUserDetails(email);
-    } else {
-      Get.snackbar('Error', 'Login to continue !!!');
-    }
-  }
-
-  Future<void> getUserDetails(String email) async {
-    final snapShot = await _db
-        .collection('userModel')
-        .where('email', isEqualTo: email)
-        .get();
-    userModel.value =
-        snapShot.docs.map((e) => UserModel.fromSnapshot(e)).single;
   }
 
   Future<List<UserModel>> getAllUserModel() async {
@@ -56,11 +38,6 @@ class UserController extends GetxController {
   }
 
   Future<void> updateUserProfile(UserModel userModel) async {
-    User? user = FirebaseAuth.instance.currentUser;
-    String emailUser;
-    if (user != null) {
-      emailUser = user.email.toString();
-    }
     await _db
         .collection('userModel')
         .doc('oAibVkNzeItirv6Vtirz')
@@ -77,5 +54,6 @@ class UserController extends GetxController {
   void clearUserName() {
     userName.value = '';
     userEmail.value = '';
+    user.value = null;
   }
 }
