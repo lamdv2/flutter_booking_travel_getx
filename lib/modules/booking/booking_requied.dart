@@ -51,7 +51,7 @@ class BookingRequiedScreen extends StatelessWidget {
                     height: getSize(16),
                   ),
                   Text(
-                    'Tour Da Nang - Hoi An - Hue - Quang Binh',
+                    tourModel?.nameTour ?? '',
                     style: AppStyles.black000Size18Fw600FfMont,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -59,7 +59,7 @@ class BookingRequiedScreen extends StatelessWidget {
                   ),
                   SizedBox(height: getSize(16)),
                   Text(
-                    '5 ngay 4 dem',
+                    tourModel?.duration ?? '',
                     style: AppStyles.black000Size14Fw400FfMont,
                   ),
                   SizedBox(height: getSize(16)),
@@ -71,7 +71,7 @@ class BookingRequiedScreen extends StatelessWidget {
                         style: AppStyles.black000Size14Fw400FfMont,
                       ),
                       Text(
-                        '\$ 810000',
+                        '\$ ${tourModel?.price}',
                         style: AppStyles.black000Size16Fw500FfMont,
                       ),
                     ],
@@ -87,11 +87,20 @@ class BookingRequiedScreen extends StatelessWidget {
                     softWrap: false,
                   ),
                   SizedBox(height: getSize(16)),
-                  Text(
-                    'Booking vip room',
-                    style: AppStyles.black000Size14Fw400FfMont,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: tourModel!.excludedServices!
+                        .map(
+                          (e) => Padding(
+                            padding: EdgeInsets.only(bottom: getSize(16)),
+                            child: Text(
+                              e,
+                              style: AppStyles.black000Size14Fw400FfMont,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
-                  SizedBox(height: getSize(16)),
                   Text(
                     'Buffet Breakfast',
                     style: AppStyles.black000Size14Fw400FfMont,
