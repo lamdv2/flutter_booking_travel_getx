@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:doan_clean_achitec/models/user/user_model.dart';
+import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +18,9 @@ class AuthController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final loginEmailController = TextEditingController();
   final loginPasswordController = TextEditingController();
+
+  final ProfileController _profileController =
+      Get.put<ProfileController>(ProfileController());
 
   final _auth = FirebaseAuth.instance;
   late final Rx<User> firebaseUser;
@@ -85,6 +89,14 @@ class AuthController extends GetxController {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: registerEmailController.text,
             password: registerPasswordController.text);
+
+        final UserModel userModel = UserModel(
+          email: registerEmailController.text,
+          passWord: registerPasswordController.text,
+          phoneNub: "",
+          isActive: true,
+        );
+        await _profileController.createUser(userModel);
 
         // ignore: use_build_context_synchronously
         Get.back(result: context);

@@ -19,10 +19,11 @@ class ProfileController extends GetxController {
   final imageAvatarController = TextEditingController();
   final phoneNumberController = TextEditingController();
 
-  final UserController userController = Get.find();
   final editEmailController = TextEditingController();
   final editPhoneNumberController = TextEditingController();
   final editLocationController = TextEditingController();
+
+  final UserController userController = Get.find();
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -48,7 +49,7 @@ class ProfileController extends GetxController {
             colorText: ColorConstants.blue,
           ),
         )
-        .catchError((error, StackTrace) {
+        .catchError((error) {
       Get.snackbar(
         "Error",
         "Something went wrong. Try again!",
@@ -57,6 +58,18 @@ class ProfileController extends GetxController {
         colorText: ColorConstants.red,
       );
     });
+  }
+
+  Future<bool> isCheckExist(String email) async {
+    final snapShot = await FirebaseFirestore.instance
+        .collection('userModel')
+        .where('email', isEqualTo: email)
+        .get();
+    if (snapShot.docs.isNotEmpty) {
+      return true;
+    }
+
+    return false;
   }
 
   void openDrawer() {
@@ -116,19 +129,25 @@ class ProfileController extends GetxController {
     );
   }
 
-  void wrongMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.blue,
-          title: Text(
-            message,
-            style: const TextStyle(color: Colors.white),
-            textAlign: TextAlign.center,
-          ),
+  Future<void> wrongMessage(BuildContext context, String message) async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (context != null && Navigator.canPop(context)) {
+      await Future.microtask(() {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.blue,
+              title: Text(
+                message,
+                style: const TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            );
+          },
         );
-      },
-    );
+      });
+    }
   }
 }

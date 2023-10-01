@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doan_clean_achitec/models/history_tour/history_tour.dart';
 import 'package:get/get.dart';
 
 class BookingController extends GetxController {
   final _db = FirebaseFirestore.instance;
+
+  final HistoryTourController historyTourController =
+      Get.put(HistoryTourController());
 
   RxString selectedValue = '50HCM'.obs;
 
@@ -18,10 +22,15 @@ class BookingController extends GetxController {
   }
 
   Future<void> bookingTour(String userId, String tourId) async {
-    await _db.collection('historyModel').add({
-      'idUser': userId,
-      'idTour': tourId,
-      'isActive': true,
-    });
+    if (userId.isEmpty || tourId.isEmpty) {
+      Get.snackbar('Error', 'Booking fail !!!');
+    } else {
+      await _db.collection('historyModel').add({
+        'idUser': userId,
+        'idTour': tourId,
+        'isActive': true,
+      });
+      historyTourController.getAllTourModelData(userId);
+    }
   }
 }

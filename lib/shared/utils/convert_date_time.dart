@@ -10,4 +10,9 @@ extension DateExtension on DateTime {
     DateFormat transactionDateFormat = DateFormat('dd MMM yyyy');
     return transactionDateFormat.format(this);
   }
+
+  String get getDate {
+    DateFormat transactionDateFormat = DateFormat('dd MMM yyyy');
+    return transactionDateFormat.format(this);
+  }
 }

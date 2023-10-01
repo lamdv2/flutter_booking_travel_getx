@@ -87,24 +87,25 @@ class BookingRequiedScreen extends StatelessWidget {
                     softWrap: false,
                   ),
                   SizedBox(height: getSize(16)),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: tourModel!.excludedServices!
-                        .map(
-                          (e) => Padding(
-                            padding: EdgeInsets.only(bottom: getSize(16)),
-                            child: Text(
-                              e,
-                              style: AppStyles.black000Size14Fw400FfMont,
-                            ),
-                          ),
+                  tourModel!.excludedServices!.isNotEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: tourModel!.excludedServices!
+                              .map(
+                                (e) => Padding(
+                                  padding: EdgeInsets.only(bottom: getSize(16)),
+                                  child: Text(
+                                    e,
+                                    style: AppStyles.black000Size14Fw400FfMont,
+                                  ),
+                                ),
+                              )
+                              .toList(),
                         )
-                        .toList(),
-                  ),
-                  Text(
-                    'Buffet Breakfast',
-                    style: AppStyles.black000Size14Fw400FfMont,
-                  ),
+                      : Text(
+                          'No data',
+                          style: AppStyles.black000Size14Fw400FfMont,
+                        ),
                   SizedBox(height: getSize(60)),
                   Text(
                     'Payment Method',

@@ -6,6 +6,7 @@ import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
+import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -287,26 +288,7 @@ class _TourScreenState extends State<TourScreen> {
                             );
                           },
                         )
-                      : Container(
-                          height: getSize(250),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: ColorConstants.grayTextField,
-                            borderRadius: BorderRadius.circular(
-                              getSize(16),
-                            ),
-                          ),
-                          alignment: Alignment.center,
-                          child: RiveAnimation.asset(
-                            'assets/icons/riv/ic_checkerror.riv',
-                            // artboard: "Search",
-                            animations: const ['idle', 'curves'],
-
-                            onInit: (p0) {
-                              _controller.isActive;
-                            },
-                          ),
-                        ),
+                      : LoadingRiveCheck(controller: _controller),
                 ],
               ),
             ),
