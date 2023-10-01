@@ -18,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-final ProfileController controller = Get.find();
+final ProfileController controller = Get.put(ProfileController());
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final UserController userController = Get.find();

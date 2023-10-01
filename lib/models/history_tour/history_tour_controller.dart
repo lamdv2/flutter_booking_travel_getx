@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:get/get.dart';
 
@@ -8,42 +9,44 @@ class HistoryTourController extends GetxController {
 
   UserController userController = Get.put(UserController());
 
-  @override
-  void onInit() {
-    getTourDetailsById(userController.userModel.value?.id ?? "");
-    super.onInit();
-  }
-
-  final getAllListHistory = Rxn<List<HistoryModel>>();
-  final getListHistoryByUserId = Rxn<List<HistoryModel>>();
+  final getAllListHistory = Rxn<List<TourModel>>([]);
 
 // Get All Tour
 
-  Future<void> getAllTourModelData() async {
-    final snapShot = await _db.collection('historyModel').get();
-    final listTourData =
-        snapShot.docs.map((doc) => HistoryModel.fromJson(doc)).toList();
-
-    getAllListHistory.value = listTourData;
+  Future<void> getAllTourModelData(String userId) async {
+    getAllListHistory.value?.clear();
+    getAllListHistory.value = await getTourHistory(userId);
   }
 
-  Future<void> getTourDetailsById(String userId) async {
+  Future<List<TourModel>?> getTourHistory(String userId) async {
     final snapShot = await _db
         .collection('historyModel')
         .where('idUser', isEqualTo: userId)
         .get();
 
-    if (snapShot.docs.isNotEmpty) {
-      final historyData =
-          snapShot.docs.map((e) => HistoryModel.fromJson(e)).toList();
-      getListHistoryByUserId.value = historyData;
-    } else {
-      getListHistoryByUserId.value = [];
-      print("Không tìm thấy dữ liệu lịch sử cho userId: $userId");
+    final listTourHistoryData =
+        snapShot.docs.map((doc) => HistoryModel.fromJson(doc)).toList();
+
+    List<TourModel> listTourModel = [];
+
+    if (listTourHistoryData.isNotEmpty) {
+      for (var item in listTourHistoryData) {
+        final snapShotTour =
+            await _db.collection('tourModel').doc(item.idTour).get();
+
+        if (snapShotTour.exists) {
+          listTourModel.add(TourModel.fromJson(snapShotTour));
+        } else {
+          listTourModel = [];
+          Get.snackbar('Error', 'Don\'t get data history');
+        }
+      }
     }
+
+    return listTourModel;
   }
 
   Future<void> refreshHistory() async {
-    getTourDetailsById(userController.userModel.value?.id ?? "");
+    getAllTourModelData(userController.userModel.value?.id ?? "");
   }
 }

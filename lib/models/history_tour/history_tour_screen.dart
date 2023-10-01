@@ -1,13 +1,16 @@
-import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/models/history_tour/history_tour_controller.dart';
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
+import 'package:doan_clean_achitec/shared/utils/convert_date_time.dart';
+import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});
@@ -19,7 +22,7 @@ class HistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     historyTourController
-        .getTourDetailsById(userController.userModel.value?.id ?? "");
+        .getAllTourModelData(userController.userModel.value?.id ?? "");
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -34,21 +37,26 @@ class HistoryScreen extends StatelessWidget {
                 vertical: getSize(16),
                 horizontal: getSize(24),
               ),
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: historyTourController
-                        .getListHistoryByUserId.value?.length ??
-                    2,
-                itemBuilder: (BuildContext context, int rowIndex) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: getSize(12)),
-                    child: _buildItemHistory(
-                        historyModel: historyTourController
-                            .getListHistoryByUserId.value?[rowIndex]),
-                  );
-                },
-              ),
+              child: historyTourController
+                          .getAllListHistory.value!.isNotEmpty &&
+                      historyTourController.getAllListHistory.value?.length !=
+                          null
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: historyTourController
+                              .getAllListHistory.value?.length ??
+                          2,
+                      itemBuilder: (BuildContext context, int rowIndex) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: getSize(12)),
+                          child: _buildItemHistory(
+                              tourModel: historyTourController
+                                  .getAllListHistory.value?[rowIndex]),
+                        );
+                      },
+                    )
+                  : const LoadingRiveCheck(),
             ),
           ),
         ),
@@ -58,9 +66,9 @@ class HistoryScreen extends StatelessWidget {
 }
 
 class _buildItemHistory extends StatelessWidget {
-  HistoryModel? historyModel;
+  TourModel? tourModel;
   _buildItemHistory({
-    required this.historyModel,
+    required this.tourModel,
     super.key,
   });
 
@@ -84,7 +92,7 @@ class _buildItemHistory extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  historyModel?.idTour ?? 'Tour Đà Nẵng - Hội An',
+                  tourModel?.nameTour ?? 'Tour Đà Nẵng - Hội An',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyles.black000Size14Fw400FfMont,
@@ -93,7 +101,7 @@ class _buildItemHistory extends StatelessWidget {
                   height: getSize(8),
                 ),
                 Text(
-                  '28/09/2023',
+                  tourModel!.startDate!.getDate,
                   style: AppStyles.black000Size14Fw400FfMont,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -102,7 +110,7 @@ class _buildItemHistory extends StatelessWidget {
                   height: getSize(8),
                 ),
                 Text(
-                  '1231230',
+                  '${tourModel?.price} VND',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyles.blue000Size14Fw400FfMont,
