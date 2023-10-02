@@ -33,7 +33,9 @@ class _BookingScreenState extends State<BookingScreen> {
       appBar: CustomAppBar(
         titles: "Booking",
         iconBgrColor: ColorConstants.grayTextField,
-        onTap: () => homeController.currentIndex.value = 0,
+        onTap: () {
+          homeController.currentIndex.value = 0;
+        },
       ),
       body: SingleChildScrollView(
         child: SafeArea(

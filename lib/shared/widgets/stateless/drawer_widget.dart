@@ -1,4 +1,4 @@
-import 'package:doan_clean_achitec/models/history_tour/history_tour_screen.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,9 +10,11 @@ import '../../constants/colors.dart';
 import '../../utils/size_utils.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({
+  DrawerWidget({
     super.key,
   });
+
+  final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +113,8 @@ class DrawerWidget extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Get.toNamed(Routes.BOOKING);
+              homeController.currentIndex.value = 3;
+              Get.back();
             },
           ),
           Divider(
@@ -219,8 +222,7 @@ class DrawerWidget extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HistoryScreen()));
+              Get.toNamed(Routes.HISTORY_TOUR_SCREEN);
             },
           ),
           Divider(

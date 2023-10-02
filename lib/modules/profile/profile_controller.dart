@@ -73,11 +73,11 @@ class ProfileController extends GetxController {
   }
 
   void openDrawer() {
-    scaffoldKey.currentState!.openDrawer();
+    scaffoldKey.currentState?.openDrawer();
   }
 
   void closeDrawer() {
-    scaffoldKey.currentState!.openEndDrawer();
+    scaffoldKey.currentState?.closeDrawer();
   }
 
   void signUserOut(BuildContext context) async {

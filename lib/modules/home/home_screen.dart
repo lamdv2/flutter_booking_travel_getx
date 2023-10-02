@@ -60,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        drawer: const DrawerWidget(),
+        key: profileController.scaffoldKey,
+        drawer: DrawerWidget(),
         body: SafeArea(
           child: IndexedStack(
             index: homeController.currentIndex.value,

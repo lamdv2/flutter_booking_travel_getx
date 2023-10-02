@@ -23,7 +23,7 @@ class TourScreen extends StatefulWidget {
   State<TourScreen> createState() => _TourScreenState();
 }
 
-final ProfileController profileController = Get.find();
+final ProfileController profileController = Get.put(ProfileController());
 final AuthController authController = Get.put(AuthController());
 final TourController tourController = Get.put(TourController());
 final BookingController bookingController = Get.find();
