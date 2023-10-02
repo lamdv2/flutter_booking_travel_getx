@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerWidget(),
+      drawer: DrawerWidget(),
       appBar: CustomAppBar(
         backgroundColor: ColorConstants.white,
         iconBgrColor: ColorConstants.grayTextField,
