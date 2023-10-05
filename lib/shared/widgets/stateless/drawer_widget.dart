@@ -270,6 +270,44 @@ class DrawerWidget extends StatelessWidget {
             endIndent: 100,
           ),
           SizedBox(
+            height: getSize(16),
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                SvgPicture.asset(
+                  AssetHelper.icAddUser,
+                  colorFilter: const ColorFilter.mode(
+                    ColorConstants.graySub,
+                    BlendMode.srcIn,
+                  ),
+                  width: getSize(24),
+                  height: getSize(24),
+                ),
+                SizedBox(
+                  width: getSize(16),
+                ),
+                const Text(
+                  'Admin',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+            onTap: () {
+              Get.toNamed(Routes.ADMIN_SCREEN);
+            },
+          ),
+          Divider(
+            thickness: 0.5,
+            color: ColorConstants.black.withOpacity(0.8),
+            indent: 16,
+            endIndent: 100,
+          ),
+          SizedBox(
             height: getSize(32),
           ),
           InkWell(
