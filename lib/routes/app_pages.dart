@@ -1,3 +1,7 @@
+import 'package:doan_clean_achitec/modules/admin/admin_binding.dart';
+import 'package:doan_clean_achitec/modules/admin/admin_create_tour_screen.dart';
+import 'package:doan_clean_achitec/modules/admin/admin_screen.dart';
+import 'package:doan_clean_achitec/modules/admin/admin_update_tour_screen.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_requied.dart';
 import 'package:doan_clean_achitec/modules/call_firebase/image_binding.dart';
@@ -160,6 +164,21 @@ class AppPages {
       name: Routes.HISTORY_TOUR_SCREEN,
       page: () => HistoryScreen(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: Routes.ADMIN_SCREEN,
+      page: () => const AdminScreen(),
+      binding: AdminBinding(),
+    ),
+    GetPage(
+      name: Routes.ADMIN_CREATE_SCREEN,
+      page: () => const AdminCreateScreen(),
+      binding: AdminBinding(),
+    ),
+    GetPage(
+      name: Routes.ADMIN_UPDATE_SCREEN,
+      page: () => const AdminUpdateScreen(),
+      binding: AdminBinding(),
     ),
   ];
 }
