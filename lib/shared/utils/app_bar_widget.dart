@@ -57,7 +57,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Container(
                   padding: EdgeInsets.all(getSize(kItemPadding)),
                   decoration: BoxDecoration(
-                    color: iconBgrColor ?? ColorConstants.grayTextField,
+                    color: iconBgrColor ?? ColorConstants.primaryBackground,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(kIconRadius),
                     ),
@@ -78,7 +78,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         titles ?? '',
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
-        style: AppStyles.black000Size30Fw600FfMont,
+        style: AppStyles.black000Size24Fw600FfMont,
       ),
       centerTitle: true,
       elevation: 0,

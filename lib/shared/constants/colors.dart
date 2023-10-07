@@ -12,7 +12,6 @@ class ColorConstants {
   static const Color lightScaffoldBackgroundColor = Color(0xFFF9F9F9);
   static const Color lightSubScaffoldBackgroundColor = Color(0xFFFAFAFA);
   static const Color primaryButton = Color(0xFF4166d8);
-  static const Color primaryBackground = Color.fromARGB(255, 217, 235, 190);
   static const Color lightGray = Color(0xFFF6F6F6);
   static const Color grayTextField = Color(0xFFf2f5fc);
   static const Color secondBackground = Color(0xFFf4f7fc);
@@ -49,10 +48,19 @@ class ColorConstants {
   static const Color flights = Color(0xFFFE9C5E);
   static const Color btnCanCel = Color(0xFFD9D9D9);
   static Color blur = const Color(0xFF121212).withOpacity(0.1);
-  static Color transparent = Color.fromARGB(0, 18, 18, 18);
+  static Color transparent = const Color.fromARGB(0, 18, 18, 18);
 
   static Color darkScaffoldBackgroundColor = hexToColor('#2F2E2E');
   static const lightBlueNon = Color(0x48CAE7);
+
+  // flutter flow
+  static const Color accent1 = Color(0xFF616161);
+  static const Color accent2 = Color(0xFF757575);
+  static const Color primary = Color(0xFF22282F);
+  static const Color primaryBackground = Color(0xFFF1F4F8);
+  static const Color secondary = Color(0xFF4B39EF);
+  static const Color alternate = Color(0xFFF1F4F8);
+  static const Color error = Color(0xFFE21C3D);
 }
 
 Color hexToColor(String hex) {
