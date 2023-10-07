@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       enableLog: true,
-      initialRoute: Routes.SPLASH,
+      initialRoute: Routes.PAY_SCREEN,
       defaultTransition: Transition.fade,
       getPages: AppPages.routes,
       smartManagement: SmartManagement.keepFactory,

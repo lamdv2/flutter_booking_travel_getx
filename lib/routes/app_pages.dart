@@ -147,7 +147,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.PAY_SCREEN,
-      page: () => const PayScreen(),
+      page: () => const PaymentScreen(),
       binding: PayBinding(),
     ),
     GetPage(
