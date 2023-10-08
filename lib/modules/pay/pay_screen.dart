@@ -136,7 +136,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     color: ColorConstants.white,
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
-                                      color: ColorConstants.alternate,
+                                      color: ColorConstants.primaryBackground,
                                       width: 1,
                                     ),
                                   ),
@@ -211,7 +211,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     color: ColorConstants.white,
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
-                                      color: ColorConstants.alternate,
+                                      color: ColorConstants.primaryBackground,
                                       width: 1,
                                     ),
                                   ),
@@ -286,7 +286,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     color: ColorConstants.white,
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
-                                      color: ColorConstants.alternate,
+                                      color: ColorConstants.primaryBackground,
                                       width: 1,
                                     ),
                                   ),

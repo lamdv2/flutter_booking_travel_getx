@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({
     Key? key,
@@ -25,7 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   String? titles;
 
-  Color? backgroundColor = ColorConstants.white;
+  Color? backgroundColor;
 
   Color? iconBgrColor;
 
@@ -36,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backgroundColor ?? ColorConstants.white,
+      backgroundColor: backgroundColor ?? ColorConstants.primaryButton,
       leading: leading ??
           Padding(
             padding: const EdgeInsets.only(
@@ -57,7 +58,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Container(
                   padding: EdgeInsets.all(getSize(kItemPadding)),
                   decoration: BoxDecoration(
-                    color: iconBgrColor ?? ColorConstants.primaryBackground,
+                    color: ColorConstants.primaryButton.withOpacity(.1),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(kIconRadius),
                     ),
@@ -65,7 +66,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: SvgPicture.asset(
                     AssetHelper.icoNextLeft,
                     colorFilter: const ColorFilter.mode(
-                      ColorConstants.titleSearch,
+                      ColorConstants.white,
                       BlendMode.srcIn,
                     ),
                     fit: BoxFit.fitHeight,
@@ -78,7 +79,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         titles ?? '',
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
-        style: AppStyles.black000Size24Fw600FfMont,
+        style: AppStyles.white000Size20Fw500FfMont,
       ),
       centerTitle: true,
       elevation: 0,

@@ -10,7 +10,6 @@ import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rive/rive.dart';
 
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});

@@ -59,7 +59,6 @@ class ColorConstants {
   static const Color primary = Color(0xFF22282F);
   static const Color primaryBackground = Color(0xFFF1F4F8);
   static const Color secondary = Color(0xFF4B39EF);
-  static const Color alternate = Color(0xFFF1F4F8);
   static const Color error = Color(0xFFE21C3D);
 }
 
