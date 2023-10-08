@@ -158,7 +158,6 @@ class AppPages {
     GetPage(
       name: Routes.SELECT_DATE,
       page: () => SelectDateScreen(),
-      binding: BookingBinding(),
     ),
     GetPage(
       name: Routes.HISTORY_TOUR_SCREEN,

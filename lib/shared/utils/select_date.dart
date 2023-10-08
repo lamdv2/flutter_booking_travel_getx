@@ -14,8 +14,6 @@ class SelectDateScreen extends StatelessWidget {
   DateTime? rangeStartDate;
   DateTime? rangeEndDate;
 
-  static const String routeName = '/select_date_screen';
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

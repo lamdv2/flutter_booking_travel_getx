@@ -6,6 +6,6 @@ class ProfileBinding extends Bindings {
   @override
   void dependencies() {
     Get.put<ProfileController>(ProfileController());
-    Get.put<UserController>(UserController());
+    Get.lazyPut(() => UserController());
   }
 }

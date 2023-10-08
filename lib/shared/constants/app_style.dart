@@ -16,6 +16,13 @@ class AppStyles {
     color: ColorConstants.white,
   );
 
+  static TextStyle white000Size24Fw600FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 24.00,
+    fontWeight: FontWeight.w600,
+    color: ColorConstants.white,
+  );
+
   static TextStyle white000Size24Fw400FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 24.00,
@@ -26,6 +33,13 @@ class AppStyles {
   static TextStyle white000Size18FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 18.72,
+    color: ColorConstants.white,
+  );
+
+  static TextStyle white000Size20Fw500FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 20.00,
+    fontWeight: FontWeight.w500,
     color: ColorConstants.white,
   );
 
