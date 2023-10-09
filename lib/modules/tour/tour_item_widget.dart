@@ -11,8 +11,10 @@ import 'package:like_button/like_button.dart';
 
 class TourItemWidget extends StatelessWidget {
   TourModel listTour;
+  Function()? onTap;
   TourItemWidget({
     required this.listTour,
+    this.onTap,
     super.key,
   });
 
@@ -22,7 +24,8 @@ class TourItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isFavor = false;
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour),
+      onTap:
+          onTap ?? () => Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour),
       child: Container(
         width: MediaQuery.of(context).size.width - getSize(40),
         decoration: BoxDecoration(

@@ -11,7 +11,7 @@ class AdminController extends GetxController {
   final descriptionController = TextEditingController();
   final idCityController = TextEditingController();
   final startDateController = TextEditingController();
-  final endDateController = TextEditingController();
+  late final endDateController = TextEditingController();
   final priceController = TextEditingController();
   final imagesController = TextEditingController();
   final durationController = TextEditingController();
@@ -26,26 +26,29 @@ class AdminController extends GetxController {
   final specialOffersController = TextEditingController();
 
   RxString selectedValue = '50HCM'.obs;
+  final getListTour = Rxn<List<TourModel>>();
 
-  Future<void> createTour() async {
-    await _db.collection('historyModel').add({
-      'nameTour': 'userId',
-      'description': 'tourId',
-      'idCity': 'true',
-      'startDate': 'true',
-      'endDate': 'true',
-      'price': 'true',
-      'images': 'true',
-      'duration': 'true',
-      'accommodation': 'true',
-      'itinerary': 'true',
-      'includedServices': 'true',
-      'excludedServices': 'true',
-      'reviews': 'true',
-      'rating': 'true',
-      'active': true,
-      'status': 'true',
-      'specialOffers': 'true',
+  Future<void> createTour(TourModel tourModel) async {
+    await FirebaseFirestore.instance
+        .collection('tourModel')
+        .add(tourModel.toJson())
+        .whenComplete(
+          () => Get.snackbar(
+            "Success",
+            "New tour added!",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: ColorConstants.blue.withOpacity(.1),
+            colorText: ColorConstants.blue,
+          ),
+        )
+        .catchError((error) {
+      Get.snackbar(
+        "Error",
+        "Something went wrong. Try again!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: ColorConstants.red.withOpacity(.1),
+        colorText: ColorConstants.red,
+      );
     });
   }
 
@@ -61,27 +64,50 @@ class AdminController extends GetxController {
     return listTourModel;
   }
 
-  createUser(TourModel tourModel) async {
-    await FirebaseFirestore.instance
-        .collection('userModel')
-        .add(tourModel.toJson())
-        .whenComplete(
-          () => Get.snackbar(
-            "Success",
-            "Your account have been created!",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: ColorConstants.blue.withOpacity(.1),
-            colorText: ColorConstants.blue,
-          ),
-        )
-        .catchError((error) {
-      Get.snackbar(
-        "Error",
-        "Something went wrong. Try again!",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: ColorConstants.red.withOpacity(.1),
-        colorText: ColorConstants.red,
-      );
-    });
+  // Refresh Tour List
+
+  Future<void> refreshTourList() async {
+    getAllTourModelData();
+  }
+
+  // Get All Tour
+
+  Future<void> getAllTourModelData() async {
+    final snapShot = await _db.collection('tourModel').get();
+    final listTourData =
+        snapShot.docs.map((doc) => TourModel.fromJson(doc)).toList();
+
+    getListTour.value = listTourData;
+  }
+
+  Future<TourModel> getTourDetailsById(String id) async {
+    final snapShot = await _db.collection('tourModel').doc(id).get();
+
+    if (snapShot.exists) {
+      return TourModel.fromJson(snapShot);
+    } else {
+      throw Exception("Error: not exists!!!");
+    }
+  }
+
+  Future<void> editTourDetailsById(TourModel updatedTour) async {
+    try {
+      await _db
+          .collection('tourModel')
+          .doc(updatedTour.idTour)
+          .update(updatedTour.toJson());
+    } catch (e) {
+      throw Exception("Error updating tour: $e");
+    }
+  }
+
+  // Delete Tour By Id
+
+  Future<void> deleteTourById(String idTour) async {
+    try {
+      await _db.collection('tourModel').doc(idTour).delete();
+    } catch (e) {
+      throw Exception("Error updating tour: $e");
+    }
   }
 }
