@@ -100,7 +100,7 @@ class _buildItemHistory extends StatelessWidget {
                   height: getSize(8),
                 ),
                 Text(
-                  tourModel!.startDate!.getDate,
+                  tourModel!.startDate.toString(),
                   style: AppStyles.black000Size14Fw400FfMont,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
