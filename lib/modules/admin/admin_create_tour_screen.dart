@@ -1,5 +1,7 @@
+import 'dart:ffi';
+
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
-import 'package:doan_clean_achitec/modules/home/home_screen.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
@@ -12,6 +14,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AdminCreateScreen extends StatefulWidget {
   const AdminCreateScreen({super.key});
@@ -29,7 +32,14 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
     '29HN',
   ];
 
-  String dateSelected = '';
+  final List<Map<String, String>> itemsName = [
+    {'50HCM': 'Hồ Chí Minh'},
+    {'43DN': 'Đà Nẵng'},
+    {'29HN': 'Hà Nội'},
+  ];
+
+  String startDateSelected = '';
+  String endDateSelected = '';
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +114,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            '50HCM',
+                            adminController.selectedValue.value,
                             style: AppStyles.titleSearchSize16Fw400FfMont,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -126,7 +136,8 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     value: adminController.selectedValue.value,
                     onChanged: (value) {
                       adminController.selectedValue.value = value!;
-                      // adminController.filterListTourByState(value);
+                      adminController.idCityController.text =
+                          adminController.selectedValue.value;
                     },
                     buttonStyleData: ButtonStyleData(
                       height: getSize(50),
@@ -193,38 +204,158 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                 SizedBox(
                   height: getSize(12),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    final result = await Get.toNamed(Routes.SELECT_DATE);
-                    if (result is List<DateTime?>) {
-                      dateSelected =
-                          '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
-                      setState(() {});
-                    }
-                  },
-                  child: Text(dateSelected),
+                Container(
+                  width: double.infinity,
+                  color: ColorConstants.white,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          ColorConstants.white),
+                    ),
+                    onPressed: () async {
+                      final result = await Get.toNamed(Routes.SELECT_DATE);
+                      if (result is List<DateTime?>) {
+                        startDateSelected = '${result[0]?.getDate}';
+                        setState(() {
+                          adminController.startDateController.text =
+                              startDateSelected;
+                        });
+                      }
+                    },
+                    child: Text(
+                      startDateSelected,
+                      style: AppStyles.black000Size14Fw400FfMont,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: getSize(16),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    final result = await Get.toNamed(Routes.SELECT_DATE);
-                    if (result is List<DateTime?>) {
-                      dateSelected =
-                          '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
-                      setState(() {});
-                    }
-                  },
-                  child: Text(dateSelected),
+                const Text(
+                  "EndDate Tour:",
+                  style: TextStyle(
+                    color: ColorConstants.graySub,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                Container(
+                  width: double.infinity,
+                  color: ColorConstants.white,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          ColorConstants.white),
+                    ),
+                    onPressed: () async {
+                      final result = await Get.toNamed(Routes.SELECT_DATE);
+                      if (result is List<DateTime?>) {
+                        endDateSelected = '${result[0]?.getDate}';
+                        setState(() {
+                          adminController.endDateController.text =
+                              endDateSelected;
+                        });
+                      }
+                    },
+                    child: Text(
+                      endDateSelected,
+                      style: AppStyles.black000Size14Fw400FfMont,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: getSize(16),
+                ),
+                const Text(
+                  "Price Tour:",
+                  style: TextStyle(
+                    color: ColorConstants.graySub,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                MyTextField(
+                  controller: adminController.priceController,
+                  hintText: "Enter price tour",
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: getSize(16),
+                ),
+                const Text(
+                  "Itinerary Tour:",
+                  style: TextStyle(
+                    color: ColorConstants.graySub,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                MyTextField(
+                  controller: adminController.itineraryController,
+                  hintText: "Enter itinerary tour",
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: getSize(16),
+                ),
+                const Text(
+                  "Rating Tour:",
+                  style: TextStyle(
+                    color: ColorConstants.graySub,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                MyTextField(
+                  controller: adminController.ratingController,
+                  hintText: "Enter rating tour",
+                  obscureText: false,
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // DateFormat dateFormat = DateFormat("dd/MM/yyyy");
+                      // DateTime dateTime = dateFormat
+                      //     .parse(adminController.startDateController.text);
+                      final TourModel tourModel = TourModel(
+                        nameTour: adminController.nameTourController.text,
+                        description: adminController.descriptionController.text,
+                        idCity: adminController.idCityController.text,
+                        // startDate: dateTime,
+                        // endDate: dateTime,
+                        price:
+                            double.parse(adminController.priceController.text),
+                        images: List.empty(),
+                        duration: adminController.durationController.text,
+                        accommodation:
+                            adminController.accommodationController.text,
+                        itinerary: List.empty(),
+                        includedServices: List.empty(),
+                        excludedServices: List.empty(),
+                        reviews: List.empty(),
+                        rating:
+                            double.parse(adminController.ratingController.text),
+                        active: true,
+                        specialOffers: List.empty(),
+                        status: adminController.statusController.text,
+                      );
+                      adminController.createTour(tourModel);
+                      Get.back();
+                      adminController.getAllTourModelData();
+                    },
                     child: const Text('Create'),
                   ),
                 ),

@@ -145,6 +145,13 @@ class AppStyles {
     color: ColorConstants.black,
   );
 
+  static TextStyle black000Size16Fw700FfMont = TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 16.00,
+    fontWeight: FontWeight.w700,
+    color: ColorConstants.black,
+  );
+
   static TextStyle black000Size18Fw500FfMont = TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 18.00,
@@ -190,6 +197,13 @@ class AppStyles {
     fontFamily: FontFamily.mont,
     fontSize: 14,
     fontWeight: FontWeight.w400,
+    color: ColorConstants.black,
+  );
+
+  static TextStyle black000Size14Fw600FfMont = TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
     color: ColorConstants.black,
   );
 
