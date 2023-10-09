@@ -5,8 +5,8 @@ class TourModel {
   final String nameTour;
   final String? description;
   final String? idCity;
-  final DateTime? startDate;
-  final DateTime? endDate;
+  final Timestamp? startDate;
+  final Timestamp? endDate;
   final double? price;
   final List<String>? images;
   final String? duration;
@@ -48,12 +48,9 @@ class TourModel {
       nameTour: json['nameTour'],
       description: json['description'],
       idCity: json['idCity'],
-      startDate: json['startDate'] != null
-          ? (json['startDate'] as Timestamp).toDate()
-          : null,
-      endDate: json['endDate'] != null
-          ? (json['endDate'] as Timestamp).toDate()
-          : null,
+      startDate:
+          json['startDate'] != null ? json['startDate'] as Timestamp : null,
+      endDate: json['endDate'] != null ? json['endDate'] as Timestamp : null,
       price: json['price']?.toDouble(),
       images: json['images'] != null ? List<String>.from(json['images']) : null,
       duration: json['duration'],
@@ -84,8 +81,8 @@ class TourModel {
       'nameTour': nameTour,
       'description': description,
       'idCity': idCity,
-      'startDate': startDate?.toIso8601String(),
-      'endDate': endDate?.toIso8601String(),
+      'startDate': startDate,
+      'endDate': endDate,
       'price': price,
       'images': images,
       'duration': duration,

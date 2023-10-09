@@ -374,7 +374,7 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                       Get.back();
                       adminController.getAllTourModelData();
                     },
-                    child: const Text('Create'),
+                    child: const Text('Update'),
                   ),
                 ),
               ],

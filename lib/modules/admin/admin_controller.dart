@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AdminController extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -109,5 +110,19 @@ class AdminController extends GetxController {
     } catch (e) {
       throw Exception("Error updating tour: $e");
     }
+  }
+
+  // format datetime
+
+  Timestamp formatDateTime(String startDateText) {
+    DateTime startDate;
+
+    try {
+      final inputFormat = DateFormat('dd MMM yyyy');
+      startDate = inputFormat.parse(startDateText);
+    } catch (e) {
+      startDate = DateTime.now();
+    }
+    return Timestamp.fromDate(startDate);
   }
 }
