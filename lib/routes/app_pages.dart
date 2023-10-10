@@ -9,6 +9,7 @@ import 'package:doan_clean_achitec/modules/call_firebase/loading_image.dart';
 import 'package:doan_clean_achitec/modules/detail_place/detail_place.dart';
 import 'package:doan_clean_achitec/modules/discover/discover.dart';
 import 'package:doan_clean_achitec/modules/favorite/favorite_screen.dart';
+import 'package:doan_clean_achitec/modules/google_map/google_map.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/hotel/hotel_all_screen.dart';
 import 'package:doan_clean_achitec/modules/hotel/hotel_screen.dart';
@@ -27,6 +28,7 @@ import 'package:doan_clean_achitec/modules/splash/splash_binding.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_screen.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/utils/select_date.dart';
+import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:get/get.dart';
 
 import '../models/history_tour/history_tour_screen.dart';
@@ -178,6 +180,10 @@ class AppPages {
       name: Routes.ADMIN_UPDATE_SCREEN,
       page: () => const AdminUpdateScreen(),
       binding: AdminBinding(),
+    ),
+    GetPage(
+      name: Routes.GOOGLE_MAP_SCREEN,
+      page: () => GoogleMapScreen(),
     ),
   ];
 }

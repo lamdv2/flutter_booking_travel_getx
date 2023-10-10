@@ -94,6 +94,9 @@ dependencies:
   syncfusion_flutter_datepicker: ^23.1.38
   intl: ^0.18.1
   slideable: ^0.0.2
+  location: ^5.0.3
+  custom_map_markers: ^0.0.2+1
+  flutter_polyline_points: ^2.0.0
 
 dev_dependencies:
   flutter_test:

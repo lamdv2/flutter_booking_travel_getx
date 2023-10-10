@@ -46,8 +46,11 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
     adminController.nameTourController.text = tourModel?.nameTour ?? '';
     adminController.descriptionController.text = tourModel?.description ?? '';
     adminController.idCityController.text = tourModel?.idCity ?? '';
-    // adminController. startDateController.text = tourModel?.startDate ?? '';
-    // adminController. endDateController.text = tourModel?.endDate ?? '';
+    adminController.startDateController.text =
+        tourModel?.startDate.toString() ?? '';
+
+    adminController.endDateController.text =
+        tourModel?.endDate.toString() ?? '';
     adminController.priceController.text = tourModel?.price.toString() ?? '';
     // adminController. imagesController.text =
     adminController.durationController.text = tourModel?.duration ?? '';
@@ -61,10 +64,19 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
     adminController.activeController.text = tourModel?.accommodation ?? '';
     // adminController. statusController.text =
     // adminController. specialOffersController.text =
+
+    startDateSelected =
+        adminController.timestampToString(tourModel!.startDate!);
+    endDateSelected = adminController.timestampToString(tourModel!.endDate!);
+
     return Scaffold(
       appBar: CustomAppBar(
         titles: "Update Tour",
         iconBgrColor: ColorConstants.grayTextField,
+        onTap: () {
+          Get.back();
+          adminController.clearController();
+        },
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -341,6 +353,9 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                   hintText: "Enter rating tour",
                   obscureText: false,
                 ),
+                SizedBox(
+                  height: getSize(16),
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: ElevatedButton(
@@ -376,6 +391,9 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     },
                     child: const Text('Update'),
                   ),
+                ),
+                SizedBox(
+                  height: getSize(24),
                 ),
               ],
             ),
