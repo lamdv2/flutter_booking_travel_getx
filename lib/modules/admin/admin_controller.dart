@@ -87,16 +87,6 @@ class AdminController extends GetxController {
     specialOffersController.clear();
   }
 
-  Future<List<TourModel>?> getTourCreate(TourModel tourModel) async {
-    // final snapShot = await _db
-    //     .collection('tourModel')
-    //     .add(tourModel);
-
-    List<TourModel> listTourModel = [];
-
-    return listTourModel;
-  }
-
   // Refresh Tour List
 
   Future<void> refreshTourList() async {

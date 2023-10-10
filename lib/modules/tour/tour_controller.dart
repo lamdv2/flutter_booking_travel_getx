@@ -17,6 +17,7 @@ class TourController extends GetxController {
   final filterListTourData = Rxn<List<TourModel>>();
   final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
+  final items = Rxn<List<String>>([]);
 
   // Tour Details Call Firebase
 
@@ -93,6 +94,17 @@ class TourController extends GetxController {
   // Filter get all
   void getAllTour() {
     getListTour.value = filterListTourData.value;
+  }
+
+  void loadCity() {
+    if (cityList.value != null) {
+      items.value?.clear();
+      for (var city in cityList.value!) {
+        city.forEach((key, value) {
+          items.value?.add(key);
+        });
+      }
+    }
   }
 
   // Filter by Name Tour

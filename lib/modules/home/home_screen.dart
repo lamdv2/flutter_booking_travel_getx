@@ -36,7 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     initializeUser();
     _loadDestination();
-    tourController.getAllCity();
+    getAllCityInit();
+  }
+
+  void getAllCityInit() async {
+    await tourController.getAllCity();
+    tourController.loadCity();
   }
 
   void initializeUser() {

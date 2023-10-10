@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/tour/tour_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
@@ -20,11 +21,14 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   HomeController homeController = Get.find();
   BookingController bookingController = Get.put(BookingController());
+  TourController tourController = Get.put(TourController());
+
   static String dateSelected = '';
+
   final List<String> items = [
     '50HCM',
     '43DN',
-    '29HN',
+    '30HN',
   ];
 
   @override
@@ -67,53 +71,90 @@ class _BookingScreenState extends State<BookingScreen> {
                     () => DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         isExpanded: true,
-                        hint: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'Popular',
-                                style: AppStyles.titleSearchSize16Fw400FfMont,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
+                        underline: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey.shade400,
                         ),
-                        items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                          AssetHelper.icoDestination),
-                                      SizedBox(
-                                        width: getSize(16),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            "Destination",
-                                            style: AppStyles
-                                                .botTitle000Size14Fw400FfMont,
-                                          ),
-                                          SizedBox(
-                                            height: getSize(8.0),
-                                          ),
-                                          Text(
-                                            item,
-                                            style: AppStyles
-                                                .botTitle000Size14Fw400FfMont,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                        items: tourController.items.value != null
+                            ? tourController.items.value!
+                                .map(
+                                  (String item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          AssetHelper.icLocation,
+                                          color: ColorConstants.accent1,
+                                          width: getSize(34),
+                                        ),
+                                        SizedBox(
+                                          width: getSize(16),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              "Destination",
+                                              style: AppStyles
+                                                  .botTitle000Size14Fw400FfMont,
+                                            ),
+                                            SizedBox(
+                                              height: getSize(4.0),
+                                            ),
+                                            Text(
+                                              item,
+                                              style: AppStyles
+                                                  .botTitle000Size14Fw400FfMont,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ))
-                            .toList(),
+                                )
+                                .toList()
+                            : items
+                                .map(
+                                  (String item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                            AssetHelper.icoDestination),
+                                        SizedBox(
+                                          width: getSize(16),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              "Destination",
+                                              style: AppStyles
+                                                  .botTitle000Size14Fw400FfMont,
+                                            ),
+                                            SizedBox(
+                                              height: getSize(8.0),
+                                            ),
+                                            Text(
+                                              item,
+                                              style: AppStyles
+                                                  .botTitle000Size14Fw400FfMont,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                                .toList(),
                         value: bookingController.selectedValue.value,
                         onChanged: (value) {
                           bookingController.selectedValue.value = value!;
@@ -145,7 +186,12 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         menuItemStyleData: const MenuItemStyleData(
-                          padding: EdgeInsets.only(left: 0, right: 14),
+                          padding: EdgeInsets.only(
+                            left: 0,
+                            right: 14,
+                            bottom: 4,
+                            top: 4,
+                          ),
                         ),
                       ),
                     ),
@@ -175,7 +221,11 @@ class _BookingScreenState extends State<BookingScreen> {
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset(AssetHelper.icoCalender),
+                          SvgPicture.asset(
+                            AssetHelper.icCalendar,
+                            width: getSize(32),
+                            color: ColorConstants.accent1,
+                          ),
                           SizedBox(
                             width: getSize(16),
                           ),
