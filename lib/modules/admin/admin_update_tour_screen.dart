@@ -360,15 +360,15 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                   alignment: Alignment.bottomCenter,
                   child: ElevatedButton(
                     onPressed: () {
-                      // DateFormat dateFormat = DateFormat("dd/MM/yyyy");
-                      // DateTime dateTime = dateFormat
-                      //     .parse(adminController.startDateController.text);
-                      final TourModel tourModel = TourModel(
+                      final TourModel tourModelUpdate = TourModel(
+                        idTour: tourModel?.idTour ?? '',
                         nameTour: adminController.nameTourController.text,
                         description: adminController.descriptionController.text,
                         idCity: adminController.idCityController.text,
-                        // startDate: dateTime,
-                        // endDate: dateTime,
+                        startDate: adminController.formatDateTime(
+                            adminController.startDateController.text),
+                        endDate: adminController.formatDateTime(
+                            adminController.endDateController.text),
                         price:
                             double.parse(adminController.priceController.text),
                         images: List.empty(),
@@ -385,7 +385,8 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                         specialOffers: List.empty(),
                         status: adminController.statusController.text,
                       );
-                      adminController.createTour(tourModel);
+                      adminController.editTourDetailsById(tourModelUpdate);
+                      adminController.clearController();
                       Get.back();
                       adminController.getAllTourModelData();
                     },

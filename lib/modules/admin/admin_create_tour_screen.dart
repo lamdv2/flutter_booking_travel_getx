@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
@@ -26,18 +27,13 @@ class AdminCreateScreen extends StatefulWidget {
 
 class _AdminCreateScreenState extends State<AdminCreateScreen> {
   AdminController adminController = Get.put(AdminController());
+  TourController tourController = Get.put(TourController());
   final _formCreateKey = GlobalKey<FormState>();
 
   final List<String> items = [
     '50HCM',
     '43DN',
-    '29HN',
-  ];
-
-  final List<Map<String, String>> itemsName = [
-    {'50HCM': 'Hồ Chí Minh'},
-    {'43DN': 'Đà Nẵng'},
-    {'29HN': 'Hà Nội'},
+    '30HN',
   ];
 
   String startDateSelected = '';
@@ -117,86 +113,103 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(12),
                     ),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                adminController.selectedValue.value,
-                                style: AppStyles.titleSearchSize16Fw400FfMont,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        items: items
-                            .map(
-                              (String item) => DropdownMenuItem<String>(
-                                value: item,
+                    Obx(
+                      () => DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint: Row(
+                            children: [
+                              Expanded(
                                 child: Text(
-                                  item,
-                                  style: AppStyles.titleSearchSize14Fw400FfMont,
+                                  adminController.selectedValue.value,
+                                  style: AppStyles.titleSearchSize16Fw400FfMont,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                            )
-                            .toList(),
-                        value: adminController.selectedValue.value,
-                        onChanged: (value) {
-                          adminController.selectedValue.value = value!;
-                          adminController.idCityController.text =
-                              adminController.selectedValue.value;
-                        },
-                        buttonStyleData: ButtonStyleData(
-                          height: getSize(50),
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getSize(16),
-                            vertical: getSize(8),
+                            ],
                           ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ColorConstants.darkGray.withOpacity(.5),
-                              width: 1,
+                          items: tourController.items.value != null
+                              ? tourController.items.value!
+                                  .map(
+                                    (String item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: AppStyles
+                                            .titleSearchSize14Fw400FfMont,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  )
+                                  .toList()
+                              : items
+                                  .map(
+                                    (String item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: AppStyles
+                                            .titleSearchSize14Fw400FfMont,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                          value: adminController.selectedValue.value,
+                          onChanged: (value) {
+                            adminController.selectedValue.value = value!;
+                            adminController.idCityController.text =
+                                adminController.selectedValue.value;
+                          },
+                          buttonStyleData: ButtonStyleData(
+                            height: getSize(50),
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getSize(16),
+                              vertical: getSize(8),
                             ),
-                            borderRadius: BorderRadius.circular(
-                              getSize(8),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ColorConstants.darkGray.withOpacity(.5),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                getSize(8),
+                              ),
+                              boxShadow: const [],
+                              color: ColorConstants.white,
                             ),
-                            boxShadow: const [],
-                            color: ColorConstants.white,
+                            elevation: 2,
                           ),
-                          elevation: 2,
-                        ),
-                        iconStyleData: IconStyleData(
-                          icon: SvgPicture.asset(
-                            AssetHelper.icFilter,
-                            width: getSize(24),
+                          iconStyleData: IconStyleData(
+                            icon: SvgPicture.asset(
+                              AssetHelper.icFilter,
+                              width: getSize(24),
+                            ),
+                            iconEnabledColor: ColorConstants.botTitle,
+                            iconDisabledColor: Colors.grey,
                           ),
-                          iconEnabledColor: ColorConstants.botTitle,
-                          iconDisabledColor: Colors.grey,
-                        ),
-                        dropdownStyleData: DropdownStyleData(
-                          maxHeight: getSize(200),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: Colors.grey.shade100,
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: getSize(200),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: Colors.grey.shade100,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getSize(20),
+                            ),
+                            offset: const Offset(-20, 0),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius: const Radius.circular(40),
+                              thickness: MaterialStateProperty.all(6),
+                              thumbVisibility: MaterialStateProperty.all(true),
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getSize(20),
+                          menuItemStyleData: MenuItemStyleData(
+                            height: getSize(40),
+                            padding: const EdgeInsets.only(left: 14, right: 14),
                           ),
-                          offset: const Offset(-20, 0),
-                          scrollbarTheme: ScrollbarThemeData(
-                            radius: const Radius.circular(40),
-                            thickness: MaterialStateProperty.all(6),
-                            thumbVisibility: MaterialStateProperty.all(true),
-                          ),
-                        ),
-                        menuItemStyleData: MenuItemStyleData(
-                          height: getSize(40),
-                          padding: const EdgeInsets.only(left: 14, right: 14),
                         ),
                       ),
                     ),
