@@ -1,3 +1,5 @@
+import 'package:doan_clean_achitec/modules/google_map/google_map_screen.dart';
+import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +17,6 @@ import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/button_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/item_utility_detail_hotel_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/dash_widget.dart';
-import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 
 class TourDetailsScreen extends StatelessWidget {
   TourDetailsScreen({Key? key}) : super(key: key);
@@ -376,7 +377,9 @@ class TourDetailsScreen extends StatelessWidget {
         SizedBox(height: getSize(kDefaultPadding)),
         Positioned(
           child: GestureDetector(
-            onDoubleTap: () {},
+            onDoubleTap: () {
+              Get.toNamed(Routes.GOOGLE_MAP_SCREEN);
+            },
             child: const GoogleMapWidget(),
           ),
         ),

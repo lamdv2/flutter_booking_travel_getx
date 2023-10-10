@@ -34,15 +34,17 @@ class AdminController extends GetxController {
         .collection('tourModel')
         .add(tourModel.toJson())
         .whenComplete(
-          () => Get.snackbar(
-            "Success",
-            "New tour added!",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: ColorConstants.blue.withOpacity(.1),
-            colorText: ColorConstants.blue,
-          ),
-        )
-        .catchError((error) {
+      () {
+        Get.snackbar(
+          "Success",
+          "New tour added!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: ColorConstants.blue.withOpacity(.1),
+          colorText: ColorConstants.blue,
+        );
+        clearController();
+      },
+    ).catchError((error) {
       Get.snackbar(
         "Error",
         "Something went wrong. Try again!",
@@ -53,7 +55,37 @@ class AdminController extends GetxController {
     });
   }
 
-  Future<void> getCreateTourData(String userId) async {}
+  String timestampToString(Timestamp timestamp) {
+    try {
+      DateTime dateTime = timestamp.toDate();
+
+      String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+
+      return formattedDate;
+    } catch (e) {
+      return 'Lỗi: $e';
+    }
+  }
+
+  void clearController() {
+    nameTourController.clear();
+    descriptionController.clear();
+    idCityController.clear();
+    startDateController.clear();
+    endDateController.clear();
+    priceController.clear();
+    imagesController.clear();
+    durationController.clear();
+    accommodationController.clear();
+    itineraryController.clear();
+    includedServicesController.clear();
+    excludedServicesController.clear();
+    reviewsController.clear();
+    ratingController.clear();
+    activeController.clear();
+    statusController.clear();
+    specialOffersController.clear();
+  }
 
   Future<List<TourModel>?> getTourCreate(TourModel tourModel) async {
     // final snapShot = await _db

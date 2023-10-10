@@ -49,6 +49,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
       appBar: CustomAppBar(
         titles: "Create Tour",
         iconBgrColor: ColorConstants.grayTextField,
+        onTap: () {
+          Get.back();
+          adminController.clearController();
+        },
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -329,6 +333,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       hintText: "Enter rating tour",
                       obscureText: false,
                     ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
@@ -367,6 +374,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                         },
                         child: const Text('Create'),
                       ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
                     ),
                   ],
                 ),
