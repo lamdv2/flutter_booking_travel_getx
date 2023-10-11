@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
+import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
@@ -19,17 +20,46 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   AdminController adminController = Get.put(AdminController());
-  late RiveAnimationController _controller;
+
+  bool isShowLoading = true;
+  SMITrigger? check;
+  SMITrigger? error;
+  SMITrigger? reset;
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    artboard.addController(controller!);
+    return controller;
+  }
 
   @override
   void initState() {
     super.initState();
-    _controller = OneShotAnimation(
-      'bounce',
-      autoplay: true,
-    );
 
     adminController.getAllTourModelData();
+
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (adminController.getListTour.value != null &&
+            adminController.getListTour.value!.isNotEmpty) {
+          // check?.fire();
+          Future.delayed(const Duration(seconds: 1), () {
+            setState(() {
+              isShowLoading = false;
+            });
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 1), () {
+            // error?.fire();
+            setState(() {
+              isShowLoading = false;
+            });
+          });
+        }
+      },
+    );
   }
 
   @override
@@ -49,128 +79,156 @@ class _AdminScreenState extends State<AdminScreen> {
           size: getSize(24),
         ),
       ),
-      body: Obx(
-        () => RefreshIndicator(
-          onRefresh: adminController.refreshTourList,
-          child: SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: getSize(36),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'All Tour',
-                        style: AppStyles.black000Size18Fw500FfMont,
-                      ),
-                    ),
-                    SizedBox(
-                      height: getSize(16),
-                    ),
-                    adminController.getListTour.value != null
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount:
-                                adminController.getListTour.value?.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Slideable(
-                                items: <ActionItems>[
-                                  ActionItems(
-                                    icon: Icon(
-                                      Icons.update_outlined,
-                                      color: Colors.blue,
-                                      size: getSize(28),
-                                    ),
-                                    onPress: () {
-                                      Get.toNamed(
-                                        Routes.ADMIN_UPDATE_SCREEN,
-                                        arguments: adminController
-                                            .getListTour.value?[index],
-                                      );
-                                    },
-                                    backgroudColor: Colors.transparent,
-                                  ),
-                                  ActionItems(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                      size: getSize(28),
-                                    ),
-                                    onPress: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                              'Confirmation',
-                                              style: AppStyles
-                                                  .black000Size14Fw600FfMont,
+      body: RefreshIndicator(
+        onRefresh: adminController.refreshTourList,
+        child: isShowLoading
+            ? Center(
+                child: SizedBox(
+                  height: getSize(120),
+                  width: getSize(120),
+                  child: RiveAnimation.asset(
+                    "assets/icons/riv/ic_checkerror.riv",
+                    onInit: (artboard) {
+                      StateMachineController controller =
+                          getRiveController(artboard);
+                      check = controller.findSMI("Check") as SMITrigger;
+                      error = controller.findSMI("Error") as SMITrigger;
+                      reset = controller.findSMI("Reset") as SMITrigger;
+                    },
+                  ),
+                ),
+              )
+            : SingleChildScrollView(
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: getSize(36),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'All Tour',
+                            style: AppStyles.black000Size18Fw500FfMont,
+                          ),
+                        ),
+                        SizedBox(
+                          height: getSize(16),
+                        ),
+                        SearchBarWidget(
+                            textEditingController:
+                                adminController.searchController,
+                            onChanged: (value) =>
+                                adminController.filterListTourByName(value),
+                            hintText: "Search your favorite destination"),
+                        SizedBox(
+                          height: getSize(32),
+                        ),
+                        Obx(
+                          () => adminController.getListTour.value != null
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      adminController.getListTour.value?.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Slideable(
+                                      items: <ActionItems>[
+                                        ActionItems(
+                                          icon: Icon(
+                                            Icons.update_outlined,
+                                            color: Colors.blue,
+                                            size: getSize(28),
+                                          ),
+                                          onPress: () {
+                                            Get.toNamed(
+                                              Routes.ADMIN_UPDATE_SCREEN,
+                                              arguments: adminController
+                                                  .getListTour.value?[index],
+                                            );
+                                          },
+                                          backgroudColor: Colors.transparent,
+                                        ),
+                                        ActionItems(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                            size: getSize(28),
+                                          ),
+                                          onPress: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                    'Confirmation',
+                                                    style: AppStyles
+                                                        .black000Size14Fw600FfMont,
+                                                  ),
+                                                  content: Text(
+                                                    'Do you want to delete?',
+                                                    style: AppStyles
+                                                        .black000Size16Fw700FfMont,
+                                                  ),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      child:
+                                                          const Text('Cancel'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Get.back();
+                                                        String? idTour =
+                                                            adminController
+                                                                .getListTour
+                                                                .value![index]
+                                                                .idTour;
+                                                        adminController
+                                                            .deleteTourById(
+                                                                idTour ?? '');
+                                                        adminController
+                                                            .getAllTourModelData();
+                                                      },
+                                                      child: const Text('OK'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          backgroudColor: Colors.transparent,
+                                        ),
+                                      ],
+                                      child: Row(
+                                        children: [
+                                          if (index > 0)
+                                            SizedBox(
+                                              height: getSize(24),
                                             ),
-                                            content: Text(
-                                              'Do you want to delete?',
-                                              style: AppStyles
-                                                  .black000Size16Fw700FfMont,
+                                          Expanded(
+                                            child: TourItemWidget(
+                                              listTour: adminController
+                                                  .getListTour.value![index],
                                             ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: const Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                  String? idTour =
-                                                      adminController
-                                                          .getListTour
-                                                          .value![index]
-                                                          .idTour;
-                                                  adminController
-                                                      .deleteTourById(
-                                                          idTour ?? '');
-                                                  adminController
-                                                      .getAllTourModelData();
-                                                },
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                    backgroudColor: Colors.transparent,
-                                  ),
-                                ],
-                                child: Row(
-                                  children: [
-                                    if (index > 0)
-                                      SizedBox(
-                                        height: getSize(24),
+                                          ),
+                                        ],
                                       ),
-                                    Expanded(
-                                      child: TourItemWidget(
-                                        listTour: adminController
-                                            .getListTour.value![index],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          )
-                        : SizedBox(),
-                  ],
+                                    );
+                                  },
+                                )
+                              : const SizedBox.shrink(),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

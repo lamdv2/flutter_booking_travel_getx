@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class HistoryTourController extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -38,7 +39,6 @@ class HistoryTourController extends GetxController {
           listTourModel.add(TourModel.fromJson(snapShotTour));
         } else {
           listTourModel = [];
-          Get.snackbar('Error', 'Don\'t get data history');
         }
       }
     }
@@ -48,5 +48,17 @@ class HistoryTourController extends GetxController {
 
   Future<void> refreshHistory() async {
     getAllTourModelData(userController.userModel.value?.id ?? "");
+  }
+
+  String timestampToString(Timestamp timestamp) {
+    try {
+      DateTime dateTime = timestamp.toDate();
+
+      String formattedDate = DateFormat('dd-MM-yyyy HH:mm').format(dateTime);
+
+      return formattedDate;
+    } catch (e) {
+      return 'Lỗi: $e';
+    }
   }
 }

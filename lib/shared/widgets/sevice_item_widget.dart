@@ -6,12 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 class SeviceItemWidget extends StatelessWidget {
-  OnTap? onTap;
-  String icon;
-  String seviceTitle;
-  bool isCheckActive;
+  final OnTap? onTap;
+  final String icon;
+  final String seviceTitle;
+  final bool isCheckActive;
 
-  SeviceItemWidget({
+  const SeviceItemWidget({
     this.onTap,
     required this.icon,
     required this.seviceTitle,

@@ -30,7 +30,9 @@ class BookingController extends GetxController {
         'idTour': tourId,
         'isActive': true,
       });
-      historyTourController.getAllTourModelData(userId);
+      Get.snackbar('Success', 'Booking successfully !!!');
+
+      await historyTourController.getAllTourModelData(userId);
     }
   }
 }

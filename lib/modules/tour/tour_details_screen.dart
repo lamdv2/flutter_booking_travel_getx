@@ -303,6 +303,7 @@ class TourDetailsScreen extends StatelessWidget {
             String description = parts.length > 1 ? parts[1].trim() : '';
 
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (rowIndex > 0) SizedBox(height: getSize(20)),
                 Text(

@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
   final editPhoneNumberController = TextEditingController();
   final editLocationController = TextEditingController();
 
-  final UserController userController = Get.find();
+  final UserController userController = Get.put(UserController());
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 

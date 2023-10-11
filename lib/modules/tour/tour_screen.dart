@@ -37,17 +37,42 @@ class _TourScreenState extends State<TourScreen> {
     'Sale',
   ];
 
-  late RiveAnimationController _controller;
+  bool isShowLoading = true;
+  SMITrigger? check;
+  SMITrigger? error;
+  SMITrigger? reset;
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    artboard.addController(controller!);
+    return controller;
+  }
 
   @override
   void initState() {
     super.initState();
-    _controller = OneShotAnimation(
-      'bounce',
-      autoplay: true,
-    );
 
     tourController.getAllTourModelData();
+
+    Future.delayed(const Duration(milliseconds: 250), () {
+      if (tourController.getListTour.value != null &&
+          tourController.getListTour.value!.isNotEmpty) {
+        // check?.fire();
+        Future.delayed(const Duration(milliseconds: 550), () {
+          setState(() {
+            isShowLoading = false;
+          });
+        });
+      } else {
+        Future.delayed(const Duration(seconds: 1), () {
+          // error?.fire();
+          setState(() {
+            isShowLoading = false;
+          });
+        });
+      }
+    });
   }
 
   @override
@@ -207,9 +232,6 @@ class _TourScreenState extends State<TourScreen> {
                               .toList(),
                           value: tourController.selectedValue.value,
                           onChanged: (value) {
-                            // setState(() {
-                            //   selectedValue = value;
-                            // });
                             tourController.selectedValue.value = value!;
                             tourController.filterListTourByState(value);
                           },
@@ -266,29 +288,52 @@ class _TourScreenState extends State<TourScreen> {
                   SizedBox(
                     height: getSize(30),
                   ),
-                  tourController.getListTour.value != null
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: tourController.getListTour.value?.length,
-                          itemBuilder: (BuildContext context, int rowIndex) {
-                            return Row(
-                              children: [
-                                if (rowIndex > 0)
-                                  SizedBox(
-                                    height: getSize(24),
-                                  ),
-                                Expanded(
-                                  child: TourItemWidget(
-                                    listTour: tourController
-                                        .getListTour.value![rowIndex],
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
+                  isShowLoading
+                      ? Center(
+                          child: SizedBox(
+                            height: getSize(120),
+                            width: getSize(120),
+                            child: RiveAnimation.asset(
+                              "assets/icons/riv/ic_checkerror.riv",
+                              onInit: (artboard) {
+                                StateMachineController controller =
+                                    getRiveController(artboard);
+                                check =
+                                    controller.findSMI("Check") as SMITrigger;
+                                error =
+                                    controller.findSMI("Error") as SMITrigger;
+                                reset =
+                                    controller.findSMI("Reset") as SMITrigger;
+                              },
+                            ),
+                          ),
                         )
-                      : LoadingRiveCheck(controller: _controller),
+                      : tourController.getListTour.value != null &&
+                              tourController.getListTour.value!.isNotEmpty
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount:
+                                  tourController.getListTour.value?.length,
+                              itemBuilder:
+                                  (BuildContext context, int rowIndex) {
+                                return Row(
+                                  children: [
+                                    if (rowIndex > 0)
+                                      SizedBox(
+                                        height: getSize(24),
+                                      ),
+                                    Expanded(
+                                      child: TourItemWidget(
+                                        listTour: tourController
+                                            .getListTour.value![rowIndex],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            )
+                          : LoadingRiveCheck(),
                 ],
               ),
             ),

@@ -23,6 +23,7 @@ class AdminUpdateScreen extends StatefulWidget {
 
 class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
   AdminController adminController = Get.put(AdminController());
+  final _formUpdateKey = GlobalKey<FormState>();
 
   final List<String> items = [
     '50HCM',
@@ -39,10 +40,16 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
   String startDateSelected = '';
   String endDateSelected = '';
 
+  List<Widget> _children = [];
+  int _count = 0;
+  List<TextEditingController> _controllers = [];
+  List<String> listIti = [];
+
   final TourModel? tourModel = Get.arguments;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     adminController.nameTourController.text = tourModel?.nameTour ?? '';
     adminController.descriptionController.text = tourModel?.description ?? '';
     adminController.idCityController.text = tourModel?.idCity ?? '';
@@ -56,7 +63,7 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
     adminController.durationController.text = tourModel?.duration ?? '';
     adminController.accommodationController.text =
         tourModel?.accommodation ?? '';
-    // adminController. itineraryController.text = tourModel?.itinerary ?? '';
+    listIti = tourModel?.itinerary ?? [];
     // adminController. includedServicesController.text =
     // adminController. excludedServicesController.text =
     // adminController. reviewsController.text =
@@ -68,7 +75,11 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
     startDateSelected =
         adminController.timestampToString(tourModel!.startDate!);
     endDateSelected = adminController.timestampToString(tourModel!.endDate!);
+    _gen();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         titles: "Update Tour",
@@ -78,329 +89,414 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
           adminController.clearController();
         },
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: getSize(36),
-                ),
-                const Text(
-                  "Name Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                MyTextField(
-                  controller: adminController.nameTourController,
-                  hintText: "Enter new name tour",
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "Description Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                MyTextField(
-                  controller: adminController.descriptionController,
-                  hintText: "Enter description tour",
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "IdCity Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: Row(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Form(
+                key: _formUpdateKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: getSize(36),
+                    ),
+                    const Text(
+                      "Name Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(12),
+                    ),
+                    MyTextField(
+                      controller: adminController.nameTourController,
+                      hintText: "Enter new name tour",
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    const Text(
+                      "Description Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(12),
+                    ),
+                    MyTextField(
+                      controller: adminController.descriptionController,
+                      hintText: "Enter description tour",
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    const Text(
+                      "IdCity Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(12),
+                    ),
+                    Obx(
+                      () => DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  adminController.selectedValue.value,
+                                  style: AppStyles.titleSearchSize16Fw400FfMont,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          items: tourController.items.value != null
+                              ? tourController.items.value!
+                                  .map(
+                                    (String item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: AppStyles
+                                            .titleSearchSize14Fw400FfMont,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  )
+                                  .toList()
+                              : items
+                                  .map(
+                                    (String item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: AppStyles
+                                            .titleSearchSize14Fw400FfMont,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                          value: adminController.selectedValue.value,
+                          onChanged: (value) {
+                            adminController.selectedValue.value = value!;
+                            adminController.idCityController.text =
+                                adminController.selectedValue.value;
+                          },
+                          buttonStyleData: ButtonStyleData(
+                            height: getSize(50),
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getSize(16),
+                              vertical: getSize(8),
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ColorConstants.darkGray.withOpacity(.5),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                getSize(8),
+                              ),
+                              boxShadow: const [],
+                              color: ColorConstants.white,
+                            ),
+                            elevation: 2,
+                          ),
+                          iconStyleData: IconStyleData(
+                            icon: SvgPicture.asset(
+                              AssetHelper.icFilter,
+                              width: getSize(24),
+                            ),
+                            iconEnabledColor: ColorConstants.botTitle,
+                            iconDisabledColor: Colors.grey,
+                          ),
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: getSize(200),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: Colors.grey.shade100,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getSize(20),
+                            ),
+                            offset: const Offset(-20, 0),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius: const Radius.circular(40),
+                              thickness: MaterialStateProperty.all(6),
+                              thumbVisibility: MaterialStateProperty.all(true),
+                            ),
+                          ),
+                          menuItemStyleData: MenuItemStyleData(
+                            height: getSize(40),
+                            padding: const EdgeInsets.only(left: 14, right: 14),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    const Text(
+                      "StartDate Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(12),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: ColorConstants.white,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              ColorConstants.white),
+                        ),
+                        onPressed: () async {
+                          final result = await Get.toNamed(Routes.SELECT_DATE);
+                          if (result is List<DateTime?>) {
+                            startDateSelected = '${result[0]?.getDate}';
+                            setState(() {
+                              adminController.startDateController.text =
+                                  startDateSelected;
+                            });
+                          }
+                        },
+                        child: Text(
+                          startDateSelected,
+                          style: AppStyles.black000Size14Fw400FfMont,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    const Text(
+                      "EndDate Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(12),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: ColorConstants.white,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              ColorConstants.white),
+                        ),
+                        onPressed: () async {
+                          final result = await Get.toNamed(Routes.SELECT_DATE);
+                          if (result is List<DateTime?>) {
+                            endDateSelected = '${result[0]?.getDate}';
+                            setState(() {
+                              adminController.endDateController.text =
+                                  endDateSelected;
+                            });
+                          }
+                        },
+                        child: Text(
+                          endDateSelected,
+                          style: AppStyles.black000Size14Fw400FfMont,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    const Text(
+                      "Price Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(12),
+                    ),
+                    MyTextField(
+                      controller: adminController.priceController,
+                      hintText: "Enter price tour",
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            adminController.selectedValue.value,
-                            style: AppStyles.titleSearchSize16Fw400FfMont,
-                            overflow: TextOverflow.ellipsis,
+                        const Text(
+                          "Itinerary Tour:",
+                          style: TextStyle(
+                            color: ColorConstants.graySub,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: IconButton(
+                            onPressed: _add,
+                            icon: Icon(
+                              Icons.add,
+                              size: getSize(16),
+                              color: ColorConstants.accent1,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    items: items
-                        .map(
-                          (String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: AppStyles.titleSearchSize14Fw400FfMont,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    value: adminController.selectedValue.value,
-                    onChanged: (value) {
-                      adminController.selectedValue.value = value!;
-                      adminController.idCityController.text =
-                          adminController.selectedValue.value;
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: getSize(50),
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: getSize(16),
-                        vertical: getSize(8),
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorConstants.darkGray.withOpacity(.5),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          getSize(8),
-                        ),
-                        boxShadow: const [],
-                        color: ColorConstants.white,
-                      ),
-                      elevation: 2,
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _children.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: getSize(16)),
+                          child: _children[index],
+                        );
+                      },
                     ),
-                    iconStyleData: IconStyleData(
-                      icon: SvgPicture.asset(
-                        AssetHelper.icFilter,
-                        width: getSize(24),
-                      ),
-                      iconEnabledColor: ColorConstants.botTitle,
-                      iconDisabledColor: Colors.grey,
+                    SizedBox(
+                      height: getSize(16),
                     ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: getSize(200),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.grey.shade100,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: getSize(20),
-                      ),
-                      offset: const Offset(-20, 0),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: MaterialStateProperty.all(6),
-                        thumbVisibility: MaterialStateProperty.all(true),
+                    const Text(
+                      "Rating Tour:",
+                      style: TextStyle(
+                        color: ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                    menuItemStyleData: MenuItemStyleData(
-                      height: getSize(40),
-                      padding: const EdgeInsets.only(left: 14, right: 14),
+                    SizedBox(
+                      height: getSize(12),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "StartDate Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                Container(
-                  width: double.infinity,
-                  color: ColorConstants.white,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          ColorConstants.white),
+                    MyTextField(
+                      controller: adminController.ratingController,
+                      hintText: "Enter rating tour",
+                      obscureText: false,
                     ),
-                    onPressed: () async {
-                      final result = await Get.toNamed(Routes.SELECT_DATE);
-                      if (result is List<DateTime?>) {
-                        startDateSelected = '${result[0]?.getDate}';
-                        setState(() {
-                          adminController.startDateController.text =
-                              startDateSelected;
-                        });
-                      }
-                    },
-                    child: Text(
-                      startDateSelected,
-                      style: AppStyles.black000Size14Fw400FfMont,
+                    SizedBox(
+                      height: getSize(16),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "EndDate Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                Container(
-                  width: double.infinity,
-                  color: ColorConstants.white,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          ColorConstants.white),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          final TourModel tourModelUpdate = TourModel(
+                            idTour: tourModel?.idTour ?? '',
+                            nameTour: adminController.nameTourController.text,
+                            description:
+                                adminController.descriptionController.text,
+                            idCity: adminController.idCityController.text,
+                            startDate: adminController.formatDateTime(
+                                adminController.startDateController.text),
+                            endDate: adminController.formatDateTime(
+                                adminController.endDateController.text),
+                            price: double.parse(
+                                adminController.priceController.text),
+                            images: List.empty(),
+                            duration: adminController.durationController.text,
+                            accommodation:
+                                adminController.accommodationController.text,
+                            itinerary: listIti,
+                            includedServices: List.empty(),
+                            excludedServices: List.empty(),
+                            reviews: List.empty(),
+                            rating: double.parse(
+                                adminController.ratingController.text),
+                            active: true,
+                            specialOffers: List.empty(),
+                            status: adminController.statusController.text,
+                          );
+                          _save(_controllers);
+                          adminController.editTourDetailsById(tourModelUpdate);
+                          adminController.clearController();
+                          Get.back();
+                          adminController.getAllTourModelData();
+                        },
+                        child: const Text('Update'),
+                      ),
                     ),
-                    onPressed: () async {
-                      final result = await Get.toNamed(Routes.SELECT_DATE);
-                      if (result is List<DateTime?>) {
-                        endDateSelected = '${result[0]?.getDate}';
-                        setState(() {
-                          adminController.endDateController.text =
-                              endDateSelected;
-                        });
-                      }
-                    },
-                    child: Text(
-                      endDateSelected,
-                      style: AppStyles.black000Size14Fw400FfMont,
+                    SizedBox(
+                      height: getSize(24),
                     ),
-                  ),
+                  ],
                 ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "Price Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                MyTextField(
-                  controller: adminController.priceController,
-                  hintText: "Enter price tour",
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "Itinerary Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                MyTextField(
-                  controller: adminController.itineraryController,
-                  hintText: "Enter itinerary tour",
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Text(
-                  "Rating Tour:",
-                  style: TextStyle(
-                    color: ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(12),
-                ),
-                MyTextField(
-                  controller: adminController.ratingController,
-                  hintText: "Enter rating tour",
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final TourModel tourModelUpdate = TourModel(
-                        idTour: tourModel?.idTour ?? '',
-                        nameTour: adminController.nameTourController.text,
-                        description: adminController.descriptionController.text,
-                        idCity: adminController.idCityController.text,
-                        startDate: adminController.formatDateTime(
-                            adminController.startDateController.text),
-                        endDate: adminController.formatDateTime(
-                            adminController.endDateController.text),
-                        price:
-                            double.parse(adminController.priceController.text),
-                        images: List.empty(),
-                        duration: adminController.durationController.text,
-                        accommodation:
-                            adminController.accommodationController.text,
-                        itinerary: List.empty(),
-                        includedServices: List.empty(),
-                        excludedServices: List.empty(),
-                        reviews: List.empty(),
-                        rating:
-                            double.parse(adminController.ratingController.text),
-                        active: true,
-                        specialOffers: List.empty(),
-                        status: adminController.statusController.text,
-                      );
-                      adminController.editTourDetailsById(tourModelUpdate);
-                      adminController.clearController();
-                      Get.back();
-                      adminController.getAllTourModelData();
-                    },
-                    child: const Text('Update'),
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(24),
-                ),
-              ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _add() {
+    TextEditingController newController = TextEditingController();
+    _controllers.add(newController);
+
+    _children = List.from(_children)
+      ..add(
+        MyTextField(
+          controller: newController,
+          hintText: "Enter itinerary of tour",
+          obscureText: false,
+        ),
+      );
+
+    setState(() => ++_count);
+  }
+
+  void _gen() {
+    for (var e in listIti) {
+      TextEditingController newController = TextEditingController();
+      newController.text = e;
+      _controllers.add(newController);
+
+      _children = List.from(_children)
+        ..add(
+          MyTextField(
+            controller: newController,
+            hintText: "Itinerary of tour",
+            obscureText: false,
+          ),
+        );
+
+      setState(() => ++_count);
+    }
+  }
+
+  void _save(List<TextEditingController> controllers) {
+    listIti.clear();
+    for (TextEditingController controller in controllers) {
+      listIti.add(controller.text);
+    }
   }
 }
