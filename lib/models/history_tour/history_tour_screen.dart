@@ -30,34 +30,34 @@ class HistoryScreen extends StatelessWidget {
       body: Obx(
         () => RefreshIndicator(
           onRefresh: () => historyTourController.refreshHistory(),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: getSize(16),
-                horizontal: getSize(24),
-              ),
-              child: historyTourController
-                          .getAllListHistory.value!.isNotEmpty &&
-                      historyTourController.getAllListHistory.value?.length !=
-                          null
-                  ? ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: historyTourController
-                              .getAllListHistory.value?.length ??
-                          2,
-                      itemBuilder: (BuildContext context, int rowIndex) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: getSize(12)),
-                          child: _buildItemHistory(
-                              tourModel: historyTourController
-                                  .getAllListHistory.value?[rowIndex]),
-                        );
-                      },
-                    )
-                  : const LoadingRiveCheck(),
-            ),
-          ),
+          child: historyTourController.getAllListHistory.value!.isNotEmpty &&
+                  historyTourController.getAllListHistory.value?.length != null
+              ? SingleChildScrollView(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: getSize(16),
+                        horizontal: getSize(24),
+                      ),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: historyTourController
+                                .getAllListHistory.value?.length ??
+                            2,
+                        itemBuilder: (BuildContext context, int rowIndex) {
+                          return Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: getSize(12)),
+                            child: _buildItemHistory(
+                                tourModel: historyTourController
+                                    .getAllListHistory.value?[rowIndex]),
+                          );
+                        },
+                      )),
+                )
+              : Center(
+                  child: LoadingRiveCheck(),
+                ),
         ),
       ),
     );
@@ -70,6 +70,9 @@ class _buildItemHistory extends StatelessWidget {
     required this.tourModel,
     super.key,
   });
+
+  HistoryTourController historyTourController =
+      Get.put(HistoryTourController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +97,14 @@ class _buildItemHistory extends StatelessWidget {
                   tourModel?.nameTour ?? 'Tour Đà Nẵng - Hội An',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: AppStyles.black000Size14Fw400FfMont,
+                  style: AppStyles.black000Size16Fw500FfMont,
                 ),
                 SizedBox(
                   height: getSize(8),
                 ),
                 Text(
-                  tourModel!.startDate.toString(),
+                  historyTourController
+                      .timestampToString(tourModel!.startDate!),
                   style: AppStyles.black000Size14Fw400FfMont,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

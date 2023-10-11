@@ -1,6 +1,4 @@
-import 'dart:ffi';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
@@ -16,7 +14,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class AdminCreateScreen extends StatefulWidget {
   const AdminCreateScreen({super.key});
@@ -38,6 +35,11 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
 
   String startDateSelected = '';
   String endDateSelected = '';
+
+  List<Widget> _children = [];
+  int _count = 0;
+  List<TextEditingController> _controllers = [];
+  List<String> listIti = [];
 
   @override
   Widget build(BuildContext context) {
@@ -311,21 +313,47 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "Itinerary Tour:",
-                      style: TextStyle(
-                        color: ColorConstants.graySub,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: getSize(12),
+                    Row(
+                      children: [
+                        const Text(
+                          "Itinerary Tour:",
+                          style: TextStyle(
+                            color: ColorConstants.graySub,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: IconButton(
+                            onPressed: _add,
+                            icon: Icon(
+                              Icons.add,
+                              size: getSize(16),
+                              color: ColorConstants.accent1,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     MyTextField(
                       controller: adminController.itineraryController,
-                      hintText: "Enter itinerary tour",
+                      hintText: "Enter itinerary tour of day 1",
                       obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _children.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: getSize(16)),
+                          child: _children[index],
+                        );
+                      },
                     ),
                     SizedBox(
                       height: getSize(16),
@@ -353,6 +381,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
                         onPressed: () {
+                          _save(_controllers);
                           if (_formCreateKey.currentState!.validate()) {
                             final TourModel tourModel = TourModel(
                               nameTour: adminController.nameTourController.text,
@@ -369,8 +398,8 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                               duration: adminController.durationController.text,
                               accommodation:
                                   adminController.accommodationController.text,
-                              itinerary: List.empty(),
-                              includedServices: List.empty(),
+                              itinerary: listIti,
+                              includedServices: listIti,
                               excludedServices: List.empty(),
                               reviews: List.empty(),
                               rating: double.parse(
@@ -399,5 +428,29 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
         ),
       ),
     );
+  }
+
+  void _add() {
+    TextEditingController newController = TextEditingController();
+    _controllers.add(newController);
+
+    _children = List.from(_children)
+      ..add(
+        MyTextField(
+          controller: newController,
+          hintText: "Enter itinerary tour of day ${_count + 2}",
+          obscureText: false,
+        ),
+      );
+
+    setState(() => ++_count);
+  }
+
+  void _save(List<TextEditingController> controllers) {
+    listIti.clear();
+    listIti.add(adminController.itineraryController.text);
+    for (TextEditingController controller in controllers) {
+      listIti.add(controller.text);
+    }
   }
 }

@@ -28,6 +28,24 @@ class AdminController extends GetxController {
 
   RxString selectedValue = '50HCM'.obs;
   final getListTour = Rxn<List<TourModel>>();
+  final filterListTourData = Rxn<List<TourModel>>();
+
+  TextEditingController searchController = TextEditingController();
+
+  // Filter by Name Tour
+  Future<void> filterListTourByName(String keyword) async {
+    if (keyword.isEmpty) {
+      getListTour.value = filterListTourData.value;
+    } else {
+      getListTour.value = filterListTourData.value
+          ?.where(
+            (listTour) => listTour.nameTour.toLowerCase().contains(
+                  keyword.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+  }
 
   Future<void> createTour(TourModel tourModel) async {
     await FirebaseFirestore.instance
@@ -59,7 +77,7 @@ class AdminController extends GetxController {
     try {
       DateTime dateTime = timestamp.toDate();
 
-      String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+      String formattedDate = DateFormat('dd-MM-yyyy HH:mm:ss').format(dateTime);
 
       return formattedDate;
     } catch (e) {
@@ -101,6 +119,7 @@ class AdminController extends GetxController {
         snapShot.docs.map((doc) => TourModel.fromJson(doc)).toList();
 
     getListTour.value = listTourData;
+    filterListTourData.value = listTourData;
   }
 
   Future<TourModel> getTourDetailsById(String id) async {
