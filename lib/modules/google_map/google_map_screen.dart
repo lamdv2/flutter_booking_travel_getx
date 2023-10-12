@@ -2,26 +2,28 @@ import 'dart:async';
 
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class GoogleMapScreen extends StatefulWidget {
-  GoogleMapScreen({Key? key}) : super(key: key);
+  const GoogleMapScreen({Key? key}) : super(key: key);
 
   @override
   State<GoogleMapScreen> createState() => _GoogleMapScreenState();
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  Location _locationController = Location();
+  final Location _locationController = Location();
 
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
 
-  LatLng? _current = null;
-
-  Map<PolylineId, Polyline> polylines = {};
+  LatLng? _current;
+  //duong
+  // Map<PolylineId, Polyline> polylines = {};
 
   static const LatLng _pGooglePlex = LatLng(16.0321926, 108.2198714);
   static const LatLng _pApplePark =
@@ -30,14 +32,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   void initState() {
     super.initState();
-    getLocationUpdates().then(
-      (_) => getPolylinePoints().then(
-        (coordinates) => {
-          generatePolyLineFromPoints(coordinates),
-        },
-      ),
-    );
-
+    // getLocationUpdates().then(
+    //   (_) => getPolylinePoints().then(
+    //     (coordinates) => {
+    //       generatePolyLineFromPoints(coordinates),
+    //     },
+    //   ),
+    // );
+    getPolyline('16.0321926', '108.2198714');
     loadImageMarker();
   }
 
@@ -45,7 +47,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   void loadImageMarker() async {
     customIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(48, 48)),
+      const ImageConfiguration(size: Size(48, 48)),
       'assets/custom_marker.png',
     );
   }
@@ -97,13 +99,52 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   Future<void> _cameraToPosition(LatLng pos) async {
     final GoogleMapController controller = await mapController.future;
-    CameraPosition _newCameraPosition = CameraPosition(
+    CameraPosition newCameraPosition = CameraPosition(
       target: pos,
       zoom: 13,
     );
     await controller.animateCamera(
-      CameraUpdate.newCameraPosition(_newCameraPosition),
+      CameraUpdate.newCameraPosition(newCameraPosition),
     );
+  }
+
+  Map<MarkerId, Marker> markers = {};
+  Map<PolylineId, Polyline> polylines = {};
+  List<LatLng> polylineCoordinates = [];
+  PolylinePoints polylinePoints = PolylinePoints();
+
+  void _addPolyLine() {
+    const id = PolylineId('poly');
+    final polyline = Polyline(
+      polylineId: id,
+      color: Colors.blue,
+      points: polylineCoordinates,
+      width: 4,
+    );
+    polylines[id] = polyline;
+    // update();
+  }
+
+  Future<void> getPolyline(String destLatitude, String destLongitude) async {
+    Position? currentPosition;
+    currentPosition = await Geolocator.getCurrentPosition(
+        // desiredAccuracy: LocationAccuracy.best,
+        );
+    final result = await polylinePoints.getRouteBetweenCoordinates(
+      'AIzaSyBD6fP1hIB0vbwy9s8AixLhVhYTLaSLw8Y',
+      PointLatLng(currentPosition.latitude, currentPosition.longitude),
+      PointLatLng(double.parse(destLatitude), double.parse(destLongitude)),
+      travelMode: TravelMode.transit,
+    );
+
+    polylineCoordinates.clear();
+
+    if (result.points.isNotEmpty) {
+      for (final point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+    }
+    _addPolyLine();
   }
 
   Future<List<LatLng>> getPolylinePoints() async {
@@ -127,7 +168,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
-    PolylineId id = PolylineId("poly");
+    PolylineId id = const PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
       color: ColorConstants.primaryButton,
@@ -140,20 +181,20 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Future<void> getLocationUpdates() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
 
-    _serviceEnabled = await _locationController.serviceEnabled();
-    if (_serviceEnabled) {
-      _serviceEnabled = await _locationController.requestService();
+    serviceEnabled = await _locationController.serviceEnabled();
+    if (serviceEnabled) {
+      serviceEnabled = await _locationController.requestService();
     } else {
       return;
     }
 
-    _permissionGranted = await _locationController.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await _locationController.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await _locationController.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await _locationController.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
