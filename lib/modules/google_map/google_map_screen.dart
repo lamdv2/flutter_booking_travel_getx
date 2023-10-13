@@ -29,6 +29,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   static const LatLng _pApplePark =
       LatLng(16.05786987902542, 108.21159745424494);
 
+  MapType currentMapType = MapType.normal;
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +41,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     //     },
     //   ),
     // );
-    getPolyline('16.0321926', '108.2198714');
+    getPolyline('16.05786987902542', '108.21159745424494');
     loadImageMarker();
   }
 
@@ -52,47 +54,140 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     );
   }
 
+  void changeMapType() {
+    setState(() {
+      currentMapType = MapType.hybrid;
+    });
+  }
+
+  void changeMapType01() {
+    setState(() {
+      currentMapType = MapType.satellite;
+    });
+  }
+
+  void changeMapType02() {
+    setState(() {
+      currentMapType = MapType.terrain;
+    });
+  }
+
+  void changeMapType03() {
+    setState(() {
+      currentMapType = MapType.normal;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     GoogleMapController? controller;
 
     return Scaffold(
-      body:
+      body: Stack(
+        children: [
           // _current == null
           //     ? const Center(
           //         child: Text('Loading...'),
           //       )
           //     :
           GoogleMap(
-        onMapCreated: ((GoogleMapController controller) =>
-            mapController.complete(controller)),
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(16.0321926, 108.2198714),
-          zoom: 12,
-        ),
-        markers: {
-          Marker(
-            markerId: const MarkerId("_currentLocation"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _current ?? const LatLng(16.0321926, 108.2298714),
-            draggable: true,
-            onDragEnd: (value) {},
+            onMapCreated: ((GoogleMapController controller) =>
+                mapController.complete(controller)),
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(16.0321926, 108.2198714),
+              zoom: 12,
+            ),
+            markers: {
+              Marker(
+                markerId: const MarkerId("_currentLocation"),
+                icon: BitmapDescriptor.defaultMarker,
+                position: _current ?? const LatLng(16.0321926, 108.2298714),
+                draggable: true,
+                onDragEnd: (value) {},
+              ),
+              Marker(
+                markerId: const MarkerId("_sourceLocation"),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueGreen),
+                position: const LatLng(16.0321926, 108.2198714),
+              ),
+              Marker(
+                markerId: const MarkerId("_destinationLocation"),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueAzure),
+                position: const LatLng(16.05786987902542, 108.21159745424494),
+              ),
+              Marker(
+                markerId: const MarkerId("_destinationLocation"),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueOrange),
+                position: const LatLng(16.0311715, 108.2099274),
+              ),
+            },
+            polylines: Set<Polyline>.of(polylines.values),
+            mapType: currentMapType,
+            // mapType: MapType.hybrid,
           ),
-          Marker(
-            markerId: const MarkerId("_sourceLocation"),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen),
-            position: const LatLng(16.0321926, 108.2198714),
-          ),
-          Marker(
-            markerId: const MarkerId("_destinationLocation"),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueAzure),
-            position: const LatLng(16.05786987902542, 108.21159745424494),
-          ),
-        },
-        polylines: Set<Polyline>.of(polylines.values),
-        // mapType: MapType.hybrid,
+          Container(
+            padding: const EdgeInsets.only(
+              top: 36,
+              right: 24,
+            ),
+            alignment: Alignment.topRight,
+            child: Column(
+              children: [
+                FloatingActionButton(
+                  backgroundColor: ColorConstants.green,
+                  onPressed: () {
+                    changeMapType();
+                  },
+                  child: const Icon(
+                    Icons.map,
+                    size: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    changeMapType01();
+                  },
+                  child: const Icon(
+                    Icons.maps_ugc,
+                    size: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                FloatingActionButton(
+                  backgroundColor: ColorConstants.secondColor,
+                  onPressed: () {
+                    changeMapType02();
+                  },
+                  child: const Icon(
+                    Icons.maps_home_work,
+                    size: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: getSize(12),
+                ),
+                FloatingActionButton(
+                  backgroundColor: ColorConstants.flights,
+                  onPressed: () {
+                    changeMapType03();
+                  },
+                  child: const Icon(
+                    Icons.home,
+                    size: 20,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -114,37 +209,43 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   PolylinePoints polylinePoints = PolylinePoints();
 
   void _addPolyLine() {
-    const id = PolylineId('poly');
-    final polyline = Polyline(
-      polylineId: id,
-      color: Colors.blue,
-      points: polylineCoordinates,
-      width: 4,
-    );
-    polylines[id] = polyline;
-    // update();
+    setState(() {
+      const id = PolylineId('poly');
+      final polyline = Polyline(
+        polylineId: id,
+        color: Colors.blue,
+        points: polylineCoordinates,
+        width: 4,
+      );
+      polylines[id] = polyline;
+    });
   }
 
   Future<void> getPolyline(String destLatitude, String destLongitude) async {
     Position? currentPosition;
-    currentPosition = await Geolocator.getCurrentPosition(
-        // desiredAccuracy: LocationAccuracy.best,
-        );
-    final result = await polylinePoints.getRouteBetweenCoordinates(
-      'AIzaSyBD6fP1hIB0vbwy9s8AixLhVhYTLaSLw8Y',
-      PointLatLng(currentPosition.latitude, currentPosition.longitude),
-      PointLatLng(double.parse(destLatitude), double.parse(destLongitude)),
-      travelMode: TravelMode.transit,
-    );
+    // currentPosition = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.best,
+    //     );
+    try {
+      final result = await polylinePoints.getRouteBetweenCoordinates(
+        'AIzaSyB1h4sNHP1uFGKs59Y72uGiO6SLW7ZGNuk',
+        // AIzaSyB-Lyksir7H6TAkkMk4PxNUkOz3KyuV9y4
+        PointLatLng(16.0311715, 108.2099274),
+        PointLatLng(double.parse(destLatitude), double.parse(destLongitude)),
+        travelMode: TravelMode.transit,
+      );
 
-    polylineCoordinates.clear();
+      polylineCoordinates.clear();
 
-    if (result.points.isNotEmpty) {
-      for (final point in result.points) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      if (result.points.isNotEmpty) {
+        for (final point in result.points) {
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        }
       }
+      _addPolyLine();
+    } catch (e) {
+      print('Lỗi khi lấy tuyến đường: $e');
     }
-    _addPolyLine();
   }
 
   Future<List<LatLng>> getPolylinePoints() async {

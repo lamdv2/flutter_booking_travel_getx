@@ -2,7 +2,9 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:label="doan_clean_achitec"
         android:name="${applicationName}"
@@ -11,7 +13,7 @@
 
         <meta-data
            android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyBD6fP1hIB0vbwy9s8AixLhVhYTLaSLw8Y" />
+           android:value="AIzaSyB1h4sNHP1uFGKs59Y72uGiO6SLW7ZGNuk" />
 
         <activity
             android:name=".MainActivity"

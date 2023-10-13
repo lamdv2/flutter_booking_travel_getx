@@ -98,6 +98,8 @@ dependencies:
   custom_map_markers: ^0.0.2+1
   flutter_polyline_points: ^2.0.0
   geolocator: ^10.0.1
+  flutter_config: ^2.0.2
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:
