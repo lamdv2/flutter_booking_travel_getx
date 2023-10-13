@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TourController extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -88,6 +89,21 @@ class TourController extends GetxController {
       }
     }
   }
+
+  // Location intent Map
+
+  Future<void> launchMap(String address) async {
+    final query = Uri.encodeComponent(address);
+    final url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    // ignore: deprecated_member_use
+    if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 
   // Filter List Tour
 
