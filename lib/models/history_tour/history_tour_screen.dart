@@ -5,18 +5,63 @@ import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
-import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 
 // ignore: must_be_immutable
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
   HistoryScreen({super.key});
 
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
   HistoryTourController historyTourController =
       Get.put(HistoryTourController());
+
   UserController userController = Get.put(UserController());
+
+  bool isShowLoading = true;
+  SMITrigger? check;
+  SMITrigger? error;
+  SMITrigger? reset;
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    artboard.addController(controller!);
+    return controller;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (historyTourController.getAllListHistory.value != null &&
+            historyTourController.getAllListHistory.value!.isNotEmpty) {
+          // check?.fire();
+          Future.delayed(const Duration(seconds: 1), () {
+            setState(() {
+              isShowLoading = false;
+            });
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 1), () {
+            // error?.fire();
+            setState(() {
+              isShowLoading = false;
+            });
+          });
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,38 +72,86 @@ class HistoryScreen extends StatelessWidget {
       appBar: CustomAppBar(
         titles: 'History',
       ),
-      body: Obx(
-        () => RefreshIndicator(
-          onRefresh: () => historyTourController.refreshHistory(),
-          child: historyTourController.getAllListHistory.value!.isNotEmpty &&
-                  historyTourController.getAllListHistory.value?.length != null
-              ? SingleChildScrollView(
-                  child: Padding(
+      body: RefreshIndicator(
+        onRefresh: () => historyTourController.refreshHistory(),
+        child: isShowLoading
+            ? Center(
+                child: SizedBox(
+                  height: getSize(120),
+                  width: getSize(120),
+                  child: RiveAnimation.asset(
+                    "assets/icons/riv/ic_checkerror.riv",
+                    onInit: (artboard) {
+                      StateMachineController controller =
+                          getRiveController(artboard);
+                      check = controller.findSMI("Check") as SMITrigger;
+                      error = controller.findSMI("Error") as SMITrigger;
+                      reset = controller.findSMI("Reset") as SMITrigger;
+                    },
+                  ),
+                ),
+              )
+            : historyTourController.getAllListHistory.value!.isNotEmpty
+                ? SingleChildScrollView(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: getSize(16),
                         horizontal: getSize(24),
                       ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: historyTourController
-                                .getAllListHistory.value?.length ??
-                            2,
-                        itemBuilder: (BuildContext context, int rowIndex) {
-                          return Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: getSize(12)),
-                            child: _buildItemHistory(
-                                tourModel: historyTourController
-                                    .getAllListHistory.value?[rowIndex]),
-                          );
-                        },
-                      )),
-                )
-              : Center(
-                  child: LoadingRiveCheck(),
-                ),
-        ),
+                      child: Obx(
+                        () => ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: historyTourController
+                                  .getAllListHistory.value?.length ??
+                              2,
+                          itemBuilder: (BuildContext context, int rowIndex) {
+                            return Padding(
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(12)),
+                              child: _buildItemHistory(
+                                  tourModel: historyTourController
+                                      .getAllListHistory.value?[rowIndex]),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            AssetHelper.icoNodata,
+                            width: getSize(360),
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(
+                            height: getSize(20),
+                          ),
+                          Text(
+                            'No data',
+                            style: AppStyles.black000Size16Fw400FfMont,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: getSize(16),
+                              horizontal: getSize(36.0),
+                            ),
+                            child: Text(
+                              'Looks like you haven\'t booked any tours yet. Why not book your first tour now?',
+                              style: AppStyles.black000Size14Fw400FfMont,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
       ),
     );
   }
