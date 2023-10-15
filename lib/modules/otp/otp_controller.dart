@@ -1,7 +1,6 @@
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/auth/auth.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
-import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

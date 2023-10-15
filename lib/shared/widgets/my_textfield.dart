@@ -8,13 +8,15 @@ class MyTextField extends StatefulWidget {
   final controller;
   final String hintText;
   final bool obscureText;
+  final String? Function(String?)? validatorCheck;
 
-  const MyTextField(
-      {Key? key,
-      required this.controller,
-      required this.hintText,
-      required this.obscureText})
-      : super(key: key);
+  const MyTextField({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+    required this.obscureText,
+    this.validatorCheck,
+  }) : super(key: key);
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -22,22 +24,19 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
 
   @override
   void initState() {
     super.initState();
 
     _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
+      setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
@@ -63,8 +62,29 @@ class _MyTextFieldState extends State<MyTextField> {
           color: ColorConstants.accent1,
           fontWeight: FontWeight.w400,
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            width: 1.5,
+            color: ColorConstants.red,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            width: 0.5,
+            color: ColorConstants.red,
+          ),
+        ),
         isDense: true,
       ),
+      validator: (widget.validatorCheck ??
+          (value) {
+            if (value == null || value.trim().isEmpty) {
+              return 'Don\'t empty';
+            }
+            return null;
+          }),
       cursorColor: ColorConstants.primaryButton,
     );
   }

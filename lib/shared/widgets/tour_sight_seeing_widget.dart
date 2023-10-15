@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: must_be_immutable
 class TourSightSeeingWidget extends StatelessWidget {
   String nameImage;
 
@@ -43,7 +44,7 @@ class TourSightSeeingWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Spacer(),
+                const Spacer(),
                 Text(
                   'Madeira',
                   style: AppStyles.white000Size13FfMont
@@ -56,7 +57,10 @@ class TourSightSeeingWidget extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       AssetHelper.icoMaps,
-                      color: ColorConstants.btnCanCel,
+                      colorFilter: const ColorFilter.mode(
+                        ColorConstants.btnCanCel,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     SizedBox(
                       width: getFontSize(8),
@@ -82,7 +86,10 @@ class TourSightSeeingWidget extends StatelessWidget {
                         SvgPicture.asset(
                           AssetHelper.icoStarSvg,
                           width: getSize(16),
-                          color: ColorConstants.yellow,
+                          colorFilter: const ColorFilter.mode(
+                            ColorConstants.yellow,
+                            BlendMode.srcIn,
+                          ),
                         ),
                         SizedBox(
                           width: getFontSize(8),

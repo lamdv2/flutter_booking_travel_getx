@@ -5,12 +5,12 @@ import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
-import 'package:doan_clean_achitec/shared/utils/convert_date_time.dart';
 import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});
 
@@ -64,6 +64,7 @@ class HistoryScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable, camel_case_types
 class _buildItemHistory extends StatelessWidget {
   TourModel? tourModel;
   _buildItemHistory({

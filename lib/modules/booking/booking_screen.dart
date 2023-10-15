@@ -84,7 +84,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                       children: [
                                         SvgPicture.asset(
                                           AssetHelper.icLocation,
-                                          color: ColorConstants.accent1,
+                                          colorFilter: const ColorFilter.mode(
+                                            ColorConstants.accent1,
+                                            BlendMode.srcIn,
+                                          ),
                                           width: getSize(34),
                                         ),
                                         SizedBox(

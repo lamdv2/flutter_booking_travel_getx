@@ -18,6 +18,7 @@ class SplashController extends GetxController {
 
     try {
       if (checkIntroScreen != null && checkIntroScreen) {
+        // ignore: unnecessary_null_comparison
         if (user != null) {
           Get.offNamed(Routes.HOME);
         } else {

@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/shared/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,8 @@ class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key, this.onTap});
 
   final AuthController controller = Get.find();
+
+  final GlobalKey<FormState> registerKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,49 +49,97 @@ class RegisterScreen extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
                   ),
-
-                  //username
                   const SizedBox(
                     height: 26,
                   ),
-                  MyTextField(
-                    controller: controller.registerEmailController,
-                    hintText: "Enter your email",
-                    obscureText: false,
-                  ),
 
-                  //password
-                  const SizedBox(
-                    height: 16,
+                  Form(
+                    key: registerKey,
+                    child: Column(
+                      children: [
+                        MyTextField(
+                          controller: controller.registerEmailController,
+                          hintText: "Enter your email",
+                          obscureText: false,
+                          validatorCheck: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Email don\'t empty';
+                            }
+                            if (!Regex.isEmail(value.trim())) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        MyTextField(
+                          controller: controller.registerPasswordController,
+                          hintText: "Enter your password",
+                          obscureText: true,
+                          validatorCheck: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Password don\'t empty';
+                            }
+                            if (!Regex.isPasswordAtLeast6Characters(
+                                value.trim())) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            if (!Regex.isPasswordUpcase(value.trim())) {
+                              return 'Password must contain at least one capital letter';
+                            }
+                            if (!Regex.isPasswordNumber(value.trim())) {
+                              return 'password must contain at least one number';
+                            }
+                            if (!Regex.isPasswordSpecialChar(value.trim())) {
+                              return 'Password must contain at least one special character';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        MyTextField(
+                          controller:
+                              controller.registerConfirmPasswordController,
+                          hintText: "Confirm your password",
+                          obscureText: true,
+                          validatorCheck: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Password don\'t empty';
+                            }
+                            if (!Regex.isPasswordAtLeast6Characters(
+                                value.trim())) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            if (!Regex.isPasswordUpcase(value.trim())) {
+                              return 'Password must contain at least one capital letter';
+                            }
+                            if (!Regex.isPasswordNumber(value.trim())) {
+                              return 'password must contain at least one number';
+                            }
+                            if (!Regex.isPasswordSpecialChar(value.trim())) {
+                              return 'Password must contain at least one special character';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 45,
+                        ),
+                        MyButton(
+                          onTap: () {
+                            if (registerKey.currentState!.validate()) {
+                              controller.register(context);
+                            }
+                          },
+                          textBtn: 'Sign Up',
+                        ),
+                      ],
+                    ),
                   ),
-                  MyTextField(
-                    controller: controller.registerPasswordController,
-                    hintText: "Enter your password",
-                    obscureText: true,
-                  ),
-
-                  //confirm password
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  MyTextField(
-                    controller: controller.registerConfirmPasswordController,
-                    hintText: "Confirm your password",
-                    obscureText: true,
-                  ),
-
-                  //Btn Sign In
-                  const SizedBox(
-                    height: 45,
-                  ),
-                  MyButton(
-                    onTap: () {
-                      controller.register(context);
-                    },
-                    textBtn: 'Sign Up',
-                  ),
-
-                  //divider continue
                   const SizedBox(
                     height: 30,
                   ),

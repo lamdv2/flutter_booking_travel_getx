@@ -62,6 +62,7 @@ class AdminController extends GetxController {
         );
         clearController();
       },
+      // ignore: body_might_complete_normally_catch_error
     ).catchError((error) {
       Get.snackbar(
         "Error",

@@ -1,4 +1,3 @@
-import 'package:doan_clean_achitec/modules/google_map/google_map_screen.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
