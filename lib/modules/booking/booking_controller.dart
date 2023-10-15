@@ -13,7 +13,6 @@ class BookingController extends GetxController {
   String convertToDDMM(String inputDate) {
     final parts = inputDate.split('-');
     if (parts.length == 3) {
-      final year = parts[0];
       final month = parts[1];
       final day = parts[2];
       return '$day/$month';

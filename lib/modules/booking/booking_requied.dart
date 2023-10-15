@@ -1,7 +1,6 @@
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
-import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -17,7 +16,6 @@ class BookingRequiedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TourController tourController = Get.put(TourController());
     final BookingController bookingController = Get.put(BookingController());
 
     return Scaffold(

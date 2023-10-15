@@ -49,6 +49,7 @@ class ProfileController extends GetxController {
             colorText: ColorConstants.blue,
           ),
         )
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error) {
       Get.snackbar(
         "Error",
@@ -108,16 +109,17 @@ class ProfileController extends GetxController {
       userController.clearUserName();
 
       // ignore: use_build_context_synchronously
-      Incorrect(context, "Logout Success");
+      Incorrect("Logout Success");
     } catch (e) {
-      wrongMessage(context, "Logout failed: $e");
+      wrongMessage("Logout failed: $e");
     }
   }
 
   // ignore: non_constant_identifier_names
-  void Incorrect(BuildContext context, String text) {
+  void Incorrect(String text) {
+    final context = Get.context;
     showDialog(
-      context: context,
+      context: context!,
       anchorPoint: const Offset(10, 10),
       builder: (context) {
         return Center(
@@ -129,13 +131,14 @@ class ProfileController extends GetxController {
     );
   }
 
-  Future<void> wrongMessage(BuildContext context, String message) async {
+  Future<void> wrongMessage(String message) async {
     await Future.delayed(const Duration(seconds: 2));
 
-    if (context != null && Navigator.canPop(context)) {
-      await Future.microtask(() {
+    await Future.microtask(
+      () {
+        final context = Get.context;
         showDialog(
-          context: context,
+          context: context!,
           builder: (context) {
             return AlertDialog(
               backgroundColor: Colors.blue,
@@ -147,7 +150,7 @@ class ProfileController extends GetxController {
             );
           },
         );
-      });
-    }
+      },
+    );
   }
 }

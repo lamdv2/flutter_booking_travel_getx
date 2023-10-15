@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+// ignore: must_be_immutable
 class LoadingRiveCheck extends StatelessWidget {
   LoadingRiveCheck({
     super.key,

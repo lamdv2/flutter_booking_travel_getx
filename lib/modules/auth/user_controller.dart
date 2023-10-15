@@ -21,12 +21,10 @@ class UserController extends GetxController {
 
   void initializeUser() {
     user.value = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final email = user.value?.email;
-      if (email != null && email.isNotEmpty) {
-        userName.value = email.substring(0, 5);
-        userEmail.value = email;
-      }
+    final email = user.value?.email;
+    if (email != null && email.isNotEmpty) {
+      userName.value = email.substring(0, 5);
+      userEmail.value = email;
     }
   }
 

@@ -9,13 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   final registerEmailController = TextEditingController();
   final registerPasswordController = TextEditingController();
   final registerConfirmPasswordController = TextEditingController();
   bool registerTermsChecked = false;
 
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final loginEmailController = TextEditingController();
   final loginPasswordController = TextEditingController();
 
@@ -66,7 +64,6 @@ class AuthController extends GetxController {
       // ignore: unnecessary_null_comparison
       return credentials != null;
     } catch (error) {
-      print("Error verifying OTP: $error");
       return false;
     }
   }
@@ -84,32 +81,46 @@ class AuthController extends GetxController {
     );
 
     try {
-      if (registerPasswordController.text ==
-          registerConfirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: registerEmailController.text,
-            password: registerPasswordController.text);
+      final email = registerEmailController.text;
+      final password = registerPasswordController.text;
 
-        final UserModel userModel = UserModel(
-          email: registerEmailController.text,
-          passWord: registerPasswordController.text,
+      final existingUser =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+
+      if (existingUser.isNotEmpty) {
+        // ignore: use_build_context_synchronously
+        Get.back(result: context);
+        // ignore: use_build_context_synchronously
+        wrongMessage(context, "Email already in use");
+        return;
+      }
+
+      if (password == registerConfirmPasswordController.text) {
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+
+        final userModel = UserModel(
+          email: email,
+          passWord: password,
           phoneNub: "",
           isActive: true,
         );
+
         await _profileController.createUser(userModel);
 
+        Incorrect("Register Success");
         // ignore: use_build_context_synchronously
-        Get.back(result: context);
-
-        // ignore: use_build_context_synchronously
-        Incorrect(context, "Register Success");
+        Get.back();
       } else {
-        Get.back(result: context);
-
-        wrongMessage(context, "password don't match!");
+        // ignore: use_build_context_synchronously
+        Get.back();
+        // ignore: use_build_context_synchronously
+        wrongMessage(context, "Passwords don't match");
       }
     } on FirebaseAuthException catch (e) {
-      Get.back(result: context);
+      // ignore: use_build_context_synchronously
+      Get.back();
+      // ignore: use_build_context_synchronously
       wrongMessage(context, "${e.code} register");
     }
   }
@@ -131,21 +142,24 @@ class AuthController extends GetxController {
           email: loginEmailController.text,
           password: loginPasswordController.text);
       // ignore: use_build_context_synchronously
-      Get.back(result: context);
+      Incorrect("Login Success");
 
       // ignore: use_build_context_synchronously
-      Incorrect(context, "Login Success");
-    } on FirebaseAuthException catch (e) {
       Get.back(result: context);
-
+    } on FirebaseAuthException catch (e) {
+      // ignore: use_build_context_synchronously
       wrongMessage(context, "${e.code} login");
+
+      // ignore: use_build_context_synchronously
+      Get.back(result: context);
     }
   }
 
   // ignore: non_constant_identifier_names
-  void Incorrect(BuildContext context, String text) {
+  void Incorrect(String text) {
+    final context = Get.context;
     showDialog(
-      context: context,
+      context: context!,
       barrierDismissible: true,
       anchorPoint: const Offset(10, 10),
       builder: (context) {
@@ -173,8 +187,9 @@ class AuthController extends GetxController {
     } else if (message == "wrong-password") {
       errorMessage = "Invalid password. Please try again.";
     }
+    final context = Get.context;
     showDialog(
-      context: context,
+      context: context!,
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.blue,

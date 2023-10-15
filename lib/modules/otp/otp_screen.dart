@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
+// ignore: must_be_immutable
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 

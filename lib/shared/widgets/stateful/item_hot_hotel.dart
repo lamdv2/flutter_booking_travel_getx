@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_style.dart';
 import '../../utils/size_utils.dart';
 
+// ignore: must_be_immutable
 class ItemTopHotel extends StatelessWidget {
   String nameHotel;
   String imgHotel;

@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
+// ignore: must_be_immutable
 class TourItemWidget extends StatelessWidget {
   TourModel listTour;
   Function()? onTap;

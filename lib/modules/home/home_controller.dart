@@ -9,6 +9,7 @@ import '../../models/history/history_model.dart';
 class HomeController extends GetxController {
   @override
   void onInit() {
+    super.onInit();
     getUserDetails(userController.userEmail.value);
   }
 
