@@ -37,6 +37,8 @@ class AssetHelper {
   static const String icoTicket = 'assets/icons/ic_ticket.png';
   static const String icoSunShade = 'assets/icons/ic_sunshade.png';
 
+  static const String icoNodata = 'assets/icons/ic_nodata.png';
+
   static const String icActivity = 'assets/icons/svg/ic_activity.svg';
   static const String icAddUser = 'assets/icons/svg/ic_add_user.svg';
   static const String icArrowDownCircle =
