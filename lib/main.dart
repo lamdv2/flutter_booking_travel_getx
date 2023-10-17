@@ -1,6 +1,6 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
-import 'package:doan_clean_achitec/theme/theme_data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -23,24 +23,35 @@ void main() async {
   );
   final fcmToken = await FirebaseMessaging.instance.getToken();
   print(fcmToken);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
+  final AppController controller = Get.put(AppController());
+  final mainTheme = ThemeData(
+    scaffoldBackgroundColor: ColorConstants.white,
+    appBarTheme: const AppBarTheme(
+      color: Colors.transparent,
+    ),
+  );
+
+  final darkTheme = ThemeData.dark();
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      initialRoute: Routes.SPLASH,
-      defaultTransition: Transition.fade,
-      getPages: AppPages.routes,
-      smartManagement: SmartManagement.keepFactory,
-      title: 'Flutter GetX Clean Travel',
-      theme: ThemeConfig.lightTheme,
-      builder: EasyLoading.init(),
+    return Obx(
+      () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        enableLog: true,
+        initialRoute: Routes.SPLASH,
+        defaultTransition: Transition.fade,
+        getPages: AppPages.routes,
+        smartManagement: SmartManagement.keepFactory,
+        title: 'Flutter GetX Clean Travel',
+        theme: controller.isDarkModeOn.value ? darkTheme : mainTheme,
+        builder: EasyLoading.init(),
+      ),
     );
   }
 }

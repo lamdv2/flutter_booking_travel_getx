@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
@@ -23,6 +24,7 @@ final ProfileController controller = Get.find();
 
 class _SettingScreenState extends State<SettingScreen> {
   final UserController userController = Get.find();
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -599,6 +601,30 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               SizedBox(
                 height: getSize(32),
+              ),
+              ListTile(
+                onTap: () => appController.toggleDarkMode(),
+                leading: SvgPicture.asset(
+                    'assets/images/x3/ic_dark_mode_profile.svg'),
+                title: const Text(
+                  'Dark mode',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: Obx(
+                  () => Switch(
+                    value: appController.isDarkModeOn.value,
+                    activeTrackColor: appController.isDarkModeOn.value
+                        ? Colors.white
+                        : Colors.blueGrey,
+                    activeColor: appController.isDarkModeOn.value
+                        ? Colors.white
+                        : Colors.lightBlue,
+                    onChanged: (value) {
+                      appController.toggleDarkMode();
+                    },
+                  ),
+                ),
               ),
             ],
           ),
