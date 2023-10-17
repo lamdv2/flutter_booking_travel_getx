@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class HomeHeader extends StatelessWidget {
   final bool? avatar;
 
   final AppController appController = Get.find();
+  final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class HomeHeader extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Scaffold.of(context).openDrawer();
+                  profileController.scaffoldKey.currentState?.openDrawer();
                 },
                 child: Padding(
                   padding: EdgeInsets.only(right: getSize(6)),
@@ -57,7 +59,7 @@ class HomeHeader extends StatelessWidget {
                   ? GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.PROFILE,
-                            arguments: stringConst.userName);
+                            arguments: StringConst.userName);
                       },
                       child: Container(
                         width: getSize(36),

@@ -9,7 +9,7 @@ import 'value/vi_VN.dart';
 
 class TranslationService extends Translations {
   static Locale? get locale => fallbackLocale;
-  static final fallbackLocale = const Locale('en', 'US');
+  static const fallbackLocale = Locale('en', 'US');
 
   static final langCodes = ['en', 'vi', 'ko'];
 

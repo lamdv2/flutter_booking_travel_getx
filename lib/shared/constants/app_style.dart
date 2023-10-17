@@ -316,7 +316,14 @@ class AppStyles {
     color: ColorConstants.blueSecond,
   );
 
-  // blue
+  static TextStyle blueSize16Fw400FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: ColorConstants.blueSecond,
+  );
+
+  // gray
   static TextStyle graySize16Fw400FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 16,

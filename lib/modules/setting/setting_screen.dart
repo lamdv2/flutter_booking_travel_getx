@@ -2,6 +2,7 @@ import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/profile_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/item_setting_widget.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: getSize(32),
               ),
               Text(
-                "App Setting",
+                StringConst.appSetting.tr,
                 style: AppStyles.black000Size14Fw400FfMont.copyWith(
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.white
@@ -109,7 +110,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               ItemSettingWidget(
                 title: 'Dark mode',
-                image: AssetHelper.icPassword,
+                image: 'assets/images/x3/ic_dark_mode_profile.svg',
                 isSwitch: true,
               ),
               SizedBox(
@@ -140,27 +141,26 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: getSize(32),
               ),
               ListTile(
-                onTap: () => appController.toggleDarkMode(),
-                leading: SvgPicture.asset(
-                    'assets/images/x3/ic_dark_mode_profile.svg'),
-                title: const Text(
-                  'Dark mode',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                trailing: Obx(
-                  () => Switch(
-                    value: appController.isDarkModeOn.value,
-                    activeTrackColor: appController.isDarkModeOn.value
-                        ? Colors.white
-                        : Colors.blueGrey,
-                    activeColor: appController.isDarkModeOn.value
-                        ? Colors.white
-                        : Colors.lightBlue,
-                    onChanged: (value) {
-                      appController.toggleDarkMode();
-                    },
-                  ),
+                onTap: () {},
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Logout',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      width: getSize(16),
+                    ),
+                    Image.asset(
+                      AssetHelper.icoLogout,
+                      color: ColorConstants.graySub,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ],
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),

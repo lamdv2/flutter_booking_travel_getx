@@ -1,4 +1,7 @@
+// ignore: file_names
 const Map<String, String> ko = {
+  'appSetting': '잘못된',
+  
   'invalid_code': '잘못된 QR 코드',
   'clearhead': '클리어헤드',
   'shareBanner': '공유 배너',

@@ -1,19 +1,21 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/history_tour/history_tour_controller.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
 
 // ignore: must_be_immutable
 class HistoryScreen extends StatefulWidget {
-  HistoryScreen({super.key});
+  const HistoryScreen({super.key});
 
   @override
   State<HistoryScreen> createState() => _HistoryScreenState();
@@ -24,6 +26,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       Get.put(HistoryTourController());
 
   UserController userController = Get.put(UserController());
+  AppController appController = Get.find();
 
   bool isShowLoading = true;
   SMITrigger? check;
@@ -72,6 +75,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         titles: 'History',
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.appbarDarkmode
+            : ColorConstants.primaryButton,
+        iconBgrColor: ColorConstants.grayTextField,
       ),
       body: RefreshIndicator(
         onRefresh: () => historyTourController.refreshHistory(),
@@ -127,46 +134,46 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                AssetHelper.icoNodata,
-                                width: getSize(360),
-                                fit: BoxFit.cover,
-                              ),
-                              SizedBox(
-                                height: getSize(20),
-                              ),
-                              Text(
-                                'No data',
-                                style: AppStyles.black000Size16Fw500FfMont,
+                              Lottie.asset(
+                                AssetHelper.imgLottieNodate,
+                                width: getSize(200),
+                                height: getSize(200),
+                                fit: BoxFit.fill,
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: getSize(16),
-                                  horizontal: getSize(36.0),
+                                  horizontal: getSize(48.0),
                                 ),
                                 child: Text(
-                                  'Looks like you haven\'t booked any tours yet.\nWhy not book your first tour now?',
-                                  style: AppStyles.black000Size14Fw400FfMont,
+                                  'Looks like you haven\'t booked any tours yet. Booking your first tour right now!',
+                                  style: AppStyles.black000Size12Fw400FfMont,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                               SizedBox(
-                                height: getSize(20),
+                                height: getSize(64),
                               ),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.toNamed(Routes.TOUR);
+                                },
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Booking first tour!',
-                                      style:
-                                          AppStyles.black000Size16Fw500FfMont,
+                                    Lottie.asset(
+                                      AssetHelper.imgLottieArrowRight,
+                                      width: getSize(32),
+                                      height: getSize(32),
+                                      fit: BoxFit.fill,
                                     ),
-                                    SvgPicture.asset(
-                                      AssetHelper.icoNextRight,
-                                      color: ColorConstants.accent1,
+                                    SizedBox(
+                                      width: getSize(16),
+                                    ),
+                                    InkWell(
+                                      child: Text(
+                                        'See Tour',
+                                        style: AppStyles.blueSize16Fw400FfMont,
+                                      ),
                                     )
                                   ],
                                 ),

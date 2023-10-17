@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/auth/auth.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
@@ -27,6 +28,7 @@ final ProfileController profileController = Get.put(ProfileController());
 final AuthController authController = Get.put(AuthController());
 final TourController tourController = Get.put(TourController());
 final BookingController bookingController = Get.find();
+final AppController appController = Get.find();
 
 class _TourScreenState extends State<TourScreen> {
   IconData? iconHeart = FontAwesomeIcons.solidHeart;
@@ -78,7 +80,12 @@ class _TourScreenState extends State<TourScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.appbarDarkmode
+            : ColorConstants.primaryButton,
+        iconBgrColor: ColorConstants.grayTextField,
+      ),
       body: Obx(
         () => RefreshIndicator(
           onRefresh: tourController.refreshTourList,

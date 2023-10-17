@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       if (user!.email!.isNotEmpty) {
-        stringConst.userName = user!.email!.toString().substring(0, 3);
+        StringConst.userName = user!.email!.toString().substring(0, 3);
         userController.userName.value = user!.email!.toString().substring(0, 5);
         userController.userEmail.value = user!.email!;
       }
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _selectedLanguage = Language(1, "🇺🇸", "English", "en").obs;
   Language get selectedLanguage => _selectedLanguage.value;
-  
+
   void handleLanguageSelection(Language? language) {
     if (language != null) {
       _selectedLanguage.value = language;
@@ -103,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -110,40 +111,38 @@ class _HomeScreenState extends State<HomeScreen> {
         key: profileController.scaffoldKey,
         drawer: DrawerWidget(),
         body: SafeArea(
-          child: Stack(
-            children:[
-               IndexedStack(
+          child: Stack(children: [
+            IndexedStack(
               index: homeController.currentIndex.value,
               children: _widgetOptions(),
             ),
-               Padding(
-                    padding:const EdgeInsetsDirectional.all(10),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        width: getSize(45),
-                        height: getSize(45),
-                        child: Card(
-                          color: ColorConstants.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          elevation: 3.0,
-                          child: SpeedDial(
-                            icon: Icons.language,
-                            direction: SpeedDialDirection.down,
-                            curve: Curves.bounceOut,
-                            animatedIconTheme: const IconThemeData(size: 12.0),
-                            backgroundColor:  ColorConstants.blue,
-                            foregroundColor: ColorConstants.white,
-                            children: _buildLanguageOptions(),
-                          ),
-                        ),
-                      ),
+            Padding(
+              padding: const EdgeInsetsDirectional.all(12),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  width: getSize(45),
+                  height: getSize(45),
+                  child: Card(
+                    color: ColorConstants.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    elevation: 3.0,
+                    child: SpeedDial(
+                      icon: Icons.language,
+                      direction: SpeedDialDirection.up,
+                      curve: Curves.bounceOut,
+                      animatedIconTheme: const IconThemeData(size: 12.0),
+                      backgroundColor: ColorConstants.blue,
+                      foregroundColor: ColorConstants.white,
+                      children: _buildLanguageOptions(),
                     ),
                   ),
-            ]
-          ),
+                ),
+              ),
+            ),
+          ]),
         ),
         backgroundColor: ColorConstants.white,
         bottomNavigationBar: SalomonBottomBar(
