@@ -6,13 +6,17 @@ import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../../shared/utils/size_utils.dart';
 import '../../shared/widgets/stateless/drawer_widget.dart';
 import '../auth/user_controller.dart';
 import '../discover/discover_screen.dart';
+import '../lang/language.dart';
+import '../lang/translation_service.dart';
 import '../setting/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -61,6 +65,42 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  final _selectedLanguage = Language(1, "🇺🇸", "English", "en").obs;
+  Language get selectedLanguage => _selectedLanguage.value;
+  
+  void handleLanguageSelection(Language? language) {
+    if (language != null) {
+      _selectedLanguage.value = language;
+      String code = language.code;
+
+      if (code == 'vi') {
+        TranslationService.changeLocale('vi');
+      } else if (code == 'en') {
+        TranslationService.changeLocale('en');
+      } else if (code == 'ko') {
+        TranslationService.changeLocale('ko');
+      }
+      print("Bạn đã chọn: ${language.name}");
+    }
+  }
+
+  List<SpeedDialChild> _buildLanguageOptions() {
+    return [
+      _buildLanguageOption('🇺🇸 English', 'en'),
+      _buildLanguageOption('🇰🇷 Korean', 'ko'),
+      _buildLanguageOption('🇻🇳 Vietnamese', 'vi'),
+    ];
+  }
+
+  SpeedDialChild _buildLanguageOption(String label, String locale) {
+    return SpeedDialChild(
+      backgroundColor: ColorConstants.blue,
+      label: label,
+      onTap: () {
+        TranslationService.changeLocale(locale);
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -68,9 +108,39 @@ class _HomeScreenState extends State<HomeScreen> {
         key: profileController.scaffoldKey,
         drawer: DrawerWidget(),
         body: SafeArea(
-          child: IndexedStack(
-            index: homeController.currentIndex.value,
-            children: _widgetOptions(),
+          child: Stack(
+            children:[
+               IndexedStack(
+              index: homeController.currentIndex.value,
+              children: _widgetOptions(),
+            ),
+               Padding(
+                    padding:const EdgeInsetsDirectional.all(10),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: getSize(45),
+                        height: getSize(45),
+                        child: Card(
+                          color: ColorConstants.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          elevation: 3.0,
+                          child: SpeedDial(
+                            icon: Icons.language,
+                            direction: SpeedDialDirection.down,
+                            curve: Curves.bounceOut,
+                            animatedIconTheme: const IconThemeData(size: 12.0),
+                            backgroundColor:  ColorConstants.blue,
+                            foregroundColor: ColorConstants.white,
+                            children: _buildLanguageOptions(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+            ]
           ),
         ),
         backgroundColor: ColorConstants.white,

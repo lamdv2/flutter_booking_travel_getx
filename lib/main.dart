@@ -8,6 +8,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'modules/lang/translation_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
@@ -50,6 +52,9 @@ class MyApp extends StatelessWidget {
         smartManagement: SmartManagement.keepFactory,
         title: 'Flutter GetX Clean Travel',
         theme: controller.isDarkModeOn.value ? darkTheme : mainTheme,
+        locale: TranslationService.locale,
+        fallbackLocale: TranslationService.fallbackLocale,
+        translations: TranslationService(),
         builder: EasyLoading.init(),
       ),
     );
