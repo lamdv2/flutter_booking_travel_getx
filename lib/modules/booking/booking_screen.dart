@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/tour/tour_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
@@ -22,6 +23,7 @@ class _BookingScreenState extends State<BookingScreen> {
   HomeController homeController = Get.find();
   BookingController bookingController = Get.put(BookingController());
   TourController tourController = Get.put(TourController());
+  final AppController appController = Get.find();
 
   static String dateSelected = '';
 
@@ -44,6 +46,9 @@ class _BookingScreenState extends State<BookingScreen> {
       child: Scaffold(
         appBar: CustomAppBar(
           titles: "Booking",
+          backgroundColor: appController.isDarkModeOn.value
+              ? ColorConstants.appbarDarkmode
+              : ColorConstants.primaryButton,
           iconBgrColor: ColorConstants.grayTextField,
           onTap: () {
             if (homeController.currentIndex.value != 0) {
@@ -62,7 +67,10 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                   Text(
                     "Choose your favorite hotel and enjoy the service",
-                    style: AppStyles.botTitle000Size12Fw400FfMont,
+                    style: AppStyles.botTitle000Size12Fw400FfMont.copyWith(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.dividerColor
+                            : ColorConstants.botTitle),
                   ),
                   SizedBox(
                     height: getSize(46),
@@ -73,7 +81,9 @@ class _BookingScreenState extends State<BookingScreen> {
                         isExpanded: true,
                         underline: Divider(
                           thickness: 0.5,
-                          color: Colors.grey.shade400,
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.bgrDarkmode
+                              : ColorConstants.grayTextField,
                         ),
                         items: tourController.items.value != null
                             ? tourController.items.value!
@@ -84,8 +94,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                       children: [
                                         SvgPicture.asset(
                                           AssetHelper.icLocation,
-                                          colorFilter: const ColorFilter.mode(
-                                            ColorConstants.accent1,
+                                          colorFilter: ColorFilter.mode(
+                                            appController.isDarkModeOn.value
+                                                ? ColorConstants.white
+                                                : ColorConstants.accent1,
                                             BlendMode.srcIn,
                                           ),
                                           width: getSize(34),
@@ -102,7 +114,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                             Text(
                                               "Destination",
                                               style: AppStyles
-                                                  .botTitle000Size14Fw400FfMont,
+                                                  .botTitle000Size14Fw400FfMont
+                                                  .copyWith(
+                                                color: appController
+                                                        .isDarkModeOn.value
+                                                    ? ColorConstants.white
+                                                    : ColorConstants.botTitle,
+                                              ),
                                             ),
                                             SizedBox(
                                               height: getSize(4.0),
@@ -110,7 +128,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                             Text(
                                               item,
                                               style: AppStyles
-                                                  .botTitle000Size14Fw400FfMont,
+                                                  .botTitle000Size14Fw400FfMont
+                                                  .copyWith(
+                                                color: appController
+                                                        .isDarkModeOn.value
+                                                    ? ColorConstants.white
+                                                    : ColorConstants.botTitle,
+                                              ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ],
@@ -140,7 +164,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                             Text(
                                               "Destination",
                                               style: AppStyles
-                                                  .botTitle000Size14Fw400FfMont,
+                                                  .botTitle000Size14Fw400FfMont
+                                                  .copyWith(
+                                                color: appController
+                                                        .isDarkModeOn.value
+                                                    ? ColorConstants.white
+                                                    : ColorConstants.botTitle,
+                                              ),
                                             ),
                                             SizedBox(
                                               height: getSize(8.0),
@@ -148,7 +178,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                             Text(
                                               item,
                                               style: AppStyles
-                                                  .botTitle000Size14Fw400FfMont,
+                                                  .botTitle000Size14Fw400FfMont
+                                                  .copyWith(
+                                                color: appController
+                                                        .isDarkModeOn.value
+                                                    ? ColorConstants.white
+                                                    : ColorConstants.botTitle,
+                                              ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ],
@@ -168,7 +204,9 @@ class _BookingScreenState extends State<BookingScreen> {
                             vertical: getSize(8),
                           ),
                           decoration: BoxDecoration(
-                            color: ColorConstants.grayTextField,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.bgrDarkmode
+                                : ColorConstants.grayTextField,
                             borderRadius: BorderRadius.circular(
                               getSize(14),
                             ),
@@ -180,7 +218,9 @@ class _BookingScreenState extends State<BookingScreen> {
                           padding: EdgeInsets.only(left: getSize(16)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
-                            color: ColorConstants.white,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.bgrDarkmode
+                                : ColorConstants.grayTextField,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                             radius: const Radius.circular(40),
@@ -213,7 +253,9 @@ class _BookingScreenState extends State<BookingScreen> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: ColorConstants.grayTextField,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrDarkmode
+                            : ColorConstants.grayTextField,
                         borderRadius: BorderRadius.circular(getSize(14)),
                       ),
                       padding: EdgeInsets.only(
@@ -227,7 +269,9 @@ class _BookingScreenState extends State<BookingScreen> {
                           SvgPicture.asset(
                             AssetHelper.icCalendar,
                             width: getSize(32),
-                            color: ColorConstants.accent1,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.accent1,
                           ),
                           SizedBox(
                             width: getSize(16),
@@ -238,7 +282,12 @@ class _BookingScreenState extends State<BookingScreen> {
                             children: [
                               Text(
                                 "Select Date",
-                                style: AppStyles.botTitle000Size14Fw400FfMont,
+                                style: AppStyles.botTitle000Size14Fw400FfMont
+                                    .copyWith(
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.white
+                                      : ColorConstants.botTitle,
+                                ),
                               ),
                               SizedBox(
                                 height: getSize(8.0),
@@ -247,7 +296,12 @@ class _BookingScreenState extends State<BookingScreen> {
                                 dateSelected.isEmpty
                                     ? 'Please select your start date'
                                     : dateSelected,
-                                style: AppStyles.botTitle000Size14Fw400FfMont,
+                                style: AppStyles.botTitle000Size14Fw400FfMont
+                                    .copyWith(
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.white
+                                      : ColorConstants.botTitle,
+                                ),
                               ),
                             ],
                           ),

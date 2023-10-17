@@ -1,5 +1,7 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../constants/app_style.dart';
 import '../../constants/assets_helper.dart';
@@ -7,7 +9,7 @@ import '../../constants/colors.dart';
 import '../../utils/size_utils.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({
+  SearchBarWidget({
     super.key,
     this.hintText,
     this.textEditingController,
@@ -17,11 +19,15 @@ class SearchBarWidget extends StatelessWidget {
   final String? hintText;
   final TextEditingController? textEditingController;
   final Function(String)? onChanged;
+  final AppController appController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorConstants.grayTextField,
+        color: appController.isDarkModeOn.value
+            ? ColorConstants.bgrDarkmode
+            : ColorConstants.grayTextField,
         borderRadius: BorderRadius.circular(14),
       ),
       padding:
@@ -32,6 +38,12 @@ class SearchBarWidget extends StatelessWidget {
             AssetHelper.icoSearch,
             height: getSize(18),
             width: getSize(18),
+            colorFilter: ColorFilter.mode(
+              appController.isDarkModeOn.value
+                  ? ColorConstants.white
+                  : ColorConstants.titleSearch,
+              BlendMode.srcIn,
+            ),
           ),
           SizedBox(
             width: getSize(16),
@@ -41,14 +53,20 @@ class SearchBarWidget extends StatelessWidget {
               controller: textEditingController,
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle: AppStyles.titleSearchSize16Fw400FfMont,
+                hintStyle: AppStyles.titleSearchSize16Fw400FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.white
+                        : ColorConstants.titleSearch),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: getSize(9),
                 ),
                 alignLabelWithHint: true,
               ),
-              style: AppStyles.titleSearchSize16Fw400FfMont,
+              style: AppStyles.titleSearchSize16Fw400FfMont.copyWith(
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.white
+                      : ColorConstants.titleSearch),
               onChanged: onChanged,
             ),
           ),

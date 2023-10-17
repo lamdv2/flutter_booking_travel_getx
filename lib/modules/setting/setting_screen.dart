@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/profile_widget.dart';
+import 'package:doan_clean_achitec/shared/widgets/stateless/item_setting_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -46,559 +47,95 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               GestureDetector(
                 onTap: () => Get.toNamed(Routes.PROFILE),
-                child: ProfileWidget(userController: userController),
+                child: ProfileWidget(
+                  userController: userController,
+                ),
               ),
               SizedBox(
                 height: getSize(32),
               ),
               Text(
                 "App Setting",
-                style: AppStyles.black000Size14Fw400FfMont,
+                style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.white
+                        : ColorConstants.black),
               ),
               SizedBox(
                 height: getSize(12),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoBooking,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Personal Information",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Your account information",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
+              ItemSettingWidget(
+                  title: 'Personal Information',
+                  description: 'Your account information',
+                  image: AssetHelper.icProfile),
+              SizedBox(
+                height: getSize(16),
+              ),
+              ItemSettingWidget(
+                  title: 'Notifications & Chat',
+                  description: 'Chat and notifications settings',
+                  image: AssetHelper.icNotification),
+              SizedBox(
+                height: getSize(16),
+              ),
+              ItemSettingWidget(
+                  title: 'Private & Permissions',
+                  description: 'Contact, My album and Black contact',
+                  image: AssetHelper.icShieldDone),
+              SizedBox(
+                height: getSize(16),
+              ),
+              ItemSettingWidget(
+                  title: 'Password & Account',
+                  description: 'Manager your Account settings',
+                  image: AssetHelper.icLock),
+              SizedBox(
+                height: getSize(32),
+              ),
+              Text(
+                " Setting System",
+                style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.white
+                        : ColorConstants.black),
               ),
               SizedBox(
                 height: getSize(16),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoRoom,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Notifications & Chat",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Chat and notifications settings",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
+              ItemSettingWidget(
+                  title: 'Change language', image: AssetHelper.icSetting),
               SizedBox(
                 height: getSize(16),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoUser,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Private & Permissions",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Contact, My album and Black contact",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: getSize(16),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoUser,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Password & Account",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Manager your Account settings",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
+              ItemSettingWidget(
+                title: 'Dark mode',
+                image: AssetHelper.icPassword,
+                isSwitch: true,
               ),
               SizedBox(
                 height: getSize(32),
               ),
               Text(
                 "More",
-                style: AppStyles.black000Size14Fw400FfMont,
+                style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.white
+                        : ColorConstants.black),
               ),
               SizedBox(
                 height: getSize(16),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoBooking,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Help",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Data preferences and storage settings",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
+              ItemSettingWidget(title: 'Guide', image: AssetHelper.icDocument),
               SizedBox(
                 height: getSize(16),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoRoom,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Feedback",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Chat and notifications settings",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
+              ItemSettingWidget(
+                  title: 'Feedback', image: AssetHelper.icEditSquare),
               SizedBox(
                 height: getSize(16),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoUser,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "About",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "App Travel Booking FLutter",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: getSize(32),
-              ),
-              Text(
-                "More",
-                style: AppStyles.black000Size14Fw400FfMont,
-              ),
-              SizedBox(
-                height: getSize(16),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoBooking,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Help",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Data preferences and storage settings",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: getSize(16),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.secondBackground,
-                  borderRadius: BorderRadius.circular(getSize(12)),
-                ),
-                padding: EdgeInsets.all(getSize(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: getSize(28),
-                      height: getSize(28),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.darkBackground.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(getSize(4)),
-                      child: Image.asset(
-                        AssetHelper.icoRoom,
-                        color: ColorConstants.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Feedback",
-                            style: AppStyles.black000Size14Fw400FfMont,
-                          ),
-                          SizedBox(
-                            height: getSize(4),
-                          ),
-                          Text(
-                            "Chat and notifications settings",
-                            style: AppStyles.botTitle000Size12Fw400FfMont,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: const ColorFilter.mode(
-                        ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
-                  ],
-                ),
-              ),
+              ItemSettingWidget(
+                  title: 'About', image: AssetHelper.icInfoSquare),
               SizedBox(
                 height: getSize(32),
               ),
@@ -624,6 +161,9 @@ class _SettingScreenState extends State<SettingScreen> {
                       appController.toggleDarkMode();
                     },
                   ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
             ],

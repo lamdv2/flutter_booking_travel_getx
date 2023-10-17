@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
@@ -10,6 +11,8 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 // ignore: must_be_immutable
 class SelectDateScreen extends StatelessWidget {
   SelectDateScreen({Key? key}) : super(key: key);
+
+  final AppController appController = Get.find();
 
   DateTime? rangeStartDate;
   DateTime? rangeEndDate;
@@ -26,7 +29,10 @@ class SelectDateScreen extends StatelessWidget {
             ),
             Text(
               'Select Date',
-              style: AppStyles.black000Size18Fw500FfMont,
+              style: AppStyles.black000Size18Fw500FfMont.copyWith(
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.white
+                      : ColorConstants.black),
             ),
             SizedBox(
               height: getSize(60),
@@ -51,6 +57,9 @@ class SelectDateScreen extends StatelessWidget {
                   rangeEndDate = null;
                 }
               },
+            ),
+            SizedBox(
+              height: getSize(32),
             ),
             ButtonWidget(
               textBtn: 'Select',

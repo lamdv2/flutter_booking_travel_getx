@@ -1,5 +1,5 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
-import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({
+  HomeHeader({
     super.key,
     required this.size,
     this.titleCenter,
@@ -17,6 +17,8 @@ class HomeHeader extends StatelessWidget {
   final Size size;
   final String? titleCenter;
   final bool? avatar;
+
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +38,20 @@ class HomeHeader extends StatelessWidget {
                   child: Icon(
                     FontAwesomeIcons.bars,
                     size: getSize(kTop26Padding),
-                    color: Colors.black87,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.white
+                        : Colors.black87,
                   ),
                 ),
               ),
               Text(
                 titleCenter ?? "",
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.white
+                        : ColorConstants.black),
               ),
               avatar != null
                   ? GestureDetector(

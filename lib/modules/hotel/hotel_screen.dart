@@ -38,7 +38,7 @@ class _HotelScreenState extends State<HotelScreen> {
               SizedBox(
                 height: getSize(8),
               ),
-              const SearchBarWidget(
+               SearchBarWidget(
                 hintText: "Search your favorite hotel",
               ),
               SizedBox(

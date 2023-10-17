@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/shared/widgets/stateless/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../dark_mode.dart';
 import '../../routes/app_pages.dart';
 import '../../shared/constants/app_style.dart';
 import '../../shared/utils/size_utils.dart';
@@ -22,13 +23,16 @@ final ProfileController controller = Get.put(ProfileController());
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final UserController userController = Get.find();
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerWidget(),
       appBar: CustomAppBar(
-        backgroundColor: ColorConstants.white,
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.appbarDarkmode
+            : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
       body: SingleChildScrollView(
@@ -45,7 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "My Profile",
                 style: TextStyle(
                   fontSize: 36,
-                  color: ColorConstants.black,
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.white
+                      : ColorConstants.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -57,7 +63,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Text(
                     "Personal detail",
-                    style: AppStyles.black000Size20Fw500FfMont,
+                    style: AppStyles.black000Size20Fw500FfMont.copyWith(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.white
+                            : ColorConstants.black),
                   ),
                   InkWell(
                     onTap: () {
@@ -66,7 +75,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text(
                       "Change",
                       style: AppStyles.black000Size16Fw400FfMont.copyWith(
-                        color: ColorConstants.primaryButton,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.btnGradient
+                            : ColorConstants.primaryButton,
                       ),
                     ),
                   ),
@@ -75,7 +86,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: getSize(24),
               ),
-              ProfileWidget(userController: userController),
+              ProfileWidget(
+                userController: userController,
+              ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(getSize(16)),
@@ -95,7 +108,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "86",
                           style: TextStyle(
-                            color: ColorConstants.black.withOpacity(0.8),
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.black.withOpacity(0.8),
                             fontSize: 22,
                             fontWeight: FontWeight.w500,
                           ),
@@ -106,9 +121,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "Photo",
                           style: TextStyle(
-                            color: ColorConstants.black.withOpacity(0.4),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.black.withOpacity(0.4),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
                           ),
                         )
                       ],
@@ -119,7 +136,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "4k",
                           style: TextStyle(
-                            color: ColorConstants.black.withOpacity(0.8),
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.black.withOpacity(0.8),
                             fontSize: 22,
                             fontWeight: FontWeight.w500,
                           ),
@@ -130,9 +149,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "Followers",
                           style: TextStyle(
-                            color: ColorConstants.black.withOpacity(0.4),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.black.withOpacity(0.4),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
                           ),
                         )
                       ],
@@ -143,7 +164,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "120",
                           style: TextStyle(
-                            color: ColorConstants.black.withOpacity(0.8),
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.black.withOpacity(0.8),
                             fontSize: 22,
                             fontWeight: FontWeight.w500,
                           ),
@@ -154,9 +177,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "Following",
                           style: TextStyle(
-                            color: ColorConstants.black.withOpacity(0.4),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.white
+                                : ColorConstants.black.withOpacity(0.4),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
                           ),
                         )
                       ],
