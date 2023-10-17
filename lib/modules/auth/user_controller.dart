@@ -9,6 +9,7 @@ class UserController extends GetxController {
 
   RxString userName = ''.obs;
   RxString userEmail = ''.obs;
+  String userUID = '';
 
   final userModel = Rxn<UserModel>();
   var user = Rxn<User>();
@@ -22,6 +23,7 @@ class UserController extends GetxController {
   void initializeUser() {
     user.value = FirebaseAuth.instance.currentUser;
     final email = user.value?.email;
+    userUID = user.value?.uid ?? '';
     if (email != null && email.isNotEmpty) {
       userName.value = email.substring(0, 5);
       userEmail.value = email;

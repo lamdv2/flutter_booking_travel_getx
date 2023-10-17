@@ -108,6 +108,10 @@ class ProfileController extends GetxController {
 
       userController.clearUserName();
 
+      userController.userName.value = '';
+
+      userController.userEmail.value = '';
+
       // ignore: use_build_context_synchronously
       Incorrect("Logout Success");
     } catch (e) {
