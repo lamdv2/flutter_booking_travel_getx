@@ -13,6 +13,9 @@ import 'modules/lang/translation_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
+  AppController darkMode = AppController();
+
+  await darkMode.loadDarkMode();
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -33,13 +36,14 @@ class MyApp extends StatelessWidget {
 
   final AppController controller = Get.put(AppController());
   final mainTheme = ThemeData(
-    scaffoldBackgroundColor: ColorConstants.white,
+    scaffoldBackgroundColor: ColorConstants.bgrLight,
     appBarTheme: const AppBarTheme(
       color: Colors.transparent,
     ),
   );
 
   final darkTheme = ThemeData.dark();
+
   @override
   Widget build(BuildContext context) {
     return Obx(

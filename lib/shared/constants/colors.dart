@@ -15,6 +15,8 @@ class ColorConstants {
   static const Color lightGray = Color(0xFFF6F6F6);
   static const Color grayTextField = Color(0xFFf2f5fc);
   static const Color secondBackground = Color(0xFFf4f7fc);
+  static Color? bgrDarkmode = Colors.grey[800];
+  static Color? appbarDarkmode = const Color(0xFF233142);
 
   static const Color secondaryAppColor = Color(0xFF22DDA6);
   static const Color green = Color(0xFF3E9D9D);
@@ -58,6 +60,7 @@ class ColorConstants {
   static const Color accent2 = Color(0xFF757575);
   static const Color primary = Color(0xFF22282F);
   static const Color primaryBackground = Color(0xFFF1F4F8);
+  static const Color bgrLight = Color(0xFFf2f2f2);
   static const Color secondary = Color(0xFF4B39EF);
   static const Color error = Color(0xFFE21C3D);
 }

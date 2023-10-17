@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/Destination.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/favorite/favorite.dart';
@@ -31,6 +32,7 @@ final userName = user.email.toString().substring(0, 3);
 final UserController userController = Get.find();
 final HomeController homeController = Get.find();
 final TourController tourController = Get.put(TourController());
+final AppController appController = Get.find();
 
 class _HomeScreenState extends State<HomeScreen> {
   User? user;
@@ -151,9 +153,15 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
           currentIndex: homeController.currentIndex.value,
-          selectedItemColor: ColorConstants.primaryButton,
-          unselectedItemColor: ColorConstants.primaryButton.withOpacity(0.2),
-          backgroundColor: ColorConstants.white,
+          selectedItemColor: appController.isDarkModeOn.value
+              ? ColorConstants.white
+              : ColorConstants.primaryButton,
+          unselectedItemColor: appController.isDarkModeOn.value
+              ? ColorConstants.white.withOpacity(.5)
+              : ColorConstants.primaryButton.withOpacity(0.2),
+          backgroundColor: appController.isDarkModeOn.value
+              ? ColorConstants.appbarDarkmode
+              : ColorConstants.white,
           curve: Curves.easeOutQuint,
           duration: const Duration(milliseconds: 1000),
           items: [

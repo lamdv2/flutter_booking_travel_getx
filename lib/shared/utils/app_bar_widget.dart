@@ -65,8 +65,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   child: SvgPicture.asset(
                     AssetHelper.icoNextLeft,
-                    colorFilter: const ColorFilter.mode(
-                      ColorConstants.white,
+                    colorFilter: ColorFilter.mode(
+                      iconBgrColor ?? ColorConstants.accent1,
                       BlendMode.srcIn,
                     ),
                     fit: BoxFit.fitHeight,

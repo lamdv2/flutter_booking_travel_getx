@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../dark_mode.dart';
 import 'colors.dart';
 
 class FontFamily {
@@ -8,6 +10,8 @@ class FontFamily {
 }
 
 class AppStyles {
+  static AppController appController = Get.find();
+
   // white
   static TextStyle white000Size30Fw600FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
@@ -190,7 +194,9 @@ class AppStyles {
     fontFamily: FontFamily.mont,
     fontSize: 20,
     fontWeight: FontWeight.w500,
-    color: ColorConstants.black,
+    color: appController.isDarkModeOn.value
+        ? ColorConstants.white
+        : ColorConstants.black,
   );
 
   static TextStyle black000Size14Fw400FfMont = TextStyle(

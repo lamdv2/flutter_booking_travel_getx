@@ -1,8 +1,10 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/home/home_screen.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/home_header.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../home/widgets/ListDestination.dart';
 import '../home/widgets/title_des.dart';
@@ -15,6 +17,8 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
+  final AppController appController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -33,7 +37,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               SizedBox(
                 height: getSize(16),
               ),
-              const SearchBarWidget(
+              SearchBarWidget(
                   hintText: "Search destinations your want to discover"),
               SizedBox(
                 height: getSize(32),

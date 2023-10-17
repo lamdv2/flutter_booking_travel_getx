@@ -15,30 +15,32 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final HomeController homecontroller = Get.find();
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            HomeHeader(
-              size: size,
-              avatar: true,
-            ),
-            const CategoryBar(),
-            CarouselSliderDes(size: size),
-            SizedBox(
-              height: getSize(32),
-            ),
-            TitleDes(
-              largeTitle: 'Popular Destinations',
-              seeAll: 'See All',
-              onTap: () {
-                homecontroller.currentIndex.value = 2;
-              },
-            ),
-            ListDestination(size: size),
-          ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              HomeHeader(
+                size: size,
+                avatar: true,
+              ),
+              const CategoryBar(),
+              CarouselSliderDes(size: size),
+              SizedBox(
+                height: getSize(32),
+              ),
+              TitleDes(
+                largeTitle: 'Popular Destinations',
+                seeAll: 'See All',
+                onTap: () {
+                  homecontroller.currentIndex.value = 2;
+                },
+              ),
+              ListDestination(size: size),
+            ],
+          ),
         ),
       ),
     );
