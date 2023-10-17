@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:doan_clean_achitec/models/user/user_model.dart';
+import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
+import 'package:doan_clean_achitec/modules/home/home_controller.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
@@ -19,6 +21,12 @@ class AuthController extends GetxController {
 
   final ProfileController _profileController =
       Get.put<ProfileController>(ProfileController());
+
+  final UserController userController =
+      Get.put<UserController>(UserController());
+
+  final HomeController homeController =
+      Get.put<HomeController>(HomeController());
 
   final _auth = FirebaseAuth.instance;
   late final Rx<User> firebaseUser;
@@ -99,7 +107,10 @@ class AuthController extends GetxController {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
 
+        final UID = FirebaseAuth.instance.currentUser?.uid;
+
         final userModel = UserModel(
+          id: UID,
           email: email,
           passWord: password,
           phoneNub: "",
@@ -109,6 +120,9 @@ class AuthController extends GetxController {
         await _profileController.createUser(userModel);
 
         Incorrect("Register Success");
+
+        homeController.getUserDetails(userController.userEmail.value);
+
         // ignore: use_build_context_synchronously
         Get.back();
       } else {
@@ -143,6 +157,8 @@ class AuthController extends GetxController {
           password: loginPasswordController.text);
       // ignore: use_build_context_synchronously
       Incorrect("Login Success");
+
+      homeController.getUserDetails(userController.userEmail.value);
 
       // ignore: use_build_context_synchronously
       Get.back(result: context);
@@ -184,8 +200,12 @@ class AuthController extends GetxController {
       errorMessage = "The email address is already in use";
     } else if (message == "user-not-found") {
       errorMessage = "User not found. Please register.";
-    } else if (message == "wrong-password") {
+    } else if (message == "wrong-password login") {
       errorMessage = "Invalid password. Please try again.";
+    } else if (message == "network-request-failed register") {
+      errorMessage = "No internet. Please try again.";
+    } else {
+      errorMessage = "Something went wrong.";
     }
     final context = Get.context;
     showDialog(

@@ -9,7 +9,7 @@ class SplashController extends GetxController {
   void onReady() async {
     super.onReady();
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     await LocalStorageHelper.initLocalStorageHelper();
 
     final checkIntroScreen =

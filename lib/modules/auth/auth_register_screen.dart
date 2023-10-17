@@ -23,205 +23,208 @@ class RegisterScreen extends StatelessWidget {
       backgroundColor: Colors.grey.shade300,
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //icon
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Icon(
-                    Icons.ac_unit,
-                    size: 100,
-                  ),
-
-                  //welcome
-                  const SizedBox(
-                    height: 38,
-                  ),
-                  Text(
-                    "Let's create an account for you!",
-                    style: TextStyle(
-                        color: Colors.grey.shade700,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 26,
-                  ),
-
-                  Form(
-                    key: registerKey,
-                    child: Column(
-                      children: [
-                        MyTextField(
-                          controller: controller.registerEmailController,
-                          hintText: "Enter your email",
-                          obscureText: false,
-                          validatorCheck: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Email don\'t empty';
-                            }
-                            if (!Regex.isEmail(value.trim())) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        MyTextField(
-                          controller: controller.registerPasswordController,
-                          hintText: "Enter your password",
-                          obscureText: true,
-                          validatorCheck: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Password don\'t empty';
-                            }
-                            if (!Regex.isPasswordAtLeast6Characters(
-                                value.trim())) {
-                              return 'Password must be at least 6 characters long';
-                            }
-                            if (!Regex.isPasswordUpcase(value.trim())) {
-                              return 'Password must contain at least one capital letter';
-                            }
-                            if (!Regex.isPasswordNumber(value.trim())) {
-                              return 'password must contain at least one number';
-                            }
-                            if (!Regex.isPasswordSpecialChar(value.trim())) {
-                              return 'Password must contain at least one special character';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        MyTextField(
-                          controller:
-                              controller.registerConfirmPasswordController,
-                          hintText: "Confirm your password",
-                          obscureText: true,
-                          validatorCheck: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Password don\'t empty';
-                            }
-                            if (!Regex.isPasswordAtLeast6Characters(
-                                value.trim())) {
-                              return 'Password must be at least 6 characters long';
-                            }
-                            if (!Regex.isPasswordUpcase(value.trim())) {
-                              return 'Password must contain at least one capital letter';
-                            }
-                            if (!Regex.isPasswordNumber(value.trim())) {
-                              return 'password must contain at least one number';
-                            }
-                            if (!Regex.isPasswordSpecialChar(value.trim())) {
-                              return 'Password must contain at least one special character';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 45,
-                        ),
-                        MyButton(
-                          onTap: () {
-                            if (registerKey.currentState!.validate()) {
-                              controller.register(context);
-                            }
-                          },
-                          textBtn: 'Sign Up',
-                        ),
-                      ],
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //icon
+                    const SizedBox(
+                      height: 12,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                        Text(
-                          " or continue with ",
-                          style: TextStyle(color: Colors.grey.shade700),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                      ],
+                    const Icon(
+                      Icons.ac_unit,
+                      size: 100,
                     ),
-                  ),
 
-                  // google + apple signin button
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // google
-                      SquareTile(
-                        onTap: () => AuthService().signInWithGoogle(),
-                        imgPath: AssetHelper.imgGoogle,
-                      ),
-
-                      //Image(image: AssetImage('lib/images/apple.png'), height: 30,),
-                      const SizedBox(
-                        width: 24,
-                      ),
-
-                      // apple
-                      SquareTile(
-                        onTap: () {},
-                        imgPath: AssetHelper.imgApple,
-                      ),
-                    ],
-                  ),
-
-                  // not a member? register
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Already have a account ?',
-                        style: TextStyle(
+                    //welcome
+                    const SizedBox(
+                      height: 38,
+                    ),
+                    Text(
+                      "Let's create an account for you!",
+                      style: TextStyle(
                           color: Colors.grey.shade700,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 26,
+                    ),
+
+                    Form(
+                      key: registerKey,
+                      child: Column(
+                        children: [
+                          MyTextField(
+                            controller: controller.registerEmailController,
+                            hintText: "Enter your email",
+                            obscureText: false,
+                            validatorCheck: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Email don\'t empty';
+                              }
+                              if (!Regex.isEmail(value.trim())) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          MyTextField(
+                            controller: controller.registerPasswordController,
+                            hintText: "Enter your password",
+                            obscureText: true,
+                            validatorCheck: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Password don\'t empty';
+                              }
+                              if (!Regex.isPasswordAtLeast6Characters(
+                                  value.trim())) {
+                                return 'Password must be at least 6 characters long';
+                              }
+                              if (!Regex.isPasswordUpcase(value.trim())) {
+                                return 'Password must contain at least one capital letter';
+                              }
+                              if (!Regex.isPasswordNumber(value.trim())) {
+                                return 'password must contain at least one number';
+                              }
+                              if (!Regex.isPasswordSpecialChar(value.trim())) {
+                                return 'Password must contain at least one special character';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          MyTextField(
+                            controller:
+                                controller.registerConfirmPasswordController,
+                            hintText: "Confirm your password",
+                            obscureText: true,
+                            validatorCheck: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Password don\'t empty';
+                              }
+                              if (!Regex.isPasswordAtLeast6Characters(
+                                  value.trim())) {
+                                return 'Password must be at least 6 characters long';
+                              }
+                              if (!Regex.isPasswordUpcase(value.trim())) {
+                                return 'Password must contain at least one capital letter';
+                              }
+                              if (!Regex.isPasswordNumber(value.trim())) {
+                                return 'password must contain at least one number';
+                              }
+                              if (!Regex.isPasswordSpecialChar(value.trim())) {
+                                return 'Password must contain at least one special character';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 45,
+                          ),
+                          MyButton(
+                            onTap: () {
+                              if (registerKey.currentState!.validate()) {
+                                controller.register(context);
+                              }
+                            },
+                            textBtn: 'Sign Up',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              thickness: 0.5,
+                              color: Colors.grey.shade400,
+                            ),
+                          ),
+                          Text(
+                            " or continue with ",
+                            style: TextStyle(color: Colors.grey.shade700),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              thickness: 0.5,
+                              color: Colors.grey.shade400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // google + apple signin button
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // google
+                        SquareTile(
+                          onTap: () => AuthService().signInWithGoogle(),
+                          imgPath: AssetHelper.imgGoogle,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      GestureDetector(
-                        onTap: onTap,
-                        child: const Text(
-                          'Login now',
+
+                        //Image(image: AssetImage('lib/images/apple.png'), height: 30,),
+                        const SizedBox(
+                          width: 24,
+                        ),
+
+                        // apple
+                        SquareTile(
+                          onTap: () {},
+                          imgPath: AssetHelper.imgApple,
+                        ),
+                      ],
+                    ),
+
+                    // not a member? register
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Already have a account ?',
                           style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.grey.shade700,
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: onTap,
+                          child: const Text(
+                            'Login now',
+                            style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

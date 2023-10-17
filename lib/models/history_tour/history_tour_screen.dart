@@ -7,6 +7,7 @@ import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 
@@ -91,67 +92,90 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ),
                 ),
               )
-            : historyTourController.getAllListHistory.value!.isNotEmpty
-                ? SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: getSize(16),
-                        horizontal: getSize(24),
-                      ),
-                      child: Obx(
-                        () => ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: historyTourController
-                                  .getAllListHistory.value?.length ??
-                              2,
-                          itemBuilder: (BuildContext context, int rowIndex) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.symmetric(vertical: getSize(12)),
-                              child: _buildItemHistory(
-                                  tourModel: historyTourController
-                                      .getAllListHistory.value?[rowIndex]),
-                            );
-                          },
+            : Obx(
+                () => historyTourController.getAllListHistory.value!.isNotEmpty
+                    ? SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: getSize(16),
+                            horizontal: getSize(24),
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: historyTourController
+                                    .getAllListHistory.value?.length ??
+                                2,
+                            itemBuilder: (BuildContext context, int rowIndex) {
+                              return Padding(
+                                padding:
+                                    EdgeInsets.symmetric(vertical: getSize(12)),
+                                child: _buildItemHistory(
+                                    tourModel: historyTourController
+                                        .getAllListHistory.value?[rowIndex]),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Container(
+                          width: double.infinity,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(20)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                AssetHelper.icoNodata,
+                                width: getSize(360),
+                                fit: BoxFit.cover,
+                              ),
+                              SizedBox(
+                                height: getSize(20),
+                              ),
+                              Text(
+                                'No data',
+                                style: AppStyles.black000Size16Fw500FfMont,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: getSize(16),
+                                  horizontal: getSize(36.0),
+                                ),
+                                child: Text(
+                                  'Looks like you haven\'t booked any tours yet.\nWhy not book your first tour now?',
+                                  style: AppStyles.black000Size14Fw400FfMont,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              SizedBox(
+                                height: getSize(20),
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Booking first tour!',
+                                      style:
+                                          AppStyles.black000Size16Fw500FfMont,
+                                    ),
+                                    SvgPicture.asset(
+                                      AssetHelper.icoNextRight,
+                                      color: ColorConstants.accent1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : Center(
-                    child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            AssetHelper.icoNodata,
-                            width: getSize(360),
-                            fit: BoxFit.cover,
-                          ),
-                          SizedBox(
-                            height: getSize(20),
-                          ),
-                          Text(
-                            'No data',
-                            style: AppStyles.black000Size16Fw400FfMont,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: getSize(16),
-                              horizontal: getSize(36.0),
-                            ),
-                            child: Text(
-                              'Looks like you haven\'t booked any tours yet. Why not book your first tour now?',
-                              style: AppStyles.black000Size14Fw400FfMont,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+              ),
       ),
     );
   }

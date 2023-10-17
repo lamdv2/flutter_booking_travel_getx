@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
   final Function()? onTap;
   LoginScreen({super.key, this.onTap});
 
-  final AuthController controller = Get.find();
+  final AuthController controller = Get.put(AuthController());
 
   final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
 

@@ -1,4 +1,6 @@
 import 'package:doan_clean_achitec/models/user/user_model.dart';
+import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final ProfileController _profileController =
       Get.put<ProfileController>(ProfileController());
+
+  final UserController userController = Get.put(UserController());
+
+  final HomeController homeController = Get.put(HomeController());
 
   Future<User?> signInWithGoogle() async {
     try {
@@ -43,6 +49,8 @@ class AuthService {
           }
         }
       }
+
+      homeController.getUserDetails(userController.userEmail.value);
 
       return user;
     } catch (error) {
