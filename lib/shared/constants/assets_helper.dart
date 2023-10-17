@@ -148,6 +148,11 @@ class AssetHelper {
   static const String icTravelBuilding =
       'assets/icons/svg/ic_travel_building.svg';
 
+  // json lottie
+  static const String imgLottieNodate = 'assets/images/json/img_nodata.json';
+  static const String imgLottieArrowRight =
+      'assets/images/json/img_arrow_rigth.json';
+
   // /images/x2
   static const String imgSplash_1 = 'assets/images/x2/imgSplash1.png';
   static const String imgSplash_2 = 'assets/images/x2/imgSplash2.png';

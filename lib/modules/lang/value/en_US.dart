@@ -1,4 +1,7 @@
+// ignore: file_names
 const Map<String, String> en = {
+  'appSetting': 'App Setting',
+
   'clearhead': 'Clearhead',
   'shareBanner': 'Share Banner',
   'textTitleBannerDetai': 'User interface Design',

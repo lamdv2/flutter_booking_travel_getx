@@ -1,4 +1,7 @@
+// ignore: file_names
 const Map<String, String> vi = {
+  'appSetting': 'Cài đặt ứng dụng',
+
   'clearhead': 'Tâm Lý Rõ Ràng',
   'bannerText': 'Giao diện người dùng',
   'shareBanner': 'Chia sẻ',

@@ -1,4 +1,4 @@
-class stringConst {
+class StringConst {
   static const String keyIntro = 'introScreen';
   static const String checkIntro = 'haveIntroScreen';
   static const String checkAUTH = 'haveIntroAuth';
@@ -6,4 +6,6 @@ class stringConst {
 
   static String userName = 'userName';
 
+  //Splash
+  static String appSetting = 'appSetting';
 }

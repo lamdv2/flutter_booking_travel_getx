@@ -13,7 +13,7 @@ class SplashController extends GetxController {
     await LocalStorageHelper.initLocalStorageHelper();
 
     final checkIntroScreen =
-        LocalStorageHelper.getValue(stringConst.checkIntro) as bool?;
+        LocalStorageHelper.getValue(StringConst.checkIntro) as bool?;
     final user = FirebaseAuth.instance.authStateChanges();
 
     try {
@@ -25,7 +25,7 @@ class SplashController extends GetxController {
           Get.offNamed(Routes.AUTH);
         }
       } else {
-        LocalStorageHelper.setValue(stringConst.checkIntro, true);
+        LocalStorageHelper.setValue(StringConst.checkIntro, true);
         Get.offNamed(Routes.INTRO);
       }
     } catch (e) {
