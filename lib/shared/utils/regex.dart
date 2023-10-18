@@ -34,7 +34,7 @@ class Regex {
   }
 
   static bool isPasswordSpecialChar(String password) {
-    return password.contains(RegExp(r'[@#$%^&+=]'));
+    return password.contains(RegExp(r'[!@#$%^&+=]'));
   }
 
   static RegExp regExpYoutube = RegExp(

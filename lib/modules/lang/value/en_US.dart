@@ -8,11 +8,14 @@ const Map<String, String> en = {
   'american': 'American',
   'popularDestination': 'Popular Destination',
   'seeAll': 'See All',
+
   //Favorites
   'favorite': 'Favorite',
+
   //Discover
   'discover': 'Discover',
   'searchDestinations': 'Search destinations your want to discover',
+
   //Booking
   'booking': 'Booking',
   'chooseYourFavorite': 'Choose your favorite hotel and enjoy the service',
@@ -21,6 +24,7 @@ const Map<String, String> en = {
   'pleaseSelect': 'Please select your start date',
   'search': 'Search',
   'cancel': 'Cancel',
+
   //Profile
   'appSetting': 'App Setting',
   'personalInformation': 'Personal Information',
@@ -39,6 +43,7 @@ const Map<String, String> en = {
   'feedback': 'Feedback',
   'about': 'About',
   'logout': 'Logout',
+
   //Drawer
   'profile': 'Profile',
   'hotels': 'Hotels',
@@ -46,6 +51,7 @@ const Map<String, String> en = {
   'history': 'History',
   'tours': 'Tours',
   'admins': 'Admins',
+
   //Profile screen
   'myProfile': 'My Profile',
   'personalDetail': 'Personal detail',
@@ -53,21 +59,25 @@ const Map<String, String> en = {
   'photo': 'Photo',
   'followers': 'Followers',
   'following': 'Following',
+
   //Hotel screen
   'searchHotel': 'Search your favorite hotel',
   'result': 'Result',
   'nearByYourLocation': 'NearBy your location',
   'allHotel': 'All Hotel',
+
   //Tours screen
   'preBook': 'Pre-Book',
   'yourTourPack': 'Your Tour Pack',
   'city': 'City',
   'filter': 'Filter',
+
   //Admin screen
   'allTour': 'All Tour',
   'confirmation': 'Confirmation',
   'doYouWantDelete': 'Do you want to delete?',
   'ok': 'Ok',
+
   //Detail place screen
   'letsExplore': "Let's explore new place",
   'wind': 'Wind',
@@ -78,6 +88,7 @@ const Map<String, String> en = {
   'restaurants': 'Restaurants',
   'sightseeing': 'Sightseeing',
   'topPickArticles': 'Top-pick Articles',
+
   //Admin create tour screen
   'createTour': 'Create Tour',
   'nameTour': 'Name Tour:',
@@ -94,10 +105,12 @@ const Map<String, String> en = {
   'ratingTour': 'Rating Tour:',
   'enterRatingTour': 'Enter rating tour',
   'create': 'Create',
+
   //Admin update tour
   'updateTour': 'Update Tour',
   'itineraryOfTour': 'Itinerary of tour',
   'enterItineraryOfTour': 'Enter itinerary of tour',
+
   //Tour detail screen
   'bookTour': 'Book Tour',
   'night': '/night',
@@ -107,7 +120,11 @@ const Map<String, String> en = {
   'showMap': 'Show Map',
   'wifi': 'Wifi',
   'currencyExchange': 'Currency\nExchange',
-  '24Hours': '24-hours/Front Desk',
+  'twentyFourHours': '24-hours/Front Desk',
   'five': '/5',
   'review': 'review',
+
+  // Tour screen
+  'newType': 'New',
+  'sale': 'Sale',
 };

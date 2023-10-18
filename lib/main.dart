@@ -55,7 +55,9 @@ class MyApp extends StatelessWidget {
         getPages: AppPages.routes,
         smartManagement: SmartManagement.keepFactory,
         title: 'Flutter GetX Clean Travel',
-        theme: controller.isDarkModeOn.value ? darkTheme : mainTheme,
+        theme: controller.isDarkModeOn.value
+            ? darkTheme.copyWith(brightness: Brightness.dark)
+            : mainTheme.copyWith(brightness: Brightness.light),
         locale: TranslationService.locale,
         fallbackLocale: TranslationService.fallbackLocale,
         translations: TranslationService(),

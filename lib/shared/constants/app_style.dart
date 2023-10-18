@@ -47,11 +47,13 @@ class AppStyles {
     color: ColorConstants.white,
   );
 
-  static TextStyle white000Size18Fw500FfMont = const TextStyle(
+  static TextStyle white000Size18Fw500FfMont = TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 18.72,
     fontWeight: FontWeight.w500,
-    color: ColorConstants.white,
+    color: appController.isDarkModeOn.value
+        ? ColorConstants.darkCard
+        : ColorConstants.white,
   );
 
   static TextStyle white000Size16FfMont = const TextStyle(

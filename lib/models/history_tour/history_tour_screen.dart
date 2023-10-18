@@ -4,10 +4,7 @@ import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
-import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -78,7 +75,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       appBar: CustomAppBar(
         titles: StringConst.history.tr,
         backgroundColor: appController.isDarkModeOn.value
-            ? ColorConstants.appbarDarkmode
+            ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
@@ -148,7 +145,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 ),
                                 child: Text(
                                   'Looks like you haven\'t booked any tours yet. Booking your first tour right now!',
-                                  style: AppStyles.black000Size12Fw400FfMont,
+                                  style: AppStyles.black000Size14Fw400FfMont
+                                      .copyWith(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.lightAppBar
+                                        : ColorConstants.darkBackground,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -195,7 +197,6 @@ class _buildItemHistory extends StatelessWidget {
   TourModel? tourModel;
   _buildItemHistory({
     required this.tourModel,
-    super.key,
   });
 
   HistoryTourController historyTourController =

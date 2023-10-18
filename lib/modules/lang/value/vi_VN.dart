@@ -107,7 +107,11 @@ const Map<String, String> vi = {
   'showMap': 'Hiện Bản Đồ',
   'wifi': 'Wifi',
   'currencyExchange': 'Trao đổi \nTiền Tệ',
-  '24Hours': '24/7 Quầy Lễ Tân',
+  'twentyFourHours': '24/7 Quầy Lễ Tân',
   'five': '/5',
   'review': 'Đánh giá',
+
+  // Tour screen
+  'newType': 'Mới',
+  'sale': 'Giảm giá',
 };

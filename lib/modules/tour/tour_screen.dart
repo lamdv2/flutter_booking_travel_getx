@@ -4,11 +4,8 @@ import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
-import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -34,12 +31,6 @@ final AppController appController = Get.find();
 
 class _TourScreenState extends State<TourScreen> {
   IconData? iconHeart = FontAwesomeIcons.solidHeart;
-
-  final List<String> items = [
-    'Popular',
-    'New',
-    'Sale',
-  ];
 
   bool isShowLoading = true;
   SMITrigger? check;
@@ -81,10 +72,16 @@ class _TourScreenState extends State<TourScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> items = [
+      StringConst.popular.tr,
+      StringConst.newType.tr,
+      StringConst.sale.tr,
+    ];
+
     return Scaffold(
       appBar: CustomAppBar(
         backgroundColor: appController.isDarkModeOn.value
-            ? ColorConstants.appbarDarkmode
+            ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
@@ -137,6 +134,9 @@ class _TourScreenState extends State<TourScreen> {
                       children: [
                         Expanded(
                           child: InkWell(
+                            borderRadius: BorderRadius.circular(
+                              getSize(16),
+                            ),
                             onTap: () {
                               tourController.isCheckSearch.value =
                                   !tourController.isCheckSearch.value;
@@ -154,14 +154,21 @@ class _TourScreenState extends State<TourScreen> {
                                 boxShadow: const [],
                                 color: tourController.isCheckSearch.value
                                     ? ColorConstants.primaryButton
-                                    : ColorConstants.grayTextField,
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : ColorConstants.grayTextField,
                               ),
                               alignment: Alignment.center,
                               child: Text(
                                 StringConst.city.tr,
                                 style: tourController.isCheckSearch.value
                                     ? AppStyles.white000Size18Fw500FfMont
-                                    : AppStyles.black000Size18Fw500FfMont,
+                                    : AppStyles.black000Size18Fw500FfMont
+                                        .copyWith(
+                                        color: appController.isDarkModeOn.value
+                                            ? ColorConstants.lightAppBar
+                                            : ColorConstants.black,
+                                      ),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -172,6 +179,9 @@ class _TourScreenState extends State<TourScreen> {
                         ),
                         Expanded(
                           child: InkWell(
+                            borderRadius: BorderRadius.circular(
+                              getSize(16),
+                            ),
                             onTap: () {
                               tourController.isCheckSearch.value =
                                   !tourController.isCheckSearch.value;
@@ -187,7 +197,9 @@ class _TourScreenState extends State<TourScreen> {
                                 ),
                                 boxShadow: const [],
                                 color: tourController.isCheckSearch.value
-                                    ? ColorConstants.grayTextField
+                                    ? appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : ColorConstants.grayTextField
                                     : ColorConstants.primaryButton,
                               ),
                               alignment: Alignment.center,
@@ -195,6 +207,11 @@ class _TourScreenState extends State<TourScreen> {
                                 StringConst.all.tr,
                                 style: tourController.isCheckSearch.value
                                     ? AppStyles.black000Size18Fw500FfMont
+                                        .copyWith(
+                                        color: appController.isDarkModeOn.value
+                                            ? ColorConstants.lightAppBar
+                                            : ColorConstants.black,
+                                      )
                                     : AppStyles.white000Size18Fw500FfMont,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -212,7 +229,10 @@ class _TourScreenState extends State<TourScreen> {
                     children: [
                       Text(
                         StringConst.filter.tr,
-                        style: AppStyles.black000Size18Fw500FfMont,
+                        style: AppStyles.black000Size18Fw500FfMont.copyWith(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : ColorConstants.black),
                       ),
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
@@ -221,7 +241,7 @@ class _TourScreenState extends State<TourScreen> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Popular',
+                                  StringConst.popular.tr,
                                   style: AppStyles.titleSearchSize16Fw400FfMont,
                                   overflow: TextOverflow.ellipsis,
                                 ),

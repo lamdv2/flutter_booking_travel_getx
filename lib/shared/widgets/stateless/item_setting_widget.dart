@@ -33,7 +33,7 @@ class ItemSettingWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: appController.isDarkModeOn.value
-              ? ColorConstants.bgrDarkmode
+              ? ColorConstants.darkCard
               : ColorConstants.white,
           borderRadius: BorderRadius.circular(getSize(12)),
         ),

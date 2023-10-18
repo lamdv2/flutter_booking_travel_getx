@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
@@ -20,6 +21,7 @@ class TourItemWidget extends StatelessWidget {
   });
 
   TourController tourController = Get.find();
+  AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +32,14 @@ class TourItemWidget extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width - getSize(40),
         decoration: BoxDecoration(
-          color: ColorConstants.white,
+          color: appController.isDarkModeOn.value
+              ? ColorConstants.darkCard
+              : ColorConstants.white,
           borderRadius: BorderRadius.circular(getSize(16)),
           border: Border.all(
-            color: ColorConstants.dividerColor.withOpacity(.4),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.darkCard!.withOpacity(.4)
+                : ColorConstants.dividerColor.withOpacity(.4),
             width: 2,
           ),
         ),
@@ -106,7 +112,10 @@ class TourItemWidget extends StatelessWidget {
                   children: [
                     Text(
                       listTour.nameTour.isNotEmpty ? listTour.nameTour : '',
-                      style: AppStyles.botTitle000Size20Fw600FfMont,
+                      style: AppStyles.botTitle000Size20Fw600FfMont.copyWith(
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.btnCanCel
+                              : ColorConstants.botTitle),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
@@ -130,7 +139,11 @@ class TourItemWidget extends StatelessWidget {
                           TextSpan(
                             text: tourController
                                 .getNameCityById(listTour.idCity ?? ''),
-                            style: AppStyles.botTitle000Size14Fw400FfMont,
+                            style: AppStyles.botTitle000Size14Fw400FfMont
+                                .copyWith(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.btnCanCel
+                                        : ColorConstants.botTitle),
                           ),
                         ],
                       ),
@@ -150,7 +163,11 @@ class TourItemWidget extends StatelessWidget {
                           listTour.rating != 0
                               ? listTour.rating.toString()
                               : "",
-                          style: AppStyles.botTitle000Size14Fw400FfMont,
+                          style: AppStyles.botTitle000Size14Fw400FfMont
+                              .copyWith(
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.btnCanCel
+                                      : ColorConstants.botTitle),
                         ),
                         SizedBox(
                           width: getSize(8.0),
@@ -159,7 +176,10 @@ class TourItemWidget extends StatelessWidget {
                           listTour.reviews!.isNotEmpty
                               ? '${listTour.reviews?.length} reviews'
                               : '',
-                          style: AppStyles.graySecondSize14Fw400FfMont,
+                          style: AppStyles.graySecondSize14Fw400FfMont.copyWith(
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.btnCanCel
+                                  : ColorConstants.graySecond),
                         ),
                       ],
                     ),
@@ -173,15 +193,21 @@ class TourItemWidget extends StatelessWidget {
                             text: listTour.price != 0
                                 ? '\$${listTour.price}'
                                 : "\$143",
-                            style: const TextStyle(
-                              color: ColorConstants.botTitle,
+                            style: TextStyle(
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.btnCanCel
+                                  : ColorConstants.botTitle,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           TextSpan(
                             text: "/night",
-                            style: AppStyles.botTitle000Size14Fw400FfMont,
+                            style: AppStyles.botTitle000Size14Fw400FfMont
+                                .copyWith(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.btnCanCel
+                                        : ColorConstants.botTitle),
                           ),
                         ],
                       ),
