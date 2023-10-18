@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: getSize(8),
               ),
               Text(
-                "My Profile",
+                StringConst.myProfile.tr,
                 style: TextStyle(
                   fontSize: 36,
                   color: appController.isDarkModeOn.value
@@ -62,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Personal detail",
+                    StringConst.personalDetail.tr,
                     style: AppStyles.black000Size20Fw500FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.white
@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.toNamed(Routes.EDIT_PROFILE);
                     },
                     child: Text(
-                      "Change",
+                      StringConst.change.tr,
                       style: AppStyles.black000Size16Fw400FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.btnGradient
@@ -119,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 8,
                         ),
                         Text(
-                          "Photo",
+                          StringConst.photo.tr,
                           style: TextStyle(
                             color: appController.isDarkModeOn.value
                                 ? ColorConstants.white
@@ -147,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 8,
                         ),
                         Text(
-                          "Followers",
+                          StringConst.followers.tr,
                           style: TextStyle(
                             color: appController.isDarkModeOn.value
                                 ? ColorConstants.white
@@ -175,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 8,
                         ),
                         Text(
-                          "Following",
+                          StringConst.following.tr,
                           style: TextStyle(
                             color: appController.isDarkModeOn.value
                                 ? ColorConstants.white

@@ -1,4 +1,3 @@
-
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
@@ -6,6 +5,7 @@ import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/convert_date_time.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
@@ -45,7 +45,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        titles: "Create Tour",
+        titles: StringConst.createTour.tr,
         iconBgrColor: ColorConstants.grayTextField,
         onTap: () {
           Get.back();
@@ -66,9 +66,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(36),
                     ),
-                    const Text(
-                      "Name Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.nameTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -79,15 +79,15 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     MyTextField(
                       controller: adminController.nameTourController,
-                      hintText: "Enter new name tour",
+                      hintText: StringConst.enterNameTour.tr,
                       obscureText: false,
                     ),
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "Description Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.descriptionTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -98,15 +98,15 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     MyTextField(
                       controller: adminController.descriptionController,
-                      hintText: "Enter description tour",
+                      hintText: StringConst.enterDescriptionTour.tr,
                       obscureText: false,
                     ),
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "IdCity Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.idCityTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -218,9 +218,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "StartDate Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.startDateTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -256,9 +256,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "EndDate Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.endDateTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -294,9 +294,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "Price Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.priceTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -307,7 +307,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     MyTextField(
                       controller: adminController.priceController,
-                      hintText: "Enter price tour",
+                      hintText: StringConst.enterPriceTour.tr,
                       obscureText: false,
                     ),
                     SizedBox(
@@ -315,9 +315,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          "Itinerary Tour:",
-                          style: TextStyle(
+                        Text(
+                          StringConst.itineraryTour.tr,
+                          style: const TextStyle(
                             color: ColorConstants.graySub,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -339,7 +339,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     MyTextField(
                       controller: adminController.itineraryController,
-                      hintText: "Enter itinerary tour of day 1",
+                      hintText: StringConst.enterItineraryTour.tr,
                       obscureText: false,
                     ),
                     SizedBox(
@@ -358,9 +358,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                    const Text(
-                      "Rating Tour:",
-                      style: TextStyle(
+                    Text(
+                      StringConst.ratingTour.tr,
+                      style: const TextStyle(
                         color: ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -371,7 +371,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     MyTextField(
                       controller: adminController.ratingController,
-                      hintText: "Enter rating tour",
+                      hintText: StringConst.enterRatingTour.tr,
                       obscureText: false,
                     ),
                     SizedBox(
@@ -414,7 +414,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                           Get.back();
                           adminController.getAllTourModelData();
                         },
-                        child: const Text('Create'),
+                        child: Text(StringConst.create.tr),
                       ),
                     ),
                     SizedBox(

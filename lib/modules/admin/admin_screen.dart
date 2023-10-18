@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 import 'package:slideable/slideable.dart';
 
+import '../../shared/shared.dart';
+
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
 
@@ -66,7 +68,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        titles: "Admin",
+        titles: StringConst.admins.tr,
         iconBgrColor: ColorConstants.grayTextField,
       ),
       floatingActionButton: FloatingActionButton(
@@ -110,7 +112,7 @@ class _AdminScreenState extends State<AdminScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'All Tour',
+                            StringConst.allTour.tr,
                             style: AppStyles.black000Size18Fw500FfMont,
                           ),
                         ),
@@ -122,7 +124,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                 adminController.searchController,
                             onChanged: (value) =>
                                 adminController.filterListTourByName(value),
-                            hintText: "Search your favorite destination"),
+                            hintText: StringConst.searchDestinations.tr),
                         SizedBox(
                           height: getSize(32),
                         ),
@@ -164,12 +166,13 @@ class _AdminScreenState extends State<AdminScreen> {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   title: Text(
-                                                    'Confirmation',
+                                                    StringConst.confirmation.tr,
                                                     style: AppStyles
                                                         .black000Size14Fw600FfMont,
                                                   ),
                                                   content: Text(
-                                                    'Do you want to delete?',
+                                                    StringConst
+                                                        .doYouWantDelete.tr,
                                                     style: AppStyles
                                                         .black000Size16Fw700FfMont,
                                                   ),
@@ -178,8 +181,8 @@ class _AdminScreenState extends State<AdminScreen> {
                                                       onPressed: () {
                                                         Get.back();
                                                       },
-                                                      child:
-                                                          const Text('Cancel'),
+                                                      child: Text(StringConst
+                                                          .cancel.tr),
                                                     ),
                                                     TextButton(
                                                       onPressed: () {
@@ -195,7 +198,8 @@ class _AdminScreenState extends State<AdminScreen> {
                                                         adminController
                                                             .getAllTourModelData();
                                                       },
-                                                      child: const Text('OK'),
+                                                      child: Text(
+                                                          StringConst.ok.tr),
                                                     ),
                                                   ],
                                                 );

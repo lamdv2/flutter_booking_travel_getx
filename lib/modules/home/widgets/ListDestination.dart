@@ -2,7 +2,6 @@ import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/constants/assets_helper.dart';
 import '../../../shared/widgets/stateful/DestinationItem.dart';
 
 class ListDestination extends StatefulWidget {

@@ -26,14 +26,15 @@ class HomeTab extends StatelessWidget {
                 size: size,
                 avatar: true,
               ),
+
               const CategoryBar(),
               CarouselSliderDes(size: size),
               SizedBox(
                 height: getSize(32),
               ),
               TitleDes(
-                largeTitle: 'Popular Destinations',
-                seeAll: 'See All',
+                largeTitle: StringConst.popularDestination.tr,
+                seeAll: StringConst.seeAll.tr,
                 onTap: () {
                   homecontroller.currentIndex.value = 2;
                 },

@@ -1,5 +1,6 @@
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CategoryBar extends StatefulWidget {
   const CategoryBar({
@@ -10,7 +11,13 @@ class CategoryBar extends StatefulWidget {
   State<CategoryBar> createState() => _CategoryBarState();
 }
 
-List<String> menuList = ["All", "Popular", "Asia", "Europe", "American"];
+List<String> menuList = [
+  StringConst.all.tr,
+  StringConst.popular.tr,
+  StringConst.asia.tr,
+  StringConst.europe.tr,
+  StringConst.american.tr
+];
 
 class _CategoryBarState extends State<CategoryBar> {
   int selectedIndex = 0;

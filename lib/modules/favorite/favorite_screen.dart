@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 
 import '../../shared/constants/assets_helper.dart';
 import '../../shared/utils/size_utils.dart';
@@ -49,9 +51,9 @@ class _FavotiteScreenState extends State<FavotiteScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                const Text(
-                  "Favorite",
-                  style: TextStyle(
+                 Text(
+                  StringConst.favorite.tr,
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),

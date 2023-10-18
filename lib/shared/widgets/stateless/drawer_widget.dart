@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -67,9 +68,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'Profile',
-                  style: TextStyle(
+                Text(
+                  StringConst.profile.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -102,9 +103,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'Booking',
-                  style: TextStyle(
+                 Text(
+                  StringConst.booking.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -138,9 +139,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'Hotels',
-                  style: TextStyle(
+                 Text(
+                  StringConst.hotels.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -173,9 +174,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'Rooms',
-                  style: TextStyle(
+                 Text(
+                  StringConst.rooms.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -211,9 +212,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'History',
-                  style: TextStyle(
+                 Text(
+                  StringConst.history.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -249,9 +250,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'Tours',
-                  style: TextStyle(
+                 Text(
+                  StringConst.tours.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -287,9 +288,9 @@ class DrawerWidget extends StatelessWidget {
                 SizedBox(
                   width: getSize(16),
                 ),
-                const Text(
-                  'Admin',
-                  style: TextStyle(
+                 Text(
+                  StringConst.admins.tr,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -334,7 +335,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     padding: EdgeInsets.only(bottom: getSize(8)),
                     child: Text(
-                      "Log Out",
+                      StringConst.logout.tr,
                       style: TextStyle(
                         color: ColorConstants.black,
                         fontSize: 22,

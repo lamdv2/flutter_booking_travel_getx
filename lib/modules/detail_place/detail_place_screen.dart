@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/sevice_item_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/tour_sight_seeing_widget.dart';
@@ -77,7 +78,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                   ],
                 ),
                 Text(
-                  "Let's explore new place",
+                  StringConst.letsExplore.tr,
                   style: TextStyle(
                       color: ColorConstants.black,
                       fontSize: 14,
@@ -146,19 +147,19 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                           child: SizedBox(
                             height: size.height / 22,
                             width: size.width,
-                            child: const Row(
+                            child:  Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Column(
                                   children: [
                                     Text(
-                                      "Wind",
-                                      style: TextStyle(
+                                      StringConst.wind.tr,
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
                                       ),
                                     ),
-                                    Text(
+                                    const Text(
                                       "13 Km/h",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -170,13 +171,13 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Humidity",
-                                      style: TextStyle(
+                                      StringConst.humidity.tr,
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
                                       ),
                                     ),
-                                    Text(
+                                    const Text(
                                       "25",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -188,13 +189,13 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Visibility",
-                                      style: TextStyle(
+                                      StringConst.visibility.tr,
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
                                       ),
                                     ),
-                                    Text(
+                                    const Text(
                                       "10 Km",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -206,13 +207,13 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Pressure",
-                                      style: TextStyle(
+                                      StringConst.pressure.tr,
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
                                       ),
                                     ),
-                                    Text(
+                                    const Text(
                                       "1010 mb",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -240,7 +241,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                         Get.toNamed(Routes.HOTEL);
                       },
                       icon: AssetHelper.icWallet,
-                      seviceTitle: 'Tours',
+                      seviceTitle: StringConst.tours.tr,
                       isCheckActive: true,
                     ),
                     SeviceItemWidget(
@@ -248,7 +249,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                         Get.toNamed(Routes.HOTEL);
                       },
                       icon: AssetHelper.icoHotel,
-                      seviceTitle: 'Hotels',
+                      seviceTitle: StringConst.hotels.tr,
                       isCheckActive: false,
                     ),
                     SeviceItemWidget(
@@ -256,7 +257,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                         Get.toNamed(Routes.HOTEL);
                       },
                       icon: AssetHelper.icoPlane,
-                      seviceTitle: 'Flights',
+                      seviceTitle: StringConst.flights.tr,
                       isCheckActive: false,
                     ),
                     SeviceItemWidget(
@@ -264,7 +265,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                         Get.toNamed(Routes.HOTEL);
                       },
                       icon: AssetHelper.icoRestau,
-                      seviceTitle: 'Restau',
+                      seviceTitle: StringConst.restaurants.tr,
                       isCheckActive: false,
                     ),
                   ],
@@ -273,8 +274,8 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                   height: getSize(28),
                 ),
                 TitleDes(
-                  largeTitle: 'Sightseeing',
-                  seeAll: 'See All',
+                  largeTitle: StringConst.sightseeing.tr,
+                  seeAll: StringConst.seeAll.tr,
                   onTap: () {
                     Get.toNamed(Routes.TOUR);
                   },
@@ -314,7 +315,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                   height: getSize(28),
                 ),
                 Text(
-                  "Top-pick Articles",
+                  StringConst.topPickArticles.tr,
                   style: AppStyles.black000Size18Fw500FfMont,
                 ),
                 SingleChildScrollView(

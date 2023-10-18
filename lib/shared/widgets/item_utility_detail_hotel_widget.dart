@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/widgets/sevice_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemUtilityDetailHotelWidget extends StatelessWidget {
   ItemUtilityDetailHotelWidget({Key? key}) : super(key: key);
@@ -8,23 +9,23 @@ class ItemUtilityDetailHotelWidget extends StatelessWidget {
   final List<Map<String, String>> listUtility = [
     {
       'icon': AssetHelper.icoRestau,
-      'name': 'Restaurant',
+      'name': StringConst.restaurants.tr,
     },
     {
       'icon': AssetHelper.icCalling,
-      'name': 'Wifi',
+      'name': StringConst.wifi.tr,
     },
     {
       'icon': AssetHelper.icBag,
-      'name': 'Currency\nExchange',
+      'name': StringConst.currencyExchange.tr,
     },
     {
       'icon': AssetHelper.icShieldDone,
-      'name': '24-hour/Front Desk',
+      'name': StringConst.twentyFourHours.tr,
     },
     {
       'icon': AssetHelper.icCategory,
-      'name': 'More',
+      'name': StringConst.more.tr,
     },
   ];
 

@@ -1,5 +1,6 @@
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/hotel_item_vertical.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
@@ -26,7 +27,7 @@ class _HotelScreenState extends State<HotelScreen> {
       appBar: CustomAppBar(
         backgroundColor: ColorConstants.white,
         iconBgrColor: ColorConstants.grayTextField,
-        titles: 'Hotel',
+        titles: StringConst.hotels.tr,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -39,7 +40,7 @@ class _HotelScreenState extends State<HotelScreen> {
                 height: getSize(8),
               ),
                SearchBarWidget(
-                hintText: "Search your favorite hotel",
+                hintText: StringConst.searchHotel.tr,
               ),
               SizedBox(
                 height: getSize(24),
@@ -109,8 +110,8 @@ class _HotelScreenState extends State<HotelScreen> {
                 height: getSize(32),
               ),
               TitleDes(
-                largeTitle: 'Result',
-                seeAll: 'See All',
+                largeTitle: StringConst.result.tr,
+                seeAll: StringConst.seeAll.tr,
                 onTap: () => Get.toNamed(Routes.HOTEL_ALL),
               ),
               SizedBox(
@@ -137,8 +138,8 @@ class _HotelScreenState extends State<HotelScreen> {
                 height: getSize(24),
               ),
               TitleDes(
-                largeTitle: 'NearBy your location',
-                seeAll: 'See All',
+                largeTitle: StringConst.nearByYourLocation.tr,
+                seeAll: StringConst.seeAll.tr,
                 onTap: () => Get.toNamed(Routes.HOTEL_ALL),
               ),
               SizedBox(
