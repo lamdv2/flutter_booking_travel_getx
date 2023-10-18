@@ -17,6 +17,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 
+import '../../shared/shared.dart';
+
 class TourScreen extends StatefulWidget {
   const TourScreen({super.key});
 
@@ -102,14 +104,14 @@ class _TourScreenState extends State<TourScreen> {
                       textEditingController: tourController.searchController,
                       onChanged: (value) =>
                           tourController.filterListTourByName(value),
-                      hintText: "Search your favorite destination"),
+                      hintText: StringConst.searchDestinations.tr),
                   SizedBox(
                     height: getSize(32),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Pre-Book',
+                      StringConst.preBook.tr,
                       style: AppStyles.botTitle000Size30Fw800FfMont,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -120,7 +122,7 @@ class _TourScreenState extends State<TourScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Your Tour Pack',
+                      StringConst.yourTourPack.tr,
                       style: AppStyles.botTitle000Size28Fw500FfMont,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -156,7 +158,7 @@ class _TourScreenState extends State<TourScreen> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                'City',
+                                StringConst.city.tr,
                                 style: tourController.isCheckSearch.value
                                     ? AppStyles.white000Size18Fw500FfMont
                                     : AppStyles.black000Size18Fw500FfMont,
@@ -190,7 +192,7 @@ class _TourScreenState extends State<TourScreen> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                'All',
+                                StringConst.all.tr,
                                 style: tourController.isCheckSearch.value
                                     ? AppStyles.black000Size18Fw500FfMont
                                     : AppStyles.white000Size18Fw500FfMont,
@@ -209,7 +211,7 @@ class _TourScreenState extends State<TourScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Filter',
+                        StringConst.filter.tr,
                         style: AppStyles.black000Size18Fw500FfMont,
                       ),
                       DropdownButtonHideUnderline(

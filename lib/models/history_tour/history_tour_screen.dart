@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
 
+import '../../shared/shared.dart';
+
 // ignore: must_be_immutable
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -74,7 +76,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        titles: 'History',
+        titles: StringConst.history.tr,
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.appbarDarkmode
             : ColorConstants.primaryButton,

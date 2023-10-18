@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -90,7 +91,7 @@ class TourDetailsScreen extends StatelessWidget {
                           _buildLocation(tourController),
                           SizedBox(height: getSize(kMediumPadding)),
                           ButtonWidget(
-                            textBtn: 'Book Tour',
+                            textBtn: StringConst.bookTour.tr,
                             onTap: () => Get.toNamed(Routes.BOOKING_REQUIED,
                                 arguments: tourModel),
                           ),
@@ -206,9 +207,9 @@ class TourDetailsScreen extends StatelessWidget {
                     color: ColorConstants.botTitle,
                   ),
                 ),
-                const Text(
-                  '/night',
-                  style: TextStyle(fontSize: 14),
+                Text(
+                  StringConst.night.tr,
+                  style: const TextStyle(fontSize: 14),
                 ),
               ],
             ),
@@ -228,22 +229,22 @@ class TourDetailsScreen extends StatelessWidget {
         ),
         SizedBox(width: getSize(kTopPadding)),
         Text(
-          '${tourModel?.rating}/5 ',
+          '${tourModel?.rating}${StringConst.five.tr} ',
           style: const TextStyle(
             fontSize: 16,
           ),
         ),
         Text(
-          '(${tourModel?.reviews?.length} review)',
+          '(${tourModel?.reviews?.length} ${StringConst.review.tr})',
           style: TextStyle(
             fontSize: 16,
             color: Colors.blueGrey.shade500,
           ),
         ),
         const Spacer(),
-        const Text(
-          'See All',
-          style: TextStyle(
+        Text(
+          StringConst.seeAll.tr,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,
             color: ColorConstants.primaryButton,
@@ -257,9 +258,9 @@ class TourDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Information',
-          style: TextStyle(
+         Text(
+          StringConst.information.tr,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -267,7 +268,7 @@ class TourDetailsScreen extends StatelessWidget {
         SizedBox(height: getSize(kDefaultPadding)),
         Text(
           tourModel?.description ?? '',
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );
@@ -284,9 +285,9 @@ class TourDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Trip Plan',
-          style: TextStyle(
+         Text(
+          StringConst.tripPlan.tr,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -362,9 +363,9 @@ class TourDetailsScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Location',
-              style: TextStyle(
+             Text(
+              StringConst.location.tr,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -372,9 +373,9 @@ class TourDetailsScreen extends StatelessWidget {
             GestureDetector(
               onTap: () =>
                   tourController.launchMap(tourModel?.description ?? ''),
-              child: const Text(
-                'Show Map',
-                style: TextStyle(
+              child:  Text(
+                StringConst.showMap.tr,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),

@@ -1,5 +1,6 @@
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../shared/widgets/stateful/header_widget.dart';
 import '../../shared/widgets/stateful/hotel_item_vertical.dart';
@@ -27,8 +28,8 @@ class _HotelAllScreenState extends State<HotelAllScreen> {
               SizedBox(
                 height: getSize(statusBarHeight),
               ),
-              const HeaderWidget(
-                titleHeader: "All Hotel",
+               HeaderWidget(
+                titleHeader: StringConst.allHotel.tr,
               ),
               ListView.builder(
                 shrinkWrap: true,

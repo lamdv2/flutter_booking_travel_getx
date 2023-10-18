@@ -45,7 +45,7 @@ class _BookingScreenState extends State<BookingScreen> {
       },
       child: Scaffold(
         appBar: CustomAppBar(
-          titles: "Booking",
+          titles: StringConst.booking.tr,
           backgroundColor: appController.isDarkModeOn.value
               ? ColorConstants.appbarDarkmode
               : ColorConstants.primaryButton,
@@ -66,7 +66,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     height: getSize(8),
                   ),
                   Text(
-                    "Choose your favorite hotel and enjoy the service",
+                    StringConst.chooseYourFavorite.tr,
                     style: AppStyles.botTitle000Size12Fw400FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.dividerColor
@@ -112,7 +112,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
-                                              "Destination",
+                                              StringConst.destination.tr,
                                               style: AppStyles
                                                   .botTitle000Size14Fw400FfMont
                                                   .copyWith(
@@ -162,7 +162,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
-                                              "Destination",
+                                              StringConst.destination.tr,
                                               style: AppStyles
                                                   .botTitle000Size14Fw400FfMont
                                                   .copyWith(
@@ -281,7 +281,7 @@ class _BookingScreenState extends State<BookingScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "Select Date",
+                                StringConst.selectDate.tr,
                                 style: AppStyles.botTitle000Size14Fw400FfMont
                                     .copyWith(
                                   color: appController.isDarkModeOn.value
@@ -294,13 +294,13 @@ class _BookingScreenState extends State<BookingScreen> {
                               ),
                               Text(
                                 dateSelected.isEmpty
-                                    ? 'Please select your start date'
+                                    ? StringConst.pleaseSelect.tr
                                     : dateSelected,
                                 style: AppStyles.botTitle000Size14Fw400FfMont
                                     .copyWith(
                                   color: appController.isDarkModeOn.value
                                       ? ColorConstants.white
-                                      : ColorConstants.botTitle,
+                                      : const Color.fromARGB(255, 3, 1, 1),
                                 ),
                               ),
                             ],
@@ -325,9 +325,9 @@ class _BookingScreenState extends State<BookingScreen> {
                         onPressed: () {
                           Get.toNamed(Routes.TOUR);
                         },
-                        child: const Text(
-                          "Search",
-                          style: TextStyle(fontSize: 18),
+                        child: Text(
+                          StringConst.booking.tr,
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ),
                     ),
@@ -349,7 +349,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           Get.toNamed(Routes.LOADING_IMAGE);
                         },
                         child: Text(
-                          "Cancel",
+                          StringConst.cancel.tr,
                           style: TextStyle(
                             fontSize: 18,
                             color: ColorConstants.black,

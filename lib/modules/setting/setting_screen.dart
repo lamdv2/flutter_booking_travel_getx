@@ -6,7 +6,6 @@ import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/profile_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/item_setting_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../shared/constants/assets_helper.dart';
@@ -66,35 +65,35 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: getSize(12),
               ),
               ItemSettingWidget(
-                  title: 'Personal Information',
-                  description: 'Your account information',
+                  title: StringConst.personalInformation.tr,
+                  description: StringConst.yourAccountInformation.tr,
                   image: AssetHelper.icProfile),
               SizedBox(
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                  title: 'Notifications & Chat',
-                  description: 'Chat and notifications settings',
+                  title: StringConst.notificationAndChat.tr,
+                  description: StringConst.chatAndNotificationsSettings.tr,
                   image: AssetHelper.icNotification),
               SizedBox(
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                  title: 'Private & Permissions',
-                  description: 'Contact, My album and Black contact',
+                  title: StringConst.privateAndPermissions.tr,
+                  description: StringConst.contactMyAlbum.tr,
                   image: AssetHelper.icShieldDone),
               SizedBox(
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                  title: 'Password & Account',
-                  description: 'Manager your Account settings',
+                  title: StringConst.passwordAndAccount.tr,
+                  description: StringConst.manageAccount.tr,
                   image: AssetHelper.icLock),
               SizedBox(
                 height: getSize(32),
               ),
               Text(
-                " Setting System",
+                StringConst.settingSystem.tr,
                 style: AppStyles.black000Size14Fw400FfMont.copyWith(
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.white
@@ -104,12 +103,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                  title: 'Change language', image: AssetHelper.icSetting),
+                  title: StringConst.changeLanguage.tr, image: AssetHelper.icSetting),
               SizedBox(
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                title: 'Dark mode',
+                title: StringConst.darkMode.tr,
                 image: 'assets/images/x3/ic_dark_mode_profile.svg',
                 isSwitch: true,
               ),
@@ -117,7 +116,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: getSize(32),
               ),
               Text(
-                "More",
+                StringConst.more.tr,
                 style: AppStyles.black000Size14Fw400FfMont.copyWith(
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.white
@@ -126,17 +125,17 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(
                 height: getSize(16),
               ),
-              ItemSettingWidget(title: 'Guide', image: AssetHelper.icDocument),
+              ItemSettingWidget(title: StringConst.guide.tr, image: AssetHelper.icDocument),
               SizedBox(
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                  title: 'Feedback', image: AssetHelper.icEditSquare),
+                  title: StringConst.feedback.tr, image: AssetHelper.icEditSquare),
               SizedBox(
                 height: getSize(16),
               ),
               ItemSettingWidget(
-                  title: 'About', image: AssetHelper.icInfoSquare),
+                  title: StringConst.about.tr, image: AssetHelper.icInfoSquare),
               SizedBox(
                 height: getSize(32),
               ),
@@ -145,8 +144,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Logout',
+                     Text(
+                      StringConst.logout.tr,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,

@@ -32,19 +32,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             children: [
               HomeHeader(
                 size: size,
-                titleCenter: "Discover",
+                titleCenter: StringConst.discover.tr,
               ),
               SizedBox(
                 height: getSize(16),
               ),
               SearchBarWidget(
-                  hintText: "Search destinations your want to discover"),
+                  hintText: StringConst.searchDestinations.tr),
               SizedBox(
                 height: getSize(32),
               ),
               TitleDes(
-                largeTitle: 'Popular Destinations',
-                seeAll: 'See All',
+                largeTitle: StringConst.popularDestination.tr,
+                seeAll: StringConst.seeAll.tr,
                 onTap: () => homeController.currentIndex.value = 0,
               ),
               ListDestination(size: size),
