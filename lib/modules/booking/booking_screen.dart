@@ -43,46 +43,51 @@ class _BookingScreenState extends State<BookingScreen> {
         }
         return true;
       },
-      child: Scaffold(
-        appBar: CustomAppBar(
-          titles: StringConst.booking.tr,
+      child: Obx(
+        () => Scaffold(
           backgroundColor: appController.isDarkModeOn.value
-              ? ColorConstants.appbarDarkmode
-              : ColorConstants.primaryButton,
-          iconBgrColor: ColorConstants.grayTextField,
-          onTap: () {
-            if (homeController.currentIndex.value != 0) {
-              homeController.currentIndex.value = 0;
-            }
-          },
-        ),
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: getSize(8),
-                  ),
-                  Text(
-                    StringConst.chooseYourFavorite.tr,
-                    style: AppStyles.botTitle000Size12Fw400FfMont.copyWith(
+              ? ColorConstants.darkBackground
+              : ColorConstants.lightBackground,
+          appBar: CustomAppBar(
+            titles: StringConst.booking.tr,
+            backgroundColor: appController.isDarkModeOn.value
+                ? ColorConstants.darkAppBar
+                : ColorConstants.primaryButton,
+            iconBgrColor: ColorConstants.grayTextField,
+            onTap: () {
+              if (homeController.currentIndex.value != 0) {
+                homeController.currentIndex.value = 0;
+              }
+            },
+          ),
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    Text(
+                      StringConst.chooseYourFavorite.tr,
+                      style: AppStyles.botTitle000Size14Fw400FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.dividerColor
-                            : ColorConstants.botTitle),
-                  ),
-                  SizedBox(
-                    height: getSize(46),
-                  ),
-                  Obx(
-                    () => DropdownButtonHideUnderline(
+                            : ColorConstants.botTitle,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: getSize(46),
+                    ),
+                    DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         isExpanded: true,
                         underline: Divider(
                           thickness: 0.5,
                           color: appController.isDarkModeOn.value
-                              ? ColorConstants.bgrDarkmode
+                              ? ColorConstants.darkCard
                               : ColorConstants.grayTextField,
                         ),
                         items: tourController.items.value != null
@@ -205,7 +210,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                           decoration: BoxDecoration(
                             color: appController.isDarkModeOn.value
-                                ? ColorConstants.bgrDarkmode
+                                ? ColorConstants.darkCard
                                 : ColorConstants.grayTextField,
                             borderRadius: BorderRadius.circular(
                               getSize(14),
@@ -219,7 +224,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: appController.isDarkModeOn.value
-                                ? ColorConstants.bgrDarkmode
+                                ? ColorConstants.darkCard
                                 : ColorConstants.grayTextField,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
@@ -238,127 +243,138 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: getSize(46),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      final result = await Get.toNamed(Routes.SELECT_DATE);
-                      if (result is List<DateTime?>) {
-                        dateSelected =
-                            '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
-                        setState(() {});
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: appController.isDarkModeOn.value
-                            ? ColorConstants.bgrDarkmode
-                            : ColorConstants.grayTextField,
-                        borderRadius: BorderRadius.circular(getSize(14)),
-                      ),
-                      padding: EdgeInsets.only(
-                        left: getSize(34),
-                        top: getSize(16),
-                        bottom: getSize(16),
-                        right: getSize(16),
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            AssetHelper.icCalendar,
-                            width: getSize(32),
-                            color: appController.isDarkModeOn.value
-                                ? ColorConstants.white
-                                : ColorConstants.accent1,
-                          ),
-                          SizedBox(
-                            width: getSize(16),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                StringConst.selectDate.tr,
-                                style: AppStyles.botTitle000Size14Fw400FfMont
-                                    .copyWith(
-                                  color: appController.isDarkModeOn.value
-                                      ? ColorConstants.white
-                                      : ColorConstants.botTitle,
+                    SizedBox(
+                      height: getSize(46),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        final result = await Get.toNamed(Routes.SELECT_DATE);
+                        if (result is List<DateTime?>) {
+                          dateSelected =
+                              '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
+                          setState(() {});
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.darkCard
+                              : ColorConstants.grayTextField,
+                          borderRadius: BorderRadius.circular(getSize(14)),
+                        ),
+                        padding: EdgeInsets.only(
+                          left: getSize(34),
+                          top: getSize(16),
+                          bottom: getSize(16),
+                          right: getSize(16),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              AssetHelper.icCalendar,
+                              width: getSize(32),
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.white
+                                  : ColorConstants.accent1,
+                            ),
+                            SizedBox(
+                              width: getSize(16),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  StringConst.selectDate.tr,
+                                  style: AppStyles.botTitle000Size14Fw400FfMont
+                                      .copyWith(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.white
+                                        : ColorConstants.botTitle,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: getSize(8.0),
-                              ),
-                              Text(
-                                dateSelected.isEmpty
-                                    ? StringConst.pleaseSelect.tr
-                                    : dateSelected,
-                                style: AppStyles.botTitle000Size14Fw400FfMont
-                                    .copyWith(
-                                  color: appController.isDarkModeOn.value
-                                      ? ColorConstants.white
-                                      : const Color.fromARGB(255, 3, 1, 1),
+                                SizedBox(
+                                  height: getSize(8.0),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: getSize(220),
+                                  child: Text(
+                                    dateSelected.isEmpty
+                                        ? StringConst.pleaseSelect.tr
+                                        : dateSelected,
+                                    style: AppStyles
+                                        .botTitle000Size14Fw400FfMont
+                                        .copyWith(
+                                      color: appController.isDarkModeOn.value
+                                          ? ColorConstants.white
+                                          : const Color.fromARGB(255, 3, 1, 1),
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(46),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: getSize(48),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(getSize(16)),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            alignment: Alignment.center,
+                            backgroundColor: ColorConstants.primaryButton,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: getSize(46),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: getSize(48),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(getSize(16)),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          backgroundColor: ColorConstants.primaryButton,
-                        ),
-                        onPressed: () {
-                          Get.toNamed(Routes.TOUR);
-                        },
-                        child: Text(
-                          StringConst.booking.tr,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: getSize(46),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: getSize(48),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(getSize(16)),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          backgroundColor: ColorConstants.btnCanCel,
-                        ),
-                        onPressed: () {
-                          Get.toNamed(Routes.LOADING_IMAGE);
-                        },
-                        child: Text(
-                          StringConst.cancel.tr,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: ColorConstants.black,
+                          onPressed: () {
+                            Get.toNamed(Routes.TOUR);
+                          },
+                          child: Text(
+                            StringConst.booking.tr,
+                            style: const TextStyle(fontSize: 18),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: getSize(46),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: getSize(48),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(getSize(16)),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            alignment: Alignment.center,
+                            backgroundColor: appController.isDarkModeOn.value
+                                ? ColorConstants.darkCard
+                                : ColorConstants.btnCanCel,
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.LOADING_IMAGE);
+                          },
+                          child: Text(
+                            StringConst.cancel.tr,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.lightAppBar
+                                  : ColorConstants.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 
 import '../../../modules/profile/profile_screen.dart';
 import '../../../routes/app_pages.dart';
-import '../../constants/assets_helper.dart';
-import '../../constants/colors.dart';
 import '../../utils/size_utils.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -20,7 +18,10 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: ColorConstants.white,
+      width: MediaQuery.of(context).size.width * .7,
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -34,45 +35,51 @@ class DrawerWidget extends StatelessWidget {
                 Get.back();
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
+                padding: const EdgeInsets.only(
+                  right: 24,
+                  top: 16,
                 ),
                 child: SvgPicture.asset(
                   AssetHelper.icoNextLeft,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.graySub,
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
                     BlendMode.srcIn,
                   ),
-                  width: getSize(24),
-                  height: getSize(24),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
               ),
             ),
           ),
           SizedBox(
-            height: getSize(32),
+            height: getSize(16),
           ),
           ListTile(
             title: Row(
               children: [
                 SvgPicture.asset(
                   AssetHelper.icProfile,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.graySub,
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
                     BlendMode.srcIn,
                   ),
-                  width: getSize(24),
-                  height: getSize(24),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
                 Text(
                   StringConst.profile.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -84,30 +91,36 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
-          ),
-          SizedBox(
-            height: getSize(16),
+            endIndent: 80,
           ),
           ListTile(
             title: Row(
               children: [
                 SvgPicture.asset(
                   AssetHelper.icBag,
-                  color: ColorConstants.graySub,
-                  width: getSize(24),
-                  height: getSize(24),
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
+                    BlendMode.srcIn,
+                  ),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
-                 Text(
+                Text(
                   StringConst.booking.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -120,30 +133,36 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
-          ),
-          SizedBox(
-            height: getSize(16),
+            endIndent: 80,
           ),
           ListTile(
             title: Row(
               children: [
                 SvgPicture.asset(
                   AssetHelper.icoHotel,
-                  color: ColorConstants.graySub,
-                  width: getSize(24),
-                  height: getSize(24),
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
+                    BlendMode.srcIn,
+                  ),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
-                 Text(
+                Text(
                   StringConst.hotels.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -155,30 +174,33 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
-          ),
-          SizedBox(
-            height: getSize(16),
+            endIndent: 80,
           ),
           ListTile(
             title: Row(
               children: [
                 Image.asset(
                   AssetHelper.icoRoom,
-                  color: ColorConstants.graySub,
-                  width: getSize(24),
-                  height: getSize(24),
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.btnCanCel
+                      : ColorConstants.graySub,
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
-                 Text(
+                Text(
                   StringConst.rooms.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -190,33 +212,36 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
-          ),
-          SizedBox(
-            height: getSize(16),
+            endIndent: 80,
           ),
           ListTile(
             title: Row(
               children: [
                 SvgPicture.asset(
                   AssetHelper.icDocument,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.graySub,
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
                     BlendMode.srcIn,
                   ),
-                  width: getSize(24),
-                  height: getSize(24),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
-                 Text(
+                Text(
                   StringConst.history.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -228,33 +253,36 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
-          ),
-          SizedBox(
-            height: getSize(16),
+            endIndent: 80,
           ),
           ListTile(
             title: Row(
               children: [
                 SvgPicture.asset(
                   AssetHelper.icWallet,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.graySub,
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
                     BlendMode.srcIn,
                   ),
-                  width: getSize(24),
-                  height: getSize(24),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
-                 Text(
+                Text(
                   StringConst.tours.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -266,33 +294,36 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
-          ),
-          SizedBox(
-            height: getSize(16),
+            endIndent: 80,
           ),
           ListTile(
             title: Row(
               children: [
                 SvgPicture.asset(
                   AssetHelper.icAddUser,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.graySub,
+                  colorFilter: ColorFilter.mode(
+                    appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
                     BlendMode.srcIn,
                   ),
-                  width: getSize(24),
-                  height: getSize(24),
+                  width: getSize(22),
+                  height: getSize(22),
                 ),
                 SizedBox(
-                  width: getSize(16),
+                  width: getSize(24),
                 ),
-                 Text(
+                Text(
                   StringConst.admins.tr,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
+                  style: TextStyle(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : Colors.black,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -304,9 +335,11 @@ class DrawerWidget extends StatelessWidget {
           ),
           Divider(
             thickness: 0.5,
-            color: ColorConstants.black.withOpacity(0.8),
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.btnCanCel
+                : ColorConstants.black.withOpacity(0.8),
             indent: 16,
-            endIndent: 100,
+            endIndent: 80,
           ),
           SizedBox(
             height: getSize(32),
@@ -328,7 +361,9 @@ class DrawerWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: ColorConstants.black.withOpacity(0.8),
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.btnCanCel
+                              : ColorConstants.black.withOpacity(0.8),
                           width: 1,
                         ),
                       ),
@@ -337,7 +372,9 @@ class DrawerWidget extends StatelessWidget {
                     child: Text(
                       StringConst.logout.tr,
                       style: TextStyle(
-                        color: ColorConstants.black,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.btnCanCel
+                            : ColorConstants.black,
                         fontSize: 22,
                         fontWeight: FontWeight.w500,
                       ),
@@ -348,7 +385,9 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   Image.asset(
                     AssetHelper.icoLogout,
-                    color: ColorConstants.graySub,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.btnCanCel
+                        : ColorConstants.graySub,
                     width: 24,
                     height: 24,
                   ),

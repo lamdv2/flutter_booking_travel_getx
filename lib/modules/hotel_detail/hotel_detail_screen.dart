@@ -50,9 +50,9 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                      color: ColorConstants.darkBackground2,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    decoration: BoxDecoration(
+                      color: ColorConstants.darkBackground,
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,

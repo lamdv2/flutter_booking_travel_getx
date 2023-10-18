@@ -15,19 +15,15 @@ class ColorConstants {
   static const Color lightGray = Color(0xFFF6F6F6);
   static const Color grayTextField = Color(0xFFf2f5fc);
   static const Color secondBackground = Color(0xFFf4f7fc);
-  static Color? bgrDarkmode = Colors.grey[800];
-  static Color? appbarDarkmode = const Color(0xFF233142);
 
   static const Color secondaryAppColor = Color(0xFF22DDA6);
   static const Color green = Color(0xFF3E9D9D);
-  static const Color darkBackground2 = Color(0xFFE2F4FF);
   static const Color btnGradient = Color(0xFF43B1C4);
 
   static const Color blue = Color(0xFF2185D5);
   static const Color blueSecond = Color(0xFF237CEF);
   static const Color primaryColor = Color(0xFF6155CC);
   static const Color nextColor = Color(0xFF1563EF);
-  static const Color darkBackground = Color(0xFF06164E);
 
   static const Color gray = Color(0xFFD0D0D0);
   static const Color graySub = Color(0xFF3A4750);
@@ -54,6 +50,26 @@ class ColorConstants {
 
   static Color darkScaffoldBackgroundColor = hexToColor('#2F2E2E');
   static const lightBlueNon = Color(0x48CAE7);
+
+  // Light theme
+  // Status bar
+  static Color? lightStatusBar = const Color(0xFFE0E0E0);
+  // App bar
+  static Color? lightAppBar = const Color(0xFFF5F5F5);
+  // Background
+  static Color? lightBackground = const Color(0xFFFAFAFA);
+  // Cards
+  static Color? lightCard = white;
+
+  // Dark theme
+  // Status bar
+  static Color? darkStatusBar = black;
+  // App bar
+  static Color? darkAppBar = const Color(0xFF212121);
+  // Background
+  static Color? darkBackground = const Color(0xFF303030);
+  // Cards
+  static Color? darkCard = const Color(0xFF424242);
 
   // flutter flow
   static const Color accent1 = Color(0xFF616161);
@@ -105,7 +121,7 @@ class Gradients {
 
   static const lightBlue1 = Color(0xFF449EFF);
   static const lightBlue2 = Color(0xFF1DC7F7);
-  static const darkGreyNon = Color(0x222644);
+  static const darkGreyNon = Color(0x22264444);
   static const darkGreyMid = Color(0x3C2B3050);
   static const darkGrey = Color(0xFF222644);
   static const promo1 = Color(0xFF3E60F9);

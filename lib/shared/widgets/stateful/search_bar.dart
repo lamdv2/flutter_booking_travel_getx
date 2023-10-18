@@ -26,7 +26,7 @@ class SearchBarWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: appController.isDarkModeOn.value
-            ? ColorConstants.bgrDarkmode
+            ? ColorConstants.darkCard
             : ColorConstants.grayTextField,
         borderRadius: BorderRadius.circular(14),
       ),

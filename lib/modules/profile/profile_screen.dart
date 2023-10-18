@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       drawer: DrawerWidget(),
       appBar: CustomAppBar(
         backgroundColor: appController.isDarkModeOn.value
-            ? ColorConstants.appbarDarkmode
+            ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),

@@ -14,12 +14,14 @@ class StringConst {
   static String american = 'american';
   static String popularDestination = 'popularDestination';
   static String seeAll = 'seeAll';
+
   //Favorite
   static String favorite = 'favorite';
 
   //Discover
   static String discover = 'discover';
   static String searchDestinations = 'searchDestinations';
+
   //Booking
   static String booking = 'booking';
   static String chooseYourFavorite = 'chooseYourFavorite';
@@ -28,6 +30,7 @@ class StringConst {
   static String pleaseSelect = 'pleaseSelect';
   static String search = 'search';
   static String cancel = 'cancel';
+
   //profile
   static String appSetting = 'appSetting';
   static String personalInformation = 'personalInformation';
@@ -46,6 +49,7 @@ class StringConst {
   static String feedback = 'feedback';
   static String about = 'about';
   static String logout = 'logout';
+
   //drawer
   static String profile = 'profile';
   static String hotels = 'hotels';
@@ -53,6 +57,7 @@ class StringConst {
   static String history = 'history';
   static String tours = 'tours';
   static String admins = 'admins';
+
   //Profile screen
   static String myProfile = 'myProfile';
   static String personalDetail = 'personalDetail';
@@ -60,21 +65,25 @@ class StringConst {
   static String photo = 'photo';
   static String followers = 'followers';
   static String following = 'following';
+
   //Hotel screen
   static String searchHotel = 'searchHotel';
   static String result = 'result';
   static String nearByYourLocation = 'nearByYourLocation';
   static String allHotel = 'allHotel';
+
   //Tours screen
   static String preBook = 'preBook';
   static String yourTourPack = 'yourTourPack';
   static String city = 'city';
   static String filter = 'filter';
+
   //Admin screen
   static String allTour = 'allTour';
   static String confirmation = 'confirmation';
   static String doYouWantDelete = 'doYouWantDelete';
   static String ok = 'ok';
+
   //Detail place screen
   static String letsExplore = 'letsExplore';
   static String wind = 'wind';
@@ -85,6 +94,7 @@ class StringConst {
   static String restaurants = 'restaurants';
   static String sightseeing = 'sightseeing';
   static String topPickArticles = 'topPickArticles';
+
   //Admin create tour screen
   static String createTour = 'createTour';
   static String nameTour = 'nameTour';
@@ -101,12 +111,13 @@ class StringConst {
   static String ratingTour = 'ratingTour';
   static String enterRatingTour = 'enterRatingTour';
   static String create = 'create';
+
   //Admin update tour screen
   static String updateTour = 'updateTour';
   static String itineraryOfTour = 'itineraryOfTour';
   static String enterItineraryOfTour = 'enterItineraryOfTour';
-  //Tour detail screen
 
+  //Tour detail screen
   static String bookTour = 'bookTour';
   static String night = 'night';
   static String information = 'information';
@@ -115,7 +126,11 @@ class StringConst {
   static String showMap = 'showMap';
   static String wifi = 'wifi';
   static String currencyExchange = 'currencyExchange';
-  static String twentyFourHours = '24Hours';
+  static String twentyFourHours = 'twentyFourHours';
   static String five = 'five';
   static String review = 'review';
+
+  // Tour screen
+  static String newType = 'newType';
+  static String sale = 'sale';
 }

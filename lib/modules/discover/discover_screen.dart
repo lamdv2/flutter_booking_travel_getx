@@ -23,32 +23,36 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              HomeHeader(
-                size: size,
-                titleCenter: StringConst.discover.tr,
-              ),
-              SizedBox(
-                height: getSize(16),
-              ),
-              SearchBarWidget(
-                  hintText: StringConst.searchDestinations.tr),
-              SizedBox(
-                height: getSize(32),
-              ),
-              TitleDes(
-                largeTitle: StringConst.popularDestination.tr,
-                seeAll: StringConst.seeAll.tr,
-                onTap: () => homeController.currentIndex.value = 0,
-              ),
-              ListDestination(size: size),
-            ],
+    return Obx(
+      () => Scaffold(
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.darkBackground
+            : ColorConstants.lightBackground,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                HomeHeader(
+                  size: size,
+                  titleCenter: StringConst.discover.tr,
+                ),
+                SizedBox(
+                  height: getSize(16),
+                ),
+                SearchBarWidget(hintText: StringConst.searchDestinations.tr),
+                SizedBox(
+                  height: getSize(32),
+                ),
+                TitleDes(
+                  largeTitle: StringConst.popularDestination.tr,
+                  seeAll: StringConst.seeAll.tr,
+                  onTap: () => homeController.currentIndex.value = 0,
+                ),
+                ListDestination(size: size),
+              ],
+            ),
           ),
         ),
       ),

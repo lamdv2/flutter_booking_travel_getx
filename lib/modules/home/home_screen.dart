@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsetsDirectional.all(12),
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: Container(
+                child: SizedBox(
                   width: getSize(45),
                   height: getSize(45),
                   child: Card(
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? ColorConstants.white.withOpacity(.5)
               : ColorConstants.primaryButton.withOpacity(0.2),
           backgroundColor: appController.isDarkModeOn.value
-              ? ColorConstants.appbarDarkmode
+              ? ColorConstants.darkAppBar
               : ColorConstants.white,
           curve: Curves.easeOutQuint,
           duration: const Duration(milliseconds: 1000),

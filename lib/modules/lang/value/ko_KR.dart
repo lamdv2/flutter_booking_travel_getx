@@ -107,7 +107,11 @@ const Map<String, String> ko = {
   'showMap': '显示地图',
   'wifi': '无线网络',
   'currencyExchange': '货币兑换',
-  '24Hours': '24小时前台',
+  'twentyFourHours': '24小时前台',
   'five': '/5',
-  'review': '评论',
+  'review': '평가',
+
+  // Tour screen
+  'newType': '새로운',
+  'sale': '할인',
 };
