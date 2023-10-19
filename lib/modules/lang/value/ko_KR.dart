@@ -114,4 +114,9 @@ const Map<String, String> ko = {
   // Tour screen
   'newType': '새로운',
   'sale': '할인',
+
+  // Edit profile
+  'email': 'email',
+  'phoneNumber': 'phone number',
+  'save': 'Save',
 };

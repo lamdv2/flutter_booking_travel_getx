@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ import 'package:like_button/like_button.dart';
 import '../../constants/app_style.dart';
 
 class HotelItemWidget extends StatelessWidget {
-  const HotelItemWidget({
+  HotelItemWidget({
     super.key,
   });
+
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,9 @@ class HotelItemWidget extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width / 1.4,
         decoration: BoxDecoration(
-          color: ColorConstants.grayTextField,
+          color: appController.isDarkModeOn.value
+              ? ColorConstants.darkCard
+              : ColorConstants.grayTextField,
           borderRadius: BorderRadius.circular(getSize(14)),
         ),
         margin: EdgeInsets.only(bottom: getSize(16)),
@@ -87,7 +92,11 @@ class HotelItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     "Royal Palm Heritage",
-                    style: AppStyles.botTitle000Size20Fw500FfMont,
+                    style: AppStyles.botTitle000Size20Fw500FfMont.copyWith(
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground
+                          : ColorConstants.botTitle,
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
@@ -105,11 +114,21 @@ class HotelItemWidget extends StatelessWidget {
                         ),
                         TextSpan(
                           text: "  Purwokerto, Jateng - ",
-                          style: AppStyles.botTitle000Size14Fw400FfMont,
+                          style:
+                              AppStyles.botTitle000Size14Fw400FfMont.copyWith(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : ColorConstants.botTitle,
+                          ),
                         ),
                         TextSpan(
                           text: "364 m from destination",
-                          style: AppStyles.titleSearchSize12Fw400FfMont,
+                          style:
+                              AppStyles.titleSearchSize12Fw400FfMont.copyWith(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : ColorConstants.titleSearch,
+                          ),
                         ),
                       ],
                       style: DefaultTextStyle.of(context).style.copyWith(
@@ -130,14 +149,22 @@ class HotelItemWidget extends StatelessWidget {
                       ),
                       Text(
                         "4.5",
-                        style: AppStyles.botTitle000Size14Fw400FfMont,
+                        style: AppStyles.botTitle000Size14Fw400FfMont.copyWith(
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.gray
+                              : ColorConstants.botTitle,
+                        ),
                       ),
                       SizedBox(
                         width: getSize(8.0),
                       ),
                       Text(
                         "(3241 reviews)",
-                        style: AppStyles.graySecondSize14Fw400FfMont,
+                        style: AppStyles.graySecondSize14Fw400FfMont.copyWith(
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.gray
+                              : ColorConstants.graySecond,
+                        ),
                       ),
                     ],
                   ),
@@ -147,17 +174,24 @@ class HotelItemWidget extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       children: [
-                        const TextSpan(
+                        TextSpan(
                           text: "\$143",
                           style: TextStyle(
-                            color: ColorConstants.botTitle,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : ColorConstants.botTitle,
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         TextSpan(
-                          text: "/night",
-                          style: AppStyles.botTitle000Size14Fw400FfMont,
+                          text: StringConst.night.tr,
+                          style:
+                              AppStyles.botTitle000Size14Fw400FfMont.copyWith(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : ColorConstants.botTitle,
+                          ),
                         ),
                       ],
                     ),

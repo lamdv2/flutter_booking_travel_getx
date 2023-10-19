@@ -114,4 +114,9 @@ const Map<String, String> vi = {
   // Tour screen
   'newType': 'Mới',
   'sale': 'Giảm giá',
+
+  // Edit profile
+  'email': 'địa chỉ email',
+  'phoneNumber': 'số điện thoại',
+  'save': 'Lưu',
 };

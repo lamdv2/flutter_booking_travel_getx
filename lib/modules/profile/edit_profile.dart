@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -16,13 +17,19 @@ class EditProfileScreen extends StatefulWidget {
 
 final UserController userController = Get.find();
 final ProfileController profileController = Get.find();
+final AppController appController = Get.find();
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       appBar: CustomAppBar(
-        backgroundColor: ColorConstants.white,
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.darkAppBar
+            : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
       body: SafeArea(
@@ -51,17 +58,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Text(
                   userController.userName.value,
                   style: TextStyle(
-                      color: ColorConstants.black,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground
+                          : ColorConstants.black,
                       fontSize: 40,
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
                   height: getSize(36),
                 ),
-                const Text(
-                  "email",
+                Text(
+                  StringConst.email.tr,
                   style: TextStyle(
-                    color: ColorConstants.graySub,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.graySub,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -76,8 +87,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     fillColor: Colors.transparent,
                     contentPadding: EdgeInsets.zero,
                     hintText: userController.userEmail.value,
-                    hintStyle: const TextStyle(
-                      color: ColorConstants.titleSub,
+                    hintStyle: TextStyle(
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground
+                          : ColorConstants.titleSub,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -94,10 +107,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(
                   height: getSize(36),
                 ),
-                const Text(
+                Text(
                   "phone number",
                   style: TextStyle(
-                    color: ColorConstants.graySub,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.graySub,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -107,13 +122,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 TextField(
                   controller: profileController.editPhoneNumberController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.transparent,
                     contentPadding: EdgeInsets.zero,
                     hintText: "0123456789",
                     hintStyle: TextStyle(
-                      color: ColorConstants.titleSub,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground
+                          : ColorConstants.titleSub,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -130,10 +147,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(
                   height: getSize(36),
                 ),
-                const Text(
+                Text(
                   "location",
                   style: TextStyle(
-                    color: ColorConstants.graySub,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.graySub,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -143,13 +162,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 TextField(
                   controller: profileController.editLocationController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.transparent,
                     contentPadding: EdgeInsets.zero,
                     hintText: "Washington DC, USA",
                     hintStyle: TextStyle(
-                      color: ColorConstants.titleSub,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground
+                          : ColorConstants.titleSub,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -187,7 +208,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           isActive: true);
                       userController.updateUserProfile(userModel);
                     },
-                    textBtn: "Save",
+                    textBtn: StringConst.save.tr,
                     colorBgr: ColorConstants.primaryButton,
                   ),
                 ),

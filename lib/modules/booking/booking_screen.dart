@@ -273,9 +273,12 @@ class _BookingScreenState extends State<BookingScreen> {
                             SvgPicture.asset(
                               AssetHelper.icCalendar,
                               width: getSize(32),
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.white
-                                  : ColorConstants.accent1,
+                              colorFilter: ColorFilter.mode(
+                                appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.accent1,
+                                BlendMode.srcIn,
+                              ),
                             ),
                             SizedBox(
                               width: getSize(16),
@@ -307,7 +310,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                         .copyWith(
                                       color: appController.isDarkModeOn.value
                                           ? ColorConstants.white
-                                          : const Color.fromARGB(255, 3, 1, 1),
+                                          : ColorConstants.black,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
