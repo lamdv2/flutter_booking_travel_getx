@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ import 'package:like_button/like_button.dart';
 import '../../constants/app_style.dart';
 
 class HotelItemVerticalWidget extends StatelessWidget {
-  const HotelItemVerticalWidget({
+  HotelItemVerticalWidget({
     super.key,
   });
+
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,9 @@ class HotelItemVerticalWidget extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width - getSize(40),
         decoration: BoxDecoration(
-          color: ColorConstants.grayTextField,
+          color: appController.isDarkModeOn.value
+              ? ColorConstants.darkCard
+              : ColorConstants.lightCard,
           borderRadius: BorderRadius.circular(getSize(14)),
         ),
         margin: EdgeInsets.only(bottom: getSize(16)),
@@ -93,7 +98,11 @@ class HotelItemVerticalWidget extends StatelessWidget {
                   children: [
                     Text(
                       "Royal Palm Heritage",
-                      style: AppStyles.botTitle000Size20Fw500FfMont,
+                      style: AppStyles.botTitle000Size20Fw500FfMont.copyWith(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.botTitle,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,

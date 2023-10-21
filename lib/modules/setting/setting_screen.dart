@@ -60,7 +60,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Text(
                   StringConst.appSetting.tr,
-                  style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                  style: AppStyles.black000Size16Fw500FfMont.copyWith(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
                           : ColorConstants.black),
@@ -98,7 +98,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Text(
                   StringConst.settingSystem.tr,
-                  style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                  style: AppStyles.black000Size16Fw500FfMont.copyWith(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
                           : ColorConstants.black),
@@ -122,7 +122,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Text(
                   StringConst.more.tr,
-                  style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                  style: AppStyles.black000Size16Fw500FfMont.copyWith(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
                           : ColorConstants.black),
@@ -163,7 +163,9 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       Image.asset(
                         AssetHelper.icoLogout,
-                        color: ColorConstants.graySub,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.graySub,
                         width: 24,
                         height: 24,
                       ),

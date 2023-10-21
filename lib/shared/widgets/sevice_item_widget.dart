@@ -1,8 +1,10 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 class SeviceItemWidget extends StatelessWidget {
@@ -11,13 +13,15 @@ class SeviceItemWidget extends StatelessWidget {
   final String seviceTitle;
   final bool isCheckActive;
 
-  const SeviceItemWidget({
+  SeviceItemWidget({
     this.onTap,
     required this.icon,
     required this.seviceTitle,
     required this.isCheckActive,
     super.key,
   });
+
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +32,11 @@ class SeviceItemWidget extends StatelessWidget {
       ),
       width: getSize(84),
       decoration: BoxDecoration(
-        color:
-            isCheckActive ? ColorConstants.primaryButton : ColorConstants.white,
+        color: isCheckActive
+            ? ColorConstants.primaryButton
+            : appController.isDarkModeOn.value
+                ? ColorConstants.darkCard
+                : ColorConstants.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: ColorConstants.darkGray.withOpacity(.2),
@@ -49,7 +56,9 @@ class SeviceItemWidget extends StatelessWidget {
                 colorFilter: ColorFilter.mode(
                   isCheckActive
                       ? ColorConstants.white
-                      : ColorConstants.titleSearch,
+                      : appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground!
+                          : ColorConstants.titleSearch,
                   BlendMode.srcIn,
                 ),
               ),
@@ -65,7 +74,11 @@ class SeviceItemWidget extends StatelessWidget {
             softWrap: false,
             style: isCheckActive
                 ? AppStyles.white000Size12Fw400FfMont
-                : AppStyles.black000Size12Fw400FfMont,
+                : AppStyles.black000Size12Fw400FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.darkStatusBar,
+                  ),
           ),
         ],
       ),

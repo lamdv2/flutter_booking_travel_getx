@@ -1,4 +1,7 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants/app_style.dart';
 import '../../utils/size_utils.dart';
@@ -12,6 +15,8 @@ class ItemTopHotel extends StatelessWidget {
     required this.nameHotel,
     required this.imgHotel,
   });
+
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,11 @@ class ItemTopHotel extends StatelessWidget {
             preferBelow: false,
             child: Text(
               nameHotel,
-              style: AppStyles.black000Size14Fw400FfMont,
+              style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                color: appController.isDarkModeOn.value
+                    ? ColorConstants.lightBackground
+                    : ColorConstants.darkStatusBar,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               softWrap: false,

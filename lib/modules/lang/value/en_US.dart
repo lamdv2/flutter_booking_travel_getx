@@ -127,4 +127,9 @@ const Map<String, String> en = {
   // Tour screen
   'newType': 'New',
   'sale': 'Sale',
+
+  // Edit profile
+  'email': 'email',
+  'phoneNumber': 'phone number',
+  'save': 'Save',
 };

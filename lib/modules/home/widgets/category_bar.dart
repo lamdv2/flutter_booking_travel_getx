@@ -11,20 +11,19 @@ class CategoryBar extends StatefulWidget {
   State<CategoryBar> createState() => _CategoryBarState();
 }
 
-List<String> menuList = [
-  StringConst.all.tr,
-  StringConst.popular.tr,
-  StringConst.asia.tr,
-  StringConst.europe.tr,
-  StringConst.american.tr
-];
-
 class _CategoryBarState extends State<CategoryBar> {
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    List<String> menuList = [
+      StringConst.all.tr,
+      StringConst.popular.tr,
+      StringConst.asia.tr,
+      StringConst.europe.tr,
+      StringConst.american.tr
+    ];
 
     return Container(
       decoration: const BoxDecoration(),

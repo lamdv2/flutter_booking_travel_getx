@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
@@ -7,7 +8,6 @@ import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../shared/constants/assets_helper.dart';
 import '../../shared/utils/size_utils.dart';
 import '../../shared/widgets/stateful/hotel_item.dart';
 import '../../shared/widgets/stateful/item_hot_hotel.dart';
@@ -21,11 +21,18 @@ class HotelScreen extends StatefulWidget {
 }
 
 class _HotelScreenState extends State<HotelScreen> {
+  final AppController appController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       appBar: CustomAppBar(
-        backgroundColor: ColorConstants.white,
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.darkAppBar
+            : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
         titles: StringConst.hotels.tr,
       ),
@@ -39,7 +46,7 @@ class _HotelScreenState extends State<HotelScreen> {
               SizedBox(
                 height: getSize(8),
               ),
-               SearchBarWidget(
+              SearchBarWidget(
                 hintText: StringConst.searchHotel.tr,
               ),
               SizedBox(
@@ -128,7 +135,7 @@ class _HotelScreenState extends State<HotelScreen> {
                           SizedBox(
                             width: getSize(16),
                           ),
-                        const HotelItemWidget(),
+                        HotelItemWidget(),
                       ],
                     ),
                   ),
@@ -156,7 +163,7 @@ class _HotelScreenState extends State<HotelScreen> {
                         SizedBox(
                           height: getSize(16),
                         ),
-                      const Expanded(
+                      Expanded(
                         child: HotelItemVerticalWidget(),
                       ),
                     ],

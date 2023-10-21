@@ -77,13 +77,17 @@ class _TourScreenState extends State<TourScreen> {
       StringConst.newType.tr,
       StringConst.sale.tr,
     ];
+    String? selectedValue = StringConst.popular.tr;
 
     return Scaffold(
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       appBar: CustomAppBar(
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
-        iconBgrColor: ColorConstants.grayTextField,
+        iconBgrColor: ColorConstants.lightAppBar,
       ),
       body: Obx(
         () => RefreshIndicator(
@@ -135,7 +139,7 @@ class _TourScreenState extends State<TourScreen> {
                         Expanded(
                           child: InkWell(
                             borderRadius: BorderRadius.circular(
-                              getSize(16),
+                              getSize(20),
                             ),
                             onTap: () {
                               tourController.isCheckSearch.value =
@@ -156,19 +160,13 @@ class _TourScreenState extends State<TourScreen> {
                                     ? ColorConstants.primaryButton
                                     : appController.isDarkModeOn.value
                                         ? ColorConstants.darkCard
-                                        : ColorConstants.grayTextField,
+                                        : ColorConstants.lightCard,
                               ),
                               alignment: Alignment.center,
                               child: Text(
                                 StringConst.city.tr,
-                                style: tourController.isCheckSearch.value
-                                    ? AppStyles.white000Size18Fw500FfMont
-                                    : AppStyles.black000Size18Fw500FfMont
-                                        .copyWith(
-                                        color: appController.isDarkModeOn.value
-                                            ? ColorConstants.lightAppBar
-                                            : ColorConstants.black,
-                                      ),
+                                style: AppStyles.white000Size18Fw500FfMont
+                                    .copyWith(color: ColorConstants.white),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -180,7 +178,7 @@ class _TourScreenState extends State<TourScreen> {
                         Expanded(
                           child: InkWell(
                             borderRadius: BorderRadius.circular(
-                              getSize(16),
+                              getSize(20),
                             ),
                             onTap: () {
                               tourController.isCheckSearch.value =
@@ -199,20 +197,14 @@ class _TourScreenState extends State<TourScreen> {
                                 color: tourController.isCheckSearch.value
                                     ? appController.isDarkModeOn.value
                                         ? ColorConstants.darkCard
-                                        : ColorConstants.grayTextField
+                                        : ColorConstants.lightCard
                                     : ColorConstants.primaryButton,
                               ),
                               alignment: Alignment.center,
                               child: Text(
                                 StringConst.all.tr,
-                                style: tourController.isCheckSearch.value
-                                    ? AppStyles.black000Size18Fw500FfMont
-                                        .copyWith(
-                                        color: appController.isDarkModeOn.value
-                                            ? ColorConstants.lightAppBar
-                                            : ColorConstants.black,
-                                      )
-                                    : AppStyles.white000Size18Fw500FfMont,
+                                style: AppStyles.white000Size18Fw500FfMont
+                                    .copyWith(color: ColorConstants.white),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -242,7 +234,12 @@ class _TourScreenState extends State<TourScreen> {
                               Expanded(
                                 child: Text(
                                   StringConst.popular.tr,
-                                  style: AppStyles.titleSearchSize16Fw400FfMont,
+                                  style: AppStyles.titleSearchSize16Fw400FfMont
+                                      .copyWith(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.lightBackground
+                                        : ColorConstants.titleSearch,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -254,14 +251,20 @@ class _TourScreenState extends State<TourScreen> {
                                     child: Text(
                                       item,
                                       style: AppStyles
-                                          .titleSearchSize14Fw400FfMont,
+                                          .titleSearchSize14Fw400FfMont
+                                          .copyWith(
+                                              color: appController
+                                                      .isDarkModeOn.value
+                                                  ? ColorConstants
+                                                      .lightBackground
+                                                  : ColorConstants.titleSearch),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ))
                               .toList(),
-                          value: tourController.selectedValue.value,
+                          value: selectedValue,
                           onChanged: (value) {
-                            tourController.selectedValue.value = value!;
+                            selectedValue = value!;
                             tourController.filterListTourByState(value);
                           },
                           buttonStyleData: ButtonStyleData(
@@ -280,7 +283,9 @@ class _TourScreenState extends State<TourScreen> {
                                 getSize(8),
                               ),
                               boxShadow: const [],
-                              color: ColorConstants.white,
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.darkCard
+                                  : ColorConstants.white,
                             ),
                             elevation: 2,
                           ),
@@ -288,16 +293,28 @@ class _TourScreenState extends State<TourScreen> {
                             icon: SvgPicture.asset(
                               AssetHelper.icFilter,
                               width: getSize(24),
+                              colorFilter: ColorFilter.mode(
+                                appController.isDarkModeOn.value
+                                    ? ColorConstants.lightBackground!
+                                    : ColorConstants.titleSearch,
+                                BlendMode.srcIn,
+                              ),
                             ),
-                            iconEnabledColor: ColorConstants.botTitle,
-                            iconDisabledColor: Colors.grey,
+                            iconEnabledColor: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : ColorConstants.botTitle,
+                            iconDisabledColor: appController.isDarkModeOn.value
+                                ? ColorConstants.lightBackground
+                                : Colors.grey,
                           ),
                           dropdownStyleData: DropdownStyleData(
                             maxHeight: getSize(200),
                             width: getSize(200),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
-                              color: ColorConstants.white,
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.darkCard
+                                  : ColorConstants.white,
                             ),
                             offset: const Offset(-20, 0),
                             scrollbarTheme: ScrollbarThemeData(

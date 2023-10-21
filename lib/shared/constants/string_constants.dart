@@ -133,4 +133,9 @@ class StringConst {
   // Tour screen
   static String newType = 'newType';
   static String sale = 'sale';
+
+  // Edit profile
+  static String email = 'email';
+  static String phoneNumber = 'phoneNumber';
+  static String save = 'save';
 }

@@ -73,7 +73,7 @@ class ItemSettingWidget extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                    style: AppStyles.black000Size16Fw400FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.white
                             : ColorConstants.black),
@@ -89,36 +89,45 @@ class ItemSettingWidget extends StatelessWidget {
                                   color: appController.isDarkModeOn.value
                                       ? ColorConstants.gray
                                       : ColorConstants.botTitle),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
                         )
                       : const SizedBox.shrink(),
                 ],
               ),
             ),
             isSwitch != null
-                ? Obx(
-                    () => Switch(
-                      value: appController.isDarkModeOn.value,
-                      activeTrackColor: appController.isDarkModeOn.value
-                          ? Colors.white
-                          : Colors.blueGrey,
-                      activeColor: appController.isDarkModeOn.value
-                          ? Colors.white
-                          : Colors.lightBlue,
-                      onChanged: (value) {
-                        appController.toggleDarkMode();
-                      },
+                ? SizedBox(
+                    height: 24,
+                    child: Obx(
+                      () => Switch(
+                        value: appController.isDarkModeOn.value,
+                        activeTrackColor: appController.isDarkModeOn.value
+                            ? Colors.white
+                            : Colors.blueGrey,
+                        activeColor: appController.isDarkModeOn.value
+                            ? Colors.white
+                            : Colors.lightBlue,
+                        onChanged: (value) {
+                          appController.toggleDarkMode();
+                        },
+                      ),
                     ),
                   )
-                : SvgPicture.asset(
-                    AssetHelper.icoNextRight,
-                    colorFilter: ColorFilter.mode(
-                      appController.isDarkModeOn.value
-                          ? ColorConstants.primaryBackground
-                          : ColorConstants.titleSearch,
-                      BlendMode.srcIn,
+                : SizedBox(
+                    height: 24,
+                    child: SvgPicture.asset(
+                      AssetHelper.icoNextRight,
+                      colorFilter: ColorFilter.mode(
+                        appController.isDarkModeOn.value
+                            ? ColorConstants.primaryBackground
+                            : ColorConstants.titleSearch,
+                        BlendMode.srcIn,
+                      ),
+                      width: getSize(24),
+                      height: getSize(24),
                     ),
-                    width: getSize(24),
-                    height: getSize(24),
                   ),
           ],
         ),

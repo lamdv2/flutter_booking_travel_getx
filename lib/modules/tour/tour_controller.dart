@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,7 +13,6 @@ class TourController extends GetxController {
 
   RxBool isCheckSearch = false.obs;
   RxString idTour = ''.obs;
-  RxString selectedValue = 'Popular'.obs;
   final cityModel = Rxn<CityModel>();
   final getListTour = Rxn<List<TourModel>>();
   final filterListTourData = Rxn<List<TourModel>>();
@@ -103,7 +103,6 @@ class TourController extends GetxController {
       throw 'Could not launch $url';
     }
   }
-
 
   // Filter List Tour
 

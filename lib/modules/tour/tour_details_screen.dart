@@ -9,10 +9,6 @@ import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
-import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
-import 'package:doan_clean_achitec/shared/constants/image_helper.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/button_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/item_utility_detail_hotel_widget.dart';
@@ -27,12 +23,15 @@ class TourDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Positioned.fill(
             child: ImageHelper.loadFromAsset(
-              AssetHelper.hotel_3,
+              AssetHelper.des8,
               boxFit: BoxFit.fill,
             ),
           ),
@@ -57,9 +56,11 @@ class TourDetailsScreen extends StatelessWidget {
               return Container(
                 padding:
                     EdgeInsets.symmetric(horizontal: getSize(kMediumPadding)),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.darkBackground
+                      : ColorConstants.lightBackground,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(kDefaultPadding * 2),
                     topRight: Radius.circular(kDefaultPadding * 2),
                   ),
@@ -171,10 +172,12 @@ class TourDetailsScreen extends StatelessWidget {
       children: [
         Text(
           tourModel?.nameTour ?? '',
-          style: const TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: appController.isDarkModeOn.value
+                  ? ColorConstants.lightBackground
+                  : ColorConstants.darkBackground),
         ),
         SizedBox(height: getSize(kPadding)),
         Row(
@@ -201,10 +204,12 @@ class TourDetailsScreen extends StatelessWidget {
               children: [
                 Text(
                   '\$${tourModel?.price.toString()}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: ColorConstants.botTitle,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.botTitle,
                   ),
                 ),
                 Text(
@@ -238,7 +243,9 @@ class TourDetailsScreen extends StatelessWidget {
           '(${tourModel?.reviews?.length} ${StringConst.review.tr})',
           style: TextStyle(
             fontSize: 16,
-            color: Colors.blueGrey.shade500,
+            color: appController.isDarkModeOn.value
+                ? Colors.grey[300]
+                : Colors.blueGrey.shade500,
           ),
         ),
         const Spacer(),
@@ -258,7 +265,7 @@ class TourDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+        Text(
           StringConst.information.tr,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
@@ -285,7 +292,7 @@ class TourDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+        Text(
           StringConst.tripPlan.tr,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
@@ -308,13 +315,21 @@ class TourDetailsScreen extends StatelessWidget {
                 if (rowIndex > 0) SizedBox(height: getSize(20)),
                 Text(
                   titleTourDay,
-                  style: AppStyles.black000Size16Fw500FfMont,
+                  style: AppStyles.black000Size16Fw500FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.black,
+                  ),
                 ),
                 SizedBox(height: getSize(12)),
                 if (description.isNotEmpty)
                   Text(
                     description,
-                    style: AppStyles.black000Size14Fw400FfMont,
+                    style: AppStyles.black000Size14Fw400FfMont.copyWith(
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.lightBackground
+                          : ColorConstants.black,
+                    ),
                   ),
               ],
             );
@@ -363,7 +378,7 @@ class TourDetailsScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             Text(
+            Text(
               StringConst.location.tr,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
@@ -373,7 +388,7 @@ class TourDetailsScreen extends StatelessWidget {
             GestureDetector(
               onTap: () =>
                   tourController.launchMap(tourModel?.description ?? ''),
-              child:  Text(
+              child: Text(
                 StringConst.showMap.tr,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
