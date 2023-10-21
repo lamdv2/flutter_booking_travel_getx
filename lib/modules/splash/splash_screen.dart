@@ -23,8 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
       width: size.width,
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(AssetHelper.imgSplashBackground),
-            fit: BoxFit.fitWidth),
+          image: AssetImage(
+            AssetHelper.imgSplashBackground,
+          ),
+          fit: BoxFit.fitWidth,
+        ),
       ),
       child: Align(
         alignment: Alignment.bottomCenter,

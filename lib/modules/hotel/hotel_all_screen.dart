@@ -28,7 +28,7 @@ class _HotelAllScreenState extends State<HotelAllScreen> {
               SizedBox(
                 height: getSize(statusBarHeight),
               ),
-               HeaderWidget(
+              HeaderWidget(
                 titleHeader: StringConst.allHotel.tr,
               ),
               ListView.builder(
@@ -42,7 +42,7 @@ class _HotelAllScreenState extends State<HotelAllScreen> {
                         SizedBox(
                           height: getSize(16),
                         ),
-                      const Expanded(
+                      Expanded(
                         child: HotelItemVerticalWidget(),
                       ),
                     ],
