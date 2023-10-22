@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
@@ -70,7 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.EDIT_PROFILE);
+                      // Get.toNamed(Routes.EDIT_PROFILE);
+                      profileController.signUserOut(context);
+                      Get.offNamed(Routes.AUTH);
                     },
                     child: Text(
                       StringConst.change.tr,

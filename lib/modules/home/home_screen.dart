@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _buildLanguageOption('🇰🇷 China', 'ko'),
       _buildLanguageOption('🇻🇳 Vietnamese', 'vi'),
     ];
-  } 
+  }
 
   SpeedDialChild _buildLanguageOption(String label, String locale) {
     return SpeedDialChild(
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        key: profileController.scaffoldKey,
+        key: homeController.scaffoldHomeKey,
         drawer: DrawerWidget(),
         body: SafeArea(
           child: Stack(

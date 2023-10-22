@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -20,7 +21,7 @@ class HomeHeader extends StatelessWidget {
   final bool? avatar;
 
   final AppController appController = Get.find();
-  final ProfileController profileController = Get.find();
+  final HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class HomeHeader extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  profileController.scaffoldKey.currentState?.openDrawer();
+                  homeController.scaffoldHomeKey.currentState?.openDrawer();
                 },
                 child: Padding(
                   padding: EdgeInsets.only(right: getSize(6)),

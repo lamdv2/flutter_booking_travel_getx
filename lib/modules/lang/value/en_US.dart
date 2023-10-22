@@ -23,7 +23,7 @@ const Map<String, String> en = {
   'selectDate': 'Select Date',
   'pleaseSelect': 'Please select your start date',
   'search': 'Search',
-  'cancel': 'Cancel',
+  'cancel': 'CANCEL',
 
   //Profile
   'appSetting': 'App Setting',
@@ -76,7 +76,7 @@ const Map<String, String> en = {
   'allTour': 'All Tour',
   'confirmation': 'Confirmation',
   'doYouWantDelete': 'Do you want to delete?',
-  'ok': 'Ok',
+  'ok': 'OK',
 
   //Detail place screen
   'letsExplore': "Let's explore new place",

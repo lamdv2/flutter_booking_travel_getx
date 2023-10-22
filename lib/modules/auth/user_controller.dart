@@ -12,7 +12,7 @@ class UserController extends GetxController {
   String userUID = '';
 
   final userModel = Rxn<UserModel>();
-  var user = Rxn<User>();
+  final user = Rxn<User>();
 
   @override
   void onInit() {

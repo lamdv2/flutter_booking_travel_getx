@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class ProfileController extends GetxController {
 
   final UserController userController = Get.put(UserController());
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldProfileKey = GlobalKey<ScaffoldState>();
 
   void clearController() {
     emailController.text = '';
@@ -73,12 +75,41 @@ class ProfileController extends GetxController {
     return false;
   }
 
+  Future<void> confirmLogoutDialog(
+      BuildContext context, String title, Function() function) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: const Text("Do you want to logout?"),
+          actions: [
+            TextButton(
+              onPressed: Get.back,
+              child: Text(
+                StringConst.cancel.tr,
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextButton(
+              onPressed: function,
+              child: Text(
+                StringConst.ok.tr,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
+    scaffoldProfileKey.currentState?.openDrawer();
   }
 
   void closeDrawer() {
-    scaffoldKey.currentState?.closeDrawer();
+    scaffoldProfileKey.currentState?.closeDrawer();
   }
 
   void signUserOut(BuildContext context) async {
@@ -86,37 +117,70 @@ class ProfileController extends GetxController {
     FirebaseAuth auth = FirebaseAuth.instance;
     GoogleSignIn googleSignIn = GoogleSignIn();
 
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (context) {
-        Timer(const Duration(seconds: 2), () {
-          Get.back();
-        });
-        return const Center(
-          child: CircularProgressIndicator(),
+    confirmLogoutDialog(
+      context,
+      'Logout',
+      () async {
+        Get.back();
+
+        await showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            Timer(const Duration(seconds: 1), () {
+              Get.back();
+            });
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         );
+
+        try {
+          await auth.signOut();
+
+          await googleSignIn.signOut();
+
+          userController.clearUserName();
+
+          userController.userName.value = '';
+
+          userController.userEmail.value = '';
+        } catch (e) {
+          wrongMessage("Logout failed: $e");
+        }
       },
     );
 
-    try {
-      // Đăng xuất khỏi Firebase Authentication
-      await auth.signOut();
+    // showOkCancelAlertDialog(
+    //   context: context,
+    //   okLabel: 'OK',
+    //   cancelLabel: 'Cancel',
+    //   title: 'Do you want to log out?',
+    //   defaultType: OkCancelAlertDefaultType.ok,
+    //   onWillPop: () => Future.value(false),
+    // );
 
-      // Đăng xuất khỏi Google Sign In
-      await googleSignIn.signOut();
+    // confirmLogoutDialog(context, 'Logout', () async {
+    //   try {
+    //     // Đăng xuất khỏi Firebase Authentication
+    //     await auth.signOut();
 
-      userController.clearUserName();
+    //     // Đăng xuất khỏi Google Sign In
+    //     await googleSignIn.signOut();
 
-      userController.userName.value = '';
+    //     userController.clearUserName();
 
-      userController.userEmail.value = '';
+    //     userController.userName.value = '';
 
-      // ignore: use_build_context_synchronously
-      Incorrect("Logout Success");
-    } catch (e) {
-      wrongMessage("Logout failed: $e");
-    }
+    //     userController.userEmail.value = '';
+
+    //     // ignore: use_build_context_synchronously
+    //     Incorrect("Logout Success");
+    //   } catch (e) {
+    //     wrongMessage("Logout failed: $e");
+    //   }
+    // });
   }
 
   // ignore: non_constant_identifier_names

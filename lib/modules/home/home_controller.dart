@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/history/history_model.dart';
@@ -16,10 +17,11 @@ class HomeController extends GetxController {
   RxInt currentIndex = 0.obs;
   final _db = FirebaseFirestore.instance;
 
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find();
 
   final getAllListHistory = Rxn<List<HistoryModel>>();
   final getListHistoryByUserId = Rxn<List<HistoryModel>>();
+  final scaffoldHomeKey = GlobalKey<ScaffoldState>();
 
   Future<void> getUserDetails(String email) async {
     final snapShot = await _db
@@ -60,5 +62,13 @@ class HomeController extends GetxController {
     final historyData =
         snapShot.docs.map((e) => HistoryModel.fromJson(e)).toList();
     getListHistoryByUserId.value = historyData;
+  }
+
+  void openDrawer() {
+    scaffoldHomeKey.currentState?.openDrawer();
+  }
+
+  void closeDrawer() {
+    scaffoldHomeKey.currentState?.closeDrawer();
   }
 }
