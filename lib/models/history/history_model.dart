@@ -5,11 +5,15 @@ class HistoryModel {
   final String? idUser;
   final String? idTour;
   final bool isActive;
+  final Timestamp? bookingDate;
+  final String? status;
 
   HistoryModel({
     this.id,
     this.idUser,
     this.idTour,
+    this.bookingDate,
+    this.status,
     required this.isActive,
   });
 
@@ -20,6 +24,9 @@ class HistoryModel {
       id: document.id,
       idUser: json['idUser'],
       idTour: json['idTour'],
+      bookingDate:
+          json['bookingDate'] != null ? json['bookingDate'] as Timestamp : null,
+      status: json['status'],
       isActive: json['isActive'] ?? true,
     );
   }
@@ -29,6 +36,8 @@ class HistoryModel {
       'id': id,
       'idUser': idUser,
       'idTour': idTour,
+      'bookingDate': bookingDate,
+      'status': status,
       'isActive': isActive,
     };
   }

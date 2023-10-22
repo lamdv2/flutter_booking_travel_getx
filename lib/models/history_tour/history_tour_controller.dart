@@ -11,6 +11,7 @@ class HistoryTourController extends GetxController {
   UserController userController = Get.put(UserController());
 
   final getAllListHistory = Rxn<List<TourModel>>([]);
+  final getAllListHistoryToDate = Rxn<List<HistoryModel>>([]);
 
 // Get All Tour
 
@@ -27,7 +28,8 @@ class HistoryTourController extends GetxController {
 
     final listTourHistoryData =
         snapShot.docs.map((doc) => HistoryModel.fromJson(doc)).toList();
-
+    getAllListHistoryToDate.value = listTourHistoryData;
+    
     List<TourModel> listTourModel = [];
 
     if (listTourHistoryData.isNotEmpty) {

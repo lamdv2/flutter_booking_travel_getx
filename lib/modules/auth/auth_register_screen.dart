@@ -1,3 +1,5 @@
+import 'package:doan_clean_achitec/shared/constants/app_style.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -186,10 +188,31 @@ class RegisterScreen extends StatelessWidget {
                         const SizedBox(
                           width: 24,
                         ),
-
                         // apple
                         SquareTile(
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Warning!!!'),
+                                  content:
+                                      const Text("The feature is coming soon"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: Get.back,
+                                      child: Text(
+                                        StringConst.ok.tr,
+                                        style:
+                                            AppStyles.blue000Size14Fw600FfMont,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                           imgPath: AssetHelper.imgApple,
                         ),
                       ],

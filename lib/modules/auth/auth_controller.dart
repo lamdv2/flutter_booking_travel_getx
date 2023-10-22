@@ -36,6 +36,14 @@ class AuthController extends GetxController {
     phoneAuthentication(phoneNub, userModel);
   }
 
+  void clearControllLogin() {
+    loginEmailController.clear();
+    loginPasswordController.clear();
+    registerEmailController.clear();
+    registerPasswordController.clear();
+    registerConfirmPasswordController.clear();
+  }
+
   Future<void> phoneAuthentication(String phoneNub, UserModel userModel) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNub,
@@ -123,6 +131,8 @@ class AuthController extends GetxController {
 
         homeController.getUserDetails(userController.userEmail.value);
 
+        clearControllLogin();
+
         // ignore: use_build_context_synchronously
         Get.back();
       } else {
@@ -156,15 +166,16 @@ class AuthController extends GetxController {
           email: loginEmailController.text,
           password: loginPasswordController.text);
       // ignore: use_build_context_synchronously
-      Incorrect("Login Success");
+      // Incorrect("Login Success");
 
       homeController.getUserDetails(userController.userEmail.value);
+      clearControllLogin();
 
       // ignore: use_build_context_synchronously
       Get.back(result: context);
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
-      wrongMessage(context, "${e.code} login");
+      // wrongMessage(context, "${e.code} login");
 
       // ignore: use_build_context_synchronously
       Get.back(result: context);

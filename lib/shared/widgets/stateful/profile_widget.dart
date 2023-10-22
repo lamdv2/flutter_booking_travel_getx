@@ -42,7 +42,7 @@ class ProfileWidget extends StatelessWidget {
                 Text(
                   userController.userName.value != ''
                       ? userController.userName.value
-                      : "David Lunik",
+                      : "",
                   style: TextStyle(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
@@ -56,7 +56,7 @@ class ProfileWidget extends StatelessWidget {
                 Text(
                   userController.userEmail.value != ''
                       ? userController.userEmail.value
-                      : "lambo1207@gmail.com",
+                      : '',
                   style: TextStyle(
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.white
@@ -76,7 +76,7 @@ class ProfileWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "+84 123 456 789",
+                  "+84",
                   style: TextStyle(
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.white
@@ -96,7 +96,7 @@ class ProfileWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "DaNang, VietNam",
+                  '',
                   style: TextStyle(
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.white

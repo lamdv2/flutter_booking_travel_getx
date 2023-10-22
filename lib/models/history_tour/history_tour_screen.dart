@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/models/history_tour/history_tour_controller.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
@@ -117,8 +119,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 padding:
                                     EdgeInsets.symmetric(vertical: getSize(12)),
                                 child: _buildItemHistory(
-                                    tourModel: historyTourController
-                                        .getAllListHistory.value?[rowIndex]),
+                                  tourModel: historyTourController
+                                      .getAllListHistory.value?[rowIndex],
+                                  historyModel: historyTourController
+                                      .getAllListHistoryToDate.value?[rowIndex],
+                                ),
                               );
                             },
                           ),
@@ -195,8 +200,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
 // ignore: must_be_immutable, camel_case_types
 class _buildItemHistory extends StatelessWidget {
   TourModel? tourModel;
+  HistoryModel? historyModel;
   _buildItemHistory({
     required this.tourModel,
+    required this.historyModel,
   });
 
   HistoryTourController historyTourController =
@@ -231,8 +238,10 @@ class _buildItemHistory extends StatelessWidget {
                   height: getSize(8),
                 ),
                 Text(
-                  historyTourController
-                      .timestampToString(tourModel!.startDate!),
+                  historyModel?.bookingDate == null
+                      ? "failing"
+                      : historyTourController.timestampToString(
+                          historyModel?.bookingDate ?? Timestamp.now()),
                   style: AppStyles.black000Size14Fw400FfMont,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

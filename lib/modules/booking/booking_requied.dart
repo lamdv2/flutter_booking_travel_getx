@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
@@ -13,6 +14,7 @@ class BookingRequiedScreen extends StatelessWidget {
 
   final TourModel? tourModel = Get.arguments;
   final UserController userController = Get.put(UserController());
+  final AdminController adminController = Get.put(AdminController());
 
   @override
   Widget build(BuildContext context) {
@@ -226,9 +228,13 @@ class BookingRequiedScreen extends StatelessWidget {
                       textBtn: 'Yêu cầu đặt',
                       onTap: () async {
                         await bookingController.bookingTour(
-                            userController.userModel.value?.id ?? '',
-                            tourModel?.idTour ?? '');
-                        Get.toNamed(Routes.HISTORY_TOUR_SCREEN);
+                          userController.userModel.value?.id ?? '',
+                          tourModel?.idTour ?? '',
+                          adminController
+                              .formatDateTime(DateTime.now().toString()),
+                          'coming',
+                        );
+                        Get.offAndToNamed(Routes.HISTORY_TOUR_SCREEN);
                       },
                     ),
                   ),
