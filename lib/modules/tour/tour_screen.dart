@@ -165,8 +165,10 @@ class _TourScreenState extends State<TourScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 StringConst.city.tr,
-                                style: AppStyles.white000Size18Fw500FfMont
-                                    .copyWith(color: ColorConstants.white),
+                                style: appController.isDarkModeOn.value ||
+                                        tourController.isCheckSearch.value
+                                    ? AppStyles.white000Size18Fw500FfMont
+                                    : AppStyles.black000Size18Fw500FfMont,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -203,8 +205,10 @@ class _TourScreenState extends State<TourScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 StringConst.all.tr,
-                                style: AppStyles.white000Size18Fw500FfMont
-                                    .copyWith(color: ColorConstants.white),
+                                style: appController.isDarkModeOn.value ||
+                                        !tourController.isCheckSearch.value
+                                    ? AppStyles.white000Size18Fw500FfMont
+                                    : AppStyles.black000Size18Fw500FfMont,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

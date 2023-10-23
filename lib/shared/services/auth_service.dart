@@ -26,9 +26,11 @@ class AuthService {
       final GoogleSignInAuthentication gAuth = await gUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
+      );
 
-    final UserCredential authResult =
+      final UserCredential authResult =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
       final User? user = authResult.user;
@@ -45,7 +47,7 @@ class AuthService {
               phoneNub: "",
               isActive: true,
             );
-            await _profileController.createUser(userModel);
+            _profileController.createUser(userModel);
           }
         }
       }

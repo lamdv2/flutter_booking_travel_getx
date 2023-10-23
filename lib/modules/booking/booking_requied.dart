@@ -2,6 +2,7 @@ import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -228,7 +229,7 @@ class BookingRequiedScreen extends StatelessWidget {
                       textBtn: 'Yêu cầu đặt',
                       onTap: () async {
                         await bookingController.bookingTour(
-                          userController.userModel.value?.id ?? '',
+                          homeController.userModel.value?.id ?? '',
                           tourModel?.idTour ?? '',
                           adminController
                               .formatDateTime(DateTime.now().toString()),

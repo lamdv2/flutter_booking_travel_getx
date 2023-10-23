@@ -45,7 +45,7 @@ class _TabStoreState extends State<TabStore> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                _profileController.clearController();
+                // _profileController.clearController();
                 Get.back();
               },
             ),

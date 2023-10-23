@@ -5,9 +5,10 @@ class UserModel {
   final String email;
   final String? firstName;
   final String? lastName;
-  final String passWord;
+  final String? passWord;
   final String? imgAvatar;
   final String phoneNub;
+  final String? location;
   final bool isActive;
 
   UserModel({
@@ -15,21 +16,23 @@ class UserModel {
     required this.email,
     this.firstName,
     this.lastName,
-    required this.passWord,
+    this.passWord,
     this.imgAvatar,
     required this.phoneNub,
+    this.location,
     required this.isActive,
   });
 
   toJson() {
     return {
-      'id' : id,
+      'id': id,
       'email': email,
       'firstName': firstName,
       'lastName': lastName,
       'passWord': passWord,
       'imgAvatar': imgAvatar,
       'phoneNub': phoneNub,
+      'location': location,
       'isActive': isActive,
     };
   }
@@ -45,6 +48,7 @@ class UserModel {
       passWord: data['passWord'],
       imgAvatar: data['imgAvatar'],
       phoneNub: data['phoneNub'],
+      location: data['location'],
       isActive: data['isActive'],
     );
   }

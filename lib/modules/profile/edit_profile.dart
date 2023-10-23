@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../auth/user_controller.dart';
 
@@ -18,8 +21,15 @@ class EditProfileScreen extends StatefulWidget {
 final UserController userController = Get.find();
 final ProfileController profileController = Get.find();
 final AppController appController = Get.find();
+final HomeController homeController = Get.find();
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    profileController.getEditProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,194 +42,242 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: getSize(24),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: Image.asset(
-                    AssetHelper.city_6,
-                    width: getSize(116),
-                    height: getSize(116),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(32),
-                ),
-                Text(
-                  userController.userName.value,
-                  style: TextStyle(
-                      color: appController.isDarkModeOn.value
-                          ? ColorConstants.lightBackground
-                          : ColorConstants.black,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w500),
-                ),
-                SizedBox(
-                  height: getSize(36),
-                ),
-                Text(
-                  StringConst.email.tr,
-                  style: TextStyle(
-                    color: appController.isDarkModeOn.value
-                        ? ColorConstants.lightBackground
-                        : ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                TextField(
-                  controller: profileController.editEmailController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    contentPadding: EdgeInsets.zero,
-                    hintText: userController.userEmail.value,
-                    hintStyle: TextStyle(
-                      color: appController.isDarkModeOn.value
-                          ? ColorConstants.lightBackground
-                          : ColorConstants.titleSub,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+      body: Obx(
+        () => SafeArea(
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: getSize(24),
                     ),
-                    border: InputBorder.none,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Divider(
-                  color: ColorConstants.graySecond,
-                  thickness: 0.5,
-                ),
-                SizedBox(
-                  height: getSize(36),
-                ),
-                Text(
-                  "phone number",
-                  style: TextStyle(
-                    color: appController.isDarkModeOn.value
-                        ? ColorConstants.lightBackground
-                        : ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                TextField(
-                  controller: profileController.editPhoneNumberController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    contentPadding: EdgeInsets.zero,
-                    hintText: "0123456789",
-                    hintStyle: TextStyle(
-                      color: appController.isDarkModeOn.value
-                          ? ColorConstants.lightBackground
-                          : ColorConstants.titleSub,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                    Stack(
+                      children: [
+                        profileController.imageFonts.value.isNotEmpty
+                            ? CircleAvatar(
+                                radius: 64,
+                                backgroundColor: ColorConstants.white,
+                                backgroundImage: AssetEntityImageProvider(
+                                  profileController.imageFonts.value[0],
+                                ),
+                              )
+                            : homeController.userModel.value != null &&
+                                    homeController.userModel.value?.imgAvatar !=
+                                        null &&
+                                    homeController.userModel.value?.imgAvatar !=
+                                        ""
+                                ? CircleAvatar(
+                                    radius: 64,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      homeController
+                                          .userModel.value!.imgAvatar!,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    radius: 64,
+                                    backgroundColor: ColorConstants.white,
+                                    child: Container(
+                                      width: getSize(96),
+                                      height: getSize(96),
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          colorFilter: ColorFilter.mode(
+                                            appController.isDarkModeOn.value
+                                                ? ColorConstants.white
+                                                : ColorConstants.accent1,
+                                            BlendMode.srcIn,
+                                          ),
+                                          image: const AssetImage(
+                                            AssetHelper.imgUserProfileNon,
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                        Positioned(
+                          bottom: -10,
+                          left: 80,
+                          child: IconButton(
+                            onPressed: () {
+                              profileController.pickImages(context);
+                            },
+                            icon: const Icon(Icons.add_a_photo),
+                            color: ColorConstants.accent1,
+                          ),
+                        ),
+                      ],
                     ),
-                    border: InputBorder.none,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Divider(
-                  color: ColorConstants.graySecond,
-                  thickness: 0.5,
-                ),
-                SizedBox(
-                  height: getSize(36),
-                ),
-                Text(
-                  "location",
-                  style: TextStyle(
-                    color: appController.isDarkModeOn.value
-                        ? ColorConstants.lightBackground
-                        : ColorConstants.graySub,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                TextField(
-                  controller: profileController.editLocationController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    contentPadding: EdgeInsets.zero,
-                    hintText: "Washington DC, USA",
-                    hintStyle: TextStyle(
-                      color: appController.isDarkModeOn.value
-                          ? ColorConstants.lightBackground
-                          : ColorConstants.titleSub,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                    SizedBox(
+                      height: getSize(32),
                     ),
-                    border: InputBorder.none, // Đây là phần cần thêm vào
-                  ),
+                    Text(
+                      userController.userName.value,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.black,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(36),
+                    ),
+                    Text(
+                      "First name",
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    MyTextField(
+                      controller: profileController.firstNameController,
+                      hintText: 'Enter your firstname',
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(36),
+                    ),
+                    Text(
+                      "Last name",
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    MyTextField(
+                      controller: profileController.lastNameController,
+                      hintText: 'Enter your last name',
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(36),
+                    ),
+                    Text(
+                      "Phone number",
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    MyTextField(
+                      controller: profileController.phoneNumberController,
+                      hintText: "Enter your phone number",
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(36),
+                    ),
+                    Text(
+                      "Location",
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    MyTextField(
+                      controller: profileController.editLocationController,
+                      hintText: "Enter your location",
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: getSize(48),
+                    ),
+                    Center(
+                      child: MyButton(
+                        onTap: () async {
+                          String imageUrl = '';
+
+                          if (homeController.userModel.value != null &&
+                              homeController.userModel.value?.imgAvatar != "") {
+                            imageUrl =
+                                homeController.userModel.value?.imgAvatar ?? '';
+                          } else {
+                            imageUrl =
+                                await profileController.uploadImageToStorage(
+                              'profileImage',
+                              await profileController.assetEntityToUint8List(
+                                profileController.imageFonts.value[0],
+                              ),
+                            );
+                          }
+
+                          final userModel = UserModel(
+                            id: homeController.userModel.value?.id ?? '',
+                            email: homeController.userModel.value?.email ?? '',
+                            firstName: profileController
+                                .firstNameController.text
+                                .trim(),
+                            lastName: profileController.lastNameController.text
+                                .trim(),
+                            passWord:
+                                homeController.userModel.value?.passWord ?? '',
+                            imgAvatar: imageUrl,
+                            phoneNub: profileController
+                                .editPhoneNumberController.text
+                                .trim(),
+                            location: profileController
+                                .editLocationController.text
+                                .trim(),
+                            isActive: true,
+                          );
+                          profileController.updateUserProfile(userModel);
+                        },
+                        textBtn: StringConst.save.tr,
+                        colorBgr: ColorConstants.primaryButton,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-                const Divider(
-                  color: ColorConstants.graySecond,
-                  thickness: 0.5,
-                ),
-                SizedBox(
-                  height: getSize(48),
-                ),
-                Center(
-                  child: MyButton(
-                    onTap: () {
-                      final userModel = UserModel(
-                          email:
-                              profileController.editEmailController.text.trim(),
-                          firstName:
-                              profileController.editEmailController.text.trim(),
-                          lastName:
-                              profileController.editEmailController.text.trim(),
-                          passWord:
-                              profileController.editEmailController.text.trim(),
-                          imgAvatar: profileController
-                              .editLocationController.text
-                              .trim(),
-                          phoneNub: profileController
-                              .editPhoneNumberController.text
-                              .trim(),
-                          isActive: true);
-                      userController.updateUserProfile(userModel);
-                    },
-                    textBtn: StringConst.save.tr,
-                    colorBgr: ColorConstants.primaryButton,
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(16),
-                ),
-              ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+
+  // void showFullImageDialog(BuildContext context) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => FullImageScreen(
+  //         imageUrl: controller.userLinkAvatarUrl?.value ?? "",
+  //       ),
+  //     ),
+  //   );
+  // }
 }

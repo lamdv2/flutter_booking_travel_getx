@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/home/home_controller.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
+import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class AuthController extends GetxController {
           isActive: true,
         );
 
-        await _profileController.createUser(userModel);
+        _profileController.createUser(userModel);
 
         Incorrect("Register Success");
 
@@ -152,9 +153,16 @@ class AuthController extends GetxController {
   void login(BuildContext context) async {
     AppFocus.unFocus(context);
 
-    showDialog(
+    await showDialog(
       context: context,
+      barrierDismissible: true,
       builder: (context) {
+        Timer(
+          const Duration(seconds: 1),
+          () {
+            Get.back();
+          },
+        );
         return const Center(
           child: CircularProgressIndicator(),
         );
@@ -163,22 +171,16 @@ class AuthController extends GetxController {
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: loginEmailController.text,
-          password: loginPasswordController.text);
-      // ignore: use_build_context_synchronously
-      // Incorrect("Login Success");
-
+        email: loginEmailController.text,
+        password: loginPasswordController.text,
+      );
       homeController.getUserDetails(userController.userEmail.value);
       clearControllLogin();
 
-      // ignore: use_build_context_synchronously
-      Get.back(result: context);
+      Get.back();
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
-      // wrongMessage(context, "${e.code} login");
-
-      // ignore: use_build_context_synchronously
-      Get.back(result: context);
+      wrongMessage(context, e.code);
     }
   }
 
@@ -195,7 +197,9 @@ class AuthController extends GetxController {
         });
         return Center(
           child: AlertDialog(
-            title: Center(child: Text(text)),
+            title: Center(
+              child: Text(text),
+            ),
           ),
         );
       },
@@ -211,23 +215,34 @@ class AuthController extends GetxController {
       errorMessage = "The email address is already in use";
     } else if (message == "user-not-found") {
       errorMessage = "User not found. Please register.";
-    } else if (message == "wrong-password login") {
+    } else if (message == "wrong-password") {
       errorMessage = "Invalid password. Please try again.";
     } else if (message == "network-request-failed register") {
       errorMessage = "No internet. Please try again.";
     } else {
       errorMessage = "Something went wrong.";
     }
-    final context = Get.context;
+
+    final contextGet = Get.context;
     showDialog(
-      context: context!,
+      context: contextGet!,
+      barrierDismissible: true,
       builder: (context) {
+        Timer(
+          const Duration(seconds: 4),
+          () {
+            Get.back();
+          },
+        );
         return AlertDialog(
-          backgroundColor: Colors.blue,
+          backgroundColor: ColorConstants.primaryButton,
           title: Text(
             errorMessage,
             style: const TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
           ),
         );
       },

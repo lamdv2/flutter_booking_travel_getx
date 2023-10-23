@@ -71,9 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      // Get.toNamed(Routes.EDIT_PROFILE);
-                      profileController.signUserOut(context);
-                      Get.offNamed(Routes.AUTH);
+                      Get.toNamed(Routes.EDIT_PROFILE);
                     },
                     child: Text(
                       StringConst.change.tr,

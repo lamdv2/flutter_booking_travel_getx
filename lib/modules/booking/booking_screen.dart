@@ -117,7 +117,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
-                                              StringConst.destination.tr,
+                                              item,
                                               style: AppStyles
                                                   .botTitle000Size14Fw400FfMont
                                                   .copyWith(
@@ -167,7 +167,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
-                                              StringConst.destination.tr,
+                                              item,
                                               style: AppStyles
                                                   .botTitle000Size14Fw400FfMont
                                                   .copyWith(
