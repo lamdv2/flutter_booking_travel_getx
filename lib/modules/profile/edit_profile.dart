@@ -3,8 +3,10 @@ import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
+import 'package:doan_clean_achitec/shared/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -31,7 +33,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   @override
+  void deactivate() {
+    super.deactivate();
+    profileController.imageFonts.value.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    profileController.getUrlImage();
     return Scaffold(
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
@@ -41,6 +50,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
+        onTap: () {
+          Get.back();
+          profileController.getUrlImage();
+        },
       ),
       body: Obx(
         () => SafeArea(
@@ -70,12 +83,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     homeController.userModel.value?.imgAvatar !=
                                         null &&
                                     homeController.userModel.value?.imgAvatar !=
-                                        ""
+                                        "" &&
+                                    profileController.urlImage.value.isNotEmpty
                                 ? CircleAvatar(
                                     radius: 64,
                                     backgroundImage: CachedNetworkImageProvider(
-                                      homeController
-                                          .userModel.value!.imgAvatar!,
+                                      profileController.urlImage.value,
                                     ),
                                   )
                                 : CircleAvatar(
@@ -108,7 +121,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               profileController.pickImages(context);
                             },
                             icon: const Icon(Icons.add_a_photo),
-                            color: ColorConstants.accent1,
+                            color: ColorConstants.primary,
                           ),
                         ),
                       ],
@@ -130,6 +143,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(36),
                     ),
                     Text(
+                      "Email",
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightBackground
+                            : ColorConstants.graySub,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                    MyTextField(
+                      controller: profileController.editEmailController,
+                      hintText: '',
+                      obscureText: false,
+                      isCheckReadOnly: true,
+                    ),
+                    SizedBox(
+                      height: getSize(36),
+                    ),
+                    Text(
                       "First name",
                       style: TextStyle(
                         color: appController.isDarkModeOn.value
@@ -143,7 +178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(16),
                     ),
                     MyTextField(
-                      controller: profileController.firstNameController,
+                      controller: profileController.editFirstNameController,
                       hintText: 'Enter your firstname',
                       obscureText: false,
                     ),
@@ -164,7 +199,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(16),
                     ),
                     MyTextField(
-                      controller: profileController.lastNameController,
+                      controller: profileController.editLastNameController,
                       hintText: 'Enter your last name',
                       obscureText: false,
                     ),
@@ -185,9 +220,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(16),
                     ),
                     MyTextField(
-                      controller: profileController.phoneNumberController,
+                      controller: profileController.editPhoneNumberController,
                       hintText: "Enter your phone number",
                       obscureText: false,
+                      isTypeNumb: true,
+                      validatorCheck: (value) {
+                        if (!Regex.isPasswordNumber(value!.trim())) {
+                          return 'password must contain at least one number';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: getSize(36),
@@ -218,11 +260,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         onTap: () async {
                           String imageUrl = '';
 
-                          if (homeController.userModel.value != null &&
-                              homeController.userModel.value?.imgAvatar != "") {
-                            imageUrl =
-                                homeController.userModel.value?.imgAvatar ?? '';
-                          } else {
+                          if (profileController.imageFonts.value.isNotEmpty) {
                             imageUrl =
                                 await profileController.uploadImageToStorage(
                               'profileImage',
@@ -230,15 +268,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 profileController.imageFonts.value[0],
                               ),
                             );
+                            profileController.urlImageOld.value =
+                                homeController.userModel.value?.imgAvatar ?? '';
+
+                            profileController.getDeleteImage(
+                                profileController.urlImageOld.value);
+                          } else if (homeController.userModel.value != null &&
+                              homeController.userModel.value?.imgAvatar != "" &&
+                              homeController.userModel.value?.imgAvatar !=
+                                  null) {
+                            imageUrl =
+                                homeController.userModel.value?.imgAvatar ?? '';
                           }
 
                           final userModel = UserModel(
                             id: homeController.userModel.value?.id ?? '',
                             email: homeController.userModel.value?.email ?? '',
                             firstName: profileController
-                                .firstNameController.text
+                                .editFirstNameController.text
                                 .trim(),
-                            lastName: profileController.lastNameController.text
+                            lastName: profileController
+                                .editLastNameController.text
                                 .trim(),
                             passWord:
                                 homeController.userModel.value?.passWord ?? '',
@@ -251,7 +301,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 .trim(),
                             isActive: true,
                           );
-                          profileController.updateUserProfile(userModel);
+                          await profileController.updateUserProfile(userModel);
                         },
                         textBtn: StringConst.save.tr,
                         colorBgr: ColorConstants.primaryButton,

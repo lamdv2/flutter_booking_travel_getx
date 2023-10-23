@@ -9,6 +9,8 @@ class MyTextField extends StatefulWidget {
   final String hintText;
   final bool obscureText;
   final String? Function(String?)? validatorCheck;
+  final bool? isTypeNumb;
+  final bool? isCheckReadOnly;
 
   const MyTextField({
     Key? key,
@@ -16,6 +18,8 @@ class MyTextField extends StatefulWidget {
     required this.hintText,
     required this.obscureText,
     this.validatorCheck,
+    this.isTypeNumb,
+    this.isCheckReadOnly,
   }) : super(key: key);
 
   @override
@@ -41,6 +45,12 @@ class _MyTextFieldState extends State<MyTextField> {
       focusNode: _focusNode,
       obscureText: widget.obscureText,
       style: AppStyles.black000Size14Fw400FfMont,
+      keyboardType: widget.isTypeNumb != null && widget.isTypeNumb == true
+          ? TextInputType.number
+          : TextInputType.text,
+      readOnly: widget.isCheckReadOnly != null && widget.isCheckReadOnly == true
+          ? true
+          : false,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
