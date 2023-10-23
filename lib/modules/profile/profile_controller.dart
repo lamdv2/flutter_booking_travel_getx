@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,14 +22,11 @@ class ProfileController extends GetxController {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  final emailController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final passWordController = TextEditingController();
-  final imageAvatarController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-
   final editEmailController = TextEditingController();
+  final editFirstNameController = TextEditingController();
+  final editLastNameController = TextEditingController();
+  final editPassWordController = TextEditingController();
+  final editImageAvatarController = TextEditingController();
   final editPhoneNumberController = TextEditingController();
   final editLocationController = TextEditingController();
 
@@ -38,6 +36,8 @@ class ProfileController extends GetxController {
   final scaffoldProfileKey = GlobalKey<ScaffoldState>();
 
   RxString imageUpload = ''.obs;
+  RxString urlImage = ''.obs;
+  RxString urlImageOld = ''.obs;
 
   Rx<List<AssetEntity>> imageFonts = Rx([]);
 
@@ -49,17 +49,35 @@ class ProfileController extends GetxController {
     ]);
   }
 
+  void getUrlImage() async {
+    profileController.urlImage.value = await profileController.getImageStorage(
+      homeController.userModel.value?.imgAvatar ?? '',
+    );
+  }
+
+  void getDeleteImage(String nameImage) async {
+    if (nameImage.isNotEmpty) {
+      try {
+        final desertRef = FirebaseStorage.instance.ref().child(nameImage);
+        await desertRef.delete();
+        urlImageOld.value = '';
+      } catch (e) {
+        return;
+      }
+    }
+  }
+
   Future<void> pickImages(BuildContext context) async {
     final resultList = await AssetPicker.pickAssets(
       context,
       pickerConfig: AssetPickerConfig(
-        maxAssets: 1,
+        maxAssets: 5,
         selectedAssets: imageFonts.value,
         requestType: RequestType.image,
       ),
     );
-    if (resultList != null || resultList != "") {
-      imageFonts.value = resultList!;
+    if (resultList != null && resultList.isNotEmpty) {
+      imageFonts.value = resultList;
     }
   }
 
@@ -72,9 +90,24 @@ class ProfileController extends GetxController {
     Reference ref = _storage.ref().child(childName).child(uuid.v4());
     UploadTask uploadTask = ref.putData(file);
     TaskSnapshot snapshot = await uploadTask;
-    String downloadUrl = await snapshot.ref.getDownloadURL();
-    profileController.imageUpload.value = downloadUrl;
-    return downloadUrl;
+
+    return ref.fullPath;
+  }
+
+  Future<String> getImageStorage(String nameImage) async {
+    Reference ref = FirebaseStorage.instance.ref().child(nameImage);
+    try {
+      final result = await ref.getMetadata();
+
+      if (result != null) {
+        String downloadUrl = await ref.getDownloadURL();
+        return downloadUrl;
+      } else {
+        return '';
+      }
+    } catch (e) {
+      return '';
+    }
   }
 
   Future<Uint8List> assetEntityToUint8List(AssetEntity assetEntity) async {
@@ -92,24 +125,17 @@ class ProfileController extends GetxController {
         .doc(userModel.id)
         .update(userModel.toJson())
         .then((value) {
-      Get.snackbar("Edit!!!", 'Success',
+      Get.snackbar("Success!", 'Edit profile successfully',
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
-      profileController.getEditProfile();
-      homeController
-          .getUserDetails(homeController.userModel.value?.email ?? '');
+      Future.wait([
+        homeController
+            .getUserDetails(homeController.userModel.value?.email ?? '')
+      ]);
+      getUrlImage();
     }).catchError((onError) {
-      Get.snackbar("Edit!!!", 'Error: ${onError.toString()}',
+      Get.snackbar("Error!!!", 'Edit profile error: ${onError.toString()}',
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
     });
-  }
-
-  void clearController() {
-    emailController.text = '';
-    firstNameController.text = '';
-    lastNameController.text = '';
-    passWordController.text = '';
-    imageAvatarController.text = '';
-    phoneNumberController.text = '';
   }
 
   void createUser(UserModel userModel) async {
@@ -250,6 +276,14 @@ class ProfileController extends GetxController {
   void getEditProfile() {
     if (homeController.userModel.value != null) {
       editEmailController.text = homeController.userModel.value?.email ?? '';
+      editFirstNameController.text =
+          homeController.userModel.value?.firstName ?? '';
+      editLastNameController.text =
+          homeController.userModel.value?.lastName ?? '';
+      editPassWordController.text =
+          homeController.userModel.value?.passWord ?? '';
+      editImageAvatarController.text =
+          homeController.userModel.value?.imgAvatar ?? '';
       editPhoneNumberController.text =
           homeController.userModel.value?.phoneNub ?? '';
       editLocationController.text =
@@ -258,14 +292,11 @@ class ProfileController extends GetxController {
   }
 
   void clearEditController() {
-    emailController.clear();
-    firstNameController.clear();
-    lastNameController.clear();
-    passWordController.clear();
-    imageAvatarController.clear();
-    phoneNumberController.clear();
-
     editEmailController.clear();
+    editFirstNameController.clear();
+    editLastNameController.clear();
+    editPassWordController.clear();
+    editImageAvatarController.clear();
     editPhoneNumberController.clear();
     editLocationController.clear();
   }

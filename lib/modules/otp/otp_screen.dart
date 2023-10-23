@@ -57,8 +57,8 @@ class OtpScreen extends StatelessWidget {
                 height: getSize(24),
               ),
               Text(
-                _profileController.phoneNumberController.text.isNotEmpty
-                    ? _profileController.phoneNumberController.text
+                _profileController.editPhoneNumberController.text.isNotEmpty
+                    ? _profileController.editPhoneNumberController.text
                     : "+84 123 456 789",
                 style: AppStyles.black000Size18Fw600FfMont,
               ),
