@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/utils/regex.dart';
+import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,12 +38,11 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    const Icon(
-                      Icons.ac_unit,
-                      size: 100,
+                    Image.asset(
+                      AssetHelper.icLogoApp,
+                      fit: BoxFit.cover,
+                      width: getSize(84),
                     ),
-
-                    //welcome
                     const SizedBox(
                       height: 38,
                     ),
@@ -56,7 +56,6 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 26,
                     ),
-
                     Form(
                       key: registerKey,
                       child: Column(
@@ -170,8 +169,6 @@ class RegisterScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    // google + apple signin button
                     const SizedBox(
                       height: 16,
                     ),
@@ -183,12 +180,9 @@ class RegisterScreen extends StatelessWidget {
                           onTap: () => AuthService().signInWithGoogle(),
                           imgPath: AssetHelper.imgGoogle,
                         ),
-
-                        //Image(image: AssetImage('lib/images/apple.png'), height: 30,),
                         const SizedBox(
                           width: 24,
                         ),
-                        // apple
                         SquareTile(
                           onTap: () {
                             showDialog(
@@ -217,8 +211,6 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-
-                    // not a member? register
                     const SizedBox(
                       height: 10,
                     ),
@@ -239,13 +231,14 @@ class RegisterScreen extends StatelessWidget {
                           child: const Text(
                             'Login now',
                             style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.blueAccent,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

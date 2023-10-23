@@ -1,19 +1,26 @@
 import 'dart:async';
+import 'dart:typed_data';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:uuid/uuid.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../auth/user_controller.dart';
 
 class ProfileController extends GetxController {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -25,9 +32,76 @@ class ProfileController extends GetxController {
   final editPhoneNumberController = TextEditingController();
   final editLocationController = TextEditingController();
 
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find();
+  final HomeController homeController = Get.put(HomeController());
 
   final scaffoldProfileKey = GlobalKey<ScaffoldState>();
+
+  RxString imageUpload = ''.obs;
+
+  Rx<List<AssetEntity>> imageFonts = Rx([]);
+
+  @override
+  void onInit() {
+    super.onInit();
+    Future.wait([
+      homeController.getUserDetails(userController.userEmail.value),
+    ]);
+  }
+
+  Future<void> pickImages(BuildContext context) async {
+    final resultList = await AssetPicker.pickAssets(
+      context,
+      pickerConfig: AssetPickerConfig(
+        maxAssets: 1,
+        selectedAssets: imageFonts.value,
+        requestType: RequestType.image,
+      ),
+    );
+    if (resultList != null || resultList != "") {
+      imageFonts.value = resultList!;
+    }
+  }
+
+  Future<String> uploadImageToStorage(
+    String childName,
+    Uint8List file,
+  ) async {
+    var uuid = const Uuid();
+
+    Reference ref = _storage.ref().child(childName).child(uuid.v4());
+    UploadTask uploadTask = ref.putData(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    profileController.imageUpload.value = downloadUrl;
+    return downloadUrl;
+  }
+
+  Future<Uint8List> assetEntityToUint8List(AssetEntity assetEntity) async {
+    final file = await assetEntity.originFile;
+    if (file != null) {
+      List<int> bytes = await file.readAsBytes();
+      return Uint8List.fromList(bytes);
+    }
+    throw Exception('Failed to read asset data');
+  }
+
+  Future<void> updateUserProfile(UserModel userModel) async {
+    await _firestore
+        .collection('userModel')
+        .doc(userModel.id)
+        .update(userModel.toJson())
+        .then((value) {
+      Get.snackbar("Edit!!!", 'Success',
+          snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
+      profileController.getEditProfile();
+      homeController
+          .getUserDetails(homeController.userModel.value?.email ?? '');
+    }).catchError((onError) {
+      Get.snackbar("Edit!!!", 'Error: ${onError.toString()}',
+          snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
+    });
+  }
 
   void clearController() {
     emailController.text = '';
@@ -38,7 +112,7 @@ class ProfileController extends GetxController {
     phoneNumberController.text = '';
   }
 
-  createUser(UserModel userModel) async {
+  void createUser(UserModel userModel) async {
     await FirebaseFirestore.instance
         .collection('userModel')
         .add(userModel.toJson())
@@ -146,41 +220,15 @@ class ProfileController extends GetxController {
           userController.userName.value = '';
 
           userController.userEmail.value = '';
+
+          profileController.imageFonts.value.clear();
+
+          clearEditController();
         } catch (e) {
           wrongMessage("Logout failed: $e");
         }
       },
     );
-
-    // showOkCancelAlertDialog(
-    //   context: context,
-    //   okLabel: 'OK',
-    //   cancelLabel: 'Cancel',
-    //   title: 'Do you want to log out?',
-    //   defaultType: OkCancelAlertDefaultType.ok,
-    //   onWillPop: () => Future.value(false),
-    // );
-
-    // confirmLogoutDialog(context, 'Logout', () async {
-    //   try {
-    //     // Đăng xuất khỏi Firebase Authentication
-    //     await auth.signOut();
-
-    //     // Đăng xuất khỏi Google Sign In
-    //     await googleSignIn.signOut();
-
-    //     userController.clearUserName();
-
-    //     userController.userName.value = '';
-
-    //     userController.userEmail.value = '';
-
-    //     // ignore: use_build_context_synchronously
-    //     Incorrect("Logout Success");
-    //   } catch (e) {
-    //     wrongMessage("Logout failed: $e");
-    //   }
-    // });
   }
 
   // ignore: non_constant_identifier_names
@@ -197,6 +245,29 @@ class ProfileController extends GetxController {
         );
       },
     );
+  }
+
+  void getEditProfile() {
+    if (homeController.userModel.value != null) {
+      editEmailController.text = homeController.userModel.value?.email ?? '';
+      editPhoneNumberController.text =
+          homeController.userModel.value?.phoneNub ?? '';
+      editLocationController.text =
+          homeController.userModel.value?.location ?? '';
+    }
+  }
+
+  void clearEditController() {
+    emailController.clear();
+    firstNameController.clear();
+    lastNameController.clear();
+    passWordController.clear();
+    imageAvatarController.clear();
+    phoneNumberController.clear();
+
+    editEmailController.clear();
+    editPhoneNumberController.clear();
+    editLocationController.clear();
   }
 
   Future<void> wrongMessage(String message) async {

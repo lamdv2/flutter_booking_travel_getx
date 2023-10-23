@@ -38,6 +38,7 @@ class AssetHelper {
   static const String icoSunShade = 'assets/icons/ic_sunshade.png';
 
   static const String icoNodata = 'assets/icons/ic_nodata.png';
+  static const String icLogoApp = 'assets/icons/ic_logo_app.png';
 
   static const String icActivity = 'assets/icons/svg/ic_activity.svg';
   static const String icAddUser = 'assets/icons/svg/ic_add_user.svg';
@@ -201,6 +202,9 @@ class AssetHelper {
   static const String imgPrevHotel02 = 'assets/images/x2/img_hotel_prev_02.png';
   static const String imgPrevHotel03 = 'assets/images/x2/img_hotel_prev_03.png';
   static const String imgPrevHotel04 = 'assets/images/x2/img_hotel_prev_04.png';
+
+  static const String imgUserProfileNon =
+      'assets/images/x2/img_user_profile_non.png';
 
   // /images/x3
   static const String imgApple = 'assets/images/x3/apple.png';

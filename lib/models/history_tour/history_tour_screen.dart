@@ -4,6 +4,7 @@ import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/models/history_tour/history_tour_controller.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
@@ -71,7 +72,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     historyTourController
-        .getAllTourModelData(userController.userModel.value?.id ?? "");
+        .getAllTourModelData(homeController.userModel.value?.id ?? "");
 
     return Scaffold(
       appBar: CustomAppBar(

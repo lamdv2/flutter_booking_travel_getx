@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
+import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,9 +37,10 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    const Icon(
-                      Icons.ac_unit,
-                      size: 100,
+                    Image.asset(
+                      AssetHelper.icLogoApp,
+                      fit: BoxFit.cover,
+                      width: getSize(84),
                     ),
                     const SizedBox(
                       height: 48,
@@ -72,8 +74,6 @@ class LoginScreen extends StatelessWidget {
                               return null;
                             },
                           ),
-
-                          //password
                           const SizedBox(
                             height: 16,
                           ),
@@ -92,8 +92,6 @@ class LoginScreen extends StatelessWidget {
                               return null;
                             },
                           ),
-
-                          //forgot password
                           const SizedBox(
                             height: 10,
                           ),
@@ -107,8 +105,6 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-
-                          //Btn Sign In
                           const SizedBox(
                             height: 45,
                           ),
@@ -123,8 +119,6 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    //divider continue
                     const SizedBox(
                       height: 50,
                     ),
@@ -151,8 +145,6 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    // google + apple signin button
                     const SizedBox(
                       height: 16,
                     ),

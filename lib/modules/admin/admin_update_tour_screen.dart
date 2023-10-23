@@ -3,8 +3,6 @@ import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/home/home_screen.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/convert_date_time.dart';
@@ -56,23 +54,15 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
     adminController.idCityController.text = tourModel?.idCity ?? '';
     adminController.startDateController.text =
         tourModel?.startDate.toString() ?? '';
-
     adminController.endDateController.text =
         tourModel?.endDate.toString() ?? '';
     adminController.priceController.text = tourModel?.price.toString() ?? '';
-    // adminController. imagesController.text =
     adminController.durationController.text = tourModel?.duration ?? '';
     adminController.accommodationController.text =
         tourModel?.accommodation ?? '';
     listIti = tourModel?.itinerary ?? [];
-    // adminController. includedServicesController.text =
-    // adminController. excludedServicesController.text =
-    // adminController. reviewsController.text =
     adminController.ratingController.text = tourModel?.rating.toString() ?? '';
     adminController.activeController.text = tourModel?.accommodation ?? '';
-    // adminController. statusController.text =
-    // adminController. specialOffersController.text =
-
     startDateSelected =
         adminController.timestampToString(tourModel!.startDate!);
     endDateSelected = adminController.timestampToString(tourModel!.endDate!);

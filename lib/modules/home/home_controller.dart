@@ -11,11 +11,12 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getUserDetails(userController.userEmail.value);
+    Future.wait([getUserDetails(userController.userEmail.value)]);
   }
 
   RxInt currentIndex = 0.obs;
   final _db = FirebaseFirestore.instance;
+  final userModel = Rxn<UserModel>();
 
   final UserController userController = Get.find();
 
@@ -28,8 +29,9 @@ class HomeController extends GetxController {
         .collection('userModel')
         .where('email', isEqualTo: email)
         .get();
+
     if (snapShot.docs.isNotEmpty) {
-      userController.userModel.value =
+      userModel.value =
           snapShot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     }
   }

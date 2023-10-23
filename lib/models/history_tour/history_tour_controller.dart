@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HistoryTourController extends GetxController {
   final _db = FirebaseFirestore.instance;
 
-  UserController userController = Get.put(UserController());
+  HomeController homeController = Get.find();
 
   final getAllListHistory = Rxn<List<TourModel>>([]);
   final getAllListHistoryToDate = Rxn<List<HistoryModel>>([]);
@@ -49,7 +50,7 @@ class HistoryTourController extends GetxController {
   }
 
   Future<void> refreshHistory() async {
-    getAllTourModelData(userController.userModel.value?.id ?? "");
+    getAllTourModelData(homeController.userModel.value?.id ?? "");
   }
 
   String timestampToString(Timestamp timestamp) {

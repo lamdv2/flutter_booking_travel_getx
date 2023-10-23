@@ -49,6 +49,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   flutter_staggered_grid_view: ^0.7.0
   image_picker: ^1.0.4
+  wechat_assets_picker: ^8.7.1
 
   # carousel_slider:
   carousel_slider: ^4.2.1
@@ -103,6 +104,7 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   lottie: ^2.6.0
   adaptive_dialog: ^1.9.0+2
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
