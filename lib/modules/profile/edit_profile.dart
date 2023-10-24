@@ -3,7 +3,6 @@ import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
-import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/regex.dart';
@@ -87,8 +86,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     profileController.urlImage.value.isNotEmpty
                                 ? CircleAvatar(
                                     radius: 64,
-                                    backgroundImage: CachedNetworkImageProvider(
+                                    backgroundImage: 
+                                    CachedNetworkImageProvider(
                                       profileController.urlImage.value,
+                                      
                                     ),
                                   )
                                 : CircleAvatar(
@@ -114,14 +115,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ),
                                   ),
                         Positioned(
-                          bottom: -10,
-                          left: 80,
-                          child: IconButton(
-                            onPressed: () {
-                              profileController.pickImages(context);
-                            },
-                            icon: const Icon(Icons.add_a_photo),
-                            color: ColorConstants.primary,
+                          bottom: 0,
+                          right: 0,
+                          child: CircleAvatar(
+                            backgroundColor: ColorConstants.white,
+                            child: IconButton(
+                              onPressed: () {
+                                profileController.pickImages(context);
+                              },
+                              icon: const Icon(Icons.add_a_photo),
+                              color: ColorConstants.primary,
+                            ),
                           ),
                         ),
                       ],

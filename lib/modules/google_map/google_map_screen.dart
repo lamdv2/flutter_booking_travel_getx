@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' as geolocator;
 
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen({Key? key}) : super(key: key);
@@ -31,65 +33,25 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   MapType currentMapType = MapType.normal;
 
+  Map<MarkerId, Marker> markers = {};
+  Map<PolylineId, Polyline> polylines = {};
+  List<LatLng> polylineCoordinates = [];
+  PolylinePoints polylinePoints = PolylinePoints();
+
   @override
   void initState() {
     super.initState();
-    // getLocationUpdates().then(
-    //   (_) => getPolylinePoints().then(
-    //     (coordinates) => {
-    //       generatePolyLineFromPoints(coordinates),
-    //     },
-    //   ),
-    // );
-    getPolyline('16.05786987902542', '108.21159745424494');
+    // getPolyline('16.05786987902542', '108.21159745424494');
     loadImageMarker();
   }
 
   BitmapDescriptor? customIcon;
 
-  void loadImageMarker() async {
-    customIcon = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(48, 48)),
-      'assets/custom_marker.png',
-    );
-  }
-
-  void changeMapType() {
-    setState(() {
-      currentMapType = MapType.hybrid;
-    });
-  }
-
-  void changeMapType01() {
-    setState(() {
-      currentMapType = MapType.satellite;
-    });
-  }
-
-  void changeMapType02() {
-    setState(() {
-      currentMapType = MapType.terrain;
-    });
-  }
-
-  void changeMapType03() {
-    setState(() {
-      currentMapType = MapType.normal;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    GoogleMapController? controller;
-
     return Scaffold(
       body: Stack(
         children: [
-          // _current == null
-          //     ? const Center(
-          //         child: Text('Loading...'),
-          //       )
-          //     :
           GoogleMap(
             onMapCreated: ((GoogleMapController controller) =>
                 mapController.complete(controller)),
@@ -137,6 +99,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             child: Column(
               children: [
                 FloatingActionButton(
+                  heroTag: "btn1",
                   backgroundColor: ColorConstants.green,
                   onPressed: () {
                     changeMapType();
@@ -150,6 +113,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   height: getSize(12),
                 ),
                 FloatingActionButton(
+                  heroTag: "btn2",
                   onPressed: () {
                     changeMapType01();
                   },
@@ -162,6 +126,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   height: getSize(12),
                 ),
                 FloatingActionButton(
+                  heroTag: "btn3",
                   backgroundColor: ColorConstants.secondColor,
                   onPressed: () {
                     changeMapType02();
@@ -175,6 +140,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   height: getSize(12),
                 ),
                 FloatingActionButton(
+                  heroTag: "btn4",
                   backgroundColor: ColorConstants.flights,
                   onPressed: () {
                     changeMapType03();
@@ -186,7 +152,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -203,34 +169,18 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     );
   }
 
-  Map<MarkerId, Marker> markers = {};
-  Map<PolylineId, Polyline> polylines = {};
-  List<LatLng> polylineCoordinates = [];
-  PolylinePoints polylinePoints = PolylinePoints();
-
-  void _addPolyLine() {
-    setState(() {
-      const id = PolylineId('poly');
-      final polyline = Polyline(
-        polylineId: id,
-        color: Colors.blue,
-        points: polylineCoordinates,
-        width: 4,
-      );
-      polylines[id] = polyline;
-    });
-  }
-
   Future<void> getPolyline(String destLatitude, String destLongitude) async {
-    Position? currentPosition;
-    // currentPosition = await Geolocator.getCurrentPosition(
-    //     desiredAccuracy: LocationAccuracy.best,
-    //     );
-    try {
+    final status = await Permission.location.request();
+
+    if (status.isGranted) {
+      geolocator.Position? currentPosition;
+      currentPosition = await geolocator.Geolocator.getCurrentPosition(
+        desiredAccuracy: geolocator.LocationAccuracy.best,
+      );
       final result = await polylinePoints.getRouteBetweenCoordinates(
-        'AIzaSyB1h4sNHP1uFGKs59Y72uGiO6SLW7ZGNuk',
-        // AIzaSyB-Lyksir7H6TAkkMk4PxNUkOz3KyuV9y4
-        PointLatLng(16.0311715, 108.2099274),
+        'AIzaSyB-Lyksir7H6TAkkMk4PxNUkOz3KyuV9y4',
+        // AIzaSyBD6fP1hIB0vbwy9s8AixLhVhYTLaSLw8Y
+        PointLatLng(currentPosition.latitude, currentPosition.longitude),
         PointLatLng(double.parse(destLatitude), double.parse(destLongitude)),
         travelMode: TravelMode.transit,
       );
@@ -243,10 +193,37 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         }
       }
       _addPolyLine();
-    } catch (e) {
-      print('Lỗi khi lấy tuyến đường: $e');
+    } else if (status.isDenied) {
+      Get.snackbar('Error!!!', 'Error permission!');
     }
   }
+
+  // Future<void> getPolylineb(String destLatitude, String destLongitude) async {
+  //   Position? currentPosition;
+  //   // currentPosition = await Geolocator.getCurrentPosition(
+  //   //     desiredAccuracy: LocationAccuracy.best,
+  //   //     );
+  //   try {
+  //     final result = await polylinePoints.getRouteBetweenCoordinates(
+  //       'AIzaSyB1h4sNHP1uFGKs59Y72uGiO6SLW7ZGNuk',
+  //       // AIzaSyB-Lyksir7H6TAkkMk4PxNUkOz3KyuV9y4
+  //       PointLatLng(16.0311715, 108.2099274),
+  //       PointLatLng(double.parse(destLatitude), double.parse(destLongitude)),
+  //       travelMode: TravelMode.transit,
+  //     );
+
+  //     polylineCoordinates.clear();
+
+  //     if (result.points.isNotEmpty) {
+  //       for (final point in result.points) {
+  //         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  //       }
+  //     }
+  //     _addPolyLine();
+  //   } catch (e) {
+  //     print('Lỗi khi lấy tuyến đường: $e');
+  //   }
+  // }
 
   Future<List<LatLng>> getPolylinePoints() async {
     List<LatLng> polylineCoordinates = [];
@@ -268,6 +245,30 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return polylineCoordinates;
   }
 
+  void requestLocationPermission() async {
+    final status = await Permission.location.request();
+    if (status.isGranted) {
+      // Quyền truy cập vị trí đã được cấp.
+      // Tiếp tục với việc hiển thị bản đồ.
+    } else if (status.isDenied) {
+      // Người dùng từ chối cấp quyền.
+      // Có thể hiển thị thông báo hoặc hướng dẫn họ cấp quyền trong cài đặt ứng dụng.
+    }
+  }
+
+  void _addPolyLine() {
+    setState(() {
+      const id = PolylineId('poly');
+      final polyline = Polyline(
+        polylineId: id,
+        color: Colors.blue,
+        points: polylineCoordinates,
+        width: 4,
+      );
+      polylines[id] = polyline;
+    });
+  }
+
   void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
     PolylineId id = const PolylineId("poly");
     Polyline polyline = Polyline(
@@ -281,35 +282,34 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     });
   }
 
-  Future<void> getLocationUpdates() async {
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
+  void loadImageMarker() async {
+    customIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(48, 48)),
+      'assets/custom_marker.png',
+    );
+  }
 
-    serviceEnabled = await _locationController.serviceEnabled();
-    if (serviceEnabled) {
-      serviceEnabled = await _locationController.requestService();
-    } else {
-      return;
-    }
+  void changeMapType() {
+    setState(() {
+      currentMapType = MapType.hybrid;
+    });
+  }
 
-    permissionGranted = await _locationController.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await _locationController.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
+  void changeMapType01() {
+    setState(() {
+      currentMapType = MapType.satellite;
+    });
+  }
 
-    _locationController.onLocationChanged
-        .listen((LocationData currentLocation) {
-      if (currentLocation.latitude != null &&
-          currentLocation.longitude != null) {
-        setState(() {
-          _current =
-              LatLng(currentLocation.latitude!, currentLocation.longitude!);
-          _cameraToPosition(_current!);
-        });
-      }
+  void changeMapType02() {
+    setState(() {
+      currentMapType = MapType.terrain;
+    });
+  }
+
+  void changeMapType03() {
+    setState(() {
+      currentMapType = MapType.normal;
     });
   }
 }

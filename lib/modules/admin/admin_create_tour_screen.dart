@@ -278,7 +278,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                         onPressed: () async {
                           final result = await Get.toNamed(Routes.SELECT_DATE);
                           if (result is List<DateTime?>) {
-                            endDateSelected = '${result[0]?.getDate}';
+                            endDateSelected = '${result[1]?.getDate}';
                             setState(() {
                               adminController.endDateController.text =
                                   endDateSelected;
@@ -309,6 +309,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       controller: adminController.priceController,
                       hintText: StringConst.enterPriceTour.tr,
                       obscureText: false,
+                      isTypeNumb: true,
                     ),
                     SizedBox(
                       height: getSize(16),
@@ -373,6 +374,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       controller: adminController.ratingController,
                       hintText: StringConst.enterRatingTour.tr,
                       obscureText: false,
+                      isTypeNumb: true,
                     ),
                     SizedBox(
                       height: getSize(16),
