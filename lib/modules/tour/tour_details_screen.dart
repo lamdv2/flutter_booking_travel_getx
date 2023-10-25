@@ -407,13 +407,11 @@ class TourDetailsScreen extends StatelessWidget {
           ),
         ),
         SizedBox(height: getSize(kDefaultPadding)),
-        Positioned(
-          child: GestureDetector(
-            onDoubleTap: () {
-              Get.toNamed(Routes.GOOGLE_MAP_SCREEN);
-            },
-            child: const GoogleMapWidget(),
-          ),
+        GestureDetector(
+          onDoubleTap: () {
+            Get.toNamed(Routes.GOOGLE_MAP_SCREEN);
+          },
+          child: const GoogleMapWidget(),
         ),
         SizedBox(height: getSize(kMediumPadding)),
       ],

@@ -23,6 +23,7 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    profileController.getUrlImage();
     return Obx(
       () => Container(
         decoration: BoxDecoration(
@@ -109,7 +110,7 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "+84",
+                    "+84 ${homeController.userModel.value?.phoneNub}",
                     style: TextStyle(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
@@ -129,7 +130,7 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '',
+                    '${homeController.userModel.value?.location}',
                     style: TextStyle(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
@@ -137,6 +138,9 @@ class ProfileWidget extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
                     ),
+                  ),
+                  SizedBox(
+                    height: getSize(4),
                   ),
                 ],
               ),
