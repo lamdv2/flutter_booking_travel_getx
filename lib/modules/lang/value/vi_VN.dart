@@ -94,6 +94,8 @@ const Map<String, String> vi = {
   'ratingTour': 'Đánh giá Tour:',
   'enterRatingTour': 'Nhập đánh giá tour',
   'create': 'Tạo',
+  'imageTour': 'Ảnh tour',
+
   //Admin update tour
   'updateTour': 'Cập Nhật Tour',
   'itineraryOfTour': 'Lịch trình của tour',

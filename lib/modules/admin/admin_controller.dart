@@ -1,9 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class AdminController extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -31,6 +36,9 @@ class AdminController extends GetxController {
   final filterListTourData = Rxn<List<TourModel>>();
 
   TextEditingController searchController = TextEditingController();
+
+  Rx<List<AssetEntity>> imageTours = Rx([]);
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   // Filter by Name Tour
   Future<void> filterListTourByName(String keyword) async {
@@ -166,5 +174,48 @@ class AdminController extends GetxController {
       startDate = DateTime.now();
     }
     return Timestamp.fromDate(startDate);
+  }
+
+  Future<void> pickImages(BuildContext context) async {
+    final resultList = await AssetPicker.pickAssets(
+      context,
+      pickerConfig: AssetPickerConfig(
+        maxAssets: 5,
+        selectedAssets: imageTours.value,
+        requestType: RequestType.image,
+      ),
+    );
+    if (resultList != null && resultList.isNotEmpty) {
+      imageTours.value = resultList;
+    }
+  }
+
+  Future<void> uploadImageToStorage(
+    String childName,
+    List<Uint8List> listImage,
+  ) async {
+    var uuid = const Uuid();
+
+    for (var e in listImage) {
+      Reference ref = _storage.ref().child(childName).child(uuid.v4());
+      UploadTask uploadTask = ref.putData(e);
+      await uploadTask;
+    }
+  }
+
+  Future<String> getImageStorage(String nameImage) async {
+    Reference ref = FirebaseStorage.instance.ref().child(nameImage);
+    try {
+      final result = await ref.getMetadata();
+
+      if (result != null) {
+        String downloadUrl = await ref.getDownloadURL();
+        return downloadUrl;
+      } else {
+        return '';
+      }
+    } catch (e) {
+      return '';
+    }
   }
 }

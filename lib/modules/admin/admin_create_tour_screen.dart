@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
@@ -14,6 +15,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class AdminCreateScreen extends StatefulWidget {
   const AdminCreateScreen({super.key});
@@ -25,6 +27,7 @@ class AdminCreateScreen extends StatefulWidget {
 class _AdminCreateScreenState extends State<AdminCreateScreen> {
   AdminController adminController = Get.put(AdminController());
   TourController tourController = Get.put(TourController());
+  AppController appController = Get.find();
   final _formCreateKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -33,12 +36,12 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
     '30HN',
   ];
 
-  String startDateSelected = '';
-  String endDateSelected = '';
+  String startDateSelected = 'Select start date';
+  String endDateSelected = 'Select end date';
 
   List<Widget> _children = [];
   int _count = 0;
-  List<TextEditingController> _controllers = [];
+  List<TextEditingController> controllers = [];
   List<String> listIti = [];
 
   @override
@@ -68,8 +71,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Text(
                       StringConst.nameTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -87,8 +92,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Text(
                       StringConst.descriptionTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -106,8 +113,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Text(
                       StringConst.idCityTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -137,8 +146,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                                       value: item,
                                       child: Text(
                                         item,
-                                        style: AppStyles
-                                            .titleSearchSize14Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles.graySize14Fw400FfMont
+                                            : AppStyles
+                                                .titleSearchSize14Fw400FfMont,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -150,8 +161,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                                       value: item,
                                       child: Text(
                                         item,
-                                        style: AppStyles
-                                            .titleSearchSize14Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles.graySize14Fw400FfMont
+                                            : AppStyles
+                                                .titleSearchSize14Fw400FfMont,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -172,14 +185,18 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                             ),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: ColorConstants.darkGray.withOpacity(.5),
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.accent1
+                                    : ColorConstants.darkGray.withOpacity(.5),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(
                                 getSize(8),
                               ),
                               boxShadow: const [],
-                              color: ColorConstants.white,
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.darkCard
+                                  : ColorConstants.white,
                             ),
                             elevation: 2,
                           ),
@@ -187,8 +204,16 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                             icon: SvgPicture.asset(
                               AssetHelper.icFilter,
                               width: getSize(24),
+                              colorFilter: ColorFilter.mode(
+                                appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.accent1,
+                                BlendMode.srcIn,
+                              ),
                             ),
-                            iconEnabledColor: ColorConstants.botTitle,
+                            iconEnabledColor: appController.isDarkModeOn.value
+                                ? ColorConstants.lightCard
+                                : ColorConstants.botTitle,
                             iconDisabledColor: Colors.grey,
                           ),
                           dropdownStyleData: DropdownStyleData(
@@ -196,12 +221,14 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
-                              color: Colors.grey.shade100,
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.darkCard
+                                  : Colors.grey.shade100,
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: getSize(20),
                             ),
-                            offset: const Offset(-20, 0),
+                            offset: const Offset(-20, -4),
                             scrollbarTheme: ScrollbarThemeData(
                               radius: const Radius.circular(40),
                               thickness: MaterialStateProperty.all(6),
@@ -220,8 +247,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Text(
                       StringConst.startDateTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -229,13 +258,15 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(12),
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
-                      color: ColorConstants.white,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              ColorConstants.white),
+                            appController.isDarkModeOn.value
+                                ? ColorConstants.darkCard
+                                : ColorConstants.white,
+                          ),
                         ),
                         onPressed: () async {
                           final result = await Get.toNamed(Routes.SELECT_DATE);
@@ -249,7 +280,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                         },
                         child: Text(
                           startDateSelected,
-                          style: AppStyles.black000Size14Fw400FfMont,
+                          style: appController.isDarkModeOn.value
+                              ? AppStyles.white000Size14Fw400FfMont
+                              : AppStyles.black000Size14Fw400FfMont,
                         ),
                       ),
                     ),
@@ -258,8 +291,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Text(
                       StringConst.endDateTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -267,13 +302,15 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     SizedBox(
                       height: getSize(12),
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
-                      color: ColorConstants.white,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              ColorConstants.white),
+                            appController.isDarkModeOn.value
+                                ? ColorConstants.darkCard
+                                : ColorConstants.white,
+                          ),
                         ),
                         onPressed: () async {
                           final result = await Get.toNamed(Routes.SELECT_DATE);
@@ -287,7 +324,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                         },
                         child: Text(
                           endDateSelected,
-                          style: AppStyles.black000Size14Fw400FfMont,
+                          style: appController.isDarkModeOn.value
+                              ? AppStyles.white000Size14Fw400FfMont
+                              : AppStyles.black000Size14Fw400FfMont,
                         ),
                       ),
                     ),
@@ -296,8 +335,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     ),
                     Text(
                       StringConst.priceTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -318,8 +359,10 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       children: [
                         Text(
                           StringConst.itineraryTour.tr,
-                          style: const TextStyle(
-                            color: ColorConstants.graySub,
+                          style: TextStyle(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.bgrLight
+                                : ColorConstants.graySub,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
@@ -332,7 +375,9 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                             icon: Icon(
                               Icons.add,
                               size: getSize(16),
-                              color: ColorConstants.accent1,
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.bgrLight
+                                  : ColorConstants.accent1,
                             ),
                           ),
                         ),
@@ -356,13 +401,64 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                         );
                       },
                     ),
+                    Row(
+                      children: [
+                        Text(
+                          StringConst.imageTour.tr,
+                          style: TextStyle(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.bgrLight
+                                : ColorConstants.graySub,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: IconButton(
+                            onPressed: () =>
+                                adminController.pickImages(context),
+                            icon: Icon(
+                              Icons.add,
+                              size: getSize(16),
+                              color: appController.isDarkModeOn.value
+                                  ? ColorConstants.bgrLight
+                                  : ColorConstants.accent1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    
+                    SizedBox(
+                      height: getSize(16),
+                    ),
+                  adminController.imageTours.value.length.isGreaterThan(0) ?  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: adminController.imageTours.value.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: getSize(16)),
+                          child: _children[index],
+                        );
+                      },
+                    ): CircleAvatar(
+                      radius: 64,
+                      backgroundColor: ColorConstants.white,
+                      backgroundImage: AssetEntityImageProvider(
+                        adminController.imageTours.value[0],
+                      ),
+                    ),
                     SizedBox(
                       height: getSize(16),
                     ),
                     Text(
                       StringConst.ratingTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.bgrLight
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -383,7 +479,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
                         onPressed: () {
-                          _save(_controllers);
+                          _save(controllers);
                           if (_formCreateKey.currentState!.validate()) {
                             final TourModel tourModel = TourModel(
                               nameTour: adminController.nameTourController.text,
@@ -434,7 +530,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
 
   void _add() {
     TextEditingController newController = TextEditingController();
-    _controllers.add(newController);
+    controllers.add(newController);
 
     _children = List.from(_children)
       ..add(

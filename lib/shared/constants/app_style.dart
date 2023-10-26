@@ -205,7 +205,9 @@ class AppStyles {
     fontFamily: FontFamily.mont,
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: ColorConstants.black,
+    color: appController.isDarkModeOn.value
+        ? ColorConstants.lightCard
+        : ColorConstants.black,
   );
 
   static TextStyle black000Size14Fw600FfMont = TextStyle(
@@ -336,6 +338,13 @@ class AppStyles {
   static TextStyle graySize16Fw400FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: ColorConstants.gray,
+  );
+
+  static TextStyle graySize14Fw400FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: ColorConstants.gray,
   );
