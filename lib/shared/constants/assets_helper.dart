@@ -153,6 +153,7 @@ class AssetHelper {
   static const String imgLottieNodate = 'assets/images/json/img_nodata.json';
   static const String imgLottieArrowRight =
       'assets/images/json/img_arrow_rigth.json';
+  static const String imgLottieNoImage = 'assets/images/json/img_nodata.json';
 
   // /images/x2
   static const String imgSplash_1 = 'assets/images/x2/imgSplash1.png';

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
+import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
@@ -38,6 +39,7 @@ class ProfileController extends GetxController {
   RxString imageUpload = ''.obs;
   RxString urlImage = ''.obs;
   RxString urlImageOld = ''.obs;
+  RxString imageUrl = ''.obs;
 
   Rx<List<AssetEntity>> imageFonts = Rx([]);
 
@@ -299,6 +301,17 @@ class ProfileController extends GetxController {
     editImageAvatarController.clear();
     editPhoneNumberController.clear();
     editLocationController.clear();
+  }
+
+  void showFullImageDialog(BuildContext context, String imageUrl) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FullImageScreen(
+          imageUrl: imageUrl,
+        ),
+      ),
+    );
   }
 
   Future<void> wrongMessage(String message) async {
