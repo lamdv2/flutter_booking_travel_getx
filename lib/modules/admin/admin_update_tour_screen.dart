@@ -94,10 +94,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(36),
                     ),
-                     Text(
+                    Text(
                       StringConst.nameTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -113,10 +115,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                     Text(
+                    Text(
                       StringConst.descriptionTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -132,10 +136,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                     Text(
+                    Text(
                       StringConst.idCityTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -246,10 +252,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                     Text(
+                    Text(
                       StringConst.startDateTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -284,10 +292,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                     Text(
-                     StringConst.endDateTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                    Text(
+                      StringConst.endDateTour.tr,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -322,10 +332,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                     Text(
+                    Text(
                       StringConst.priceTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -343,10 +355,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     ),
                     Row(
                       children: [
-                         Text(
+                        Text(
                           StringConst.itineraryTour.tr,
-                          style: const TextStyle(
-                            color: ColorConstants.graySub,
+                          style: TextStyle(
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightGray
+                                : ColorConstants.graySub,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
@@ -378,10 +392,12 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                     SizedBox(
                       height: getSize(16),
                     ),
-                     Text(
+                    Text(
                       StringConst.ratingTour.tr,
-                      style: const TextStyle(
-                        color: ColorConstants.graySub,
+                      style: TextStyle(
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightGray
+                            : ColorConstants.graySub,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -433,7 +449,7 @@ class _AdminUpdateScreenState extends State<AdminUpdateScreen> {
                           Get.back();
                           adminController.getAllTourModelData();
                         },
-                        child:  Text(StringConst.updateTour.tr),
+                        child: Text(StringConst.updateTour.tr),
                       ),
                     ),
                     SizedBox(

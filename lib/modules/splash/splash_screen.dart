@@ -1,28 +1,15 @@
-import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width,
+      width: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
@@ -34,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          width: size.width,
+          width: double.infinity,
           height: getSize(250),
           decoration: BoxDecoration(
             color: ColorConstants.blur,

@@ -94,6 +94,8 @@ const Map<String, String> ko = {
   'ratingTour': '评分:',
   'enterRatingTour': '输入评分',
   'create': '创建',
+  'imageTour': '创建',
+
   //Admin update tour
   'updateTour': '更新旅行团',
   'itineraryOfTour': '旅游行程',

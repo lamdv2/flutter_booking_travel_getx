@@ -53,23 +53,23 @@ class ColorConstants {
 
   // Light theme
   // Status bar
-  static Color? lightStatusBar = const Color(0xFFE0E0E0);
+  static const Color lightStatusBar =  Color(0xFFE0E0E0);
   // App bar
-  static Color? lightAppBar = const Color(0xFFF5F5F5);
+  static const Color lightAppBar =  Color(0xFFF5F5F5);
   // Background
-  static Color? lightBackground = const Color(0xFFFAFAFA);
+  static const Color lightBackground =  Color(0xFFFAFAFA);
   // Cards
   static Color? lightCard = white;
 
   // Dark theme
   // Status bar
-  static Color? darkStatusBar = black;
+  static Color darkStatusBar = black;
   // App bar
-  static Color? darkAppBar = const Color(0xFF212121);
+  static const Color darkAppBar =  Color(0xFF212121);
   // Background
-  static Color? darkBackground = const Color(0xFF303030);
+  static const Color darkBackground =  Color(0xFF303030);
   // Cards
-  static Color? darkCard = const Color(0xFF424242);
+  static const Color darkCard =  Color(0xFF424242);
 
   // flutter flow
   static const Color accent1 = Color(0xFF616161);

@@ -111,6 +111,7 @@ class StringConst {
   static String ratingTour = 'ratingTour';
   static String enterRatingTour = 'enterRatingTour';
   static String create = 'create';
+  static String imageTour = 'imageTour';
 
   //Admin update tour screen
   static String updateTour = 'updateTour';

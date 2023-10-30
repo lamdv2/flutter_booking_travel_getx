@@ -1,10 +1,9 @@
 import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/tour/tour_item_widget.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
-import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -113,7 +112,9 @@ class _AdminScreenState extends State<AdminScreen> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             StringConst.allTour.tr,
-                            style: AppStyles.black000Size18Fw500FfMont,
+                            style: appController.isDarkModeOn.value
+                                ? AppStyles.white000Size18Fw500FfMont
+                                : AppStyles.black000Size18Fw500FfMont,
                           ),
                         ),
                         SizedBox(

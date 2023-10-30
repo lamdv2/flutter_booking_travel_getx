@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart' as geolocator;
 
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -36,7 +35,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     super.initState();
     getCurrentPossition();
-    // getPolyline('16.05786987902542', '108.21159745424494');
+    getPolyline('16.05786987902542', '108.21159745424494');
     loadImageMarker();
   }
 
@@ -54,7 +53,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       currentPosition!.latitude,
                       currentPosition!.longitude,
                     )
-                  : LatLng(16.0321926, 108.2198714),
+                  : const LatLng(16.0321926, 108.2198714),
               zoom: 12,
             ),
             markers: {

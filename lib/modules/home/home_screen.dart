@@ -22,7 +22,6 @@ import '../setting/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -82,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
       } else if (code == 'ko') {
         TranslationService.changeLocale('ko');
       }
-      print("Bạn đã chọn: ${language.name}");
     }
   }
 
@@ -149,9 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: ColorConstants.white,
         bottomNavigationBar: SalomonBottomBar(
           onTap: (index) {
-            setState(() {
-              homeController.currentIndex.value = index;
-            });
+            homeController.currentIndex.value = index;
           },
           currentIndex: homeController.currentIndex.value,
           selectedItemColor: appController.isDarkModeOn.value

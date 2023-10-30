@@ -105,6 +105,7 @@ const Map<String, String> en = {
   'ratingTour': 'Rating Tour:',
   'enterRatingTour': 'Enter rating tour',
   'create': 'Create',
+  'imageTour': 'Image Tour',
 
   //Admin update tour
   'updateTour': 'Update Tour',

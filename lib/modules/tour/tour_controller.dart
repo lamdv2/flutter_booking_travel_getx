@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
-import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +19,7 @@ class TourController extends GetxController {
   final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
   final items = Rxn<List<String>>([]);
+  final getListTourImages = Rxn<List<String>>([]);
 
   // Tour Details Call Firebase
 
@@ -102,6 +103,28 @@ class TourController extends GetxController {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  Future<String> getImageStorage(String nameImage) async {
+    try {
+      Reference ref = FirebaseStorage.instance.ref().child(nameImage);
+      String downloadUrl = await ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      return '';
+    }
+  }
+
+  void getUrlImage(List<String> getListImage) async {
+    try {
+      List<String> links = [];
+      for (var e in getListImage) {
+        String linkImage = await getImageStorage(e);
+        links.add(linkImage);
+      }
+      getListTourImages.value = links;
+    // ignore: empty_catches
+    } catch (e) {}
   }
 
   // Filter List Tour
