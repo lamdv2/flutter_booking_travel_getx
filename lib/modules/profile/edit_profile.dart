@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
@@ -71,11 +73,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Stack(
                       children: [
                         profileController.imageFonts.value.isNotEmpty
-                            ? CircleAvatar(
-                                radius: 64,
-                                backgroundColor: ColorConstants.white,
-                                backgroundImage: AssetEntityImageProvider(
-                                  profileController.imageFonts.value[0],
+                            ? GestureDetector(
+                                onTap: () async {
+                                  File? imageFile = await profileController
+                                      .imageFonts.value[0].file;
+                                  String path = imageFile?.path ?? '';
+                                  // ignore: use_build_context_synchronously
+                                  profileController.showFullImageDialog(
+                                      context, path);
+                                },
+                                child: CircleAvatar(
+                                  radius: 64,
+                                  backgroundColor: ColorConstants.white,
+                                  backgroundImage: AssetEntityImageProvider(
+                                    profileController.imageFonts.value[0],
+                                  ),
                                 ),
                               )
                             : homeController.userModel.value != null &&
@@ -84,10 +96,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     homeController.userModel.value?.imgAvatar !=
                                         "" &&
                                     profileController.urlImage.value.isNotEmpty
-                                ? CircleAvatar(
-                                    radius: 64,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                      profileController.urlImage.value,
+                                ? GestureDetector(
+                                    onTap: () async {
+                                      profileController.showFullImageDialog(
+                                          context,
+                                          profileController.urlImage.value);
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 64,
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(
+                                        profileController.urlImage.value,
+                                      ),
                                     ),
                                   )
                                 : CircleAvatar(
@@ -260,10 +280,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Center(
                       child: MyButton(
                         onTap: () async {
-                          String imageUrl = '';
-
                           if (profileController.imageFonts.value.isNotEmpty) {
-                            imageUrl =
+                            profileController.imageUrl.value =
                                 await profileController.uploadImageToStorage(
                               'profileImage',
                               await profileController.assetEntityToUint8List(
@@ -279,7 +297,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               homeController.userModel.value?.imgAvatar != "" &&
                               homeController.userModel.value?.imgAvatar !=
                                   null) {
-                            imageUrl =
+                            profileController.imageUrl.value =
                                 homeController.userModel.value?.imgAvatar ?? '';
                           }
 
@@ -294,7 +312,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 .trim(),
                             passWord:
                                 homeController.userModel.value?.passWord ?? '',
-                            imgAvatar: imageUrl,
+                            imgAvatar: profileController.imageUrl.value,
                             phoneNub: profileController
                                 .editPhoneNumberController.text
                                 .trim(),
@@ -321,15 +339,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
-
-  // void showFullImageDialog(BuildContext context) {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => FullImageScreen(
-  //         imageUrl: controller.userLinkAvatarUrl?.value ?? "",
-  //       ),
-  //     ),
-  //   );
-  // }
 }
