@@ -86,10 +86,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     profileController.urlImage.value.isNotEmpty
                                 ? CircleAvatar(
                                     radius: 64,
-                                    backgroundImage: 
-                                    CachedNetworkImageProvider(
+                                    backgroundImage: CachedNetworkImageProvider(
                                       profileController.urlImage.value,
-                                      
                                     ),
                                   )
                                 : CircleAvatar(

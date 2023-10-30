@@ -2,12 +2,8 @@ import 'dart:math';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
-import '../../shared/constants/assets_helper.dart';
-import '../../shared/utils/size_utils.dart';
-import '../../shared/widgets/stateful/DestinationItem.dart';
 import '../home/widgets/ListDestination.dart';
 
 class FavotiteScreen extends StatefulWidget {

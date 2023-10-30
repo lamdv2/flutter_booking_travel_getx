@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class TourDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    tourController.getUrlImage(tourModel?.images ?? []);
     return Scaffold(
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
@@ -342,6 +344,7 @@ class TourDetailsScreen extends StatelessWidget {
   Widget _buildPhotoGallery() {
     return SizedBox(
       child: GridView.builder(
+        itemCount: tourController.getListTourImages.value?.length ?? 0,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
         ),
@@ -357,16 +360,15 @@ class TourDetailsScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 getSize(8),
               ),
-              child: Image.asset(
-                AssetHelper.city_1,
-                fit: BoxFit.cover,
-                width: 50,
-                height: 50,
-              ),
+              child: tourController.getListTourImages.value?.length == 0
+                  ? CachedNetworkImage(
+                      imageUrl:
+                          tourController.getListTourImages.value?[index] ?? '',
+                    )
+                  : const SizedBox.shrink(),
             ),
           );
         },
-        itemCount: 6,
       ),
     );
   }

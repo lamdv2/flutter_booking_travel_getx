@@ -53,7 +53,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       currentPosition!.latitude,
                       currentPosition!.longitude,
                     )
-                  : LatLng(16.0321926, 108.2198714),
+                  : const LatLng(16.0321926, 108.2198714),
               zoom: 12,
             ),
             markers: {

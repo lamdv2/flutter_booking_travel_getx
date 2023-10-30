@@ -31,16 +31,17 @@ class AdminController extends GetxController {
   final statusController = TextEditingController();
   final specialOffersController = TextEditingController();
 
-  RxString selectedValue = '50HCM'.obs;
+  Rx<String> selectedValue = '50HCM'.obs;
   final getListTour = Rxn<List<TourModel>>();
   final filterListTourData = Rxn<List<TourModel>>();
 
   TextEditingController searchController = TextEditingController();
 
   Rx<List<AssetEntity>> imageTours = Rx([]);
+  final listImageToursChecked = Rxn<List<Uint8List>>([]);
+  final listImageTours = Rxn<List<String>>([]);
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  // Filter by Name Tour
   Future<void> filterListTourByName(String keyword) async {
     if (keyword.isEmpty) {
       getListTour.value = filterListTourData.value;
@@ -53,6 +54,40 @@ class AdminController extends GetxController {
           )
           .toList();
     }
+  }
+
+  Future<List<Uint8List>> assetEntitiesToUint8Lists(
+      List<AssetEntity> assetEntities) async {
+    List<Uint8List> resultList = [];
+
+    for (AssetEntity assetEntity in assetEntities) {
+      final file = await assetEntity.originFile;
+      if (file != null) {
+        List<int> bytes = await file.readAsBytes();
+        resultList.add(Uint8List.fromList(bytes));
+      } else {
+        throw Exception('Failed to read asset data');
+      }
+    }
+
+    return resultList;
+  }
+
+  Future<List<String>> uploadImagesToStorage(
+      String childName, List<Uint8List> files) async {
+    List<String> uploadPaths = [];
+
+    for (Uint8List file in files) {
+      var uuid = const Uuid();
+      Reference ref =
+          _storage.ref().child('tours').child(childName).child(uuid.v4());
+      UploadTask uploadTask = ref.putData(file);
+      TaskSnapshot snapshot = await uploadTask;
+
+      uploadPaths.add(ref.fullPath);
+    }
+
+    return uploadPaths;
   }
 
   Future<void> createTour(TourModel tourModel) async {
@@ -180,26 +215,13 @@ class AdminController extends GetxController {
     final resultList = await AssetPicker.pickAssets(
       context,
       pickerConfig: AssetPickerConfig(
-        maxAssets: 5,
+        maxAssets: 10,
         selectedAssets: imageTours.value,
         requestType: RequestType.image,
       ),
     );
     if (resultList != null && resultList.isNotEmpty) {
       imageTours.value = resultList;
-    }
-  }
-
-  Future<void> uploadImageToStorage(
-    String childName,
-    List<Uint8List> listImage,
-  ) async {
-    var uuid = const Uuid();
-
-    for (var e in listImage) {
-      Reference ref = _storage.ref().child(childName).child(uuid.v4());
-      UploadTask uploadTask = ref.putData(e);
-      await uploadTask;
     }
   }
 

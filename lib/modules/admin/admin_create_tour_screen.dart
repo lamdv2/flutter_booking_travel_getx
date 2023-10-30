@@ -4,8 +4,6 @@ import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/convert_date_time.dart';
@@ -430,25 +428,34 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                         ),
                       ],
                     ),
-                    
                     SizedBox(
                       height: getSize(16),
                     ),
-                  adminController.imageTours.value.length.isGreaterThan(0) ?  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: adminController.imageTours.value.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: getSize(16)),
-                          child: _children[index],
-                        );
-                      },
-                    ): CircleAvatar(
-                      radius: 64,
-                      backgroundColor: ColorConstants.white,
-                      backgroundImage: AssetEntityImageProvider(
-                        adminController.imageTours.value[0],
-                      ),
+                    Obx(
+                      () => adminController.imageTours.value.isNotEmpty
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount:
+                                  adminController.imageTours.value.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(bottom: getSize(16)),
+                                  child: SizedBox(
+                                    width: 64,
+                                    height: 200,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: AssetEntityImage(
+                                        adminController.imageTours.value[index],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            )
+                          : const SizedBox.shrink(),
                     ),
                     SizedBox(
                       height: getSize(16),
@@ -478,7 +485,16 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          adminController.listImageToursChecked.value =
+                              await adminController.assetEntitiesToUint8Lists(
+                            adminController.imageTours.value,
+                          );
+                          adminController.listImageTours.value =
+                              await adminController.uploadImagesToStorage(
+                            adminController.nameTourController.text,
+                            adminController.listImageToursChecked.value ?? [],
+                          );
                           _save(controllers);
                           if (_formCreateKey.currentState!.validate()) {
                             final TourModel tourModel = TourModel(
@@ -492,7 +508,7 @@ class _AdminCreateScreenState extends State<AdminCreateScreen> {
                                   adminController.endDateController.text),
                               price: double.parse(
                                   adminController.priceController.text),
-                              images: List.empty(),
+                              images: adminController.listImageTours.value,
                               duration: adminController.durationController.text,
                               accommodation:
                                   adminController.accommodationController.text,

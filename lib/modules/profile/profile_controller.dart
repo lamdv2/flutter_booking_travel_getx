@@ -50,7 +50,7 @@ class ProfileController extends GetxController {
   }
 
   void getUrlImage() async {
-    profileController.urlImage.value = await profileController.getImageStorage(
+    urlImage.value = await getImageStorage(
       homeController.userModel.value?.imgAvatar ?? '',
     );
   }
