@@ -219,7 +219,7 @@ class _buildItemHistory extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: ColorConstants.grayTextField,
+        color: ColorConstants.lightCard,
       ),
       child: Row(
         children: [

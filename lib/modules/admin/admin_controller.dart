@@ -147,6 +147,9 @@ class AdminController extends GetxController {
     activeController.clear();
     statusController.clear();
     specialOffersController.clear();
+    listImageTours.value?.clear();
+    listImageToursChecked.value?.clear();
+    imageTours.value.clear();
   }
 
   // Refresh Tour List

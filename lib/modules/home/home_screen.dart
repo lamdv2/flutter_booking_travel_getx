@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         direction: SpeedDialDirection.up,
                         curve: Curves.bounceOut,
                         animatedIconTheme: const IconThemeData(size: 12.0),
-                        backgroundColor: ColorConstants.blue,
+                        backgroundColor: ColorConstants.primaryButton,
                         foregroundColor: ColorConstants.white,
                         children: _buildLanguageOptions(),
                       ),
