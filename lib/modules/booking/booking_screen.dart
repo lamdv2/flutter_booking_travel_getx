@@ -88,7 +88,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           thickness: 0.5,
                           color: appController.isDarkModeOn.value
                               ? ColorConstants.darkCard
-                              : ColorConstants.grayTextField,
+                              : ColorConstants.lightCard,
                         ),
                         items: tourController.items.value != null
                             ? tourController.items.value!
@@ -211,7 +211,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           decoration: BoxDecoration(
                             color: appController.isDarkModeOn.value
                                 ? ColorConstants.darkCard
-                                : ColorConstants.grayTextField,
+                                : ColorConstants.lightCard,
                             borderRadius: BorderRadius.circular(
                               getSize(14),
                             ),
@@ -225,7 +225,7 @@ class _BookingScreenState extends State<BookingScreen> {
                             borderRadius: BorderRadius.circular(14),
                             color: appController.isDarkModeOn.value
                                 ? ColorConstants.darkCard
-                                : ColorConstants.grayTextField,
+                                : ColorConstants.lightCard,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                             radius: const Radius.circular(40),
@@ -259,7 +259,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         decoration: BoxDecoration(
                           color: appController.isDarkModeOn.value
                               ? ColorConstants.darkCard
-                              : ColorConstants.grayTextField,
+                              : ColorConstants.lightCard,
                           borderRadius: BorderRadius.circular(getSize(14)),
                         ),
                         padding: EdgeInsets.only(
