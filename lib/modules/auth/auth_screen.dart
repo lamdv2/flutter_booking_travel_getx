@@ -24,11 +24,10 @@ class AuthScreen extends GetView<AuthController> {
     return Scaffold(
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot){
-          if(snapshot.hasData){
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
             return const HomeScreen();
-          }
-          else{
+          } else {
             return const LoginOrRegister();
           }
         },

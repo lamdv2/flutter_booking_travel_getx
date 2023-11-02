@@ -110,7 +110,10 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "+84 ${homeController.userModel.value?.phoneNub}",
+                    homeController.userModel.value?.phoneNub == null ||
+                            homeController.userModel.value?.phoneNub == ""
+                        ? "-"
+                        : "+84 ${homeController.userModel.value?.phoneNub}",
                     style: TextStyle(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white
@@ -130,7 +133,10 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${homeController.userModel.value?.location}',
+                    homeController.userModel.value?.location == null ||
+                            homeController.userModel.value?.location == ""
+                        ? "-"
+                        : '${homeController.userModel.value?.location}',
                     style: TextStyle(
                       color: appController.isDarkModeOn.value
                           ? ColorConstants.white

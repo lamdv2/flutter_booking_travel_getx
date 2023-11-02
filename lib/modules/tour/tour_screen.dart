@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/auth/auth.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rive/rive.dart';
 
 import '../../shared/shared.dart';
@@ -28,6 +30,7 @@ final AuthController authController = Get.put(AuthController());
 final TourController tourController = Get.put(TourController());
 final BookingController bookingController = Get.find();
 final AppController appController = Get.find();
+final HomeController homeController = Get.find();
 
 class _TourScreenState extends State<TourScreen> {
   IconData? iconHeart = FontAwesomeIcons.solidHeart;
@@ -367,6 +370,23 @@ class _TourScreenState extends State<TourScreen> {
                                   tourController.getListTour.value?.length,
                               itemBuilder:
                                   (BuildContext context, int rowIndex) {
+                                if (rowIndex == 5 &&
+                                    homeController.nativeAd != null &&
+                                    homeController.nativeAdIsLoaded.value) {
+                                  return Align(
+                                    alignment: Alignment.center,
+                                    child: ConstrainedBox(
+                                      constraints: const BoxConstraints(
+                                        minWidth: 300,
+                                        minHeight: 10,
+                                        maxHeight: 200,
+                                        maxWidth: 450,
+                                      ),
+                                      child: AdWidget(
+                                          ad: homeController.nativeAd!),
+                                    ),
+                                  );
+                                }
                                 return Row(
                                   children: [
                                     if (rowIndex > 0)
