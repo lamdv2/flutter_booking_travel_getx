@@ -47,6 +47,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ? ColorConstants.darkBackground
           : ColorConstants.lightBackground,
       appBar: CustomAppBar(
+        titles: 'Change Profile',
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,

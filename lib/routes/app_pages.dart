@@ -28,7 +28,6 @@ import 'package:doan_clean_achitec/modules/splash/splash_binding.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_screen.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/utils/select_date.dart';
-import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:get/get.dart';
 
 import '../models/history_tour/history_tour_screen.dart';
@@ -115,7 +114,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ROOM,
-      page: () => const RoomScreen(),
+      page: () => RoomScreen(),
       binding: RoomBinding(),
     ),
     GetPage(

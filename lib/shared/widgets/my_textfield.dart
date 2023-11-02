@@ -44,11 +44,13 @@ class _MyTextFieldState extends State<MyTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final AppController appController = Get.find();
+
     return TextFormField(
       controller: widget.controller,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
-      style: AppStyles.black000Size14Fw400FfMont,
+      // style: AppStyles.black000Size14Fw400FfMont,
       keyboardType: widget.isTypeNumb != null && widget.isTypeNumb == true
           ? TextInputType.number
           : TextInputType.text,
@@ -72,8 +74,10 @@ class _MyTextFieldState extends State<MyTextField> {
         ),
         fillColor: Colors.grey.shade100,
         labelText: widget.hintText,
-        labelStyle: const TextStyle(
-          color: ColorConstants.accent1,
+        labelStyle: TextStyle(
+          color: appController.isDarkModeOn.value
+              ? ColorConstants.white.withOpacity(.4)
+              : ColorConstants.accent1,
           fontWeight: FontWeight.w400,
         ),
         focusedErrorBorder: OutlineInputBorder(

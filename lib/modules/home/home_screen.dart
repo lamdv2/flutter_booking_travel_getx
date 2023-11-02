@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _widgetOptions() {
     return [
-      const HomeTab(),
+       HomeTab(),
       const FavotiteScreen(),
       const DiscoverScreen(),
       const BookingScreen(),
