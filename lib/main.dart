@@ -7,7 +7,6 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'modules/lang/translation_service.dart';
 
@@ -17,7 +16,6 @@ void main() async {
   AppController darkMode = AppController();
 
   await darkMode.loadDarkMode();
-  MobileAds.instance.initialize();
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(

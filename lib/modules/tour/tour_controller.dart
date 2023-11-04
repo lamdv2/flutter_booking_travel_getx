@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TourController extends GetxController {
@@ -21,6 +22,25 @@ class TourController extends GetxController {
   TextEditingController searchController = TextEditingController();
   final items = Rxn<List<String>>([]);
   final getListTourImages = Rxn<List<String>>([]);
+
+  Rx<bool> isShowLoading = true.obs;
+  SMITrigger? check;
+  SMITrigger? error;
+  SMITrigger? reset;
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    artboard.addController(controller!);
+    return controller;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAllTourModelData();
+    indicatorRive();
+  }
 
   // Tour Details Call Firebase
 
@@ -124,7 +144,7 @@ class TourController extends GetxController {
         links.add(linkImage);
       }
       getListTourImages.value = links;
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
 
@@ -230,5 +250,29 @@ class TourController extends GetxController {
       }
     }
     return '';
+  }
+
+  void indicatorRive() {
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (getListTour.value != null && getListTour.value!.isNotEmpty) {
+          // check?.fire();
+          Future.delayed(const Duration(seconds: 1), () {
+            isShowLoading.value = false;
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 1), () {
+            // error?.fire();
+            isShowLoading.value = false;
+          });
+        }
+      },
+    );
+  }
+
+  void loadIndicatorRive() {
+    isShowLoading.value = true;
+    indicatorRive();
   }
 }

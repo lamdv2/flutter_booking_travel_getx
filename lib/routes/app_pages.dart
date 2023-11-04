@@ -133,7 +133,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.TOUR,
-      page: () => const TourScreen(),
+      page: () => TourScreen(),
       binding: TourBinding(),
     ),
     GetPage(

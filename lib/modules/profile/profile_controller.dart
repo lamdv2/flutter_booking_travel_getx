@@ -6,7 +6,6 @@ import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
-import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -243,13 +242,13 @@ class ProfileController extends GetxController {
 
           await googleSignIn.signOut();
 
-          userController.clearUserName();
-
           userController.userName.value = '';
 
           userController.userEmail.value = '';
 
-          profileController.imageFonts.value.clear();
+          homeController.userModel.value = null;
+
+          profileController.imageFonts.value= [];
 
           clearEditController();
         } catch (e) {

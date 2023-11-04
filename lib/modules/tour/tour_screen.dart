@@ -1,80 +1,30 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
-import 'package:doan_clean_achitec/modules/auth/auth.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
-import 'package:doan_clean_achitec/modules/home/home.dart';
-import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
-import 'package:doan_clean_achitec/shared/utils/loading_rive_check.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/search_bar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
 
 import '../../shared/shared.dart';
 
-class TourScreen extends StatefulWidget {
-  const TourScreen({super.key});
+// ignore: must_be_immutable
+class TourScreen extends GetView<TourController> {
+  TourScreen({super.key});
 
-  @override
-  State<TourScreen> createState() => _TourScreenState();
-}
-
-final ProfileController profileController = Get.put(ProfileController());
-final AuthController authController = Get.put(AuthController());
-final TourController tourController = Get.put(TourController());
-final BookingController bookingController = Get.find();
-final AppController appController = Get.find();
-final HomeController homeController = Get.find();
-
-class _TourScreenState extends State<TourScreen> {
+  final BookingController bookingController = Get.find();
+  final AppController appController = Get.find();
   IconData? iconHeart = FontAwesomeIcons.solidHeart;
-
-  bool isShowLoading = true;
-  SMITrigger? check;
-  SMITrigger? error;
-  SMITrigger? reset;
-
-  StateMachineController getRiveController(Artboard artboard) {
-    StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
-    artboard.addController(controller!);
-    return controller;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    tourController.getAllTourModelData();
-
-    Future.delayed(const Duration(milliseconds: 250), () {
-      if (tourController.getListTour.value != null &&
-          tourController.getListTour.value!.isNotEmpty) {
-        // check?.fire();
-        Future.delayed(const Duration(milliseconds: 550), () {
-          setState(() {
-            isShowLoading = false;
-          });
-        });
-      } else {
-        Future.delayed(const Duration(seconds: 1), () {
-          // error?.fire();
-          setState(() {
-            isShowLoading = false;
-          });
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    controller.loadIndicatorRive();
     final List<String> items = [
       StringConst.popular.tr,
       StringConst.newType.tr,
@@ -94,7 +44,7 @@ class _TourScreenState extends State<TourScreen> {
       ),
       body: Obx(
         () => RefreshIndicator(
-          onRefresh: tourController.refreshTourList,
+          onRefresh: controller.refreshTourList,
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -105,9 +55,9 @@ class _TourScreenState extends State<TourScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SearchBarWidget(
-                      textEditingController: tourController.searchController,
+                      textEditingController: controller.searchController,
                       onChanged: (value) =>
-                          tourController.filterListTourByName(value),
+                          controller.filterListTourByName(value),
                       hintText: StringConst.searchDestinations.tr),
                   SizedBox(
                     height: getSize(32),
@@ -145,9 +95,9 @@ class _TourScreenState extends State<TourScreen> {
                               getSize(20),
                             ),
                             onTap: () {
-                              tourController.isCheckSearch.value =
-                                  !tourController.isCheckSearch.value;
-                              tourController.filterListTourByCity(
+                              controller.isCheckSearch.value =
+                                  !controller.isCheckSearch.value;
+                              controller.filterListTourByCity(
                                   bookingController.selectedValue.value);
                             },
                             child: Container(
@@ -159,7 +109,7 @@ class _TourScreenState extends State<TourScreen> {
                                   getSize(22),
                                 ),
                                 boxShadow: const [],
-                                color: tourController.isCheckSearch.value
+                                color: controller.isCheckSearch.value
                                     ? ColorConstants.primaryButton
                                     : appController.isDarkModeOn.value
                                         ? ColorConstants.darkCard
@@ -169,7 +119,7 @@ class _TourScreenState extends State<TourScreen> {
                               child: Text(
                                 StringConst.city.tr,
                                 style: appController.isDarkModeOn.value ||
-                                        tourController.isCheckSearch.value
+                                        controller.isCheckSearch.value
                                     ? AppStyles.white000Size18Fw500FfMont
                                     : AppStyles.black000Size18Fw500FfMont,
                                 overflow: TextOverflow.ellipsis,
@@ -186,9 +136,9 @@ class _TourScreenState extends State<TourScreen> {
                               getSize(20),
                             ),
                             onTap: () {
-                              tourController.isCheckSearch.value =
-                                  !tourController.isCheckSearch.value;
-                              tourController.getAllTour();
+                              controller.isCheckSearch.value =
+                                  !controller.isCheckSearch.value;
+                              controller.getAllTour();
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -199,7 +149,7 @@ class _TourScreenState extends State<TourScreen> {
                                   getSize(22),
                                 ),
                                 boxShadow: const [],
-                                color: tourController.isCheckSearch.value
+                                color: controller.isCheckSearch.value
                                     ? appController.isDarkModeOn.value
                                         ? ColorConstants.darkCard
                                         : ColorConstants.lightCard
@@ -209,7 +159,7 @@ class _TourScreenState extends State<TourScreen> {
                               child: Text(
                                 StringConst.all.tr,
                                 style: appController.isDarkModeOn.value ||
-                                        !tourController.isCheckSearch.value
+                                        !controller.isCheckSearch.value
                                     ? AppStyles.white000Size18Fw500FfMont
                                     : AppStyles.black000Size18Fw500FfMont,
                                 overflow: TextOverflow.ellipsis,
@@ -272,7 +222,7 @@ class _TourScreenState extends State<TourScreen> {
                           value: selectedValue,
                           onChanged: (value) {
                             selectedValue = value!;
-                            tourController.filterListTourByState(value);
+                            controller.filterListTourByState(value);
                           },
                           buttonStyleData: ButtonStyleData(
                             height: getSize(50),
@@ -302,7 +252,7 @@ class _TourScreenState extends State<TourScreen> {
                               width: getSize(24),
                               colorFilter: ColorFilter.mode(
                                 appController.isDarkModeOn.value
-                                    ? ColorConstants.lightBackground!
+                                    ? ColorConstants.lightBackground
                                     : ColorConstants.titleSearch,
                                 BlendMode.srcIn,
                               ),
@@ -341,7 +291,7 @@ class _TourScreenState extends State<TourScreen> {
                   SizedBox(
                     height: getSize(30),
                   ),
-                  isShowLoading
+                  controller.isShowLoading.value
                       ? Center(
                           child: SizedBox(
                             height: getSize(120),
@@ -349,44 +299,26 @@ class _TourScreenState extends State<TourScreen> {
                             child: RiveAnimation.asset(
                               "assets/icons/riv/ic_checkerror.riv",
                               onInit: (artboard) {
-                                StateMachineController controller =
-                                    getRiveController(artboard);
-                                check =
-                                    controller.findSMI("Check") as SMITrigger;
-                                error =
-                                    controller.findSMI("Error") as SMITrigger;
-                                reset =
-                                    controller.findSMI("Reset") as SMITrigger;
+                                StateMachineController stateMachineController =
+                                    controller.getRiveController(artboard);
+                                controller.check = stateMachineController
+                                    .findSMI("Check") as SMITrigger;
+                                controller.error = stateMachineController
+                                    .findSMI("Error") as SMITrigger;
+                                controller.reset = stateMachineController
+                                    .findSMI("Reset") as SMITrigger;
                               },
                             ),
                           ),
                         )
-                      : tourController.getListTour.value != null &&
-                              tourController.getListTour.value!.isNotEmpty
+                      : controller.getListTour.value != null &&
+                              controller.getListTour.value!.isNotEmpty
                           ? ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount:
-                                  tourController.getListTour.value?.length,
+                              itemCount: controller.getListTour.value?.length,
                               itemBuilder:
                                   (BuildContext context, int rowIndex) {
-                                if (rowIndex == 5 &&
-                                    homeController.nativeAd != null &&
-                                    homeController.nativeAdIsLoaded.value) {
-                                  return Align(
-                                    alignment: Alignment.center,
-                                    child: ConstrainedBox(
-                                      constraints: const BoxConstraints(
-                                        minWidth: 300,
-                                        minHeight: 10,
-                                        maxHeight: 200,
-                                        maxWidth: 450,
-                                      ),
-                                      child: AdWidget(
-                                          ad: homeController.nativeAd!),
-                                    ),
-                                  );
-                                }
                                 return Row(
                                   children: [
                                     if (rowIndex > 0)
@@ -395,7 +327,7 @@ class _TourScreenState extends State<TourScreen> {
                                       ),
                                     Expanded(
                                       child: TourItemWidget(
-                                        listTour: tourController
+                                        listTour: controller
                                             .getListTour.value![rowIndex],
                                       ),
                                     ),
@@ -403,7 +335,12 @@ class _TourScreenState extends State<TourScreen> {
                                 );
                               },
                             )
-                          : LoadingRiveCheck(),
+                          : Lottie.asset(
+                              AssetHelper.imgLottieNodate,
+                              width: getSize(200),
+                              height: getSize(200),
+                              fit: BoxFit.fill,
+                            ),
                 ],
               ),
             ),

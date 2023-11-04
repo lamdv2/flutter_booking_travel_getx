@@ -22,8 +22,7 @@ class DrawerWidget extends StatelessWidget {
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
           : ColorConstants.lightBackground,
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
           SizedBox(
             height: getSize(16 + MediaQuery.of(context).padding.top),
@@ -300,50 +299,7 @@ class DrawerWidget extends StatelessWidget {
             indent: 16,
             endIndent: 80,
           ),
-          ListTile(
-            title: Row(
-              children: [
-                SvgPicture.asset(
-                  AssetHelper.icAddUser,
-                  colorFilter: ColorFilter.mode(
-                    appController.isDarkModeOn.value
-                        ? ColorConstants.btnCanCel
-                        : ColorConstants.graySub,
-                    BlendMode.srcIn,
-                  ),
-                  width: getSize(22),
-                  height: getSize(22),
-                ),
-                SizedBox(
-                  width: getSize(24),
-                ),
-                Text(
-                  StringConst.admins.tr,
-                  style: TextStyle(
-                    color: appController.isDarkModeOn.value
-                        ? ColorConstants.btnCanCel
-                        : Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              Get.toNamed(Routes.ADMIN_SCREEN);
-            },
-          ),
-          Divider(
-            thickness: 0.5,
-            color: appController.isDarkModeOn.value
-                ? ColorConstants.btnCanCel
-                : ColorConstants.black.withOpacity(0.8),
-            indent: 16,
-            endIndent: 80,
-          ),
-          SizedBox(
-            height: getSize(32),
-          ),
+          const Spacer(),
           InkWell(
             onTap: () {
               controller.signUserOut(context);
@@ -351,8 +307,7 @@ class DrawerWidget extends StatelessWidget {
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 16,
+                vertical: 24,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

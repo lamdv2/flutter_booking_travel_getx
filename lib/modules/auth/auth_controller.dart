@@ -88,9 +88,16 @@ class AuthController extends GetxController {
   void register(BuildContext context) async {
     AppFocus.unFocus(context);
 
-    showDialog(
+    await showDialog(
       context: context,
+      barrierDismissible: true,
       builder: (context) {
+        Timer(
+          const Duration(seconds: 1),
+          () {
+            Get.back();
+          },
+        );
         return const Center(
           child: CircularProgressIndicator(),
         );
@@ -108,7 +115,7 @@ class AuthController extends GetxController {
         // ignore: use_build_context_synchronously
         Get.back(result: context);
         // ignore: use_build_context_synchronously
-        wrongMessage(context, "Email already in use");
+        wrongMessage(context, "email-already-exists");
         return;
       }
 
@@ -130,7 +137,7 @@ class AuthController extends GetxController {
 
         Incorrect("Register Success");
 
-        homeController.getUserDetails(userController.userEmail.value);
+        homeController.getUserDetails(email);
 
         clearControllLogin();
 
@@ -219,6 +226,30 @@ class AuthController extends GetxController {
       errorMessage = "Invalid password. Please try again.";
     } else if (message == "network-request-failed register") {
       errorMessage = "No internet. Please try again.";
+    } else if (message == "user-disabled") {
+      errorMessage = "User disabled !!!";
+    } else if (message == "invalid-email") {
+      errorMessage = "Invalid email. Please try again.";
+    } else if (message == "email-already-exists") {
+      errorMessage = "Email already exists !!!";
+    } else if (message == "id-token-expired") {
+      errorMessage = "Id token expired !!!";
+    } else if (message == "id-token-revoked") {
+      errorMessage = "Id token revoked !!!";
+    } else if (message == "insufficient-permission") {
+      errorMessage = "You are insufficient permission";
+    } else if (message == "internal-error") {
+      errorMessage = "Server error. Please try again!!!";
+    } else if (message == "phone-number-already-exists") {
+      errorMessage = "Phone number already exists";
+    } else if (message == "project-not-found") {
+      errorMessage = "Project not found";
+    } else if (message == "session-cookie-expired") {
+      errorMessage = "Session cookie expired";
+    } else if (message == "too-many-requests") {
+      errorMessage = "Too many requests";
+    } else if (message == "uid-already-exists") {
+      errorMessage = "Uid already exists";
     } else {
       errorMessage = "Something went wrong.";
     }

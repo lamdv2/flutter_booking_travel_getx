@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
-import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rive/rive.dart';
 
 class HistoryTourController extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -13,6 +13,24 @@ class HistoryTourController extends GetxController {
 
   final getAllListHistory = Rxn<List<TourModel>>([]);
   final getAllListHistoryToDate = Rxn<List<HistoryModel>>([]);
+
+  Rx<bool> isShowLoading = true.obs;
+  SMITrigger? check;
+  SMITrigger? error;
+  SMITrigger? reset;
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    artboard.addController(controller!);
+    return controller;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAllTourModelData(homeController.userModel.value?.id ?? "");
+  }
 
 // Get All Tour
 
@@ -30,7 +48,7 @@ class HistoryTourController extends GetxController {
     final listTourHistoryData =
         snapShot.docs.map((doc) => HistoryModel.fromJson(doc)).toList();
     getAllListHistoryToDate.value = listTourHistoryData;
-    
+
     List<TourModel> listTourModel = [];
 
     if (listTourHistoryData.isNotEmpty) {
@@ -63,5 +81,30 @@ class HistoryTourController extends GetxController {
     } catch (e) {
       return 'Lỗi: $e';
     }
+  }
+
+  void indicatorRive() {
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (getAllListHistory.value != null &&
+            getAllListHistory.value!.isNotEmpty) {
+          // check?.fire();
+          Future.delayed(const Duration(seconds: 1), () {
+            isShowLoading.value = false;
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 1), () {
+            // error?.fire();
+            isShowLoading.value = false;
+          });
+        }
+      },
+    );
+  }
+
+  void loadIndicatorRive() {
+    isShowLoading.value = true;
+    indicatorRive();
   }
 }

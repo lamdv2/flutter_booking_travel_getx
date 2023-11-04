@@ -16,63 +16,20 @@ import 'package:rive/rive.dart';
 import '../../shared/shared.dart';
 
 // ignore: must_be_immutable
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
-
-  @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
-}
-
-class _HistoryScreenState extends State<HistoryScreen> {
-  HistoryTourController historyTourController =
-      Get.put(HistoryTourController());
+class HistoryScreen extends GetView<HistoryTourController> {
+  HistoryScreen({super.key});
 
   UserController userController = Get.put(UserController());
+  HomeController homeController = Get.put(HomeController());
+
   AppController appController = Get.find();
-
-  bool isShowLoading = true;
-  SMITrigger? check;
-  SMITrigger? error;
-  SMITrigger? reset;
-
-  StateMachineController getRiveController(Artboard artboard) {
-    StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
-    artboard.addController(controller!);
-    return controller;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        if (historyTourController.getAllListHistory.value != null &&
-            historyTourController.getAllListHistory.value!.isNotEmpty) {
-          // check?.fire();
-          Future.delayed(const Duration(seconds: 1), () {
-            setState(() {
-              isShowLoading = false;
-            });
-          });
-        } else {
-          Future.delayed(const Duration(seconds: 1), () {
-            // error?.fire();
-            setState(() {
-              isShowLoading = false;
-            });
-          });
-        }
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    historyTourController
-        .getAllTourModelData(homeController.userModel.value?.id ?? "");
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.loadIndicatorRive();
+      controller.getAllTourModelData(homeController.userModel.value?.id ?? "");
+    });
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -83,116 +40,118 @@ class _HistoryScreenState extends State<HistoryScreen> {
         iconBgrColor: ColorConstants.grayTextField,
       ),
       body: RefreshIndicator(
-        onRefresh: () => historyTourController.refreshHistory(),
-        child: isShowLoading
-            ? Center(
-                child: SizedBox(
-                  height: getSize(120),
-                  width: getSize(120),
-                  child: RiveAnimation.asset(
-                    "assets/icons/riv/ic_checkerror.riv",
-                    onInit: (artboard) {
-                      StateMachineController controller =
-                          getRiveController(artboard);
-                      check = controller.findSMI("Check") as SMITrigger;
-                      error = controller.findSMI("Error") as SMITrigger;
-                      reset = controller.findSMI("Reset") as SMITrigger;
-                    },
+        onRefresh: () => controller.refreshHistory(),
+        child: Obx(
+          () => controller.isShowLoading.value
+              ? Center(
+                  child: SizedBox(
+                    height: getSize(120),
+                    width: getSize(120),
+                    child: RiveAnimation.asset(
+                      "assets/icons/riv/ic_checkerror.riv",
+                      onInit: (artboard) {
+                        StateMachineController stateMachineController =
+                            controller.getRiveController(artboard);
+                        controller.check = stateMachineController
+                            .findSMI("Check") as SMITrigger;
+                        controller.error = stateMachineController
+                            .findSMI("Error") as SMITrigger;
+                        controller.reset = stateMachineController
+                            .findSMI("Reset") as SMITrigger;
+                      },
+                    ),
                   ),
-                ),
-              )
-            : Obx(
-                () => historyTourController.getAllListHistory.value!.isNotEmpty
-                    ? SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: getSize(16),
-                            horizontal: getSize(24),
-                          ),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: historyTourController
-                                    .getAllListHistory.value?.length ??
-                                2,
-                            itemBuilder: (BuildContext context, int rowIndex) {
-                              return Padding(
-                                padding:
-                                    EdgeInsets.symmetric(vertical: getSize(12)),
-                                child: _buildItemHistory(
-                                  tourModel: historyTourController
-                                      .getAllListHistory.value?[rowIndex],
-                                  historyModel: historyTourController
-                                      .getAllListHistoryToDate.value?[rowIndex],
-                                ),
-                              );
-                            },
-                          ),
+                )
+              : controller.getAllListHistory.value != null &&
+                      controller.getAllListHistory.value!.isNotEmpty
+                  ? SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: getSize(16),
+                          horizontal: getSize(24),
                         ),
-                      )
-                    : Center(
-                        child: Container(
-                          width: double.infinity,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: getSize(20)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Lottie.asset(
-                                AssetHelper.imgLottieNodate,
-                                width: getSize(200),
-                                height: getSize(200),
-                                fit: BoxFit.fill,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount:
+                              controller.getAllListHistory.value?.length ?? 2,
+                          itemBuilder: (BuildContext context, int rowIndex) {
+                            return Padding(
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(12)),
+                              child: _buildItemHistory(
+                                tourModel: controller
+                                    .getAllListHistory.value?[rowIndex],
+                                historyModel: controller
+                                    .getAllListHistoryToDate.value?[rowIndex],
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: getSize(48.0),
-                                ),
-                                child: Text(
-                                  'Looks like you haven\'t booked any tours yet. Booking your first tour right now!',
-                                  style: AppStyles.black000Size14Fw400FfMont
-                                      .copyWith(
-                                    color: appController.isDarkModeOn.value
-                                        ? ColorConstants.lightAppBar
-                                        : ColorConstants.darkBackground,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              SizedBox(
-                                height: getSize(64),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(Routes.TOUR);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Lottie.asset(
-                                      AssetHelper.imgLottieArrowRight,
-                                      width: getSize(32),
-                                      height: getSize(32),
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      width: getSize(16),
-                                    ),
-                                    InkWell(
-                                      child: Text(
-                                        'See Tour',
-                                        style: AppStyles.blueSize16Fw400FfMont,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
                       ),
-              ),
+                    )
+                  : Center(
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Lottie.asset(
+                              AssetHelper.imgLottieNodate,
+                              width: getSize(200),
+                              height: getSize(200),
+                              fit: BoxFit.fill,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: getSize(48.0),
+                              ),
+                              child: Text(
+                                'Looks like you haven\'t booked any tours yet. Booking your first tour right now!',
+                                style: AppStyles.black000Size14Fw400FfMont
+                                    .copyWith(
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.lightAppBar
+                                      : ColorConstants.darkBackground,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              height: getSize(64),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.TOUR);
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Lottie.asset(
+                                    AssetHelper.imgLottieArrowRight,
+                                    width: getSize(32),
+                                    height: getSize(32),
+                                    fit: BoxFit.fill,
+                                  ),
+                                  SizedBox(
+                                    width: getSize(16),
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                      'See Tour',
+                                      style: AppStyles.blueSize16Fw400FfMont,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+        ),
       ),
     );
   }
