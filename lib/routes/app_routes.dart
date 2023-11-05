@@ -29,8 +29,6 @@ abstract class Routes {
   static const BOOKING_REQUIED = '/booking_requied';
   static const SELECT_DATE = '/select_date';
   static const HISTORY_TOUR_SCREEN = '/history_tour_screen';
-  static const ADMIN_SCREEN = '/admin_screen';
-  static const ADMIN_CREATE_SCREEN = '/admin_create_screen';
-  static const ADMIN_UPDATE_SCREEN = '/admin_update_screen';
   static const GOOGLE_MAP_SCREEN = '/google_map_screen';
+  static const SEARCH_SCREEN = '/search_screen';
 }

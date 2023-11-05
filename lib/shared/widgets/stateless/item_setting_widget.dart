@@ -17,14 +17,14 @@ class ItemSettingWidget extends StatelessWidget {
     this.description,
     required this.image,
     this.ontap,
-    this.isSwitch,
+    this.trailing,
   });
 
   final String title;
   final String? description;
   final String image;
   final Function()? ontap;
-  final bool? isSwitch;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -97,38 +97,21 @@ class ItemSettingWidget extends StatelessWidget {
                 ],
               ),
             ),
-            isSwitch != null
-                ? SizedBox(
-                    height: 24,
-                    child: Obx(
-                      () => Switch(
-                        value: appController.isDarkModeOn.value,
-                        activeTrackColor: appController.isDarkModeOn.value
-                            ? Colors.white
-                            : Colors.blueGrey,
-                        activeColor: appController.isDarkModeOn.value
-                            ? Colors.white
-                            : Colors.lightBlue,
-                        onChanged: (value) {
-                          appController.toggleDarkMode();
-                        },
-                      ),
+            trailing ??
+                SizedBox(
+                  height: 24,
+                  child: SvgPicture.asset(
+                    AssetHelper.icoNextRight,
+                    colorFilter: ColorFilter.mode(
+                      appController.isDarkModeOn.value
+                          ? ColorConstants.primaryBackground
+                          : ColorConstants.titleSearch,
+                      BlendMode.srcIn,
                     ),
-                  )
-                : SizedBox(
-                    height: 24,
-                    child: SvgPicture.asset(
-                      AssetHelper.icoNextRight,
-                      colorFilter: ColorFilter.mode(
-                        appController.isDarkModeOn.value
-                            ? ColorConstants.primaryBackground
-                            : ColorConstants.titleSearch,
-                        BlendMode.srcIn,
-                      ),
-                      width: getSize(24),
-                      height: getSize(24),
-                    ),
+                    width: getSize(24),
+                    height: getSize(24),
                   ),
+                ),
           ],
         ),
       ),
