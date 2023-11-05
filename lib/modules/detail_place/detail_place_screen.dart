@@ -1,26 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:doan_clean_achitec/modules/detail_place/detail_place.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/title_des.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
-import 'package:doan_clean_achitec/shared/constants/dimension_constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/sevice_item_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/tour_sight_seeing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../models/city/city_model.dart';
 import '../../shared/utils/size_utils.dart';
 
-class DetailPlaceScreen extends StatefulWidget {
-  const DetailPlaceScreen({super.key});
+class DetailPlaceScreen extends GetView<DetailPlaceController> {
+  DetailPlaceScreen({super.key});
+  final CityModel? cityModel = Get.arguments;
 
-  @override
-  State<DetailPlaceScreen> createState() => _DetailPlaceScreenState();
-}
-
-class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -38,7 +34,7 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Ho Chi Minh City",
+                      cityModel?.nameCity ?? '',
                       style: TextStyle(
                           color: ColorConstants.black,
                           fontSize: 24,
@@ -96,14 +92,24 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                           child: Container(
                             height: size.height / 3.5,
                             width: size.width,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              image: DecorationImage(
-                                image: AssetImage(AssetHelper.city_bgr_1),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            decoration: cityModel?.imageCity == ''
+                                ? const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetHelper.city_bgr_1),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : BoxDecoration(
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                        cityModel?.imageCity! ?? '',
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: kSmallBorderRadius,
+                                  ),
                           ),
                         ),
                         Positioned(
@@ -144,10 +150,13 @@ class _DetailPlaceScreenState extends State<DetailPlaceScreen> {
                           right: 0,
                           left: 0,
                           bottom: 0,
-                          child: SizedBox(
-                            height: size.height / 22,
+                          child: Container(
+                            color: ColorConstants.darkGray.withOpacity(.6),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            height: getSize(56),
+                            alignment: Alignment.center,
                             width: size.width,
-                            child:  Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Column(

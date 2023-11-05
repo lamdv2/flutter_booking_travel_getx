@@ -9,14 +9,9 @@ import 'package:get/get.dart';
 import '../home/widgets/ListDestination.dart';
 import '../home/widgets/title_des.dart';
 
-class DiscoverScreen extends StatefulWidget {
-  const DiscoverScreen({super.key});
+class DiscoverScreen extends StatelessWidget {
+  DiscoverScreen({super.key});
 
-  @override
-  State<DiscoverScreen> createState() => _DiscoverScreenState();
-}
-
-class _DiscoverScreenState extends State<DiscoverScreen> {
   final AppController appController = Get.find();
 
   @override

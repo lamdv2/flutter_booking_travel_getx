@@ -291,4 +291,14 @@ class AuthController extends GetxController {
     loginEmailController.dispose();
     loginPasswordController.dispose();
   }
+
+  @override
+  void dispose() {
+    loginEmailController.dispose();
+    loginPasswordController.dispose();
+    registerEmailController.dispose();
+    registerPasswordController.dispose();
+    registerConfirmPasswordController.dispose();
+    super.dispose();
+  }
 }

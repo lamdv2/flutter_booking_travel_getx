@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
@@ -40,10 +42,18 @@ class ProfileWidget extends StatelessWidget {
                     homeController.userModel.value?.imgAvatar != null &&
                     homeController.userModel.value?.imgAvatar != "" &&
                     profileController.urlImage.value.isNotEmpty
-                ? CircleAvatar(
-                    radius: 64,
-                    backgroundImage: CachedNetworkImageProvider(
-                      profileController.urlImage.value,
+                ? GestureDetector(
+                    onTap: () async {
+                      profileController.showFullImageDialog(
+                        context,
+                        profileController.urlImage.value,
+                      );
+                    },
+                    child: CircleAvatar(
+                      radius: 64,
+                      backgroundImage: CachedNetworkImageProvider(
+                        profileController.urlImage.value,
+                      ),
                     ),
                   )
                 : CircleAvatar(

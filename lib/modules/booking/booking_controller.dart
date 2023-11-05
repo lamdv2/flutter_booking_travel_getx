@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/history_tour/history_tour.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class BookingController extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -36,5 +37,19 @@ class BookingController extends GetxController {
 
       await historyTourController.getAllTourModelData(userId);
     }
+  }
+
+  // format datetime
+
+  Timestamp formatDateTime(String startDateText) {
+    DateTime startDate;
+
+    try {
+      final inputFormat = DateFormat('dd MMM yyyy');
+      startDate = inputFormat.parse(startDateText);
+    } catch (e) {
+      startDate = DateTime.now();
+    }
+    return Timestamp.fromDate(startDate);
   }
 }

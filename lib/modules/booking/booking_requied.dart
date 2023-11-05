@@ -1,5 +1,4 @@
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
-import 'package:doan_clean_achitec/modules/admin/admin_controller.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
@@ -10,17 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class BookingRequiedScreen extends StatelessWidget {
+class BookingRequiedScreen extends GetView<BookingController> {
   BookingRequiedScreen({super.key});
 
   final TourModel? tourModel = Get.arguments;
   final UserController userController = Get.put(UserController());
-  final AdminController adminController = Get.put(AdminController());
 
   @override
   Widget build(BuildContext context) {
-    final BookingController bookingController = Get.put(BookingController());
-
     return Scaffold(
       // appBar: CustomAppBar(),
       backgroundColor: ColorConstants.graySecond,
@@ -228,11 +224,10 @@ class BookingRequiedScreen extends StatelessWidget {
                     child: ButtonWidget(
                       textBtn: 'Yêu cầu đặt',
                       onTap: () async {
-                        await bookingController.bookingTour(
+                        await controller.bookingTour(
                           homeController.userModel.value?.id ?? '',
                           tourModel?.idTour ?? '',
-                          adminController
-                              .formatDateTime(DateTime.now().toString()),
+                          controller.formatDateTime(DateTime.now().toString()),
                           'coming',
                         );
                         Get.offAndToNamed(Routes.HISTORY_TOUR_SCREEN);

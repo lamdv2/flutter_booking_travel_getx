@@ -12,14 +12,10 @@ import '../../routes/app_pages.dart';
 import '../../shared/utils/convert_date_time.dart';
 import 'booking_controller.dart';
 
-class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key});
+// ignore: must_be_immutable
+class BookingScreen extends GetView<BookingController> {
+  BookingScreen({super.key});
 
-  @override
-  State<BookingScreen> createState() => _BookingScreenState();
-}
-
-class _BookingScreenState extends State<BookingScreen> {
   HomeController homeController = Get.find();
   BookingController bookingController = Get.put(BookingController());
   TourController tourController = Get.put(TourController());
@@ -252,7 +248,6 @@ class _BookingScreenState extends State<BookingScreen> {
                         if (result is List<DateTime?>) {
                           dateSelected =
                               '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
-                          setState(() {});
                         }
                       },
                       child: Container(

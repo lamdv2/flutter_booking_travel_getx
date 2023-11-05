@@ -6,15 +6,12 @@ import 'package:get/get.dart';
 
 import '../home/widgets/ListDestination.dart';
 
-class FavotiteScreen extends StatefulWidget {
-  const FavotiteScreen({super.key});
+// ignore: must_be_immutable
+class FavoriteScreen extends StatelessWidget {
+  FavoriteScreen({super.key});
 
-  @override
-  State<FavotiteScreen> createState() => _FavotiteScreenState();
-}
-
-class _FavotiteScreenState extends State<FavotiteScreen> {
   final AppController appController = Get.find();
+
   List<String> widgetList = ['Geeks', 'for', 'Geeks'];
 
   @override

@@ -1,23 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:like_button/like_button.dart';
 
-import '../../constants/dimension_constants.dart';
 import '../stateless/star_widget.dart';
 
 class DestinationItem extends StatelessWidget {
   const DestinationItem({
     super.key,
-    required this.size,
     required this.heightSize,
     required this.textDes,
-    required this.img,
+    this.img,
   });
 
-  final Size size;
   final double heightSize;
   final String textDes;
-  final String img;
+  final String? img;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +27,31 @@ class DestinationItem extends StatelessWidget {
       margin: const EdgeInsets.only(
         top: 16,
       ),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(img),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: kSmallBorderRadius,
-      ),
+      decoration: img != null
+          ? img!.isEmpty
+              ? const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AssetHelper.des1),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: kSmallBorderRadius,
+                )
+              : BoxDecoration(
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                      img ?? "",
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: kSmallBorderRadius,
+                )
+          : const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AssetHelper.des1),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: kSmallBorderRadius,
+            ),
       child: Stack(
         alignment: Alignment.bottomLeft,
         children: [
@@ -76,30 +93,34 @@ class DestinationItem extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.topRight,
-            child: LikeButton(
-              onTap: (isLiked) async {
-                // setState(() {
-                //   isFavor = !isFavor;
-                // });
-                return Future.value(!isLiked);
-              },
-              isLiked: isFavor,
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              size: 40,
-              circleColor: const CircleColor(
-                  start: Color(0xff00ddff), end: Color(0xff0099cc)),
-              bubblesColor: const BubblesColor(
-                dotPrimaryColor: Color(0xff33b5e5),
-                dotSecondaryColor: Color(0xff0099cc),
+            child: SizedBox(
+              width: 46,
+              height: 46,
+              child: LikeButton(
+                onTap: (isLiked) async {
+                  // setState(() {
+                  //   isFavor = !isFavor;
+                  // });
+                  return Future.value(!isLiked);
+                },
+                isLiked: isFavor,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                size: 40,
+                circleColor: const CircleColor(
+                    start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                bubblesColor: const BubblesColor(
+                  dotPrimaryColor: Color(0xff33b5e5),
+                  dotSecondaryColor: Color(0xff0099cc),
+                ),
+                likeBuilder: (bool isLiked) {
+                  return Icon(
+                    FontAwesomeIcons.solidHeart,
+                    color: isLiked ? Colors.red : Colors.white,
+                    size: 18,
+                  );
+                },
               ),
-              likeBuilder: (bool isLiked) {
-                return Icon(
-                  FontAwesomeIcons.solidHeart,
-                  color: isLiked ? Colors.red : Colors.white,
-                  size: 18,
-                );
-              },
             ),
           ),
         ],
