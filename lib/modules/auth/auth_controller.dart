@@ -160,7 +160,7 @@ class AuthController extends GetxController {
   void login(BuildContext context) async {
     AppFocus.unFocus(context);
 
-    await showDialog(
+    showDialog(
       context: context,
       barrierDismissible: true,
       builder: (context) {
@@ -184,7 +184,7 @@ class AuthController extends GetxController {
       homeController.getUserDetails(userController.userEmail.value);
       clearControllLogin();
 
-      Get.back();
+      Get.toNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
       wrongMessage(context, e.code);

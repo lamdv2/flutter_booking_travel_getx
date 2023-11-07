@@ -303,7 +303,6 @@ class DrawerWidget extends StatelessWidget {
           InkWell(
             onTap: () {
               controller.signUserOut(context);
-              Get.offNamed(Routes.AUTH);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(

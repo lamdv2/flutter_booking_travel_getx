@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
@@ -30,7 +28,7 @@ class ProfileWidget extends StatelessWidget {
       () => Container(
         decoration: BoxDecoration(
           color: appController.isDarkModeOn.value
-              ? ColorConstants.darkCard!
+              ? ColorConstants.darkCard
               : ColorConstants.white,
           borderRadius: BorderRadius.circular(getSize(24)),
         ),

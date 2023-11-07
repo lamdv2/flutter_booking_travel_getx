@@ -38,7 +38,7 @@ class TourItemWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(getSize(16)),
           border: Border.all(
             color: appController.isDarkModeOn.value
-                ? ColorConstants.darkCard!.withOpacity(.4)
+                ? ColorConstants.darkCard.withOpacity(.4)
                 : ColorConstants.dividerColor.withOpacity(.4),
             width: 2,
           ),
