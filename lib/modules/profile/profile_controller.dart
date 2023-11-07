@@ -16,6 +16,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+import '../../routes/app_pages.dart';
 import '../auth/user_controller.dart';
 
 class ProfileController extends GetxController {
@@ -82,15 +83,13 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<String> uploadImageToStorage(
-    String childName,
-    Uint8List file,
-  ) async {
+  Future<String> uploadImageToStorage(String childName, Uint8List file) async {
     var uuid = const Uuid();
 
     Reference ref = _storage.ref().child(childName).child(uuid.v4());
-    UploadTask uploadTask = ref.putData(file);
-    TaskSnapshot snapshot = await uploadTask;
+    SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
+    UploadTask uploadTask = ref.putData(file, metadata);
+    await uploadTask;
 
     return ref.fullPath;
   }
@@ -240,18 +239,15 @@ class ProfileController extends GetxController {
 
         try {
           await auth.signOut();
-
           await googleSignIn.signOut();
 
           userController.userName.value = '';
-
           userController.userEmail.value = '';
-
           homeController.userModel.value = null;
-
-          profileController.imageFonts.value= [];
+          profileController.imageFonts.value = [];
 
           clearEditController();
+          Get.offNamed(Routes.AUTH);
         } catch (e) {
           wrongMessage("Logout failed: $e");
         }

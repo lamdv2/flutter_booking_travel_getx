@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 
-import '../../../shared/constants/assets_helper.dart';
 import '../../../shared/utils/size_utils.dart';
 import '../../../shared/widgets/stateful/DestinationItem.dart';
 

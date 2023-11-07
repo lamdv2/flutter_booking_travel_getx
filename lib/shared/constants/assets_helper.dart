@@ -155,6 +155,9 @@ class AssetHelper {
       'assets/images/json/img_arrow_rigth.json';
   static const String imgLottieNoImage = 'assets/images/json/img_nodata.json';
 
+  // image
+  static const String imgSplashScreen = 'assets/images/img_splash_screen.svg';
+
   // /images/x2
   static const String imgSplash_1 = 'assets/images/x2/imgSplash1.png';
   static const String imgSplash_2 = 'assets/images/x2/imgSplash2.png';

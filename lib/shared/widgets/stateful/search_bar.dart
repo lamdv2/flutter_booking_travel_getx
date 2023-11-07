@@ -1,9 +1,7 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
-import 'package:doan_clean_achitec/modules/google_map/google_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../constants/app_style.dart';

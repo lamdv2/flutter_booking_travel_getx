@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
@@ -194,27 +195,30 @@ class SettingScreen extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {},
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        StringConst.logout.tr,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        width: getSize(16),
-                      ),
-                      Image.asset(
-                        AssetHelper.icoLogout,
-                        color: appController.isDarkModeOn.value
-                            ? ColorConstants.lightBackground
-                            : ColorConstants.graySub,
-                        width: 24,
-                        height: 24,
-                      ),
-                    ],
+                  title: GestureDetector(
+                    onTap: () => profileController.signUserOut(context),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          StringConst.logout.tr,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          width: getSize(16),
+                        ),
+                        Image.asset(
+                          AssetHelper.icoLogout,
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.lightBackground
+                              : ColorConstants.graySub,
+                          width: 24,
+                          height: 24,
+                        ),
+                      ],
+                    ),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),

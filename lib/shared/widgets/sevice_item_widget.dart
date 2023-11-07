@@ -5,7 +5,6 @@ import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 class SeviceItemWidget extends StatelessWidget {
   final OnTap? onTap;
@@ -57,7 +56,7 @@ class SeviceItemWidget extends StatelessWidget {
                   isCheckActive
                       ? ColorConstants.white
                       : appController.isDarkModeOn.value
-                          ? ColorConstants.lightBackground!
+                          ? ColorConstants.lightBackground
                           : ColorConstants.titleSearch,
                   BlendMode.srcIn,
                 ),

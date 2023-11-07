@@ -1,5 +1,4 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
-import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';

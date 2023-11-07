@@ -7,7 +7,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -22,7 +21,7 @@ class SplashScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Container(
           width: double.infinity,
-          height: getSize(250),
+          height: getSize(260),
           decoration: BoxDecoration(
             color: ColorConstants.blur,
             borderRadius: const BorderRadius.only(
@@ -35,30 +34,22 @@ class SplashScreen extends StatelessWidget {
               top: getSize(16),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Center(
                   child: Text(
-                    "Your Journey In",
+                    "Your Journey In\nYour Hands",
                     style: TextStyle(
                       fontSize: 32,
                       color: ColorConstants.white,
                       fontWeight: FontWeight.w800,
                     ),
-                  ),
-                ),
-                const Center(
-                  child: Text(
-                    "Your Hands",
-                    style: TextStyle(
-                      fontSize: 32,
-                      color: ColorConstants.white,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: getSize(24),
+                    top: getSize(20),
                   ),
                   child: const Text(
                     "The best travel app in 2023,",
@@ -84,7 +75,7 @@ class SplashScreen extends StatelessWidget {
                   height: getSize(10),
                 ),
                 CircleAvatar(
-                  backgroundColor: ColorConstants.primaryColor,
+                  backgroundColor: ColorConstants.primaryButton,
                   maxRadius: 24,
                   child: SvgPicture.asset(
                     AssetHelper.icoNextRight,

@@ -1,15 +1,9 @@
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
-import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../shared/services/auth_service.dart';
-import '../../shared/widgets/my_button.dart';
-import '../../shared/widgets/my_textfield.dart';
-import '../../shared/widgets/square_tile.dart';
 import 'auth_controller.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -151,13 +145,10 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // google
                         SquareTile(
                           onTap: () => AuthService().signInWithGoogle(),
                           imgPath: AssetHelper.imgGoogle,
                         ),
-
-                        //Image(image: AssetImage('lib/images/apple.png'), height: 30,),
                         const SizedBox(
                           width: 24,
                         ),
