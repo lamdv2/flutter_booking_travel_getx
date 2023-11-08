@@ -27,6 +27,7 @@ void main() async {
     ),
   );
   final fcmToken = await FirebaseMessaging.instance.getToken();
+  // ignore: avoid_print
   print(fcmToken);
   runApp(MyApp());
 }
@@ -79,3 +80,4 @@ void configLoading() {
     ..dismissOnTap = false
     ..animationStyle = EasyLoadingAnimationStyle.scale;
 }
+

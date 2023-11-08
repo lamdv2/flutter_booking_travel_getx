@@ -8,6 +8,7 @@ class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
@@ -228,7 +229,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           width: 44,
                                           height: 44,
                                           decoration: BoxDecoration(
-                                            color: Color(0x4CFF5963),
+                                            color: const Color(0x4CFF5963),
                                             borderRadius:
                                                 BorderRadius.circular(12),
                                             border: Border.all(
@@ -355,7 +356,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    alignment: const AlignmentDirectional(-1.00, 0.00),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
@@ -430,8 +431,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
                                               child: Text(
                                                 'Secondary text',
                                                 style: AppStyles
@@ -513,8 +515,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
                                               child: Text(
                                                 'Secondary text',
                                                 style: AppStyles
@@ -542,7 +545,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           child: Container(
                             width: double.infinity,
                             height: 60,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: ColorConstants.white,
                             ),
                             child: Padding(
@@ -596,8 +599,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
                                               child: Text(
                                                 'Secondary text',
                                                 style: AppStyles
@@ -847,8 +851,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
                                               child: Text(
                                                 'Secondary text',
                                                 style: AppStyles
@@ -876,7 +881,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           child: Container(
                             width: double.infinity,
                             height: 60,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: ColorConstants.white,
                             ),
                             child: Padding(
@@ -930,8 +935,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
                                               child: Text(
                                                 'Secondary text',
                                                 style: AppStyles
@@ -959,7 +965,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           child: Container(
                             width: double.infinity,
                             height: 60,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: ColorConstants.white,
                             ),
                             child: Padding(
@@ -1013,8 +1019,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
                                               child: Text(
                                                 'Secondary text',
                                                 style: AppStyles

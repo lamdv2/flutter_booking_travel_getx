@@ -1,4 +1,5 @@
-// ignore: file_names
+// ignore_for_file: file_names
+
 const Map<String, String> en = {
   //Home screen
   'all': 'All',

@@ -4,6 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class RoomScreen extends StatelessWidget {
+  const RoomScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +106,7 @@ class RoomScreen extends StatelessWidget {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                RatingBar(3.5.round() ?? 0),
+                                RatingBar(3.5.round()),
                                 const SizedBox(
                                   width: 8,
                                 ),
