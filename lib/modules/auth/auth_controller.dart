@@ -185,7 +185,7 @@ class AuthController extends GetxController {
       homeController.getUserDetails(userController.userEmail.value);
       clearControllLogin();
 
-      Get.toNamed(Routes.HOME);
+      Get.back();
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
       wrongMessage(context, e.code);

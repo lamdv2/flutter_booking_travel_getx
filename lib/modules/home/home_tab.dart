@@ -1,12 +1,17 @@
 import 'package:doan_clean_achitec/modules/home/home.dart';
-import 'package:doan_clean_achitec/modules/home/widgets/ListDestination.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/carousel_slide.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/category_bar.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/home_header.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/title_des.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+
+import '../../routes/app_pages.dart';
+import '../../shared/widgets/item_service_widget.dart';
+import '../../shared/widgets/stateful/DestinationItem.dart';
+import 'widgets/special_offer.dart';
 
 class HomeTab extends StatelessWidget {
   HomeTab({super.key});
@@ -16,34 +21,82 @@ class HomeTab extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final HomeController homecontroller = Get.find();
     return Obx(
-      () => Scaffold(
-        backgroundColor: appController.isDarkModeOn.value
-            ? ColorConstants.darkBackground
-            : ColorConstants.lightBackground,
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                HomeHeader(
-                  size: size,
-                  avatar: true,
-                ),
-                const CategoryBar(),
-                CarouselSliderDes(size: size),
-                SizedBox(
-                  height: getSize(32),
-                ),
-                TitleDes(
-                  largeTitle: StringConst.popularDestination.tr,
-                  seeAll: StringConst.seeAll.tr,
-                  onTap: () {
-                    homecontroller.currentIndex.value = 2;
-                  },
-                ),
-                ListDestination(size: size),
-              ],
+      () => RefreshIndicator(
+        onRefresh: () => homeController.getAllCityModelData(),
+        child: Scaffold(
+          backgroundColor: appController.isDarkModeOn.value
+              ? ColorConstants.darkBackground
+              : ColorConstants.lightBackground,
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  HomeHeader(
+                    size: size,
+                    avatar: true,
+                  ),
+                  const CategoryBar(),
+                  CarouselSliderDes(),
+                  SizedBox(
+                    height: getSize(16),
+                  ),
+                  ItemServiceWidget(),
+                  SizedBox(
+                    height: getSize(32),
+                  ),
+                  SpecialOffers(),
+                  SizedBox(
+                    height: getSize(24),
+                  ),
+                  TitleDes(
+                    largeTitle: StringConst.popularDestination.tr,
+                    seeAll: StringConst.seeAll.tr,
+                    onTap: () {
+                      // homecontroller.currentIndex.value = 2;
+                      // Get.toNamed(Routes.SEARCH_SCREEN);
+                    },
+                  ),
+                  SizedBox(
+                    height: getSize(8),
+                  ),
+                  SizedBox(
+                    height: getSize(460),
+                    child: MasonryGridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 0,
+                      crossAxisSpacing: 4,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        double randomItemHeight = 0;
+                        index % 2 == 0
+                            ? randomItemHeight = getSize(220)
+                            : randomItemHeight = getSize(192);
+                        return InkWell(
+                          onTap: () => Get.toNamed(
+                            Routes.DETAIL_PLACE,
+                            arguments: homecontroller.listCitys.value[index],
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.all(4),
+                            child: DestinationItem(
+                              heightSize: randomItemHeight,
+                              textDes: homecontroller
+                                  .listCitys.value[index].nameCity,
+                              img: homecontroller
+                                      .listCitys.value[index].imageCity ??
+                                  "",
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

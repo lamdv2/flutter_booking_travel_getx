@@ -1,29 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:doan_clean_achitec/models/Destination.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
-import 'package:doan_clean_achitec/shared/widgets/stateless/list_star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
 import '../../../shared/constants/app_style.dart';
+import '../../../shared/constants/assets_helper.dart';
 import '../../../shared/constants/dimension_constants.dart';
 
-class CarouselSliderDes extends StatefulWidget {
-  const CarouselSliderDes({
-    super.key,
-    required this.size,
-  });
+class CarouselSliderDes extends StatelessWidget {
+  CarouselSliderDes({super.key});
 
-  final Size size;
+  final HomeController homeController = Get.find();
 
-  @override
-  State<CarouselSliderDes> createState() => _CarouselSliderDesState();
-}
-
-class _CarouselSliderDesState extends State<CarouselSliderDes> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,30 +29,37 @@ class _CarouselSliderDesState extends State<CarouselSliderDes> {
           enlargeCenterPage: true,
           viewportFraction: 0.7,
         ),
-        items: destiList.map((desList) {
+        items: homeController.listCitys.value.map((itemCity) {
           return Builder(
             builder: (BuildContext context) {
               return GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.DETAIL_PLACE);
+                  Get.toNamed(Routes.DETAIL_PLACE, arguments: itemCity);
                 },
                 child: Stack(
                   children: [
                     Container(
-                      width: widget.size.width,
-                      height: widget.size.height,
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.lightBlueNon,
-                        borderRadius: kBigBorderRadius,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(desList.imgDes.toString()),
-                        ),
-                      ),
+                      decoration: itemCity.imageCity!.isNotEmpty
+                          ? BoxDecoration(
+                              color: ColorConstants.lightBlueNon,
+                              borderRadius: kBigBorderRadius,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                  itemCity.imageCity ?? '',
+                                ),
+                              ),
+                            )
+                          : const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(AssetHelper.des1),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: kSmallBorderRadius,
+                            ),
                     ),
                     Container(
-                      height: widget.size.height,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -82,21 +82,12 @@ class _CarouselSliderDesState extends State<CarouselSliderDes> {
                               Container(
                                 padding: const EdgeInsets.only(
                                   left: kTopPadding,
-                                  bottom: kTopPadding,
+                                  bottom: kDefaultPadding,
                                 ),
                                 child: Text(
-                                  desList.nameDes.toString(),
+                                  itemCity.nameCity,
                                   style: AppStyles.white000Size18FfMont,
                                 ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  left: kTopPadding,
-                                  bottom: kTopPadding,
-                                ),
-                                margin: const EdgeInsets.only(
-                                    bottom: kDefaultPadding),
-                                child: ListStarWidget(desti: desList),
                               ),
                             ],
                           ),
@@ -104,16 +95,16 @@ class _CarouselSliderDesState extends State<CarouselSliderDes> {
                             alignment: Alignment.bottomRight,
                             padding: const EdgeInsets.only(
                               right: kMinPadding,
-                              bottom: kTop36Padding,
+                              bottom: kTopPadding,
                             ),
                             child: LikeButton(
                               onTap: (isLiked) async {
-                                setState(() {
-                                  desList.isFavorite = !desList.isFavorite;
-                                });
+                                // setState(() {
+                                //   desList.isFavorite = !desList.isFavorite;
+                                // });
                                 return Future.value(!isLiked);
                               },
-                              isLiked: desList.isFavorite,
+                              isLiked: false,
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               size: 40,
