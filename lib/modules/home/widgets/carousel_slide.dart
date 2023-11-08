@@ -81,12 +81,14 @@ class CarouselSliderDes extends StatelessWidget {
                             children: [
                               Container(
                                 padding: const EdgeInsets.only(
-                                  left: kTopPadding,
+                                  left: kTenPadding,
                                   bottom: kDefaultPadding,
                                 ),
                                 child: Text(
                                   itemCity.nameCity,
                                   style: AppStyles.white000Size18FfMont,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],

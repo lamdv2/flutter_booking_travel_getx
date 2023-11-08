@@ -13,16 +13,15 @@ import '../../shared/widgets/item_service_widget.dart';
 import '../../shared/widgets/stateful/DestinationItem.dart';
 import 'widgets/special_offer.dart';
 
-class HomeTab extends StatelessWidget {
-  HomeTab({super.key});
-  final HomeController homeController = Get.find();
+class HomeTab extends GetView<HomeController> {
+  const HomeTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final HomeController homecontroller = Get.find();
     return Obx(
       () => RefreshIndicator(
-        onRefresh: () => homeController.getAllCityModelData(),
+        onRefresh: () => controller.getAllCityModelData(),
         child: Scaffold(
           backgroundColor: appController.isDarkModeOn.value
               ? ColorConstants.darkBackground
@@ -54,7 +53,7 @@ class HomeTab extends StatelessWidget {
                     largeTitle: StringConst.popularDestination.tr,
                     seeAll: StringConst.seeAll.tr,
                     onTap: () {
-                      // homecontroller.currentIndex.value = 2;
+                      // controller.currentIndex.value = 2;
                       // Get.toNamed(Routes.SEARCH_SCREEN);
                     },
                   ),
@@ -77,16 +76,16 @@ class HomeTab extends StatelessWidget {
                         return InkWell(
                           onTap: () => Get.toNamed(
                             Routes.DETAIL_PLACE,
-                            arguments: homecontroller.listCitys.value[index],
+                            arguments: controller.listCitys.value[index],
                           ),
                           child: Container(
                             alignment: Alignment.center,
                             margin: const EdgeInsets.all(4),
                             child: DestinationItem(
                               heightSize: randomItemHeight,
-                              textDes: homecontroller
+                              textDes: controller
                                   .listCitys.value[index].nameCity,
-                              img: homecontroller
+                              img: controller
                                       .listCitys.value[index].imageCity ??
                                   "",
                             ),
