@@ -35,7 +35,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     super.initState();
     getCurrentPossition();
-    getPolyline('16.05786987902542', '108.21159745424494');
+    // getPolyline('16.05786987902542', '108.21159745424494');
     loadImageMarker();
   }
 

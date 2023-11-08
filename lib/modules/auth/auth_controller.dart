@@ -123,6 +123,7 @@ class AuthController extends GetxController {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
 
+        // ignore: non_constant_identifier_names
         final UID = FirebaseAuth.instance.currentUser?.uid;
 
         final userModel = UserModel(

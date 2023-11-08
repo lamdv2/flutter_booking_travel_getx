@@ -49,15 +49,32 @@ class ColorConstants {
   static Color transparent = const Color.fromARGB(0, 18, 18, 18);
 
   static Color darkScaffoldBackgroundColor = hexToColor('#2F2E2E');
-  static const lightBlueNon = Color(0x48CAE7);
+  static const lightBlueNon = Color(0x0048cae7);
+
+  // Red
+  static const Color red300 = Color(0xFFFF5630);
+  static const Color red400 = Color(0XFFFF5630);
+  static const Color deepOrange700 = Color(0XFFE64D2B);
+
+  // Gray
+  static const Color gray100 = Color(0XFFF6F6F6);
+  static const Color gray200 = Color(0XFF4E4B66);
+  static const Color gray300 = Color(0XFFE6E6E6);
+  static const Color gray400 = Color(0XFFBFBFBF);
+  static const Color gray500 = Color(0XFF999999);
+  static const Color gray600 = Color(0XFF737373);
+  static const Color gray700 = Color(0xFFF7F7F7);
+  static var grey800 = Colors.grey[800];
+
+  static const Color grayNormal = Color(0x00737373);
 
   // Light theme
   // Status bar
-  static const Color lightStatusBar =  Color(0xFFE0E0E0);
+  static const Color lightStatusBar = Color(0xFFE0E0E0);
   // App bar
-  static const Color lightAppBar =  Color(0xFFF5F5F5);
+  static const Color lightAppBar = Color(0xFFF5F5F5);
   // Background
-  static const Color lightBackground =  Color(0xFFFAFAFA);
+  static const Color lightBackground = Color(0xFFFAFAFA);
   // Cards
   static Color? lightCard = white;
 
@@ -65,11 +82,11 @@ class ColorConstants {
   // Status bar
   static Color darkStatusBar = black;
   // App bar
-  static const Color darkAppBar =  Color(0xFF212121);
+  static const Color darkAppBar = Color(0xFF212121);
   // Background
-  static const Color darkBackground =  Color(0xFF303030);
+  static const Color darkBackground = Color(0xFF303030);
   // Cards
-  static const Color darkCard =  Color(0xFF424242);
+  static const Color darkCard = Color(0xFF424242);
 
   // flutter flow
   static const Color accent1 = Color(0xFF616161);

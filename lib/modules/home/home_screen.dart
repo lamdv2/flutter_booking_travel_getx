@@ -101,10 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SalomonBottomBarItem(
               icon: const Icon(
-                FontAwesomeIcons.solidHeart,
+                // ignore: deprecated_member_use
+                FontAwesomeIcons.search,
                 size: kDefaultIconSize,
               ),
-              title: const Text('Likes'),
+              title: const Text('Search'),
             ),
             SalomonBottomBarItem(
               icon: const Icon(

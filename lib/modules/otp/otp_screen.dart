@@ -15,6 +15,7 @@ class OtpScreen extends StatelessWidget {
 
   final OtpController _otpController = Get.find();
   final ProfileController _profileController = Get.find();
+  // ignore: prefer_typing_uninitialized_variables
   var otp;
   final userModel = Get.arguments as UserModel;
 

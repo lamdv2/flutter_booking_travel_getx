@@ -1,4 +1,5 @@
-// ignore: file_names
+// ignore_for_file: file_names
+
 const Map<String, String> cn = {
   //home screen
   'all': '全部',

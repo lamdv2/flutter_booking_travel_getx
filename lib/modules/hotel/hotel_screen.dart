@@ -1,6 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/hotel_item_vertical.dart';

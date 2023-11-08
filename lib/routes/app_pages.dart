@@ -110,7 +110,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ROOM,
-      page: () => RoomScreen(),
+      page: () => const RoomScreen(),
       binding: RoomBinding(),
     ),
     GetPage(

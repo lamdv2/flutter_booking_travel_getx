@@ -1,4 +1,6 @@
-import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
+// ignore_for_file: file_names
+
+import '../shared/constants/assets_helper.dart';
 
 class Destination {
   int idDes;
@@ -25,7 +27,7 @@ final List<String> listImgBackgrounds = [
 
 List<Destination> addListDestination(List<Destination> addDesList) {
   for (int i = 1; i <= listIds.length; i++) {
-    addDesList.add(Destination(i, "nameDes + ${i}", listImgBackgrounds[i-1], 4.5, false));
+    addDesList.add(Destination(i, "nameDes + $i", listImgBackgrounds[i-1], 4.5, false));
   }
   return addDesList;
 }
