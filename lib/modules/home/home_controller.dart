@@ -5,14 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/city/city_model.dart';
 import '../../models/history/history_model.dart';
 
 class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    
     Future.wait([getUserDetails(userController.userEmail.value)]);
+    getAllCityModelData();
   }
 
   RxInt currentIndex = 0.obs;
@@ -24,6 +25,9 @@ class HomeController extends GetxController {
   final getAllListHistory = Rxn<List<HistoryModel>>();
   final getListHistoryByUserId = Rxn<List<HistoryModel>>();
   final scaffoldHomeKey = GlobalKey<ScaffoldState>();
+
+  Rx<List<CityModel>> listCitys = Rx([]);
+  Rx<List<CityModel>> filterListCityData = Rx([]);
 
   Future<void> getUserDetails(String email) async {
     final snapShot = await _db
@@ -65,6 +69,17 @@ class HomeController extends GetxController {
     final historyData =
         snapShot.docs.map((e) => HistoryModel.fromJson(e)).toList();
     getListHistoryByUserId.value = historyData;
+  }
+
+  // Get All Citys
+
+  Future<void> getAllCityModelData() async {
+    final snapShot = await _db.collection('cityModel').get();
+    final listCityData =
+        snapShot.docs.map((doc) => CityModel.fromJson(doc)).toList();
+
+    listCitys.value = listCityData;
+    filterListCityData.value = listCityData;
   }
 
   void openDrawer() {

@@ -65,8 +65,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.personalInformation.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -76,8 +76,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.notificationAndChat.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -87,8 +87,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.privateAndPermissions.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -98,8 +98,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.passwordAndAccount.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -114,8 +114,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.changeLanguage.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -145,8 +145,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.darkMode.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -175,8 +175,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.guide.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -186,8 +186,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.feedback.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -197,8 +197,8 @@ class SettingScreen extends StatelessWidget {
                       widgetTitle: Text(
                         StringConst.about.tr,
                         style: appController.isDarkModeOn.value
-                            ? AppStyles.lightDarkModeSize18Fw500FfMont
-                            : AppStyles.gray600Size18Fw500FfMont,
+                            ? AppStyles.lightDarkModeSize16Fw500FfMont
+                            : AppStyles.gray600Size16Fw500FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

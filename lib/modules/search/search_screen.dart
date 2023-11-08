@@ -70,9 +70,6 @@ class SearchScreen extends GetView<SearchDesController> {
                       },
                     ),
                   ),
-                  SizedBox(
-                    height: getSize(28),
-                  ),
                 ],
               ),
             ),

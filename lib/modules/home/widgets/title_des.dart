@@ -33,7 +33,7 @@ class TitleDes extends StatelessWidget {
             style: TextStyle(
               color: appController.isDarkModeOn.value
                   ? const Color.fromARGB(255, 142, 153, 247)
-                  : ColorConstants.primaryButton,
+                  : ColorConstants.primaryButton.withOpacity(.5),
               fontSize: kIconRadius,
             ),
           ),
