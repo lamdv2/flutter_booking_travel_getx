@@ -44,12 +44,16 @@ class ItemServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: kDefaultPadding),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: listUtility
-            .map((item) => _buildItemUtilityHotel(item['icon']!, item['name']!))
-            .toList(),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: listUtility
+              .map((item) =>
+                  _buildItemUtilityHotel(item['icon']!, item['name']!))
+              .toList(),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/models/history_tour/tour_history_detail/preytty_qr_code.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
@@ -204,6 +205,15 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.grey800
+                        : ColorConstants.white,
+                  ),
+                  child: PrettyQrHomePage(),
                 ),
                 ListTile(
                   onTap: () {},

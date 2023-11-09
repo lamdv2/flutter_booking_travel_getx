@@ -8,7 +8,8 @@ class ColorConstants {
   static const Color tipColor = Color(0xFFB6B6B6);
   static const Color red = Color.fromARGB(255, 253, 38, 0);
   static const Color yellow = Color(0xFFFFAF34);
-
+  static Color buttonColor = const Color(0xFF2F76E6);
+  static Color whiteColor = const Color(0xFFFFFFFF);
   static const Color lightScaffoldBackgroundColor = Color(0xFFF9F9F9);
   static const Color lightSubScaffoldBackgroundColor = Color(0xFFFAFAFA);
   static const Color primaryButton = Color(0xFF4166d8);
