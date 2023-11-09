@@ -76,14 +76,21 @@ class HistoryScreen extends GetView<HistoryTourController> {
                           itemCount:
                               controller.getAllListHistory.value?.length ?? 2,
                           itemBuilder: (BuildContext context, int rowIndex) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.symmetric(vertical: getSize(12)),
-                              child: _buildItemHistory(
-                                tourModel: controller
-                                    .getAllListHistory.value?[rowIndex],
-                                historyModel: controller
-                                    .getAllListHistoryToDate.value?[rowIndex],
+                            return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.TOUR_QR_CODE_DETAIL,
+                                    arguments: controller
+                                        .getAllListHistory.value?[rowIndex]);
+                              },
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(vertical: getSize(12)),
+                                child: _buildItemHistory(
+                                  tourModel: controller
+                                      .getAllListHistory.value?[rowIndex],
+                                  historyModel: controller
+                                      .getAllListHistoryToDate.value?[rowIndex],
+                                ),
                               ),
                             );
                           },

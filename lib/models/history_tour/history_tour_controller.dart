@@ -1,15 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
+import 'package:doan_clean_achitec/models/history_tour/tour_history_detail/preytty_qr_code.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:rive/rive.dart';
+import 'dart:ui' as ui;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class HistoryTourController extends GetxController {
   final _db = FirebaseFirestore.instance;
 
   HomeController homeController = Get.find();
+  GlobalKey<State> globalKey = GlobalKey<State>();
 
   final getAllListHistory = Rxn<List<TourModel>>([]);
   final getAllListHistoryToDate = Rxn<List<HistoryModel>>([]);
@@ -26,9 +35,19 @@ class HistoryTourController extends GetxController {
     return controller;
   }
 
+  late QrImage qrImage;
+  late PrettyQrDecoration decoration;
+
   @override
   void onInit() {
     super.onInit();
+    // ignore: non_const_call_to_literal_constructor
+    decoration = PrettyQrDecoration(
+      // ignore: non_const_call_to_literal_constructor
+      shape: PrettyQrSmoothSymbol(color: ColorConstants.green),
+      // ignore: invalid_use_of_visible_for_testing_member
+      image: PrettyQrSettings.kDefaultPrettyQrDecorationImage,
+    );
     getAllTourModelData(homeController.userModel.value?.id ?? "");
   }
 
@@ -69,6 +88,33 @@ class HistoryTourController extends GetxController {
 
   Future<void> refreshHistory() async {
     getAllTourModelData(homeController.userModel.value?.id ?? "");
+  }
+
+  Future<void> captureAndSaveScreenshot(globalKey) async {
+    Uint8List? screenshotData = await captureScreenshot(globalKey);
+    if (screenshotData != null) {
+      final result = await ImageGallerySaver.saveImage(screenshotData);
+
+      if (result['isSuccess']) {
+        Get.snackbar('Success!!!', 'Save Success!');
+      } else {}
+    }
+  }
+
+  Future<Uint8List?> captureScreenshot(globalKey) async {
+    try {
+      RenderRepaintBoundary boundary =
+          globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+
+      ui.Image image = await boundary.toImage();
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List uint8list = byteData!.buffer.asUint8List();
+      return uint8list;
+    } catch (e) {
+      // print("Error capturing screenshot: $e");
+      return null;
+    }
   }
 
   String timestampToString(Timestamp timestamp) {

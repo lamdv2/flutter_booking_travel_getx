@@ -31,4 +31,5 @@ abstract class Routes {
   static const HISTORY_TOUR_SCREEN = '/history_tour_screen';
   static const GOOGLE_MAP_SCREEN = '/google_map_screen';
   static const SEARCH_SCREEN = '/search_screen';
+  static const TOUR_QR_CODE_DETAIL = '/tour_qr_code_detail';
 }

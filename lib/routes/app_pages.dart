@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/models/history_tour/tour_history_detail/Tour_qr_code_detail.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_requied.dart';
 import 'package:doan_clean_achitec/modules/detail_place/detail_place.dart';
@@ -154,6 +155,11 @@ class AppPages {
     GetPage(
       name: Routes.HISTORY_TOUR_SCREEN,
       page: () => HistoryScreen(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: Routes.TOUR_QR_CODE_DETAIL,
+      page: () => TourQRCodeDetail(),
       binding: HomeBinding(),
     ),
     GetPage(
