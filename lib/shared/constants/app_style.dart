@@ -54,6 +54,13 @@ class AppStyles {
     color: ColorConstants.white,
   );
 
+  static TextStyle white000Size16Fw500FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 16.00,
+    fontWeight: FontWeight.w500,
+    color: ColorConstants.white,
+  );
+
   static TextStyle white000Size16FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 16.00,
@@ -377,6 +384,13 @@ class AppStyles {
     color: ColorConstants.graySecond,
   );
 
+  static TextStyle gray800Size16Fw500FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: ColorConstants.darkCard,
+  );
+
   static TextStyle gray600Size12Fw400FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 12,
@@ -388,6 +402,13 @@ class AppStyles {
     fontFamily: FontFamily.mont,
     fontSize: 14,
     fontWeight: FontWeight.w400,
+    color: ColorConstants.gray600,
+  );
+
+  static TextStyle gray600Size14Fw500FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
     color: ColorConstants.gray600,
   );
 

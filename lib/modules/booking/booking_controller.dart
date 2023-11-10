@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doan_clean_achitec/models/history_tour/history_tour.dart';
+import 'package:doan_clean_achitec/modules/history_tour/history_tour.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -35,7 +35,7 @@ class BookingController extends GetxController {
       });
       Get.snackbar('Success', 'Booking successfully !!!');
 
-      await historyTourController.getAllTourModelData(userId);
+      await historyTourController.getAllTourModelData();
     }
   }
 

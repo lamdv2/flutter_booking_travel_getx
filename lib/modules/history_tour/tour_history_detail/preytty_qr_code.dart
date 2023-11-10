@@ -1,5 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
-import 'package:doan_clean_achitec/models/history_tour/history_tour_controller.dart';
+import 'package:doan_clean_achitec/modules/history_tour/history_tour_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
