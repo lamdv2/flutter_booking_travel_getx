@@ -1,4 +1,4 @@
-import 'package:doan_clean_achitec/models/history_tour/tour_history_detail/Tour_qr_code_detail.dart';
+import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/tour_qr_code_detail.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_requied.dart';
 import 'package:doan_clean_achitec/modules/detail_place/detail_place.dart';
@@ -26,7 +26,7 @@ import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/utils/select_date.dart';
 import 'package:get/get.dart';
 
-import '../models/history_tour/history_tour_screen.dart';
+import '../modules/history_tour/history_tour_screen.dart';
 import '../modules/auth/auth_binding.dart';
 import '../modules/auth/auth_login_screen.dart';
 import '../modules/auth/auth_register_screen.dart';

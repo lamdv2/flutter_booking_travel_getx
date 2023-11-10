@@ -1,5 +1,5 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
-import 'package:doan_clean_achitec/models/history_tour/tour_history_detail/preytty_qr_code.dart';
+import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/preytty_qr_code.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
@@ -205,6 +205,15 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: getSize(16)),
+                  child: Text(
+                    'QR Code',
+                    style: appController.isDarkModeOn.value
+                        ? AppStyles.white000Size16Fw500FfMont
+                        : AppStyles.gray800Size16Fw500FfMont,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(

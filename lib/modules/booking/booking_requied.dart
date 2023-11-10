@@ -228,7 +228,7 @@ class BookingRequiedScreen extends GetView<BookingController> {
                           homeController.userModel.value?.id ?? '',
                           tourModel?.idTour ?? '',
                           controller.formatDateTime(DateTime.now().toString()),
-                          'coming',
+                          'waiting',
                         );
                         Get.offAndToNamed(Routes.HISTORY_TOUR_SCREEN);
                       },
