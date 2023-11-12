@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 FontAwesomeIcons.gears,
                 size: kDefaultIconSize,
               ),
-              title: const Text('Setting'),
+              title: const Text('Settings'),
             ),
           ],
         ),

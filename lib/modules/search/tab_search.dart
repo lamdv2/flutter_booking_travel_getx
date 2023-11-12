@@ -163,7 +163,7 @@ class TabSearchWidget extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: 16,
+                                width: getSize(16),
                               ),
                               Text('Bangkok'),
                             ],
@@ -223,7 +223,7 @@ class TabSearchWidget extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: 16,
+                                width: getSize(16),
                               ),
                               Text('Bangkok'),
                             ],

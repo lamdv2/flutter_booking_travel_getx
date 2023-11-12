@@ -222,7 +222,7 @@ class SettingScreen extends StatelessWidget {
                         ? ColorConstants.grey800
                         : ColorConstants.white,
                   ),
-                  child: PrettyQrHomePage(),
+                  child: const PrettyQrHomePage(),
                 ),
                 ListTile(
                   onTap: () {},

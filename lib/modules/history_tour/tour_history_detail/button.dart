@@ -7,7 +7,7 @@ class RoundButton extends StatelessWidget {
   final double wid;
   final VoidCallback onPress;
 
-  RoundButton({
+  const RoundButton({
     Key? key,
     required this.title,
     this.loading = false,
