@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -108,6 +109,21 @@ class HistoryTourController extends GetxController {
     }
 
     return listTourModel;
+  }
+
+  Future<HistoryModel> getHistoryByIdTour(String idTour) async {
+    final snapShot = await _db
+        .collection('historyModel')
+        .where('idUser', isEqualTo: homeController.userModel.value?.id ?? "")
+        .where('idTour', isEqualTo: idTour)
+        .get();
+
+    if (snapShot.docs.length == 1) {
+      final historyModelByIdTour = HistoryModel.fromJson(snapShot.docs.single);
+      return historyModelByIdTour;
+    } else {
+      return HistoryModel.fromJson(snapShot.docs.first);
+    }
   }
 
   Future<List<TourModel>?> getTourHistoryByStatus(
@@ -228,6 +244,23 @@ class HistoryTourController extends GetxController {
     }
   }
 
+  Future<void> updateUserProfile(HistoryModel historyModel) async {
+    await _db
+        .collection('historyModel')
+        .doc(historyModel.id)
+        .update(historyModel.toJson())
+        .then((value) {
+      Get.snackbar("Success!", 'You canceled tour successfully',
+          snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
+      Future.wait([
+        getAllTourModelData(),
+      ]);
+    }).catchError((onError) {
+      Get.snackbar("Error!!!", 'Cancel tour error: ${onError.toString()}',
+          snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
+    });
+  }
+
   String timestampToString(Timestamp timestamp) {
     try {
       DateTime dateTime = timestamp.toDate();
@@ -297,5 +330,24 @@ class HistoryTourController extends GetxController {
   void loadIndicatorRive() {
     isShowLoading.value = true;
     indicatorRive();
+  }
+
+  void clearData() {
+    getAllListHistory.value = [];
+    getListHisWaiting.value = [];
+    getListUpComing.value = [];
+    getListHisHappenning.value = [];
+    getListHisCompleted.value = [];
+    getListHisCancel.value = [];
+
+    getAllListHistoryToDate.value = [];
+    getListHisWaitingToDate.value = [];
+    getListHisUpComingToDate.value = [];
+    getListHisHappenningToDate.value = [];
+    getListHisCompletedToDate.value = [];
+    getListHisCancelToDate.value = [];
+
+    listTourCurrentTabs.value = [];
+    listTourCurrentTabsToDate.value = [];
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/modules/history_tour/history_tour_controller.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/preytty_qr_code.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
@@ -17,8 +18,12 @@ class TourQRCodeDetail extends StatelessWidget {
   final GlobalKey<State> globalKey = GlobalKey<State>();
   final HistoryTourController historyTourController =
       Get.put(HistoryTourController());
-  final TourModel? tourModel = Get.arguments;
+  // final TourModel? tourModel = Get.arguments['arg1'];
   final AppController appController = Get.find();
+  // final String getStatus = Get.arguments['arg2'];
+
+  final TourModel? tourModel = Get.arguments['arg1'];
+  final String getStatus = Get.arguments['arg2'];
 
   TourQRCodeDetail({super.key});
   @override
@@ -183,30 +188,40 @@ class TourQRCodeDetail extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(getSize(16)),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        alignment: Alignment.center,
-                        backgroundColor: appController.isDarkModeOn.value
-                            ? ColorConstants.darkCard
-                            : ColorConstants.primaryButton,
-                      ),
-                      onPressed: () =>
-                          historyTourController.saveLocalImage(globalKey),
-                      child: Text(
-                        'Cancel tour',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: appController.isDarkModeOn.value
-                              ? ColorConstants.lightAppBar
-                              : ColorConstants.lightAppBar,
+                getStatus == "upcoming"
+                    ? Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(getSize(16)),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.center,
+                              backgroundColor: appController.isDarkModeOn.value
+                                  ? ColorConstants.darkCard
+                                  : ColorConstants.primaryButton,
+                            ),
+                            onPressed: () async {
+                              HistoryModel historyModel =
+                                  await historyTourController
+                                      .getHistoryByIdTour(
+                                          tourModel?.idTour ?? '');
+                              historyModel.status = 'canceled';
+                              historyTourController
+                                  .updateUserProfile(historyModel);
+                              Get.back();
+                            },
+                            child: Text(
+                              'Cancel tour',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.lightAppBar
+                                    : ColorConstants.lightAppBar,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
+                      )
+                    : const SizedBox.shrink(),
                 const SizedBox(
                   height: 32,
                 ),

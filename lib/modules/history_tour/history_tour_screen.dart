@@ -151,9 +151,39 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                         itemBuilder: (BuildContext context, int rowIndex) {
                           return GestureDetector(
                             onTap: () {
-                              Get.toNamed(Routes.TOUR_QR_CODE_DETAIL,
-                                  arguments: controller
-                                      .listTourCurrentTabs.value?[rowIndex]);
+                              if (status == "waiting") {
+                                Get.snackbar('Notice',
+                                    'Wait for the admin to approve the tour');
+                              } else if (status == "canceled") {
+                                Get.snackbar('Notice', 'Tour canceled!!!');
+                              } else if (status == "coming") {
+                                Get.toNamed(
+                                  Routes.TOUR_QR_CODE_DETAIL,
+                                  arguments: {
+                                    'arg1': controller
+                                        .listTourCurrentTabs.value?[rowIndex],
+                                    'arg2': "upcoming",
+                                  },
+                                );
+                              } else if (status == "happenning") {
+                                Get.toNamed(
+                                  Routes.TOUR_QR_CODE_DETAIL,
+                                  arguments: {
+                                    'arg1': controller
+                                        .listTourCurrentTabs.value?[rowIndex],
+                                    'arg2': "happenning",
+                                  },
+                                );
+                              } else if (status == "completed") {
+                                Get.toNamed(
+                                  Routes.TOUR_QR_CODE_DETAIL,
+                                  arguments: {
+                                    'arg1': controller
+                                        .listTourCurrentTabs.value?[rowIndex],
+                                    'arg2': "happenning",
+                                  },
+                                );
+                              }
                             },
                             child: Padding(
                               padding:
@@ -161,7 +191,8 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                               child: _buildItemHistory(
                                 tourModel: controller
                                     .listTourCurrentTabs.value?[rowIndex],
-                                historyModel: HistoryModel(isActive: true),
+                                historyModel: controller
+                                    .listTourCurrentTabsToDate.value?[rowIndex],
                               ),
                             ),
                           );

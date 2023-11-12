@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 class PrettyQrHomePage extends StatefulWidget {
+  const PrettyQrHomePage({super.key});
+
   @override
   State<PrettyQrHomePage> createState() => _PrettyQrHomePageState();
 }
@@ -33,6 +35,7 @@ class PrettyQrAnimatedView extends StatefulWidget {
   final PrettyQrDecoration decoration;
 
   const PrettyQrAnimatedView({
+    super.key,
     required this.qrImage,
     required this.decoration,
   });

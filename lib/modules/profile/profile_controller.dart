@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
+import 'package:doan_clean_achitec/modules/history_tour/history_tour.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
@@ -33,6 +34,8 @@ class ProfileController extends GetxController {
 
   final UserController userController = Get.find();
   final HomeController homeController = Get.put(HomeController());
+  final HistoryTourController historyTourController =
+      Get.put(HistoryTourController());
 
   final scaffoldProfileKey = GlobalKey<ScaffoldState>();
 
@@ -247,6 +250,7 @@ class ProfileController extends GetxController {
           profileController.imageFonts.value = [];
 
           clearEditController();
+          historyTourController.clearData();
           Get.offNamed(Routes.AUTH);
         } catch (e) {
           wrongMessage("Logout failed: $e");
