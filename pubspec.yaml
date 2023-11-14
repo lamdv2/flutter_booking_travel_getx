@@ -108,6 +108,9 @@ dependencies:
   permission_handler: ^11.0.1
   image_gallery_saver: ^2.0.3
   pretty_qr_code: ^3.0.0
+  bottom_sheet: ^4.0.0
+  share_plus: ^7.2.1
+  flutter_phone_direct_caller: ^2.1.1
   
 dev_dependencies:
   flutter_test:

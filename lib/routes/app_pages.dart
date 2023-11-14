@@ -19,6 +19,7 @@ import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/profile.dart';
 import 'package:doan_clean_achitec/modules/room/room.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
+import 'package:doan_clean_achitec/modules/search/search_tour.dart';
 import 'package:doan_clean_achitec/modules/setting/setting_screen.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_binding.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_screen.dart';
@@ -169,6 +170,11 @@ class AppPages {
     GetPage(
       name: Routes.SEARCH_SCREEN,
       page: () => SearchScreen(),
+      binding: SearchBinding(),
+    ),
+    GetPage(
+      name: Routes.SEARCH_TOUR_SCREEN,
+      page: () => SearchTourScreen(),
       binding: SearchBinding(),
     ),
   ];

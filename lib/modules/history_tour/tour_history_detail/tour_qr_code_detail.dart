@@ -18,9 +18,8 @@ class TourQRCodeDetail extends StatelessWidget {
   final GlobalKey<State> globalKey = GlobalKey<State>();
   final HistoryTourController historyTourController =
       Get.put(HistoryTourController());
-  // final TourModel? tourModel = Get.arguments['arg1'];
+
   final AppController appController = Get.find();
-  // final String getStatus = Get.arguments['arg2'];
 
   final TourModel? tourModel = Get.arguments['arg1'];
   final String getStatus = Get.arguments['arg2'];
@@ -100,9 +99,13 @@ class TourQRCodeDetail extends StatelessWidget {
                     SvgPicture.asset(
                       AssetHelper.icBuy,
                       width: getSize(20),
-                      color: appController.isDarkModeOn.value
-                          ? ColorConstants.dividerColor
-                          : ColorConstants.botTitle,
+                      colorFilter: ColorFilter.mode(
+                        appController.isDarkModeOn.value
+                            ? ColorConstants.dividerColor
+                            : ColorConstants.botTitle,
+                        BlendMode.srcIn,
+                      ),
+                      fit: BoxFit.fitHeight,
                     ),
                     SizedBox(
                       width: getSize(16),

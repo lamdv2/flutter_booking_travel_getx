@@ -32,4 +32,5 @@ abstract class Routes {
   static const GOOGLE_MAP_SCREEN = '/google_map_screen';
   static const SEARCH_SCREEN = '/search_screen';
   static const TOUR_QR_CODE_DETAIL = '/tour_qr_code_detail';
+  static const SEARCH_TOUR_SCREEN = '/search_tour_screen';
 }
