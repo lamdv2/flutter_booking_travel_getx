@@ -7,20 +7,20 @@ class ItemServiceWidget extends StatelessWidget {
 
   final List<Map<String, String>> listUtility = [
     {
-      'icon': AssetHelper.icoRestau,
+      'icon': AssetHelper.icWallet,
       'name': 'Tour',
     },
     {
-      'icon': AssetHelper.icCalling,
+      'icon': AssetHelper.icoHotel,
       'name': 'Hotel',
     },
     {
-      'icon': AssetHelper.icBag,
-      'name': 'Food',
+      'icon': AssetHelper.icTicket,
+      'name': 'Ticket',
     },
     {
-      'icon': AssetHelper.icShieldDone,
-      'name': 'Chill',
+      'icon': AssetHelper.icoRestau,
+      'name': 'Food',
     },
   ];
 

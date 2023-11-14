@@ -77,7 +77,10 @@ class SearchScreen extends GetView<SearchDesController> {
                                   spacing: 8.0,
                                   children: controller.chipList.map((data) {
                                     return GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.toNamed(Routes.SEARCH_TOUR_SCREEN,
+                                            arguments: data);
+                                      },
                                       child: Chip(
                                         label: Text(data),
                                         backgroundColor:

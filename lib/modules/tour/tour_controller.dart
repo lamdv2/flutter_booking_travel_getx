@@ -177,19 +177,21 @@ class TourController extends GetxController {
     }
   }
 
-  // Filter by Name Tour
   Future<void> filterListTourByName(String keyword) async {
     if (keyword.isEmpty) {
       getListTour.value = filterListTourData.value;
     } else {
       getListTour.value = filterListTourData.value
           ?.where(
-            (listTour) => listTour.nameTour.toLowerCase().contains(
-                  keyword.toLowerCase(),
-                ),
-          )
+              (listTour) => _containsAllKeywords(listTour.nameTour, keyword))
           .toList();
     }
+  }
+
+  bool _containsAllKeywords(String tourName, String keyword) {
+    List<String> searchTerms = keyword.toLowerCase().split(' ');
+
+    return searchTerms.every((term) => tourName.toLowerCase().contains(term));
   }
 
   // Filter by State
