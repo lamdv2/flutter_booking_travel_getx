@@ -57,6 +57,7 @@ class SearchTourScreen extends GetView<SearchDesController> {
                         focusNode: controller.focusNodeSearchTour,
                         onChanged: (value) {
                           controller.getTourSearch(value);
+                          controller.searchTourEditingController.text = value;
                         },
                       ),
                       SizedBox(
@@ -198,7 +199,8 @@ class SearchTourScreen extends GetView<SearchDesController> {
                                       (BuildContext context, int rowIndex) {
                                     return Padding(
                                       padding: EdgeInsets.symmetric(
-                                          vertical: getSize(12)),
+                                        vertical: getSize(12),
+                                      ),
                                       child: buildItemTourSearch(
                                         tourModel: controller
                                             .getAllTourSearch.value?[rowIndex],
@@ -278,32 +280,30 @@ class NoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(
-          top: getSize(64),
-        ),
-        child: Center(
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: getSize(20),
-            ),
-            child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center,
-              crossAxisAlignment:
-                  CrossAxisAlignment.center,
-              children: [
-                Lottie.asset(
-                  AssetHelper.imgLottieNodate,
-                  width: getSize(200),
-                  height: getSize(200),
-                  fit: BoxFit.fill,
-                ),
-              ],
-            ),
+      padding: EdgeInsets.only(
+        top: getSize(64),
+      ),
+      child: Center(
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: getSize(20),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Lottie.asset(
+                AssetHelper.imgLottieNodate,
+                width: getSize(200),
+                height: getSize(200),
+                fit: BoxFit.fill,
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
 

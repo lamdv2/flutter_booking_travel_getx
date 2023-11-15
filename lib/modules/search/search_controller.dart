@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
+import 'package:doan_clean_achitec/models/search/search_tour.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +27,17 @@ class SearchDesController extends GetxController {
   final getAllListImageTour = Rxn<List<String>>([]);
   final getAllListImageTourScreen = Rxn<List<String>>([]);
   final getListHistorySearch = Rxn<List<String>>([]);
+  final getListSearchTour = Rxn<List<SearchTour>>([]);
+  final Rxn<List<TypeSearch>> getListSearchTourChoose =
+      Rxn<List<TypeSearch>>([]);
+  final includeAllSearch = Rxn<String>();
 
   @override
   void onInit() {
     super.onInit();
     getAllCityModelData();
     getAllTourSearchData('');
+    getAllSearch();
     focusNodeSearch.addListener(onFocusChange);
     searchEditingController.addListener(() {
       onFocusChange();
@@ -203,12 +209,107 @@ class SearchDesController extends GetxController {
     filterListCityData.value = listCityData;
   }
 
+  void setDestination(String value) {
+    if (getListSearchTourChoose.value != null &&
+        getListSearchTourChoose.value!.isNotEmpty) {
+      List<TypeSearch> newList = List.from(getListSearchTourChoose.value!);
+
+      for (var item in newList) {
+        if (item.valueType == value && item.isCheck) {
+          getListSearchTourChoose.value?.removeWhere(
+            (item) => item.valueType == value && item.isCheck,
+          );
+        } else {
+          getListSearchTourChoose.value?.add(
+            TypeSearch(isCheck: true, valueType: value),
+          );
+        }
+      }
+    } else {
+      getListSearchTourChoose.value?.add(
+        TypeSearch(isCheck: true, valueType: value),
+      );
+    }
+    getAllSearch();
+    update();
+  }
+
+  bool isCheckChooseDes(String value) {
+    if (getListSearchTourChoose.value != null &&
+        getListSearchTourChoose.value!.isNotEmpty) {
+      for (var item in getListSearchTourChoose.value!) {
+        if (item.valueType == value && item.isCheck) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Get All Citys
+  Future<void> getAllSearch() async {
+    final snapShot = await _db.collection('searchTour').get();
+    final searchTourData =
+        snapShot.docs.map((doc) => SearchTour.fromJson(doc)).toList();
+
+    searchTourData.sort(
+      (a, b) => b.count ?? 0.compareTo(a.count ?? 0),
+    );
+
+    if (searchTourData.isNotEmpty && searchTourData.length >= 8) {
+      final top8SearchTour = searchTourData.take(8).toList();
+      if (top8SearchTour.isNotEmpty) {
+        getListSearchTour.value = [];
+        getListSearchTour.value = top8SearchTour;
+      }
+    } else {
+      getListSearchTour.value = [];
+      getListSearchTour.value = searchTourData;
+    }
+  }
+
+  void addSearchTour(String valueSearch) async {
+    await updateSearchTour(valueSearch);
+  }
+
+  Future<void> updateSearchTour(String value) async {
+    if (value.isNotEmpty) {
+      CollectionReference searchTourCollection = _db.collection('searchTour');
+
+      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+          await searchTourCollection.doc(value).get()
+              as DocumentSnapshot<Map<String, dynamic>>;
+
+      if (documentSnapshot.exists) {
+        int currentCount = documentSnapshot.data()!['count'] ?? 0;
+        await searchTourCollection
+            .doc(value)
+            .update({'count': currentCount + 1});
+      } else {
+        await searchTourCollection.doc(value).set({'value': value, 'count': 1});
+      }
+    } else {}
+  }
+
   void onFocusChange() {
     isCheckOnClickSearch.value = true;
   }
 
   void getTourSearch(String des) async {
     getAllTourSearch.value = await getAllTourFillSearch(des);
+  }
+
+  String getResult() {
+    String result = '';
+    if (getListSearchTourChoose.value != null &&
+        getListSearchTourChoose.value!.isNotEmpty) {
+      List<TypeSearch> newList = List.from(getListSearchTourChoose.value!);
+
+      for (var item in newList) {
+        result = "$result ${item.valueType}";
+      }
+    }
+    return result;
   }
 
   void getTourSearchAll(String des) async {

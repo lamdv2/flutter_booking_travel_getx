@@ -237,20 +237,37 @@ class ListSearchTour extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Wrap(
-                        spacing: 8.0,
-                        children: controller.chipList.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.SEARCH_TOUR_SCREEN,
-                                  arguments: data);
-                            },
-                            child: Chip(
-                              label: Text(data),
-                              backgroundColor: const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                      child: Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children: controller.getListSearchTour.value !=
+                                      null &&
+                                  controller.getListSearchTour.value!.isNotEmpty
+                              ? controller.getListSearchTour.value!.map((data) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Routes.SEARCH_TOUR_SCREEN,
+                                          arguments: data.value);
+                                    },
+                                    child: Chip(
+                                      label: Text(data.value ?? ''),
+                                      backgroundColor: const Color(0xFFedf1f7),
+                                    ),
+                                  );
+                                }).toList()
+                              : controller.chipList.map((data) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Routes.SEARCH_TOUR_SCREEN,
+                                          arguments: data);
+                                    },
+                                    child: Chip(
+                                      label: Text(data),
+                                      backgroundColor: const Color(0xFFedf1f7),
+                                    ),
+                                  );
+                                }).toList(),
+                        ),
                       ),
                     ),
                     SizedBox(
