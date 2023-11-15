@@ -50,27 +50,6 @@ class HomeController extends GetxController {
     }
   }
 
-// Get All Tour
-
-  Future<void> getAllTourModelData() async {
-    final snapShot = await _db.collection('historyModel').get();
-    final listTourData =
-        snapShot.docs.map((doc) => HistoryModel.fromJson(doc)).toList();
-
-    getAllListHistory.value = listTourData;
-  }
-
-  Future<void> getTourDetailsById(String userId) async {
-    final snapShot = await _db
-        .collection('historyModel')
-        .where('idUser', isEqualTo: userId)
-        .get();
-
-    final historyData =
-        snapShot.docs.map((e) => HistoryModel.fromJson(e)).toList();
-    getListHistoryByUserId.value = historyData;
-  }
-
   // Get All Citys
 
   Future<void> getAllCityModelData() async {

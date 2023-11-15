@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
@@ -334,12 +335,19 @@ class _buildItemHistory extends StatelessWidget {
             flex: 1,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(getSize(14)),
-              child: Image.asset(
-                AssetHelper.city_1,
-                height: getSize(77),
-                width: getSize(77),
-                fit: BoxFit.cover,
-              ),
+              child: tourModel?.images != null && tourModel?.images != []
+                  ? CachedNetworkImage(
+                      height: getSize(77),
+                      width: getSize(77),
+                      fit: BoxFit.cover,
+                      imageUrl: tourModel?.images?.first ?? '',
+                    )
+                  : Image.asset(
+                      height: getSize(77),
+                      width: getSize(77),
+                      AssetHelper.city_1,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
         ],

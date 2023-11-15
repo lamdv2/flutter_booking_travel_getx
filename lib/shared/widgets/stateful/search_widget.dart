@@ -45,6 +45,7 @@ class SearchWidget extends StatelessWidget {
                 ? GestureDetector(
                     onTap: () {
                       searchController.isCheckOnClickSearch.value = false;
+                      searchController.getAllTourSearchScreen.value = [];
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
                     child: SvgPicture.asset(
