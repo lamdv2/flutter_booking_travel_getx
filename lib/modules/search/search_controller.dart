@@ -20,8 +20,12 @@ class SearchDesController extends GetxController {
   RxBool isCheckOnClickSearch = false.obs;
   Rx<String> textStringSearch = 'abc'.obs;
   final getAllTourSearch = Rxn<List<TourModel>>([]);
+  final getAllTourSearchScreen = Rxn<List<TourModel>>([]);
   final getAllTourSearchRoot = Rxn<List<TourModel>>([]);
+
   final getAllListImageTour = Rxn<List<String>>([]);
+  final getAllListImageTourScreen = Rxn<List<String>>([]);
+  final getListHistorySearch = Rxn<List<String>>([]);
 
   @override
   void onInit() {
@@ -43,6 +47,12 @@ class SearchDesController extends GetxController {
     'bangkok',
     'hawaii',
     'tháp busan',
+  ].obs;
+
+  RxList<String> historySearchList = [
+    'Đà Nẵng',
+    'Hà nội',
+    'tour đà lạt',
   ].obs;
 
   List<String> destination = [
@@ -201,6 +211,10 @@ class SearchDesController extends GetxController {
     getAllTourSearch.value = await getAllTourFillSearch(des);
   }
 
+  void getTourSearchAll(String des) async {
+    getAllTourSearchScreen.value = await getAllTourFillSearch(des);
+  }
+
   Future<List<TourModel>> getAllTourFillSearch(String des) async {
     List<TourModel> filteredTours = [];
 
@@ -214,6 +228,19 @@ class SearchDesController extends GetxController {
       }).toList();
     }
 
+    if (filteredTours.isNotEmpty) {
+      getAllListImageTour.value = [];
+
+      for (var item in filteredTours) {
+        List<String>? images = item.images;
+
+        if (images != null && images.isNotEmpty) {
+          String imageTour = await getImageStorage(images.first);
+          getAllListImageTour.value?.add(imageTour);
+        }
+      }
+    }
+
     return filteredTours;
   }
 
@@ -222,6 +249,10 @@ class SearchDesController extends GetxController {
     super.dispose();
     searchEditingController.dispose();
     focusNodeSearch.removeListener(onFocusChange);
+    searchEditingController.removeListener(() {
+      onFocusChange();
+    });
+
     focusNodeSearch.dispose();
   }
 }

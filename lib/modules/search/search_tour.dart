@@ -202,41 +202,12 @@ class SearchTourScreen extends GetView<SearchDesController> {
                                       child: buildItemTourSearch(
                                         tourModel: controller
                                             .getAllTourSearch.value?[rowIndex],
-                                        imageTour: controller
-                                            .getAllListImageTour
-                                            .value?[rowIndex],
                                       ),
                                     );
                                   },
                                 ),
                               )
-                            : Padding(
-                                padding: EdgeInsets.only(
-                                  top: getSize(64),
-                                ),
-                                child: Center(
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: getSize(20),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Lottie.asset(
-                                          AssetHelper.imgLottieNodate,
-                                          width: getSize(200),
-                                          height: getSize(200),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            : const NoData(),
                       ),
                     ],
                   ),
@@ -299,15 +270,50 @@ class SearchTourScreen extends GetView<SearchDesController> {
   }
 }
 
+class NoData extends StatelessWidget {
+  const NoData({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(
+          top: getSize(64),
+        ),
+        child: Center(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(20),
+            ),
+            child: Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.center,
+              crossAxisAlignment:
+                  CrossAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  AssetHelper.imgLottieNodate,
+                  width: getSize(200),
+                  height: getSize(200),
+                  fit: BoxFit.fill,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+  }
+}
+
 // ignore: must_be_immutable, camel_case_types
 class buildItemTourSearch extends GetView<SearchDesController> {
   TourModel? tourModel;
-  String? imageTour;
 
   buildItemTourSearch({
     super.key,
     required this.tourModel,
-    required this.imageTour,
   });
 
   final AppController appController = Get.find();
@@ -325,17 +331,17 @@ class buildItemTourSearch extends GetView<SearchDesController> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(getSize(8)),
-              child: imageTour != ''
+              child: tourModel?.images != null && tourModel?.images != []
                   ? CachedNetworkImage(
                       height: getSize(200),
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      imageUrl: imageTour!,
+                      imageUrl: tourModel?.images?.first ?? '',
                     )
                   : Image.asset(
-                      AssetHelper.city_1,
                       height: getSize(200),
                       width: double.infinity,
+                      AssetHelper.imgPrevHotel01,
                       fit: BoxFit.cover,
                     ),
             ),

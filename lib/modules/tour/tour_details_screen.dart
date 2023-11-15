@@ -26,7 +26,6 @@ class TourDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    tourController.getUrlImage(tourModel?.images ?? []);
     return Scaffold(
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
@@ -91,7 +90,7 @@ class TourDetailsScreen extends StatelessWidget {
                           _buildTourUtilities(),
                           SizedBox(height: getSize(kPadding)),
                           _buildTripPlan(tourModel),
-                          _buildPhotoGallery(),
+                          _buildPhotoGallery(tourModel),
                           SizedBox(height: getSize(kTop28Padding)),
                           _buildLocation(tourController),
                           SizedBox(height: getSize(kMediumPadding)),
@@ -343,61 +342,54 @@ class TourDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPhotoGallery() {
-    return Obx(
-      () => tourController.getListTourImages.value != null &&
-              tourController.getListTourImages.value!.isNotEmpty
-          ? SizedBox(
-              child: GridView.builder(
-                itemCount: tourController.getListTourImages.value?.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      right: 12,
-                      bottom: 12,
+  Widget _buildPhotoGallery(TourModel? tourModel) {
+    return tourModel?.images != null && tourModel?.images != []
+        ? SizedBox(
+            child: GridView.builder(
+              itemCount: tourModel?.images?.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    right: 12,
+                    bottom: 12,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      getSize(8),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        getSize(8),
-                      ),
-                      child: GestureDetector(
-                        onTap: () => tourController.showFullImageDialog(
-                            context,
-                            tourController.getListTourImages.value?[index] ??
-                                ''),
-                        child: SizedBox(
-                          width: 64,
-                          height: 200,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl: tourController
-                                      .getListTourImages.value?[index] ??
-                                  '',
-                            ),
+                    child: GestureDetector(
+                      onTap: () => tourController.showFullImageDialog(
+                          context, tourModel?.images?[index] ?? ''),
+                      child: SizedBox(
+                        width: 64,
+                        height: 200,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: tourModel?.images?[index] ?? '',
                           ),
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
-            )
-          : SizedBox(
-              width: getSize(240),
-              height: getSize(240),
-              child: Lottie.asset(
-                AssetHelper.imgLottieNodate,
-                fit: BoxFit.contain,
-              ),
+                  ),
+                );
+              },
             ),
-    );
+          )
+        : SizedBox(
+            width: getSize(240),
+            height: getSize(240),
+            child: Lottie.asset(
+              AssetHelper.imgLottieNodate,
+              fit: BoxFit.contain,
+            ),
+          );
   }
 
   Widget _buildLocation(TourController tourController) {

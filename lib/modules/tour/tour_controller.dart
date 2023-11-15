@@ -21,7 +21,6 @@ class TourController extends GetxController {
   final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
   final items = Rxn<List<String>>([]);
-  final getListTourImages = Rxn<List<String>>([]);
 
   Rx<bool> isShowLoading = true.obs;
   SMITrigger? check;
@@ -134,18 +133,6 @@ class TourController extends GetxController {
     } catch (e) {
       return '';
     }
-  }
-
-  void getUrlImage(List<String> getListImage) async {
-    try {
-      List<String> links = [];
-      for (var e in getListImage) {
-        String linkImage = await getImageStorage(e);
-        links.add(linkImage);
-      }
-      getListTourImages.value = links;
-      // ignore: empty_catches
-    } catch (e) {}
   }
 
   void showFullImageDialog(BuildContext context, String imageUrl) {
