@@ -7,14 +7,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
-class BottomSheetTour extends StatelessWidget {
+class BottomSheetTour extends GetView<SearchDesController> {
   List<String> dataSheet;
   BottomSheetTour({
     super.key,
     required this.dataSheet,
   });
 
-  final SearchDesController controller = Get.find();
   final AppController appController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -56,33 +55,71 @@ class BottomSheetTour extends StatelessWidget {
                   StringConst.destination.tr,
                   style: AppStyles.black000Size16Fw600FfMont,
                 ),
-                SvgPicture.asset(
-                  AssetHelper.icDelete,
-                  colorFilter: const ColorFilter.mode(
-                    ColorConstants.titleSearch,
-                    BlendMode.srcIn,
+                GestureDetector(
+                  onTap: () {
+                    controller.getListSearchTourChoose.value = [];
+                    controller.getAllSearch();
+                  },
+                  child: SvgPicture.asset(
+                    AssetHelper.icDelete,
+                    colorFilter: const ColorFilter.mode(
+                      ColorConstants.titleSearch,
+                      BlendMode.srcIn,
+                    ),
+                    fit: BoxFit.fitHeight,
+                    width: getSize(30),
                   ),
-                  fit: BoxFit.fitHeight,
-                  width: getSize(30),
                 ),
               ],
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: getSize(10)),
-            child: Wrap(
-              spacing: 8.0,
-              children: dataSheet.map((data) {
-                return GestureDetector(
-                  onTap: () {
-                    // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
-                  },
-                  child: Chip(
-                    label: Text(data),
-                    backgroundColor: const Color(0xFFedf1f7),
-                  ),
-                );
-              }).toList(),
+            child: Obx(
+              () => Wrap(
+                spacing: 8.0,
+                children: controller.getListSearchTour.value != null &&
+                        controller.getListSearchTour.value!.isNotEmpty
+                    ? controller.getListSearchTour.value!.map((data) {
+                        return GestureDetector(
+                          onTap: () {
+                            controller.includeAllSearch.value =
+                                "${controller.includeAllSearch.value} ${data.value}";
+                            controller.setDestination(data.value ?? "");
+                          },
+                          child: Chip(
+                            label: Text(
+                              data.value ?? '',
+                              style: TextStyle(
+                                color: controller.isCheckChooseDes(
+                                            data.value ?? "") &&
+                                        controller.getListSearchTourChoose
+                                                .value !=
+                                            null
+                                    ? ColorConstants.white
+                                    : ColorConstants.black,
+                              ),
+                            ),
+                            backgroundColor:
+                                controller.isCheckChooseDes(data.value ?? "")
+                                    ? ColorConstants.primaryButton
+                                    : const Color(0xFFedf1f7),
+                          ),
+                        );
+                      }).toList()
+                    : controller.chipList.map((data) {
+                        return GestureDetector(
+                          onTap: () {
+                            controller.includeAllSearch.value =
+                                "${controller.includeAllSearch.value} $data";
+                          },
+                          child: Chip(
+                            label: Text(data),
+                            backgroundColor: const Color(0xFFedf1f7),
+                          ),
+                        );
+                      }).toList(),
+              ),
             ),
           ),
           Align(
@@ -103,7 +140,12 @@ class BottomSheetTour extends StatelessWidget {
                     right: getSize(20),
                   ),
                   child: InkWell(
-                    onTap: () => controller.getTourSearch(''),
+                    onTap: () {
+                      controller.getTourSearch(controller.getResult());
+                      controller.includeAllSearch.value = '';
+                      controller.getListSearchTourChoose.value = [];
+                      Get.back();
+                    },
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(

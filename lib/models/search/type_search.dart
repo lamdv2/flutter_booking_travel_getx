@@ -12,7 +12,7 @@ class TypeSearch {
   factory TypeSearch.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
     final json = document.data()!;
     return TypeSearch(
-      isCheck: json['isCheck'],
+      isCheck: json['isCheck'] ?? false,
       valueType: json['valueType'],
     );
   }

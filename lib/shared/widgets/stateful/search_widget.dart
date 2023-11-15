@@ -77,6 +77,12 @@ class SearchWidget extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
+              textInputAction: TextInputAction.search,
+              onSubmitted: (value) {
+                Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: value);
+                searchController.addSearchTour(value);
+                searchController.getAllSearch();
+              },
               focusNode: focusNode,
               controller: textEditingController,
               decoration: InputDecoration(
