@@ -111,6 +111,7 @@ dependencies:
   bottom_sheet: ^4.0.0
   share_plus: ^7.2.1
   flutter_phone_direct_caller: ^2.1.1
+  smooth_star_rating_nsafe: ^1.0.0+1
   
 dev_dependencies:
   flutter_test:

@@ -17,9 +17,11 @@ import 'package:doan_clean_achitec/modules/otp/otp_screen.dart';
 import 'package:doan_clean_achitec/modules/pay/pay.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/profile.dart';
+import 'package:doan_clean_achitec/modules/rate/rate.dart';
 import 'package:doan_clean_achitec/modules/room/room.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/modules/search/search_tour.dart';
+import 'package:doan_clean_achitec/modules/setting/setting_binding.dart';
 import 'package:doan_clean_achitec/modules/setting/setting_screen.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_binding.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_screen.dart';
@@ -27,6 +29,7 @@ import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/utils/select_date.dart';
 import 'package:get/get.dart';
 
+import '../modules/about_app/about_app.dart';
 import '../modules/history_tour/history_tour_screen.dart';
 import '../modules/auth/auth_binding.dart';
 import '../modules/auth/auth_login_screen.dart';
@@ -75,6 +78,16 @@ class AppPages {
           page: () => LoginScreen(),
         ),
       ],
+    ),
+    GetPage(
+      name: Routes.ABOUT_APP_SCREEN,
+      page: () => AboutAppScreen(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: Routes.FEED_BACK,
+      page: () => const RateScreen(),
+      binding: SettingBinding(),
     ),
     GetPage(
       name: Routes.DISCOVER,

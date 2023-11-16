@@ -183,6 +183,7 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     BuildSettingsItem(
+                      onTap: () => Get.toNamed(Routes.FEED_BACK),
                       imageAsset: AssetHelper.icEditSquare,
                       widgetTitle: Text(
                         StringConst.feedback.tr,
@@ -194,6 +195,7 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     BuildSettingsItem(
+                      onTap: () => Get.toNamed(Routes.ABOUT_APP_SCREEN),
                       imageAsset: AssetHelper.icInfoSquare,
                       widgetTitle: Text(
                         StringConst.about.tr,

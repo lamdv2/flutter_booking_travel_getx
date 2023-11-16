@@ -16,7 +16,12 @@ class ColorConstants {
   static const Color lightGray = Color(0xFFF6F6F6);
   static const Color grayTextField = Color(0xFFf2f5fc);
   static const Color secondBackground = Color(0xFFf4f7fc);
-
+  static const kPrimaryColor = Color(0XFF2DBB54);
+  static const kTextColor = Color(0XFF303030);
+  static const kTextLightColor = Color(0XFFD9D9D9);
+  static const kIndicatorColor = Color(0XFFCBCCD5);
+  static const kBackgroundColor = Color(0XFFF6F8FF);
+  static const kDividerColor = Color(0XFFF6F6F6);
   static const Color secondaryAppColor = Color(0xFF22DDA6);
   static const Color green = Color(0xFF3E9D9D);
   static const Color btnGradient = Color(0xFF43B1C4);
