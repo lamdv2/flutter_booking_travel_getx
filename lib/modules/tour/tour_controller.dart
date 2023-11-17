@@ -17,6 +17,7 @@ class TourController extends GetxController {
   RxString idTour = ''.obs;
   final cityModel = Rxn<CityModel>();
   final getListTour = Rxn<List<TourModel>>();
+  final getListTourTop10 = Rxn<List<TourModel>>();
   final filterListTourData = Rxn<List<TourModel>>();
   final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
@@ -92,6 +93,23 @@ class TourController extends GetxController {
 
     getListTour.value = listTourData;
     filterListTourData.value = listTourData;
+    await getTop10Tour(listTourData);
+  }
+
+  // Get Top 10 Tour By Star
+  Future<void> getTop10Tour(List<TourModel> getListTour) async {
+    if (getListTour.isNotEmpty) {
+      getListTour.sort((a, b) => (b.rating ?? 0).compareTo(a.rating ?? 0));
+      getListTourTop10.value = [];
+      if (getListTour.isNotEmpty && getListTour.length >= 8) {
+        final top10Tour = getListTour.take(10).toList();
+        if (top10Tour.isNotEmpty) {
+          getListTourTop10.value = top10Tour;
+        }
+      } else {
+        getListTourTop10.value = getListTour;
+      }
+    }
   }
 
   Future<void> getAllCity() async {

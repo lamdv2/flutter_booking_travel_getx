@@ -15,6 +15,8 @@ import 'package:doan_clean_achitec/modules/intro/intro_screen.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_binding.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_screen.dart';
 import 'package:doan_clean_achitec/modules/pay/pay.dart';
+import 'package:doan_clean_achitec/modules/profile/change_password/change_password_binding.dart';
+import 'package:doan_clean_achitec/modules/profile/change_password/change_password_screen.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/profile.dart';
 import 'package:doan_clean_achitec/modules/room/room.dart';
@@ -176,6 +178,11 @@ class AppPages {
       name: Routes.SEARCH_TOUR_SCREEN,
       page: () => SearchTourScreen(),
       binding: SearchBinding(),
+    ),
+    GetPage(
+      name: Routes.CHANGE_PASSWORD_SCREEN,
+      page: () => ChangePasswordScreen(),
+      binding: ChangePasswordBinding(),
     ),
   ];
 }

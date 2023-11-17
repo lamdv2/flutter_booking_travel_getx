@@ -12,6 +12,7 @@ class MyTextField extends StatefulWidget {
   final String? Function(String?)? validatorCheck;
   final bool? isTypeNumb;
   final bool? isCheckReadOnly;
+  final Widget? suffixIcon;
 
   const MyTextField({
     Key? key,
@@ -21,6 +22,7 @@ class MyTextField extends StatefulWidget {
     this.validatorCheck,
     this.isTypeNumb,
     this.isCheckReadOnly,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -65,6 +67,9 @@ class _MyTextFieldState extends State<MyTextField> {
             color: ColorConstants.darkGray.withOpacity(.5),
           ),
         ),
+        suffixIconConstraints:
+            const BoxConstraints(maxHeight: 60, maxWidth: 60),
+        suffixIcon: widget.suffixIcon,
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),

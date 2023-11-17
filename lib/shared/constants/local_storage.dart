@@ -31,4 +31,8 @@ class LocalStorageHelper {
       await _shared._preferences.setStringList(key, value);
     }
   }
+
+  static Future<void> setString(String key, String value) async {
+    await _shared._preferences.setString(key, value);
+  }
 }

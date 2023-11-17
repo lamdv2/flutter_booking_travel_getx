@@ -246,24 +246,20 @@ class SearchDesController extends GetxController {
     return false;
   }
 
-  // Get All Citys
+  // Get All Search
   Future<void> getAllSearch() async {
     final snapShot = await _db.collection('searchTour').get();
     final searchTourData =
         snapShot.docs.map((doc) => SearchTour.fromJson(doc)).toList();
 
-    searchTourData.sort(
-      (a, b) => b.count ?? 0.compareTo(a.count ?? 0),
-    );
+    searchTourData.sort((a, b) => (b.count ?? 0).compareTo(a.count ?? 0));
 
     if (searchTourData.isNotEmpty && searchTourData.length >= 8) {
       final top8SearchTour = searchTourData.take(8).toList();
       if (top8SearchTour.isNotEmpty) {
-        getListSearchTour.value = [];
         getListSearchTour.value = top8SearchTour;
       }
     } else {
-      getListSearchTour.value = [];
       getListSearchTour.value = searchTourData;
     }
   }

@@ -9,6 +9,7 @@ import 'package:doan_clean_achitec/shared/widgets/stateful/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../shared/constants/assets_helper.dart';
 import '../../shared/utils/size_utils.dart';
@@ -62,6 +63,7 @@ class SettingScreen extends StatelessWidget {
                   settingsGroupTitle: StringConst.appSetting.tr,
                   items: [
                     BuildSettingsItem(
+                      onTap: () => Get.toNamed(Routes.PROFILE),
                       imageAsset: AssetHelper.icProfile,
                       widgetTitle: Text(
                         StringConst.personalInformation.tr,
@@ -84,6 +86,7 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     BuildSettingsItem(
+                      onTap: () => openAppSettings(),
                       imageAsset: AssetHelper.icShieldDone,
                       widgetTitle: Text(
                         StringConst.privateAndPermissions.tr,
@@ -95,6 +98,7 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     BuildSettingsItem(
+                      onTap: () => Get.toNamed(Routes.CHANGE_PASSWORD_SCREEN),
                       imageAsset: AssetHelper.icLock,
                       widgetTitle: Text(
                         StringConst.passwordAndAccount.tr,

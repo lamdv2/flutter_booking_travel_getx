@@ -51,8 +51,8 @@ class _CategoryBarState extends State<CategoryBar> {
                     ? const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
+                            ColorConstants.primaryButton,
                             Gradients.lightBlue1,
-                            Gradients.lightBlue2,
                           ],
                         ),
                         borderRadius: kSmallBorderRadius,

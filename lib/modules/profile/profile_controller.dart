@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -11,9 +13,11 @@ import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -40,7 +44,6 @@ class ProfileController extends GetxController {
   final scaffoldProfileKey = GlobalKey<ScaffoldState>();
 
   RxString imageUpload = ''.obs;
-  RxString urlImage = ''.obs;
   RxString urlImageOld = ''.obs;
   RxString imageUrl = ''.obs;
 
@@ -52,12 +55,6 @@ class ProfileController extends GetxController {
     Future.wait([
       homeController.getUserDetails(userController.userEmail.value),
     ]);
-  }
-
-  void getUrlImage() async {
-    urlImage.value = await getImageStorage(
-      homeController.userModel.value?.imgAvatar ?? '',
-    );
   }
 
   void getDeleteImage(String nameImage) async {
@@ -76,13 +73,68 @@ class ProfileController extends GetxController {
     final resultList = await AssetPicker.pickAssets(
       context,
       pickerConfig: AssetPickerConfig(
-        maxAssets: 5,
+        maxAssets: 1,
         selectedAssets: imageFonts.value,
         requestType: RequestType.image,
       ),
     );
     if (resultList != null && resultList.isNotEmpty) {
       imageFonts.value = resultList;
+    }
+  }
+
+  Future<void> pickImagess(BuildContext context) async {
+    var status = await Permission.photos.status;
+
+    if (status.isGranted) {
+      final resultList = await AssetPicker.pickAssets(
+        context,
+        pickerConfig: AssetPickerConfig(
+          maxAssets: 1,
+          selectedAssets: imageFonts.value,
+          requestType: RequestType.image,
+        ),
+      );
+      if (resultList != null && resultList.isNotEmpty) {
+        imageFonts.value = resultList;
+      }
+    } else {
+      final status = await Permission.photos.request();
+      if (status.isGranted) {
+        final resultList = await AssetPicker.pickAssets(
+          context,
+          pickerConfig: AssetPickerConfig(
+            maxAssets: 1,
+            selectedAssets: imageFonts.value,
+            requestType: RequestType.image,
+          ),
+        );
+        if (resultList != null && resultList.isNotEmpty) {
+          imageFonts.value = resultList;
+        }
+      } else {
+        Get.snackbar("Warning!!!", "Permission denied");
+        showAdaptiveDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: const Text("Permission Denied"),
+            content: const Text(
+                "To pick images, allow access to gallery and photos in app settings."),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text("Cancel"),
+                onPressed: () => Get.back(),
+              ),
+              CupertinoDialogAction(
+                child: const Text("Settings"),
+                onPressed: () async {
+                  await openAppSettings();
+                },
+              ),
+            ],
+          ),
+        );
+      }
     }
   }
 
@@ -94,7 +146,7 @@ class ProfileController extends GetxController {
     UploadTask uploadTask = ref.putData(file, metadata);
     await uploadTask;
 
-    return ref.fullPath;
+    return getImageStorage(ref.fullPath);
   }
 
   Future<String> getImageStorage(String nameImage) async {
@@ -129,13 +181,13 @@ class ProfileController extends GetxController {
         .doc(userModel.id)
         .update(userModel.toJson())
         .then((value) {
+      Get.back();
       Get.snackbar("Success!", 'Edit profile successfully',
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
       Future.wait([
         homeController
             .getUserDetails(homeController.userModel.value?.email ?? '')
       ]);
-      getUrlImage();
     }).catchError((onError) {
       Get.snackbar("Error!!!", 'Edit profile error: ${onError.toString()}',
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
@@ -165,6 +217,49 @@ class ProfileController extends GetxController {
         colorText: ColorConstants.red,
       );
     });
+  }
+
+  void createPushNotification(String idUser, String fcmToken) async {
+    await FirebaseFirestore.instance
+        .collection('pushNotification')
+        .add({
+          'idUser': idUser,
+          'fcmToken': fcmToken,
+        })
+        .whenComplete(
+          () => Get.snackbar(
+            "Success",
+            "Saved successfully!",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: ColorConstants.blue.withOpacity(.1),
+            colorText: ColorConstants.blue,
+          ),
+        )
+        .catchError(
+          (error) {
+            Get.snackbar(
+              "Error",
+              "Something went wrong. Try again!",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: ColorConstants.red.withOpacity(.1),
+              colorText: ColorConstants.red,
+            );
+          },
+        );
+  }
+
+  void deletePushNotification(String fcmToken) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('pushNotification')
+          .where('fcmToken', isEqualTo: fcmToken)
+          .get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+      // ignore: empty_catches
+    } catch (error) {}
   }
 
   Future<bool> isCheckExist(String email) async {
@@ -243,6 +338,8 @@ class ProfileController extends GetxController {
         try {
           await auth.signOut();
           await googleSignIn.signOut();
+
+          deletePushNotification(LocalStorageHelper.getValue('fcmToken') ?? "");
 
           userController.userName.value = '';
           userController.userEmail.value = '';
