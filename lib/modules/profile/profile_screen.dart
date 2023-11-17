@@ -27,16 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final AppController appController = Get.find();
 
   @override
-  void initState() {
-    super.initState();
-    profileController.getUrlImage();
-
-  }
-
-  @override
   Widget build(BuildContext context) {
-    profileController.getUrlImage();
-
     return Scaffold(
       drawer: DrawerWidget(),
       appBar: CustomAppBar(

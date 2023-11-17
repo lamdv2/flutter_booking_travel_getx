@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class HomeHeader extends StatelessWidget {
 
   final AppController appController = Get.find();
   final HomeController homeController = Get.find();
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,19 +64,38 @@ class HomeHeader extends StatelessWidget {
                         Get.toNamed(Routes.PROFILE,
                             arguments: StringConst.userName);
                       },
-                      child: Container(
-                        width: getSize(36),
-                        height: getSize(36),
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        decoration: const BoxDecoration(
-                          color: ColorConstants.secondColor,
-                          borderRadius: kDefaultBorderRadius,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(AssetHelper.imgInfo),
-                          ),
-                        ),
-                      ),
+                      child: Obx(() => homeController.userModel.value != null &&
+                              homeController.userModel.value?.imgAvatar !=
+                                  null &&
+                              homeController.userModel.value?.imgAvatar != ""
+                          ? CircleAvatar(
+                              radius: getSize(24),
+                              backgroundImage: CachedNetworkImageProvider(
+                                homeController.userModel.value?.imgAvatar ?? "",
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: getSize(24),
+                              backgroundColor: ColorConstants.white,
+                              child: Container(
+                                width: getSize(96),
+                                height: getSize(96),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    colorFilter: ColorFilter.mode(
+                                      appController.isDarkModeOn.value
+                                          ? ColorConstants.white
+                                          : ColorConstants.accent1,
+                                      BlendMode.srcIn,
+                                    ),
+                                    image: const AssetImage(
+                                      AssetHelper.imgUserProfileNon,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            )),
                     )
                   : SizedBox(width: getSize(36)),
             ],

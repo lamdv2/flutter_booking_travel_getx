@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -22,17 +23,27 @@ class SpecialOfferCard extends StatelessWidget {
         onTap: press,
         child: SizedBox(
           width: getSize(242),
-          height: getSize(120),
+          height: getSize(160),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  width: getSize(242),
-                  image,
-                  fit: BoxFit.fitWidth,
-                ),
+                image != ""
+                    ? CachedNetworkImage(
+                        width: getSize(242),
+                        height: getSize(160),
+                        fit: BoxFit.cover,
+                        imageUrl: image,
+                      )
+                    : Image.asset(
+                        width: getSize(242),
+                        height: getSize(160),
+                        AssetHelper.imgPrevHotel01,
+                        fit: BoxFit.cover,
+                      ),
                 Container(
+                  width: getSize(242),
+                  height: getSize(160),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -49,20 +60,28 @@ class SpecialOfferCard extends StatelessWidget {
                     horizontal: getSize(15.0),
                     vertical: getSize(10),
                   ),
-                  child: Text.rich(
-                    TextSpan(
-                      style: const TextStyle(color: Colors.white),
-                      children: [
-                        TextSpan(
-                          text: "$category\n",
-                          style: TextStyle(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        category,
+                        style: TextStyle(
                             fontSize: getSize(18),
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(text: "$numOfBrands Tours")
-                      ],
-                    ),
+                            color: Colors.white),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(
+                        height: getSize(4),
+                      ),
+                      Text(
+                        "$numOfBrands Tours",
+                        style: const TextStyle(color: ColorConstants.white),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ],
                   ),
                 ),
               ],

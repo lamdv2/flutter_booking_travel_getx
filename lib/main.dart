@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/local_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -16,6 +17,7 @@ void main() async {
   AppController darkMode = AppController();
 
   await darkMode.loadDarkMode();
+  await LocalStorageHelper.initLocalStorageHelper();
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -27,8 +29,12 @@ void main() async {
     ),
   );
   final fcmToken = await FirebaseMessaging.instance.getToken();
-  // ignore: avoid_print
-  print(fcmToken);
+  if (fcmToken != null) {
+    LocalStorageHelper.setString('fcmToken', fcmToken);
+  } else {
+    print('fcmToken is null');
+  }
+
   runApp(MyApp());
 }
 
@@ -80,4 +86,3 @@ void configLoading() {
     ..dismissOnTap = false
     ..animationStyle = EasyLoadingAnimationStyle.scale;
 }
-

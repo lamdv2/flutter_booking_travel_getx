@@ -47,7 +47,7 @@ class HomeTab extends GetView<HomeController> {
                   ),
                   SpecialOffers(),
                   SizedBox(
-                    height: getSize(24),
+                    height: getSize(32),
                   ),
                   TitleDes(
                     largeTitle: StringConst.popularDestination.tr,
@@ -83,11 +83,11 @@ class HomeTab extends GetView<HomeController> {
                             margin: const EdgeInsets.all(4),
                             child: DestinationItem(
                               heightSize: randomItemHeight,
-                              textDes: controller
-                                  .listCitys.value[index].nameCity,
-                              img: controller
-                                      .listCitys.value[index].imageCity ??
-                                  "",
+                              textDes:
+                                  controller.listCitys.value[index].nameCity,
+                              img:
+                                  controller.listCitys.value[index].imageCity ??
+                                      "",
                             ),
                           ),
                         );

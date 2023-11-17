@@ -1,3 +1,5 @@
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,46 +13,58 @@ class SpecialOffers extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final HomeController homecontroller = Get.find();
+  final TourController tourController = Get.put(TourController());
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TitleDes(
-          largeTitle: 'Special for you',
-          seeAll: StringConst.seeAll.tr,
-          onTap: () {
-            homecontroller.currentIndex.value = 2;
-          },
-        ),
-        SizedBox(height: getSize(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SpecialOfferCard(
-                image: AssetHelper.city_5,
-                category: "Ha Noi",
-                numOfBrands: 18,
-                press: () {},
-              ),
-              SpecialOfferCard(
-                image: AssetHelper.city_6,
-                category: "Ha Long",
-                numOfBrands: 40,
-                press: () {},
-              ),
-              SpecialOfferCard(
-                image: AssetHelper.city_2,
-                category: "Da Nang",
-                numOfBrands: 24,
-                press: () {},
-              ),
-              SizedBox(width: getSize(20)),
-            ],
+    return Obx(
+      () => Column(
+        children: [
+          TitleDes(
+            largeTitle: 'Special for you',
+            seeAll: StringConst.seeAll.tr,
+            onTap: () {
+              homecontroller.currentIndex.value = 2;
+            },
           ),
-        ),
-      ],
+          SizedBox(height: getSize(20)),
+          SizedBox(
+            height: getSize(160),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: tourController.getListTourTop10.value?.length ?? 0,
+                itemBuilder: (BuildContext context, int rowIndex) {
+                  return SpecialOfferCard(
+                    image: tourController
+                                    .getListTourTop10.value?[rowIndex].images !=
+                                null &&
+                            tourController.getListTourTop10.value![rowIndex]
+                                .images!.isNotEmpty
+                        ? tourController
+                            .getListTourTop10.value![rowIndex].images!.first
+                        : "",
+                    category: tourController
+                            .getListTourTop10.value?[rowIndex].nameTour ??
+                        "",
+                    numOfBrands: 18,
+                    press: () {
+                      Get.toNamed(
+                        Routes.TOUR_DETAILS,
+                        arguments:
+                            tourController.getListTourTop10.value?[rowIndex],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

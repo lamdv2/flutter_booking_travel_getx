@@ -23,7 +23,6 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    profileController.getUrlImage();
     return Obx(
       () => Container(
         decoration: BoxDecoration(
@@ -38,19 +37,18 @@ class ProfileWidget extends StatelessWidget {
           children: [
             homeController.userModel.value != null &&
                     homeController.userModel.value?.imgAvatar != null &&
-                    homeController.userModel.value?.imgAvatar != "" &&
-                    profileController.urlImage.value.isNotEmpty
+                    homeController.userModel.value?.imgAvatar != ""
                 ? GestureDetector(
                     onTap: () async {
                       profileController.showFullImageDialog(
                         context,
-                        profileController.urlImage.value,
+                        homeController.userModel.value?.imgAvatar ?? "",
                       );
                     },
                     child: CircleAvatar(
                       radius: 64,
                       backgroundImage: CachedNetworkImageProvider(
-                        profileController.urlImage.value,
+                        homeController.userModel.value?.imgAvatar ?? "",
                       ),
                     ),
                   )

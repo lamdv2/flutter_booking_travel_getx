@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
+import 'package:doan_clean_achitec/modules/profile/image_full_screen_all.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +36,31 @@ class TourDetailsScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           Positioned.fill(
-            child: ImageHelper.loadFromAsset(
-              AssetHelper.des8,
-              boxFit: BoxFit.fill,
-            ),
+            child: tourModel?.images != null && tourModel?.images != []
+                ? GestureDetector(
+                    onTap: () => Get.to(
+                      FullImageScreenAll(
+                        imageUrl: tourModel?.images?.first ?? '',
+                        isCheckNetwork: true,
+                      ),
+                    ),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: tourModel?.images?.first ?? '',
+                    ),
+                  )
+                : GestureDetector(
+                    onTap: () => Get.to(
+                      FullImageScreenAll(
+                        imageUrl: AssetHelper.des8,
+                        isCheckNetwork: false,
+                      ),
+                    ),
+                    child: Image.asset(
+                      AssetHelper.des8,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
           ),
           Positioned(
             top: getSize(kMediumPadding * 2),

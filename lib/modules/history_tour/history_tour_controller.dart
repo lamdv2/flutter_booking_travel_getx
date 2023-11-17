@@ -96,9 +96,11 @@ class HistoryTourController extends GetxController {
     List<TourModel> listTourModel = [];
 
     if (listTourHistoryData.isNotEmpty) {
-      for (var item in listTourHistoryData) {
-        final snapShotTour =
-            await _db.collection('tourModel').doc(item.idTour).get();
+      for (int i = 0; i < listTourHistoryData.length; i++) {
+        final snapShotTour = await _db
+            .collection('tourModel')
+            .doc(listTourHistoryData[i].idTour)
+            .get();
 
         if (snapShotTour.exists) {
           listTourModel.add(TourModel.fromJson(snapShotTour));

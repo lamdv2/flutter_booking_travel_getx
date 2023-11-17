@@ -41,7 +41,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    profileController.getUrlImage();
     return Scaffold(
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
@@ -52,10 +51,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
-        onTap: () {
-          Get.back();
-          profileController.getUrlImage();
-        },
       ),
       body: Obx(
         () => SafeArea(
@@ -95,19 +90,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     homeController.userModel.value?.imgAvatar !=
                                         null &&
                                     homeController.userModel.value?.imgAvatar !=
-                                        "" &&
-                                    profileController.urlImage.value.isNotEmpty
+                                        ""
                                 ? GestureDetector(
                                     onTap: () async {
                                       profileController.showFullImageDialog(
                                           context,
-                                          profileController.urlImage.value);
+                                          homeController
+                                                  .userModel.value?.imgAvatar ??
+                                              "");
                                     },
                                     child: CircleAvatar(
                                       radius: 64,
                                       backgroundImage:
                                           CachedNetworkImageProvider(
-                                        profileController.urlImage.value,
+                                        homeController
+                                                .userModel.value?.imgAvatar ??
+                                            "",
                                       ),
                                     ),
                                   )

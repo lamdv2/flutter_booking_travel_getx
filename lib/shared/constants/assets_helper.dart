@@ -144,6 +144,8 @@ class AssetHelper {
   static const String icVolumeUp = 'assets/icons/svg/ic_volume_up.svg';
   static const String icWallet = 'assets/icons/svg/ic_wallet.svg';
   static const String icWork = 'assets/icons/svg/ic_work.svg';
+  static const String icShowPassword = 'assets/icons/ic_show_password.svg';
+  static const String icHiddenPassword = 'assets/icons/ic_hidden_password.svg';
   static const String icAroundTheLobe =
       'assets/icons/svg/ic_around_the_lobe.svg';
   static const String icTravelBuilding =
