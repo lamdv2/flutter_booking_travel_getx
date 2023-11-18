@@ -67,7 +67,9 @@ class HomeTab extends GetView<HomeController> {
                       mainAxisSpacing: 0,
                       crossAxisSpacing: 4,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: controller.listCitys.value.isNotEmpty
+                          ? controller.listCitys.value.length
+                          : 0,
                       itemBuilder: (context, index) {
                         double randomItemHeight = 0;
                         index % 2 == 0

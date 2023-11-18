@@ -275,6 +275,30 @@ class HistoryTourController extends GetxController {
     }
   }
 
+  String timestampToStringStart(Timestamp timestamp) {
+    try {
+      DateTime dateTime = timestamp.toDate();
+
+      String formattedDate = DateFormat('dd-MM').format(dateTime);
+
+      return formattedDate;
+    } catch (e) {
+      return 'Lỗi: $e';
+    }
+  }
+
+  String timestampToStringEnd(Timestamp timestamp) {
+    try {
+      DateTime dateTime = timestamp.toDate();
+
+      String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
+
+      return formattedDate;
+    } catch (e) {
+      return 'Lỗi: $e';
+    }
+  }
+
   void getCurrentHisTab(String status) {
     if (status == 'waiting') {
       listTourCurrentTabs.value?.clear();

@@ -1,9 +1,24 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppController extends GetxController {
+  @override
+  void onInit() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    await messaging.requestPermission();
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    super.onInit();
+  }
+
   RxBool isDarkModeOn = false.obs;
 
   Future<void> loadDarkMode() async {

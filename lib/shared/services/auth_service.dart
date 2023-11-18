@@ -52,10 +52,10 @@ class AuthService {
         }
       }
 
-      homeController.getUserDetails(userController.userEmail.value);
+      await homeController.getUserDetails(userController.userEmail.value);
       final fcmTokenGet = LocalStorageHelper.getValue('fcmToken') ?? "";
       profileController.createPushNotification(
-        userController.userEmail.value,
+        homeController.userModel.value?.id ?? "",
         fcmTokenGet,
       );
 
