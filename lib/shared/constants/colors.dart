@@ -97,6 +97,14 @@ class ColorConstants {
   static const Color bgrLight = Color(0xFFf2f2f2);
   static const Color secondary = Color(0xFF4B39EF);
   static const Color error = Color(0xFFE21C3D);
+
+  static const kPrimaryColor = Color(0XFF2DBB54);
+  static const kTextColor = Color(0XFF303030);
+  static const kTextLightColor = Color(0XFFD9D9D9);
+  static const kIndicatorColor = Color(0XFFCBCCD5);
+  static const kBackgroundColor = Color(0XFFF6F8FF);
+  static const kDividerColor = Color(0XFFF6F6F6);
+
 }
 
 Color hexToColor(String hex) {

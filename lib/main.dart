@@ -30,12 +30,28 @@ void main() async {
   );
   final fcmToken = await FirebaseMessaging.instance.getToken();
   if (fcmToken != null) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      print("onMessageOpenedApp: $event");
+    });
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    subscribeToBookingTopic();
     LocalStorageHelper.setString('fcmToken', fcmToken);
   } else {
     print('fcmToken is null');
   }
 
   runApp(MyApp());
+}
+
+void subscribeToBookingTopic() async {
+  await FirebaseMessaging.instance.subscribeToTopic("topic");
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // Handle the message when the app is in the background
+  print("onBackgroundMessage: $message");
+  // Show a notification or perform other actions as needed
 }
 
 class MyApp extends StatelessWidget {

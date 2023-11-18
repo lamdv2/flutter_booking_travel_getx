@@ -34,4 +34,6 @@ abstract class Routes {
   static const TOUR_QR_CODE_DETAIL = '/tour_qr_code_detail';
   static const SEARCH_TOUR_SCREEN = '/search_tour_screen';
   static const CHANGE_PASSWORD_SCREEN = '/change_password_screen';
+  static const ABOUT_APP_SCREEN = '/about_app_screen';
+  static const FEED_BACK = '/feed_back';
 }

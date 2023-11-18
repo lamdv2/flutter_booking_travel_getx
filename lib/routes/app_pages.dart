@@ -1,3 +1,4 @@
+import 'package:doan_clean_achitec/modules/about_app/about_app.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/tour_qr_code_detail.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_requied.dart';
@@ -19,9 +20,11 @@ import 'package:doan_clean_achitec/modules/profile/change_password/change_passwo
 import 'package:doan_clean_achitec/modules/profile/change_password/change_password_screen.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/profile.dart';
+import 'package:doan_clean_achitec/modules/rate/rate.dart';
 import 'package:doan_clean_achitec/modules/room/room.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/modules/search/search_tour.dart';
+import 'package:doan_clean_achitec/modules/setting/setting_binding.dart';
 import 'package:doan_clean_achitec/modules/setting/setting_screen.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_binding.dart';
 import 'package:doan_clean_achitec/modules/splash/splash_screen.dart';
@@ -183,6 +186,16 @@ class AppPages {
       name: Routes.CHANGE_PASSWORD_SCREEN,
       page: () => ChangePasswordScreen(),
       binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: Routes.ABOUT_APP_SCREEN,
+      page: () => AboutAppScreen(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: Routes.FEED_BACK,
+      page: () => RateScreen(),
+      binding: SettingBinding(),
     ),
   ];
 }

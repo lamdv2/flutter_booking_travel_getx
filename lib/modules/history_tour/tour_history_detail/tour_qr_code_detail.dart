@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/modules/history_tour/history_tour_controller.dart';
@@ -56,12 +57,16 @@ class TourQRCodeDetail extends StatelessWidget {
                     SizedBox(
                       width: getSize(16),
                     ),
-                    Text(
-                      'Nha Trang',
-                      style: AppStyles.titleSearchSize16Fw400FfMont.copyWith(
-                        color: appController.isDarkModeOn.value
-                            ? ColorConstants.dividerColor
-                            : ColorConstants.botTitle,
+                    Expanded(
+                      child: Text(
+                        tourModel?.nameTour ?? "",
+                        style: AppStyles.titleSearchSize16Fw400FfMont.copyWith(
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.dividerColor
+                              : ColorConstants.botTitle,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -82,7 +87,7 @@ class TourQRCodeDetail extends StatelessWidget {
                       width: getSize(16),
                     ),
                     Text(
-                      'Apri 14 - Apri 17. 2023',
+                      '${historyTourController.timestampToStringStart(tourModel?.startDate ?? Timestamp.now())} - ${historyTourController.timestampToStringEnd(tourModel?.endDate ?? Timestamp.now())}',
                       style: AppStyles.titleSearchSize16Fw400FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.dividerColor
@@ -111,7 +116,7 @@ class TourQRCodeDetail extends StatelessWidget {
                       width: getSize(16),
                     ),
                     Text(
-                      '4500000đ',
+                      '${tourModel?.price}đ',
                       style: AppStyles.titleSearchSize16Fw400FfMont.copyWith(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.dividerColor
