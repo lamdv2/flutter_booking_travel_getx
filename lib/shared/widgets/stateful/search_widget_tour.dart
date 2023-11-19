@@ -64,6 +64,8 @@ class SearchWidgetTour extends StatelessWidget {
                 searchController.getTourSearch(value);
                 searchController.addSearchTour(value);
                 searchController.getAllSearch();
+                searchController.setHistorySearch(value);
+                searchController.getHistorySearch();
               },
               focusNode: focusNode,
               controller: textEditingController,

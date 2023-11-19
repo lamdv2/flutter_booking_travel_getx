@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,6 +15,7 @@ class DrawerWidget extends StatelessWidget {
   });
 
   final HomeController homeController = Get.put(HomeController());
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -302,7 +304,7 @@ class DrawerWidget extends StatelessWidget {
           const Spacer(),
           InkWell(
             onTap: () {
-              controller.signUserOut(context);
+              profileController.signUserOut(context);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(

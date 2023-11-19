@@ -24,6 +24,7 @@ class TourQRCodeDetail extends StatelessWidget {
 
   final TourModel? tourModel = Get.arguments['arg1'];
   final String getStatus = Get.arguments['arg2'];
+  final HistoryModel? historyModel = Get.arguments['arg3'];
 
   TourQRCodeDetail({super.key});
   @override
@@ -155,7 +156,7 @@ class TourQRCodeDetail extends StatelessWidget {
                           PrettyQrAnimatedView(
                             qrImage: QrImage(
                               QrCode.fromData(
-                                data: tourModel?.nameTour ?? '',
+                                data: historyModel?.id ?? '',
                                 errorCorrectLevel: QrErrorCorrectLevel.H,
                               ),
                             ),

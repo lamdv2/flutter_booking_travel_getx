@@ -8,6 +8,7 @@ import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/DestinationItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../shared/widgets/stateful/search_widget.dart';
@@ -16,13 +17,16 @@ class SearchScreen extends GetView<SearchDesController> {
   SearchScreen({super.key});
 
   final AppController appController = Get.find();
-  final SearchDesController controller = Get.put(SearchDesController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => RefreshIndicator(
-        onRefresh: () => controller.getAllCityModelData(),
+        onRefresh: () async {
+          controller.getAllCityModelData();
+          controller.getHistoryCurrentTour();
+          controller.getHistoryCurrentDestination();
+        },
         child: Scaffold(
           backgroundColor: appController.isDarkModeOn.value
               ? ColorConstants.darkBackground
@@ -191,32 +195,72 @@ class ListSearchTour extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Lịch sử tìm kiếm',
-                                    style: AppStyles.black000Size16Fw500FfMont,
-                                  ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Lịch sử tìm kiếm',
+                                        style:
+                                            AppStyles.black000Size16Fw500FfMont,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          controller.clearHistorySearch(),
+                                      child: SvgPicture.asset(
+                                        AssetHelper.icDelete,
+                                        height: getSize(24),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: getSize(8),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: getSize(8),
                                 ),
                                 Wrap(
                                   spacing: 8.0,
-                                  children:
-                                      controller.historySearchList.map((data) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(Routes.SEARCH_TOUR_SCREEN,
-                                            arguments: data);
-                                      },
-                                      child: Chip(
-                                        label: Text(data),
-                                        backgroundColor:
-                                            const Color(0xFFedf1f7),
-                                      ),
-                                    );
-                                  }).toList(),
+                                  children: controller.getListHistorySearch
+                                              .value!.length >=
+                                          8
+                                      ? controller
+                                          .getListHistorySearch.value!.reversed
+                                          .take(8)
+                                          .map((data) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  Routes.SEARCH_TOUR_SCREEN,
+                                                  arguments: data);
+                                            },
+                                            child: Chip(
+                                              label: Text(data),
+                                              backgroundColor:
+                                                  const Color(0xFFedf1f7),
+                                            ),
+                                          );
+                                        }).toList()
+                                      : controller.getListHistorySearch.value!
+                                          .map((data) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  Routes.SEARCH_TOUR_SCREEN,
+                                                  arguments: data);
+                                            },
+                                            child: Chip(
+                                              label: Text(data),
+                                              backgroundColor:
+                                                  const Color(0xFFedf1f7),
+                                            ),
+                                          );
+                                        }).toList(),
                                 ),
                               ],
                             ),
@@ -271,7 +315,7 @@ class ListSearchTour extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: getSize(500),
+                      height: MediaQuery.of(context).size.height - getSize(84),
                       child: TabSearchWidget(),
                     ),
                   ],

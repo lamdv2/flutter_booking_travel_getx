@@ -164,6 +164,8 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                                     'arg1': controller
                                         .listTourCurrentTabs.value?[rowIndex],
                                     'arg2': "upcoming",
+                                    'arg3': controller.listTourCurrentTabsToDate
+                                        .value?[rowIndex],
                                   },
                                 );
                               } else if (status == "happenning") {
@@ -173,6 +175,8 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                                     'arg1': controller
                                         .listTourCurrentTabs.value?[rowIndex],
                                     'arg2': "happenning",
+                                    'arg3': controller.listTourCurrentTabsToDate
+                                        .value?[rowIndex],
                                   },
                                 );
                               } else if (status == "completed") {
@@ -181,7 +185,9 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                                   arguments: {
                                     'arg1': controller
                                         .listTourCurrentTabs.value?[rowIndex],
-                                    'arg2': "happenning",
+                                    'arg2': "completed",
+                                    'arg3': controller.listTourCurrentTabsToDate
+                                        .value?[rowIndex],
                                   },
                                 );
                               }

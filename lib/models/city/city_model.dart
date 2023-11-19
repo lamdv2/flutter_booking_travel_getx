@@ -29,6 +29,17 @@ class CityModel {
     );
   }
 
+  factory CityModel.fromJsonSearch(Map<String, dynamic> json) {
+    return CityModel(
+      id: json['id'],
+      idCity: json['idCity'],
+      nameCity: json['nameCity'],
+      descriptionCity: json['descriptionCity'],
+      imageCity: json['imageCity'],
+      idCountry: json['idCountry'],
+    );
+  }
+
   toJson() {
     return {
       'id': id,

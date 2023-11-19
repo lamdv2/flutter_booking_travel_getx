@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/search/search_tour.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/shared/constants/local_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,8 @@ class SearchDesController extends GetxController {
   final getAllListImageTour = Rxn<List<String>>([]);
   final getAllListImageTourScreen = Rxn<List<String>>([]);
   final getListHistorySearch = Rxn<List<String>>([]);
+  final getListHistoryCurrentTour = Rxn<List<TourModel>>([]);
+  final getListHistoryCurrentDes = Rxn<List<CityModel>>([]);
   final getListSearchTour = Rxn<List<SearchTour>>([]);
   final Rxn<List<TypeSearch>> getListSearchTourChoose =
       Rxn<List<TypeSearch>>([]);
@@ -38,6 +41,8 @@ class SearchDesController extends GetxController {
     getAllCityModelData();
     getAllTourSearchData('');
     getAllSearch();
+    getHistoryCurrentDestination();
+    getHistoryCurrentTour();
     focusNodeSearch.addListener(onFocusChange);
     searchEditingController.addListener(() {
       onFocusChange();
@@ -339,6 +344,44 @@ class SearchDesController extends GetxController {
     }
 
     return filteredTours;
+  }
+
+  // history search string
+  void setHistorySearch(String value) {
+    LocalStorageHelper.setListHistorySearch(value);
+  }
+
+  void getHistorySearch() async {
+    getListHistorySearch.value = [];
+    getListHistorySearch.value =
+        await LocalStorageHelper.getListHistorySearch();
+  }
+
+  void clearHistorySearch() {
+    getListHistorySearch.value = [];
+    LocalStorageHelper.clearListHistorySearch();
+  }
+
+  // history current tour
+  void setHistoryCurrentTour(TourModel tourModel) {
+    LocalStorageHelper.setListHistoryCurrentTour(tourModel);
+  }
+
+  void getHistoryCurrentTour() async {
+    getListHistoryCurrentTour.value = [];
+    getListHistoryCurrentTour.value =
+        await LocalStorageHelper.getListHistoryCurrentTour();
+  }
+
+  // history current des
+  void setHistoryCurrentDestination(CityModel cityModel) {
+    LocalStorageHelper.setListHistoryCurrentDes(cityModel);
+  }
+
+  void getHistoryCurrentDestination() async {
+    getListHistoryCurrentDes.value = [];
+    getListHistoryCurrentDes.value =
+        await LocalStorageHelper.getListHistoryCurrentDes();
   }
 
   @override
