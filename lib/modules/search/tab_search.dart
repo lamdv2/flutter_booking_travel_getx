@@ -1,21 +1,30 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/models/city/city_model.dart';
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/search/search_controller.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/routes/app_pages.dart';
+import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../shared/utils/size_utils.dart';
 
-class TabSearchWidget extends StatelessWidget {
+class TabSearchWidget extends GetView<SearchDesController> {
   TabSearchWidget({super.key});
 
   final AppController appController = Get.find();
+  final TourController tourController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.darkBackground
@@ -44,6 +53,10 @@ class TabSearchWidget extends StatelessWidget {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.4,
+                          child: Tab(text: 'Current tour'),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
                           child: Tab(text: 'Current destination'),
                         ),
                       ],
@@ -52,11 +65,23 @@ class TabSearchWidget extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: TabBarView(
-                  children: [
-                    buildContentTab1(context),
-                    buildContentTab2(context),
-                  ],
+                child: Obx(
+                  () => TabBarView(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(getSize(4.0)),
+                        child: buildContentTab1(context),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(getSize(4.0)),
+                        child: buildContentTab2(context),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(getSize(4.0)),
+                        child: buildContentTab3(context),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -75,57 +100,35 @@ class TabSearchWidget extends StatelessWidget {
             height: getSize(200),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int rowIndex) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (rowIndex > 0)
-                        SizedBox(
-                          width: getSize(16),
-                        ),
-                      SizedBox(
-                        height: getSize(180),
-                        width: getSize(180),
-                        child: Column(
+              child: tourController.getListTour.value != null &&
+                      tourController.getListTour.value!.isNotEmpty
+                  ? ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: tourController.getListTour.value?.length ?? 0,
+                      itemBuilder: (BuildContext context, int rowIndex) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                AssetHelper.city_1,
-                                height: getSize(108),
-                                width: getSize(180),
-                                fit: BoxFit.cover,
+                            if (rowIndex > 0)
+                              SizedBox(
+                                width: getSize(16),
                               ),
-                            ),
-                            SizedBox(
-                              height: getSize(10),
-                            ),
-                            Text(
-                              'Ve Sun World Fansipan Lagend | Sapa',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Row(
-                              children: [
-                                StarWidget(),
-                                SizedBox(
-                                  width: getSize(4),
-                                ),
-                                Text('4.6'),
-                              ],
+                            ItemTourSearch(
+                              tourModel:
+                                  tourController.getListTour.value![rowIndex],
                             ),
                           ],
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        );
+                      },
+                    )
+                  : Lottie.asset(
+                      AssetHelper.imgLottieNodate,
+                      width: getSize(200),
+                      height: getSize(200),
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
           Container(
@@ -139,40 +142,33 @@ class TabSearchWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int rowIndex) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (rowIndex > 0)
-                            SizedBox(
-                              height: getSize(16),
-                            ),
-                          Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  AssetHelper.city_2,
-                                  height: getSize(84),
-                                  width: getSize(84),
-                                  fit: BoxFit.cover,
+                  controller.listCitys.value.isNotEmpty
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.listCitys.value.length,
+                          itemBuilder: (BuildContext context, int rowIndex) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (rowIndex > 0)
+                                  SizedBox(
+                                    height: getSize(16),
+                                  ),
+                                ItemSearchDes(
+                                  cityModel:
+                                      controller.listCitys.value[rowIndex],
                                 ),
-                              ),
-                              SizedBox(
-                                width: getSize(16),
-                              ),
-                              Text('Bangkok'),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  SizedBox(height: getSize(16)),
+                              ],
+                            );
+                          },
+                        )
+                      : Lottie.asset(
+                          AssetHelper.imgLottieNodate,
+                          width: getSize(200),
+                          height: getSize(200),
+                          fit: BoxFit.fill,
+                        ),
                 ],
               ),
             ),
@@ -185,60 +181,290 @@ class TabSearchWidget extends StatelessWidget {
 
   Widget buildContentTab2(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: getSize(20)),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(getSize(20)),
-              color: Theme.of(context).cardColor,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(getSize(24)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int rowIndex) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (rowIndex > 0)
-                            SizedBox(
-                              height: getSize(16),
-                            ),
-                          Row(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: getSize(20)),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(getSize(20)),
+            color: Theme.of(context).cardColor,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(getSize(24)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                controller.getListHistoryCurrentTour.value != null &&
+                        controller.getListHistoryCurrentTour.value!.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller
+                                .getListHistoryCurrentTour.value?.length ??
+                            0,
+                        itemBuilder: (BuildContext context, int rowIndex) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  AssetHelper.city_2,
-                                  height: getSize(84),
-                                  width: getSize(84),
-                                  fit: BoxFit.cover,
+                              if (rowIndex > 0)
+                                SizedBox(
+                                  width: getSize(10),
                                 ),
+                              ItemTourSearch(
+                                height: MediaQuery.of(context).size.width -
+                                    getSize(120),
+                                width: double.infinity,
+                                space: 8,
+                                tourModel: controller
+                                    .getListHistoryCurrentTour.value![rowIndex],
                               ),
-                              SizedBox(
-                                width: getSize(16),
-                              ),
-                              Text('Bangkok'),
                             ],
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  SizedBox(height: getSize(16)),
-                ],
-              ),
+                          );
+                        },
+                      )
+                    : Lottie.asset(
+                        AssetHelper.imgLottieNodate,
+                        width: getSize(200),
+                        height: getSize(200),
+                        fit: BoxFit.fill,
+                      ),
+              ],
             ),
           ),
-          SizedBox(height: getSize(16)),
+        ),
+      ),
+    );
+  }
+
+  Widget buildContentTab3(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: getSize(20)),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(getSize(20)),
+            color: Theme.of(context).cardColor,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(getSize(24)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                controller.getListHistoryCurrentDes.value != null &&
+                        controller.getListHistoryCurrentDes.value!.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            controller.getListHistoryCurrentDes.value?.length ??
+                                0,
+                        itemBuilder: (BuildContext context, int rowIndex) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (rowIndex > 0)
+                                SizedBox(
+                                  height: getSize(16),
+                                ),
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      getSize(8),
+                                    ),
+                                    child: controller
+                                                    .getListHistoryCurrentDes
+                                                    .value?[rowIndex]
+                                                    .imageCity !=
+                                                null &&
+                                            controller
+                                                .getListHistoryCurrentDes
+                                                .value![rowIndex]
+                                                .imageCity!
+                                                .isNotEmpty
+                                        ? CachedNetworkImage(
+                                            height: getSize(84),
+                                            width: getSize(84),
+                                            fit: BoxFit.cover,
+                                            imageUrl: controller
+                                                    .getListHistoryCurrentDes
+                                                    .value![rowIndex]
+                                                    .imageCity ??
+                                                '',
+                                          )
+                                        : Image.asset(
+                                            height: getSize(84),
+                                            width: getSize(84),
+                                            AssetHelper.imgPrevHotel01,
+                                            fit: BoxFit.cover,
+                                          ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  Text(
+                                    controller.getListHistoryCurrentDes
+                                        .value![rowIndex].nameCity,
+                                    style: AppStyles.black000Size14Fw400FfMont,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    : Lottie.asset(
+                        AssetHelper.imgLottieNodate,
+                        width: getSize(200),
+                        height: getSize(200),
+                        fit: BoxFit.fill,
+                      ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ItemSearchDes extends StatelessWidget {
+  ItemSearchDes({
+    super.key,
+    required this.cityModel,
+  });
+
+  final CityModel cityModel;
+  final SearchDesController searchDesController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(
+          Routes.DETAIL_PLACE,
+          arguments: cityModel,
+        );
+        searchDesController.setHistoryCurrentDestination(cityModel);
+        searchDesController.getHistoryCurrentDestination();
+      },
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+              getSize(8),
+            ),
+            child:
+                cityModel.imageCity != null && cityModel.imageCity!.isNotEmpty
+                    ? CachedNetworkImage(
+                        height: getSize(84),
+                        width: getSize(84),
+                        fit: BoxFit.cover,
+                        imageUrl: cityModel.imageCity ?? '',
+                      )
+                    : Image.asset(
+                        height: getSize(84),
+                        width: getSize(84),
+                        AssetHelper.imgPrevHotel01,
+                        fit: BoxFit.cover,
+                      ),
+          ),
+          SizedBox(
+            width: getSize(24),
+          ),
+          Text(
+            cityModel.nameCity,
+            style: AppStyles.black000Size14Fw400FfMont,
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class ItemTourSearch extends StatelessWidget {
+  ItemTourSearch({
+    super.key,
+    required this.tourModel,
+    this.height,
+    this.width,
+    this.space,
+  });
+
+  final TourModel tourModel;
+  final double? height;
+  final double? width;
+  final double? space;
+
+  final SearchDesController searchDesController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(
+          Routes.TOUR_DETAILS,
+          arguments: tourModel,
+        );
+        searchDesController.setHistoryCurrentTour(tourModel);
+        searchDesController.getHistoryCurrentTour();
+      },
+      child: SizedBox(
+        height: height ?? getSize(180),
+        width: width ?? getSize(180),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(getSize(16)),
+                child: tourModel.images != null && tourModel.images != []
+                    ? CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: tourModel.images?.first ?? '',
+                      )
+                    : Image.asset(
+                        AssetHelper.imgPrevHotel01,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+            ),
+            SizedBox(
+              height: getSize(10),
+            ),
+            Text(
+              tourModel.nameTour,
+              style: AppStyles.black000Size14Fw400FfMont,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(
+              height: getSize(space ?? 4),
+            ),
+            Row(
+              children: [
+                const StarWidget(),
+                SizedBox(
+                  width: getSize(4),
+                ),
+                Text(
+                  tourModel.rating.toString(),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: getSize(space ?? 4),
+            ),
+            Text(
+              tourModel.price.toString(),
+              style: AppStyles.blue000Size14Fw400FfMont,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }

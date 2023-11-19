@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doan_clean_achitec/models/city/city_model.dart';
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageHelper {
@@ -34,5 +39,92 @@ class LocalStorageHelper {
 
   static Future<void> setString(String key, String value) async {
     await _shared._preferences.setString(key, value);
+  }
+
+  // history search string
+  static Future<void> setListHistorySearch(String value) async {
+    Set<String> setHistorySearch =
+        _shared._preferences.getStringList("setListHistorySearch")?.toSet() ??
+            Set();
+    setHistorySearch.add(value);
+    _shared._preferences
+        .setStringList("setListHistorySearch", setHistorySearch.toList());
+  }
+
+  static Future<List<String>> getListHistorySearch() async {
+    List<String> listHistorySearch =
+        _shared._preferences.getStringList("setListHistorySearch") ?? [];
+    return listHistorySearch;
+  }
+
+  static Future<void> clearListHistorySearch() async {
+    Set<String> setHistorySearch =
+        _shared._preferences.getStringList("setListHistorySearch")?.toSet() ??
+            Set();
+    setHistorySearch.clear();
+    _shared._preferences
+        .setStringList("setListHistorySearch", setHistorySearch.toList());
+  }
+
+  // history current tour
+  static Future<void> setListHistoryCurrentTour(TourModel tourModel) async {
+    final listTourModel = await getListHistoryCurrentTour();
+
+    if (!listTourModel
+        .any((existingTour) => existingTour.idTour == tourModel.idTour)) {
+      listTourModel.add(tourModel);
+
+      final prefs = await SharedPreferences.getInstance();
+      final listTourModelJson = listTourModel.map((tourModel) {
+        Map<String, dynamic> tourJson = tourModel.toJson();
+        if (tourJson['timestamp'] is Timestamp) {
+          tourJson['timestamp'] =
+              (tourJson['timestamp'] as Timestamp).toDate().toIso8601String();
+        }
+        return tourJson;
+      }).toList();
+
+      await prefs.setString(
+          'setListHistoryCurrentTour', json.encode(listTourModelJson));
+    }
+  }
+
+  static Future<List<TourModel>> getListHistoryCurrentTour() async {
+    final prefs = await SharedPreferences.getInstance();
+    final listTourModelJson = prefs.getString('setListHistoryCurrentTour');
+
+    if (listTourModelJson != null) {
+      final List<dynamic> decoded = json.decode(listTourModelJson);
+      return decoded.map((json) => TourModel.fromJsonSearch(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  // history current des
+  static Future<void> setListHistoryCurrentDes(CityModel cityModel) async {
+    final listCityModel = await getListHistoryCurrentDes();
+
+    if (!listCityModel.any((existingTour) => existingTour.id == cityModel.id)) {
+      listCityModel.add(cityModel);
+      final listCityModelJson =
+          listCityModel.map((cityModel) => cityModel.toJson()).toList();
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          'setListHistoryCurrentDes', json.encode(listCityModelJson));
+    }
+  }
+
+  static Future<List<CityModel>> getListHistoryCurrentDes() async {
+    final prefs = await SharedPreferences.getInstance();
+    final listCityModelJson = prefs.getString('setListHistoryCurrentDes');
+
+    if (listCityModelJson != null) {
+      final List<dynamic> decoded = json.decode(listCityModelJson);
+      return decoded.map((json) => CityModel.fromJsonSearch(json)).toList();
+    } else {
+      return [];
+    }
   }
 }
