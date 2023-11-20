@@ -6,7 +6,6 @@ import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
-import 'package:doan_clean_achitec/shared/utils/select_date.dart';
 import 'package:doan_clean_achitec/shared/widgets/bottomsheet_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,24 +15,27 @@ import 'package:lottie/lottie.dart';
 import '../../shared/utils/convert_date_time.dart';
 import '../../shared/widgets/bottomsheet_type_tour.dart';
 import '../../shared/widgets/stateful/search_widget_tour.dart';
+import 'search_tour_controller.dart';
 
-class SearchTourScreen extends GetView<SearchDesController> {
+class SearchTourScreen extends GetView<SearchTourController> {
   SearchTourScreen({super.key});
 
   final AppController appController = Get.find();
+  final SearchDesController searchDesController = Get.find();
   final String? dataSearch = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
-      controller.searchEditingController.text = dataSearch ?? "";
-      controller.searchTourEditingController.text = dataSearch ?? "";
-      controller.getTourSearch(dataSearch ?? "");
+      searchDesController.getTourSearch(
+        searchDesController.searchTourEditingController.text,
+      );
     });
 
     return Obx(
       () => RefreshIndicator(
-        onRefresh: () => controller.getAllTourSearchData(dataSearch ?? ""),
+        onRefresh: () =>
+            searchDesController.getAllTourSearchData(dataSearch ?? ""),
         child: SafeArea(
           child: Scaffold(
             resizeToAvoidBottomInset: true,
@@ -54,11 +56,12 @@ class SearchTourScreen extends GetView<SearchDesController> {
                       SearchWidgetTour(
                         hintText: StringConst.searchDestinations.tr,
                         textEditingController:
-                            controller.searchTourEditingController,
-                        focusNode: controller.focusNodeSearchTour,
+                            searchDesController.searchTourEditingController,
+                        focusNode: searchDesController.focusNodeSearchTour,
                         onChanged: (value) {
-                          controller.getTourSearch(value);
-                          controller.searchTourEditingController.text = value;
+                          searchDesController.getTourSearch(value);
+                          searchDesController.searchTourEditingController.text =
+                              value;
                         },
                       ),
                       SizedBox(
@@ -151,10 +154,12 @@ class SearchTourScreen extends GetView<SearchDesController> {
                                   final result =
                                       await Get.toNamed(Routes.SELECT_DATE);
                                   if (result is List<DateTime?>) {
-                                    controller.dateSelected.value =
+                                    searchDesController.dateSelected.value =
                                         '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
-                                    Get.snackbar("Notifi",
-                                        "${controller.dateSelected.value}");
+                                    searchDesController.getDateSearch(
+                                      result[0] ?? DateTime.now(),
+                                      result[1] ?? DateTime.now(),
+                                    );
                                   }
                                 },
                                 child: Container(
@@ -195,12 +200,13 @@ class SearchTourScreen extends GetView<SearchDesController> {
                         height: getSize(20),
                       ),
                       Obx(
-                        () => controller.getAllTourSearch.value!.isNotEmpty
+                        () => searchDesController
+                                .getAllTourSearch.value!.isNotEmpty
                             ? SingleChildScrollView(
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: controller
+                                  itemCount: searchDesController
                                           .getAllTourSearch.value?.length ??
                                       2,
                                   itemBuilder:
@@ -210,7 +216,7 @@ class SearchTourScreen extends GetView<SearchDesController> {
                                         vertical: getSize(12),
                                       ),
                                       child: buildItemTourSearch(
-                                        tourModel: controller
+                                        tourModel: searchDesController
                                             .getAllTourSearch.value?[rowIndex],
                                       ),
                                     );
@@ -241,7 +247,7 @@ class SearchTourScreen extends GetView<SearchDesController> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return BottomSheetTour(dataSheet: controller.destination);
+        return BottomSheetTour(dataSheet: searchDesController.destination);
       },
     );
   }
@@ -258,7 +264,9 @@ class SearchTourScreen extends GetView<SearchDesController> {
       isScrollControlled: true,
       builder: (context) {
         return SafeArea(
-          child: BottomSheetTypeTour(dataSheet: controller.destination),
+          child: BottomSheetTypeTour(
+            dataSheet: searchDesController.destination,
+          ),
         );
       },
     );

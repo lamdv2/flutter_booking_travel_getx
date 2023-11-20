@@ -497,22 +497,6 @@ class SearchDesController extends GetxController {
     update();
   }
 
-  void setDateSearch(DateTime startDate, DateTime endDate) {
-    final Rxn<List<TypeServiceSearch>> tampListType =
-        Rxn<List<TypeServiceSearch>>([]);
-    tampListType.value = listTypeSearchService.value;
-    for (var item in listTypeSearchService.value!) {
-      // if (item.typeNub == numbType) {
-      //   if (item.isCheck) {
-      //     item.isCheck = false;
-      //   } else {
-      //     item.isCheck = true;
-      //   }
-      // }
-    }
-    update();
-  }
-
   RxBool isCheckChooseType(double numbType) {
     for (var item in listTypeSearchService.value!) {
       if (item.typeNub == numbType && item.isCheck) {
@@ -523,7 +507,32 @@ class SearchDesController extends GetxController {
   }
 
   // Date Search
+  void getDateSearch(DateTime startDate, DateTime endDate) async {
+    getAllTourSearch.value = await getDateFillSearch(startDate, endDate);
+  }
 
+  Future<List<TourModel>> getDateFillSearch(
+      DateTime startDate, DateTime endDate) async {
+    List<TourModel> filteredTours = [];
+
+    if (getAllTourSearch.value != null && getAllTourSearch.value!.isNotEmpty) {
+      filteredTours = getAllTourSearch.value!.where((tour) {
+        DateTime? tourStartDate = tour.startDate?.toDate();
+        DateTime? tourEndDate = tour.endDate?.toDate();
+
+        if (tourStartDate != null && tourEndDate != null) {
+          return (tourStartDate.isBefore(startDate) ||
+                  tourStartDate.isAtSameMomentAs(startDate)) &&
+              (tourEndDate.isAfter(endDate) ||
+                  tourEndDate.isAtSameMomentAs(endDate));
+        }
+
+        return false;
+      }).toList();
+    }
+
+    return filteredTours;
+  }
 
   // Destination Search
   String getResult() {
