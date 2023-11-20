@@ -37,12 +37,23 @@ class SearchDesController extends GetxController {
       Rxn<List<TypeSearch>>([]);
   final includeAllSearch = Rxn<String>();
   final dateSelected = RxnString();
+  final dataSearch = RxnString();
 
   @override
   void onInit() {
     super.onInit();
     getAllCityModelData();
+
     createTypeService();
+    createTypeServicePlay();
+    createTypeServiceEvent();
+    createTypeServiceAct();
+    createTypeServiceCultural();
+    createTypeServiceTravel();
+    createTypeServiceFood();
+    createTypeServiceHotel();
+    createTypeServiceOther();
+
     getAllTourSearchData('');
     getAllSearch();
     getHistoryCurrentDestination();
@@ -82,6 +93,30 @@ class SearchDesController extends GetxController {
   ];
 
   final Rxn<List<TypeServiceSearch>> listTypeSearchService =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServicePlay =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceEvent =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceAct =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceCultural =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceTravel =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceFood =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceHotel =
+      Rxn<List<TypeServiceSearch>>([]);
+
+  final Rxn<List<TypeServiceSearch>> typeServiceOther =
       Rxn<List<TypeServiceSearch>>([]);
 
   void createTypeService() {
@@ -164,112 +199,120 @@ class SearchDesController extends GetxController {
     ];
   }
 
-  RxList<TypeServiceSearch> typeServicePlay = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 0,
-      valueType: 'Places to visit and sightsee',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 1,
-      valueType: 'Historical sites',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 2,
-      valueType: 'Sports events',
-    ),
-  ].obs;
+  void createTypeServicePlay() {
+    typeServicePlay.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 0,
+        valueType: 'Places to visit and sightsee',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 1,
+        valueType: 'Historical sites',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 2,
+        valueType: 'Sports events',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceEvent = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 3,
-      valueType: 'Sports event',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 4,
-      valueType: 'Entertainment',
-    ),
-  ].obs;
+  void createTypeServiceEvent() {
+    typeServiceEvent.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 3,
+        valueType: 'Sports event',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 4,
+        valueType: 'Entertainment',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceAct = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 5,
-      valueType: 'Adventure activities & extreme sports',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 6,
-      valueType: 'Farm tourism',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 7,
-      valueType: 'Underwater activities',
-    ),
-  ].obs;
+  void createTypeServiceAct() {
+    typeServiceAct.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 5,
+        valueType: 'Adventure activities & extreme sports',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 6,
+        valueType: 'Farm tourism',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 7,
+        valueType: 'Underwater activities',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceCultural = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 8,
-      valueType: 'Cultural experience',
-    ),
-  ].obs;
+  void createTypeServiceCultural() {
+    typeServiceCultural.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 8,
+        valueType: 'Cultural experience',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceTravel = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 9,
-      valueType: 'Half day tour/Day tour',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 10,
-      valueType: 'Multi-day tour',
-    ),
-  ].obs;
+  void createTypeServiceTravel() {
+    typeServiceTravel.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 9,
+        valueType: 'Half day tour/Day tour',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 10,
+        valueType: 'Multi-day tour',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceFood = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 11,
-      valueType: 'Retaurant',
-    ),
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 12,
-      valueType: 'Desserts & drinks',
-    ),
-  ].obs;
+  void createTypeServiceFood() {
+    typeServiceFood.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 11,
+        valueType: 'Retaurant',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 12,
+        valueType: 'Desserts & drinks',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceHotel = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 13,
-      valueType: 'Hotel',
-    ),
-  ].obs;
+  void createTypeServiceHotel() {
+    typeServiceHotel.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 13,
+        valueType: 'Hotel',
+      ),
+    ];
+  }
 
-  RxList<TypeServiceSearch> typeServiceOther = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 14,
-      valueType: 'Travel equipment & related services',
-    ),
-  ].obs;
-
-  RxList<TypeServiceSearch> date = [
-    TypeServiceSearch(
-      isCheck: false,
-      typeNub: 14,
-      valueType: 'Travel equipment & related services',
-    ),
-  ].obs;
+  void createTypeServiceOther() {
+    typeServiceOther.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 14,
+        valueType: 'Travel equipment & related services',
+      ),
+    ];
+  }
 
   // Get All Tour Search
   Future<void> getAllTourSearchData(String des) async {
@@ -485,6 +528,7 @@ class SearchDesController extends GetxController {
     final Rxn<List<TypeServiceSearch>> tampListType =
         Rxn<List<TypeServiceSearch>>([]);
     tampListType.value = listTypeSearchService.value;
+
     for (var item in listTypeSearchService.value!) {
       if (item.typeNub == numbType) {
         if (item.isCheck) {
@@ -494,7 +538,134 @@ class SearchDesController extends GetxController {
         }
       }
     }
-    update();
+
+    for (var item in typeServicePlay.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceEvent.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceAct.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceCultural.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceTravel.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceFood.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceHotel.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    for (var item in typeServiceOther.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+
+    final Rxn<List<TypeServiceSearch>> typeServicePlayTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServicePlayTamp.value = typeServicePlay.value;
+    createTypeServicePlay();
+    typeServicePlay.value = typeServicePlayTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceEventTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceEventTamp.value = typeServiceEvent.value;
+    createTypeServiceEvent();
+    typeServiceEvent.value = typeServiceEventTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceActTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceActTamp.value = typeServiceAct.value;
+    createTypeServiceAct();
+    typeServiceAct.value = typeServiceActTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceCulturalTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceCulturalTamp.value = typeServiceCultural.value;
+    createTypeServiceCultural();
+    typeServiceCultural.value = typeServiceCulturalTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceTravelTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceTravelTamp.value = typeServiceTravel.value;
+    createTypeServiceTravel();
+    typeServiceTravel.value = typeServiceTravelTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceFoodTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceFoodTamp.value = typeServiceFood.value;
+    createTypeServiceFood();
+    typeServiceFood.value = typeServiceFoodTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceHotelTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceHotelTamp.value = typeServiceHotel.value;
+    createTypeServiceHotel();
+    typeServiceHotel.value = typeServiceHotelTamp.value;
+
+    final Rxn<List<TypeServiceSearch>> typeServiceOtherTamp =
+        Rxn<List<TypeServiceSearch>>([]);
+    typeServiceOtherTamp.value = typeServiceOther.value;
+    createTypeServiceOther();
+    typeServiceOther.value = typeServiceOtherTamp.value;
   }
 
   RxBool isCheckChooseType(double numbType) {

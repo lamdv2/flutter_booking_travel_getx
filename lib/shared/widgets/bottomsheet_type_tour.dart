@@ -47,7 +47,8 @@ class BottomSheetTypeTour extends StatelessWidget {
                       Obx(
                         () => Wrap(
                           spacing: 8.0,
-                          children: controller.typeServicePlay.map((data) {
+                          children:
+                              controller.typeServicePlay.value!.map((data) {
                             return GestureDetector(
                               onTap: () {
                                 controller.setTypeServiceChip(data.typeNub);
@@ -87,10 +88,14 @@ class BottomSheetTypeTour extends StatelessWidget {
                       Obx(
                         () => Wrap(
                           spacing: 8.0,
-                          children: controller.typeServiceEvent.map((data) {
+                          children:
+                              controller.typeServiceEvent.value!.map((data) {
                             return GestureDetector(
                               onTap: () {
                                 controller.setTypeServiceChip(data.typeNub);
+                                controller
+                                    .isCheckChooseType(data.typeNub)
+                                    .value;
                               },
                               child: Chip(
                                 label: Text(
@@ -121,30 +126,33 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children: controller.typeServiceAct.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.setTypeServiceChip(data.typeNub);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: controller
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children:
+                              controller.typeServiceAct.value!.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
-                                    ? AppStyles.white000Size13Fw400FfMont
-                                    : AppStyles.black000Size13Fw400FfMont,
+                                    ? ColorConstants.primaryButton
+                                    : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: controller
-                                      .isCheckChooseType(data.typeNub)
-                                      .value
-                                  ? ColorConstants.primaryButton
-                                  : const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -156,30 +164,33 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children: controller.typeServiceCultural.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.setTypeServiceChip(data.typeNub);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: controller
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children:
+                              controller.typeServiceCultural.value!.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
-                                    ? AppStyles.white000Size13Fw400FfMont
-                                    : AppStyles.black000Size13Fw400FfMont,
+                                    ? ColorConstants.primaryButton
+                                    : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: controller
-                                      .isCheckChooseType(data.typeNub)
-                                      .value
-                                  ? ColorConstants.primaryButton
-                                  : const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -193,7 +204,8 @@ class BottomSheetTypeTour extends StatelessWidget {
                       ),
                       Wrap(
                         spacing: 8.0,
-                        children: controller.typeServiceTravel.map((data) {
+                        children:
+                            controller.typeServiceTravel.value!.map((data) {
                           return GestureDetector(
                             onTap: () {
                               controller.setTypeServiceChip(data.typeNub);
@@ -228,7 +240,7 @@ class BottomSheetTypeTour extends StatelessWidget {
                       ),
                       Wrap(
                         spacing: 8.0,
-                        children: controller.typeServiceFood.map((data) {
+                        children: controller.typeServiceFood.value!.map((data) {
                           return GestureDetector(
                             onTap: () {
                               controller.setTypeServiceChip(data.typeNub);
@@ -263,7 +275,8 @@ class BottomSheetTypeTour extends StatelessWidget {
                       ),
                       Wrap(
                         spacing: 8.0,
-                        children: controller.typeServiceHotel.map((data) {
+                        children:
+                            controller.typeServiceHotel.value!.map((data) {
                           return GestureDetector(
                             onTap: () {
                               controller.setTypeServiceChip(data.typeNub);
@@ -298,7 +311,8 @@ class BottomSheetTypeTour extends StatelessWidget {
                       ),
                       Wrap(
                         spacing: 8.0,
-                        children: controller.typeServiceOther.map((data) {
+                        children:
+                            controller.typeServiceOther.value!.map((data) {
                           return GestureDetector(
                             onTap: () {
                               controller.setTypeServiceChip(data.typeNub);

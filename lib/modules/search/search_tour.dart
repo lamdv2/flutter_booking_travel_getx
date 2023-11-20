@@ -27,24 +27,24 @@ class SearchTourScreen extends GetView<SearchTourController> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
-      searchDesController.getTourSearch(
-        searchDesController.searchTourEditingController.text,
-      );
+      searchDesController.searchEditingController.text = dataSearch ?? "";
+      searchDesController.searchTourEditingController.text = dataSearch ?? "";
+      searchDesController.getTourSearch(dataSearch ?? "");
     });
 
     return Obx(
       () => RefreshIndicator(
         onRefresh: () =>
             searchDesController.getAllTourSearchData(dataSearch ?? ""),
-        child: SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: appController.isDarkModeOn.value
-                ? ColorConstants.darkBackground
-                : ColorConstants.lightBackground,
-            body: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
-              child: SingleChildScrollView(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SafeArea(
+            child: Scaffold(
+              resizeToAvoidBottomInset: true,
+              backgroundColor: appController.isDarkModeOn.value
+                  ? ColorConstants.darkBackground
+                  : ColorConstants.lightBackground,
+              body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),

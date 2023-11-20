@@ -301,6 +301,7 @@ class ListSearchTour extends StatelessWidget {
                                     onTap: () {
                                       Get.toNamed(Routes.SEARCH_TOUR_SCREEN,
                                           arguments: data.value);
+                                      controller.dataSearch.value = data.value;
                                     },
                                     child: Chip(
                                       label: Text(data.value ?? ''),

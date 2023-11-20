@@ -18,7 +18,6 @@ class BookingRequiedScreen extends GetView<BookingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: CustomAppBar(),
       backgroundColor: ColorConstants.graySecond,
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -108,7 +107,7 @@ class BookingRequiedScreen extends GetView<BookingController> {
                     'Payment Method',
                     style: AppStyles.black000Size18Fw500FfMont,
                   ),
-                  SizedBox(height: getSize(16)),
+                  SizedBox(height: getSize(24)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -224,13 +223,14 @@ class BookingRequiedScreen extends GetView<BookingController> {
                     child: ButtonWidget(
                       textBtn: 'Yêu cầu đặt',
                       onTap: () async {
-                        await controller.bookingTour(
-                          homeController.userModel.value?.id ?? '',
-                          tourModel?.idTour ?? '',
-                          controller.formatDateTime(DateTime.now().toString()),
-                          'waiting',
-                        );
-                        Get.offAndToNamed(Routes.HISTORY_TOUR_SCREEN);
+                        // await controller.bookingTour(
+                        //   homeController.userModel.value?.id ?? '',
+                        //   tourModel?.idTour ?? '',
+                        //   controller.formatDateTime(DateTime.now().toString()),
+                        //   'waiting',
+                        // );
+                        // Get.offAndToNamed(Routes.HISTORY_TOUR_SCREEN);
+                        Get.offAndToNamed(Routes.ABOUT_APP_SCREEN);
                       },
                     ),
                   ),
