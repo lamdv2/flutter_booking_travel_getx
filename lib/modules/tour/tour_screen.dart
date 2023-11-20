@@ -40,6 +40,10 @@ class TourScreen extends GetView<TourController> {
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.lightAppBar,
+        onTap: () {
+          controller.focusSearchScreen.unfocus();
+          Get.back();
+        },
       ),
       body: Obx(
         () => RefreshIndicator(
@@ -56,6 +60,7 @@ class TourScreen extends GetView<TourController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SearchBarWidget(
+                        focusNode: controller.focusSearchScreen,
                         textEditingController: controller.searchController,
                         onChanged: (value) =>
                             controller.filterListTourByName(value),

@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../shared/utils/convert_date_time.dart';
 import '../../shared/widgets/bottomsheet_type_tour.dart';
 import '../../shared/widgets/stateful/search_widget_tour.dart';
 
@@ -146,8 +147,15 @@ class SearchTourScreen extends GetView<SearchDesController> {
                                 width: getSize(12),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  _showDate(context);
+                                onTap: () async {
+                                  final result =
+                                      await Get.toNamed(Routes.SELECT_DATE);
+                                  if (result is List<DateTime?>) {
+                                    controller.dateSelected.value =
+                                        '${result[0]?.getStartDate} - ${result[1]?.getEndDate}';
+                                    Get.snackbar("Notifi",
+                                        "${controller.dateSelected.value}");
+                                  }
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -250,23 +258,8 @@ class SearchTourScreen extends GetView<SearchDesController> {
       isScrollControlled: true,
       builder: (context) {
         return SafeArea(
-            child: BottomSheetTypeTour(dataSheet: controller.destination));
-      },
-    );
-  }
-
-  void _showDate(BuildContext context) {
-    showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return SelectDateScreen();
+          child: BottomSheetTypeTour(dataSheet: controller.destination),
+        );
       },
     );
   }
@@ -317,11 +310,16 @@ class buildItemTourSearch extends GetView<SearchDesController> {
   });
 
   final AppController appController = Get.find();
+  final SearchDesController searchDesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.TOUR_DETAILS, arguments: tourModel),
+      onTap: () async {
+        await searchDesController.setHistoryCurrentTour(tourModel!);
+        await searchDesController.getHistoryCurrentTour();
+        Get.toNamed(Routes.TOUR_DETAILS, arguments: tourModel);
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),

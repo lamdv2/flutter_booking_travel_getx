@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/search/search_tour.dart';
+import 'package:doan_clean_achitec/models/search/type_service_search.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/shared/constants/local_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,6 +23,7 @@ class SearchDesController extends GetxController {
   RxBool isCheckOnClickSearch = false.obs;
   Rx<String> textStringSearch = 'abc'.obs;
   final getAllTourSearch = Rxn<List<TourModel>>([]);
+  final getAllTourSearchTamp = Rxn<List<TourModel>>([]);
   final getAllTourSearchScreen = Rxn<List<TourModel>>([]);
   final getAllTourSearchRoot = Rxn<List<TourModel>>([]);
 
@@ -34,11 +36,13 @@ class SearchDesController extends GetxController {
   final Rxn<List<TypeSearch>> getListSearchTourChoose =
       Rxn<List<TypeSearch>>([]);
   final includeAllSearch = Rxn<String>();
+  final dateSelected = RxnString();
 
   @override
   void onInit() {
     super.onInit();
     getAllCityModelData();
+    createTypeService();
     getAllTourSearchData('');
     getAllSearch();
     getHistoryCurrentDestination();
@@ -77,55 +81,197 @@ class SearchDesController extends GetxController {
     'tháp busan',
   ];
 
-  RxList<TypeSearch> typeServicePlay = [
-    TypeSearch(isCheck: false, valueType: 'Places to visit and sightsee'),
-    TypeSearch(isCheck: false, valueType: 'Historical sites'),
-    TypeSearch(isCheck: false, valueType: 'Sports events'),
-  ].obs;
+  final Rxn<List<TypeServiceSearch>> listTypeSearchService =
+      Rxn<List<TypeServiceSearch>>([]);
 
-  RxList<TypeSearch> typeServiceEvent = [
-    TypeSearch(isCheck: false, valueType: 'Sports event'),
-    TypeSearch(isCheck: false, valueType: 'Entertainment'),
-  ].obs;
+  void createTypeService() {
+    listTypeSearchService.value = [
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 0,
+        valueType: 'Places to visit and sightsee',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 1,
+        valueType: 'Historical sites',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 2,
+        valueType: 'Sports events',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 3,
+        valueType: 'Sports event',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 4,
+        valueType: 'Entertainment',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 5,
+        valueType: 'Adventure activities & extreme sports',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 6,
+        valueType: 'Farm tourism',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 7,
+        valueType: 'Underwater activities',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 8,
+        valueType: 'Cultural experience',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 9,
+        valueType: 'Half day tour/Day tour',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 10,
+        valueType: 'Multi-day tour',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 11,
+        valueType: 'Retaurant',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 12,
+        valueType: 'Desserts & drinks',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 13,
+        valueType: 'Hotel',
+      ),
+      TypeServiceSearch(
+        isCheck: false,
+        typeNub: 14,
+        valueType: 'Travel equipment & related services',
+      ),
+    ];
+  }
 
-  RxList<TypeSearch> typeServiceAct = [
-    TypeSearch(
-        isCheck: false, valueType: 'Adventure activities & extreme sports'),
-    TypeSearch(isCheck: false, valueType: 'Farm tourism'),
-    TypeSearch(isCheck: false, valueType: 'Underwater activities'),
-  ].obs;
-
-  RxList<TypeSearch> typeServiceCultural = [
-    TypeSearch(isCheck: false, valueType: 'Cultural experience'),
-  ].obs;
-
-  RxList<TypeSearch> typeServiceTravel = [
-    TypeSearch(isCheck: false, valueType: 'Half day tour/Day tour'),
-    TypeSearch(isCheck: false, valueType: 'Multi-day tour'),
-  ].obs;
-
-  RxList<TypeSearch> typeServiceFood = [
-    TypeSearch(isCheck: false, valueType: 'Retaurant'),
-    TypeSearch(isCheck: false, valueType: 'Desserts & drinks'),
-  ].obs;
-
-  RxList<TypeSearch> typeServiceHotel = [
-    TypeSearch(isCheck: false, valueType: 'Hotel'),
-  ].obs;
-
-  RxList<TypeSearch> typeServiceOther = [
-    TypeSearch(
+  RxList<TypeServiceSearch> typeServicePlay = [
+    TypeServiceSearch(
       isCheck: false,
-      valueType: 'Thiết bị du lịch & các dịch vụ liên quan',
+      typeNub: 0,
+      valueType: 'Places to visit and sightsee',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 1,
+      valueType: 'Historical sites',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 2,
+      valueType: 'Sports events',
     ),
   ].obs;
 
-  RxList<TypeSearch> date = [
-    TypeSearch(isCheck: false, valueType: 'date'),
+  RxList<TypeServiceSearch> typeServiceEvent = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 3,
+      valueType: 'Sports event',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 4,
+      valueType: 'Entertainment',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> typeServiceAct = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 5,
+      valueType: 'Adventure activities & extreme sports',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 6,
+      valueType: 'Farm tourism',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 7,
+      valueType: 'Underwater activities',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> typeServiceCultural = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 8,
+      valueType: 'Cultural experience',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> typeServiceTravel = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 9,
+      valueType: 'Half day tour/Day tour',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 10,
+      valueType: 'Multi-day tour',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> typeServiceFood = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 11,
+      valueType: 'Retaurant',
+    ),
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 12,
+      valueType: 'Desserts & drinks',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> typeServiceHotel = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 13,
+      valueType: 'Hotel',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> typeServiceOther = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 14,
+      valueType: 'Travel equipment & related services',
+    ),
+  ].obs;
+
+  RxList<TypeServiceSearch> date = [
+    TypeServiceSearch(
+      isCheck: false,
+      typeNub: 14,
+      valueType: 'Travel equipment & related services',
+    ),
   ].obs;
 
   // Get All Tour Search
-
   Future<void> getAllTourSearchData(String des) async {
     final snapShot = await _db.collection('tourModel').get();
     final listTourSearchData =
@@ -204,7 +350,6 @@ class SearchDesController extends GetxController {
   }
 
   // Get All Citys
-
   Future<void> getAllCityModelData() async {
     final snapShot = await _db.collection('cityModel').get();
     final listCityData =
@@ -300,33 +445,20 @@ class SearchDesController extends GetxController {
     getAllTourSearch.value = await getAllTourFillSearch(des);
   }
 
-  String getResult() {
-    String result = '';
-    if (getListSearchTourChoose.value != null &&
-        getListSearchTourChoose.value!.isNotEmpty) {
-      List<TypeSearch> newList = List.from(getListSearchTourChoose.value!);
-
-      for (var item in newList) {
-        result = "$result ${item.valueType}";
-      }
-    }
-    return result;
+  // Type Tour Search
+  void getTourSearchType() async {
+    getAllTourSearch.value = await getTypeServiceFillSearch();
   }
 
-  void getTourSearchAll(String des) async {
-    getAllTourSearchScreen.value = await getAllTourFillSearch(des);
-  }
-
-  Future<List<TourModel>> getAllTourFillSearch(String des) async {
+  Future<List<TourModel>> getTypeServiceFillSearch() async {
     List<TourModel> filteredTours = [];
 
-    if (getAllTourSearchRoot.value != null &&
-        getAllTourSearchRoot.value!.isNotEmpty) {
-      filteredTours = getAllTourSearchRoot.value!.where((tour) {
-        String tourName = tour.nameTour.toLowerCase();
-        List<String> searchTerms = des.toLowerCase().split(' ');
-
-        return searchTerms.every((term) => tourName.contains(term));
+    if (getAllTourSearchTamp.value != null &&
+        getAllTourSearchTamp.value!.isNotEmpty) {
+      filteredTours = getAllTourSearchTamp.value!.where((tour) {
+        return listTypeSearchService.value!.any(
+          (term) => tour.type == term.typeNub && term.isCheck,
+        );
       }).toList();
     }
 
@@ -343,6 +475,106 @@ class SearchDesController extends GetxController {
       }
     }
 
+    for (var e in listTypeSearchService.value!) {
+      e.isCheck = false;
+    }
+    return filteredTours;
+  }
+
+  void setTypeServiceChip(double numbType) {
+    final Rxn<List<TypeServiceSearch>> tampListType =
+        Rxn<List<TypeServiceSearch>>([]);
+    tampListType.value = listTypeSearchService.value;
+    for (var item in listTypeSearchService.value!) {
+      if (item.typeNub == numbType) {
+        if (item.isCheck) {
+          item.isCheck = false;
+        } else {
+          item.isCheck = true;
+        }
+      }
+    }
+    update();
+  }
+
+  void setDateSearch(DateTime startDate, DateTime endDate) {
+    final Rxn<List<TypeServiceSearch>> tampListType =
+        Rxn<List<TypeServiceSearch>>([]);
+    tampListType.value = listTypeSearchService.value;
+    for (var item in listTypeSearchService.value!) {
+      // if (item.typeNub == numbType) {
+      //   if (item.isCheck) {
+      //     item.isCheck = false;
+      //   } else {
+      //     item.isCheck = true;
+      //   }
+      // }
+    }
+    update();
+  }
+
+  RxBool isCheckChooseType(double numbType) {
+    for (var item in listTypeSearchService.value!) {
+      if (item.typeNub == numbType && item.isCheck) {
+        return true.obs;
+      }
+    }
+    return false.obs;
+  }
+
+  // Date Search
+
+
+  // Destination Search
+  String getResult() {
+    String result = '';
+    if (getListSearchTourChoose.value != null &&
+        getListSearchTourChoose.value!.isNotEmpty) {
+      List<TypeSearch> newList = List.from(getListSearchTourChoose.value!);
+
+      for (var item in newList) {
+        if (result.isEmpty) {
+          result = item.valueType;
+        }
+        result = "$result/${item.valueType}";
+      }
+    }
+
+    result += "/${searchTourEditingController.text}";
+    return result;
+  }
+
+  void getTourSearchAll(String des) async {
+    getAllTourSearchScreen.value = await getAllTourFillSearch(des);
+  }
+
+  Future<List<TourModel>> getAllTourFillSearch(String des) async {
+    List<TourModel> filteredTours = [];
+
+    if (getAllTourSearchRoot.value != null &&
+        getAllTourSearchRoot.value!.isNotEmpty) {
+      filteredTours = getAllTourSearchRoot.value!.where((tour) {
+        String tourName = tour.nameTour.toLowerCase();
+        List<String> searchTerms = des.toLowerCase().split('/');
+
+        return searchTerms.any((term) => tourName.contains(term));
+      }).toList();
+    }
+
+    if (filteredTours.isNotEmpty) {
+      getAllListImageTour.value = [];
+
+      for (var item in filteredTours) {
+        List<String>? images = item.images;
+
+        if (images != null && images.isNotEmpty) {
+          String imageTour = await getImageStorage(images.first);
+          getAllListImageTour.value?.add(imageTour);
+        }
+      }
+    }
+    getAllTourSearchTamp.value = [];
+    getAllTourSearchTamp.value = filteredTours;
     return filteredTours;
   }
 
@@ -363,22 +595,22 @@ class SearchDesController extends GetxController {
   }
 
   // history current tour
-  void setHistoryCurrentTour(TourModel tourModel) {
+  Future<void> setHistoryCurrentTour(TourModel tourModel) async {
     LocalStorageHelper.setListHistoryCurrentTour(tourModel);
   }
 
-  void getHistoryCurrentTour() async {
+  Future<void> getHistoryCurrentTour() async {
     getListHistoryCurrentTour.value = [];
     getListHistoryCurrentTour.value =
         await LocalStorageHelper.getListHistoryCurrentTour();
   }
 
   // history current des
-  void setHistoryCurrentDestination(CityModel cityModel) {
+  Future<void> setHistoryCurrentDestination(CityModel cityModel) async {
     LocalStorageHelper.setListHistoryCurrentDes(cityModel);
   }
 
-  void getHistoryCurrentDestination() async {
+  Future<void> getHistoryCurrentDestination() async {
     getListHistoryCurrentDes.value = [];
     getListHistoryCurrentDes.value =
         await LocalStorageHelper.getListHistoryCurrentDes();

@@ -11,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
+import '../search/search_controller.dart';
+
 // ignore: must_be_immutable
 class TourItemWidget extends StatelessWidget {
   TourModel listTour;
@@ -23,13 +25,18 @@ class TourItemWidget extends StatelessWidget {
 
   TourController tourController = Get.find();
   AppController appController = Get.find();
+  final SearchDesController searchDesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     bool isFavor = false;
     return GestureDetector(
-      onTap:
-          onTap ?? () => Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour),
+      onTap: onTap ??
+          () async {
+            await searchDesController.setHistoryCurrentTour(listTour);
+            await searchDesController.getHistoryCurrentTour();
+            Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour);
+          },
       child: Container(
         width: MediaQuery.of(context).size.width - getSize(40),
         decoration: BoxDecoration(

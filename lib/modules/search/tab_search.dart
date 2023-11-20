@@ -203,6 +203,9 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                 .getListHistoryCurrentTour.value?.length ??
                             0,
                         itemBuilder: (BuildContext context, int rowIndex) {
+                          final reversedList = controller
+                              .getListHistoryCurrentTour.value?.reversed
+                              .toList();
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -215,8 +218,7 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                     getSize(120),
                                 width: double.infinity,
                                 space: 8,
-                                tourModel: controller
-                                    .getListHistoryCurrentTour.value![rowIndex],
+                                tourModel: reversedList![rowIndex],
                               ),
                             ],
                           );
@@ -260,38 +262,29 @@ class TabSearchWidget extends GetView<SearchDesController> {
                             controller.getListHistoryCurrentDes.value?.length ??
                                 0,
                         itemBuilder: (BuildContext context, int rowIndex) {
+                          final reversedList = controller
+                              .getListHistoryCurrentDes.value?.reversed
+                              .toList();
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (rowIndex > 0)
-                                SizedBox(
-                                  height: getSize(16),
-                                ),
+                              if (rowIndex > 0) SizedBox(height: getSize(16)),
                               Row(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                      getSize(8),
-                                    ),
-                                    child: controller
-                                                    .getListHistoryCurrentDes
-                                                    .value?[rowIndex]
-                                                    .imageCity !=
+                                    borderRadius:
+                                        BorderRadius.circular(getSize(8)),
+                                    child: reversedList?[rowIndex].imageCity !=
                                                 null &&
-                                            controller
-                                                .getListHistoryCurrentDes
-                                                .value![rowIndex]
+                                            reversedList![rowIndex]
                                                 .imageCity!
                                                 .isNotEmpty
                                         ? CachedNetworkImage(
                                             height: getSize(84),
                                             width: getSize(84),
                                             fit: BoxFit.cover,
-                                            imageUrl: controller
-                                                    .getListHistoryCurrentDes
-                                                    .value![rowIndex]
-                                                    .imageCity ??
-                                                '',
+                                            imageUrl: reversedList[rowIndex]
+                                                .imageCity!,
                                           )
                                         : Image.asset(
                                             height: getSize(84),
@@ -300,12 +293,9 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                             fit: BoxFit.cover,
                                           ),
                                   ),
-                                  SizedBox(
-                                    width: getSize(24),
-                                  ),
+                                  SizedBox(width: getSize(24)),
                                   Text(
-                                    controller.getListHistoryCurrentDes
-                                        .value![rowIndex].nameCity,
+                                    reversedList?[rowIndex].nameCity ?? '',
                                     style: AppStyles.black000Size14Fw400FfMont,
                                   ),
                                 ],
@@ -341,43 +331,46 @@ class ItemSearchDes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await searchDesController.setHistoryCurrentDestination(cityModel);
+        await searchDesController.getHistoryCurrentDestination();
         Get.toNamed(
           Routes.DETAIL_PLACE,
           arguments: cityModel,
         );
-        searchDesController.setHistoryCurrentDestination(cityModel);
-        searchDesController.getHistoryCurrentDestination();
       },
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(
-              getSize(8),
+      child: Container(
+        color: ColorConstants.transparent,
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(
+                getSize(8),
+              ),
+              child:
+                  cityModel.imageCity != null && cityModel.imageCity!.isNotEmpty
+                      ? CachedNetworkImage(
+                          height: getSize(84),
+                          width: getSize(84),
+                          fit: BoxFit.cover,
+                          imageUrl: cityModel.imageCity ?? '',
+                        )
+                      : Image.asset(
+                          height: getSize(84),
+                          width: getSize(84),
+                          AssetHelper.imgPrevHotel01,
+                          fit: BoxFit.cover,
+                        ),
             ),
-            child:
-                cityModel.imageCity != null && cityModel.imageCity!.isNotEmpty
-                    ? CachedNetworkImage(
-                        height: getSize(84),
-                        width: getSize(84),
-                        fit: BoxFit.cover,
-                        imageUrl: cityModel.imageCity ?? '',
-                      )
-                    : Image.asset(
-                        height: getSize(84),
-                        width: getSize(84),
-                        AssetHelper.imgPrevHotel01,
-                        fit: BoxFit.cover,
-                      ),
-          ),
-          SizedBox(
-            width: getSize(24),
-          ),
-          Text(
-            cityModel.nameCity,
-            style: AppStyles.black000Size14Fw400FfMont,
-          ),
-        ],
+            SizedBox(
+              width: getSize(24),
+            ),
+            Text(
+              cityModel.nameCity,
+              style: AppStyles.black000Size14Fw400FfMont,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -402,13 +395,13 @@ class ItemTourSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await searchDesController.setHistoryCurrentTour(tourModel);
+        await searchDesController.getHistoryCurrentTour();
         Get.toNamed(
           Routes.TOUR_DETAILS,
           arguments: tourModel,
         );
-        searchDesController.setHistoryCurrentTour(tourModel);
-        searchDesController.getHistoryCurrentTour();
       },
       child: SizedBox(
         height: height ?? getSize(180),

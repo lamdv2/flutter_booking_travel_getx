@@ -15,11 +15,14 @@ class SearchBarWidget extends StatelessWidget {
     this.hintText,
     this.textEditingController,
     this.onChanged,
+    this.focusNode,
   });
 
   final String? hintText;
   final TextEditingController? textEditingController;
   final Function(String)? onChanged;
+  final FocusNode? focusNode;
+
   final AppController appController = Get.find();
 
   @override
@@ -51,6 +54,7 @@ class SearchBarWidget extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
+              focusNode: focusNode ?? FocusNode(),
               controller: textEditingController,
               decoration: InputDecoration(
                 hintText: hintText,

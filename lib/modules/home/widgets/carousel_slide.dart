@@ -11,11 +11,13 @@ import 'package:like_button/like_button.dart';
 import '../../../shared/constants/app_style.dart';
 import '../../../shared/constants/assets_helper.dart';
 import '../../../shared/constants/dimension_constants.dart';
+import '../../search/search_controller.dart';
 
 class CarouselSliderDes extends StatelessWidget {
   CarouselSliderDes({super.key});
 
   final HomeController homeController = Get.find();
+  final SearchDesController searchDesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,15 @@ class CarouselSliderDes extends StatelessWidget {
           return Builder(
             builder: (BuildContext context) {
               return GestureDetector(
-                onTap: () {
-                  Get.toNamed(Routes.DETAIL_PLACE, arguments: itemCity);
+                onTap: () async {
+                  await searchDesController.setHistoryCurrentDestination(
+                    itemCity,
+                  );
+                  await searchDesController.getHistoryCurrentDestination();
+                  Get.toNamed(
+                    Routes.DETAIL_PLACE,
+                    arguments: itemCity,
+                  );
                 },
                 child: Stack(
                   children: [

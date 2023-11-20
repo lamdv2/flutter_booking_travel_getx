@@ -3,7 +3,9 @@ import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
+import '../../search/search_controller.dart';
 import '../home_controller.dart';
 import 'special_offer_card.dart';
 import 'title_des.dart';
@@ -14,6 +16,7 @@ class SpecialOffers extends StatelessWidget {
   }) : super(key: key);
   final HomeController homecontroller = Get.find();
   final TourController tourController = Get.put(TourController());
+  final SearchDesController searchDesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,35 +35,48 @@ class SpecialOffers extends StatelessWidget {
             height: getSize(160),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: tourController.getListTourTop10.value?.length ?? 0,
-                itemBuilder: (BuildContext context, int rowIndex) {
-                  return SpecialOfferCard(
-                    image: tourController
-                                    .getListTourTop10.value?[rowIndex].images !=
-                                null &&
-                            tourController.getListTourTop10.value![rowIndex]
-                                .images!.isNotEmpty
-                        ? tourController
-                            .getListTourTop10.value![rowIndex].images!.first
-                        : "",
-                    category: tourController
-                            .getListTourTop10.value?[rowIndex].nameTour ??
-                        "",
-                    numOfBrands: 18,
-                    press: () {
-                      Get.toNamed(
-                        Routes.TOUR_DETAILS,
-                        arguments:
-                            tourController.getListTourTop10.value?[rowIndex],
-                      );
-                    },
-                  );
-                },
-              ),
+              child: tourController.getListTourTop10.value != null &&
+                      tourController.getListTourTop10.value!.isNotEmpty
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount:
+                          tourController.getListTourTop10.value?.length ?? 0,
+                      itemBuilder: (BuildContext context, int rowIndex) {
+                        return SpecialOfferCard(
+                          image: tourController.getListTourTop10
+                                          .value?[rowIndex].images !=
+                                      null &&
+                                  tourController.getListTourTop10
+                                      .value![rowIndex].images!.isNotEmpty
+                              ? tourController.getListTourTop10.value![rowIndex]
+                                  .images!.first
+                              : "",
+                          category: tourController
+                                  .getListTourTop10.value?[rowIndex].nameTour ??
+                              "",
+                          numOfBrands: 18,
+                          press: () async {
+                            await searchDesController.setHistoryCurrentTour(
+                              tourController.getListTourTop10.value![rowIndex],
+                            );
+                            await searchDesController.getHistoryCurrentTour();
+                            Get.toNamed(
+                              Routes.TOUR_DETAILS,
+                              arguments: tourController
+                                  .getListTourTop10.value?[rowIndex],
+                            );
+                          },
+                        );
+                      },
+                    )
+                  : Lottie.asset(
+                      AssetHelper.imgLottieNodate,
+                      width: getSize(200),
+                      height: getSize(200),
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
         ],

@@ -1,8 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/carousel_slide.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/category_bar.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/home_header.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/title_des.dart';
+import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -14,7 +17,9 @@ import '../../shared/widgets/stateful/DestinationItem.dart';
 import 'widgets/special_offer.dart';
 
 class HomeTab extends GetView<HomeController> {
-  const HomeTab({super.key});
+  HomeTab({super.key});
+
+  final SearchDesController searchDesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +81,18 @@ class HomeTab extends GetView<HomeController> {
                             ? randomItemHeight = getSize(220)
                             : randomItemHeight = getSize(192);
                         return InkWell(
-                          onTap: () => Get.toNamed(
-                            Routes.DETAIL_PLACE,
-                            arguments: controller.listCitys.value[index],
-                          ),
+                          onTap: () async {
+                            await searchDesController
+                                .setHistoryCurrentDestination(
+                              controller.listCitys.value[index],
+                            );
+                            await searchDesController
+                                .getHistoryCurrentDestination();
+                            Get.toNamed(
+                              Routes.DETAIL_PLACE,
+                              arguments: controller.listCitys.value[index],
+                            );
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             margin: const EdgeInsets.all(4),

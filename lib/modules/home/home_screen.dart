@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        resizeToAvoidBottomInset: false,
         key: homeController.scaffoldHomeKey,
         drawer: DrawerWidget(),
         body: SafeArea(

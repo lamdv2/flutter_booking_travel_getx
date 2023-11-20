@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
@@ -70,23 +71,30 @@ class LocalStorageHelper {
   static Future<void> setListHistoryCurrentTour(TourModel tourModel) async {
     final listTourModel = await getListHistoryCurrentTour();
 
-    if (!listTourModel
-        .any((existingTour) => existingTour.idTour == tourModel.idTour)) {
-      listTourModel.add(tourModel);
+    final existingTourIndex = listTourModel
+        .indexWhere((existingTour) => existingTour.idTour == tourModel.idTour);
 
-      final prefs = await SharedPreferences.getInstance();
-      final listTourModelJson = listTourModel.map((tourModel) {
-        Map<String, dynamic> tourJson = tourModel.toJson();
-        if (tourJson['timestamp'] is Timestamp) {
-          tourJson['timestamp'] =
-              (tourJson['timestamp'] as Timestamp).toDate().toIso8601String();
-        }
-        return tourJson;
-      }).toList();
-
-      await prefs.setString(
-          'setListHistoryCurrentTour', json.encode(listTourModelJson));
+    if (existingTourIndex != -1) {
+      listTourModel.removeAt(existingTourIndex);
     }
+
+    listTourModel.add(tourModel);
+
+    final startIndex = max(0, listTourModel.length - 10);
+    final limitedList = listTourModel.skip(startIndex).toList();
+
+    final prefs = await SharedPreferences.getInstance();
+    final listTourModelJson = limitedList.map((tourModel) {
+      Map<String, dynamic> tourJson = tourModel.toJson();
+      if (tourJson['timestamp'] is Timestamp) {
+        tourJson['timestamp'] =
+            (tourJson['timestamp'] as Timestamp).toDate().toIso8601String();
+      }
+      return tourJson;
+    }).toList();
+
+    await prefs.setString(
+        'setListHistoryCurrentTour', json.encode(listTourModelJson));
   }
 
   static Future<List<TourModel>> getListHistoryCurrentTour() async {
@@ -105,15 +113,26 @@ class LocalStorageHelper {
   static Future<void> setListHistoryCurrentDes(CityModel cityModel) async {
     final listCityModel = await getListHistoryCurrentDes();
 
-    if (!listCityModel.any((existingTour) => existingTour.id == cityModel.id)) {
-      listCityModel.add(cityModel);
-      final listCityModelJson =
-          listCityModel.map((cityModel) => cityModel.toJson()).toList();
+    final existingCityIndex = listCityModel
+        .indexWhere((existingCity) => existingCity.id == cityModel.id);
 
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          'setListHistoryCurrentDes', json.encode(listCityModelJson));
+    if (existingCityIndex != -1) {
+      listCityModel.removeAt(existingCityIndex);
     }
+
+    listCityModel.add(cityModel);
+
+    final startIndex = max(0, listCityModel.length - 10);
+    final limitedList = listCityModel.skip(startIndex).toList();
+
+    final prefs = await SharedPreferences.getInstance();
+    final listCityModelJson = limitedList.map((cityModel) {
+      Map<String, dynamic> cityJson = cityModel.toJson();
+      return cityJson;
+    }).toList();
+
+    await prefs.setString(
+        'setListHistoryCurrentDes', json.encode(listCityModelJson));
   }
 
   static Future<List<CityModel>> getListHistoryCurrentDes() async {

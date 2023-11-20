@@ -79,11 +79,13 @@ class SearchWidget extends StatelessWidget {
             child: TextField(
               textInputAction: TextInputAction.search,
               onSubmitted: (value) {
-                Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: value);
-                searchController.addSearchTour(value);
-                searchController.getAllSearch();
-                searchController.setHistorySearch(value);
-                searchController.getHistorySearch();
+                if (value.isNotEmpty) {
+                  Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: value);
+                  searchController.addSearchTour(value);
+                  searchController.getAllSearch();
+                  searchController.setHistorySearch(value);
+                  searchController.getHistorySearch();
+                }
               },
               focusNode: focusNode,
               controller: textEditingController,

@@ -28,6 +28,7 @@ class SearchScreen extends GetView<SearchDesController> {
           controller.getHistoryCurrentDestination();
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: appController.isDarkModeOn.value
               ? ColorConstants.darkBackground
               : ColorConstants.lightBackground,
@@ -113,12 +114,20 @@ class ListSearchTour extends StatelessWidget {
                                           height: getSize(16),
                                         ),
                                       GestureDetector(
-                                        onTap: () => Get.toNamed(
-                                          Routes.TOUR_DETAILS,
-                                          arguments: controller
-                                              .getAllTourSearchScreen
-                                              .value?[rowIndex],
-                                        ),
+                                        onTap: () async {
+                                          await controller
+                                              .setHistoryCurrentTour(controller
+                                                  .getAllTourSearchScreen
+                                                  .value![rowIndex]);
+                                          await controller
+                                              .getHistoryCurrentTour();
+                                          Get.toNamed(
+                                            Routes.TOUR_DETAILS,
+                                            arguments: controller
+                                                .getAllTourSearchScreen
+                                                .value?[rowIndex],
+                                          );
+                                        },
                                         child: Row(
                                           children: [
                                             ClipRRect(
@@ -335,10 +344,16 @@ class ListSearchTour extends StatelessWidget {
                         ? randomItemHeight = getSize(220)
                         : randomItemHeight = getSize(192);
                     return InkWell(
-                      onTap: () => Get.toNamed(
-                        Routes.DETAIL_PLACE,
-                        arguments: controller.listCitys.value[index],
-                      ),
+                      onTap: () async {
+                        await controller.setHistoryCurrentDestination(
+                          controller.listCitys.value[index],
+                        );
+                        await controller.getHistoryCurrentDestination();
+                        Get.toNamed(
+                          Routes.DETAIL_PLACE,
+                          arguments: controller.listCitys.value[index],
+                        );
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.all(4),

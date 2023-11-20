@@ -44,22 +44,35 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children: controller.typeServicePlay.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children: controller.typeServicePlay.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                                controller
+                                    .isCheckChooseType(data.typeNub)
+                                    .value;
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? ColorConstants.primaryButton
+                                    : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -71,22 +84,32 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children: controller.typeServiceEvent.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children: controller.typeServiceEvent.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? ColorConstants.primaryButton
+                                    : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -103,14 +126,22 @@ class BottomSheetTypeTour extends StatelessWidget {
                         children: controller.typeServiceAct.map((data) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
+                              controller.setTypeServiceChip(data.typeNub);
                             },
                             child: Chip(
                               label: Text(
                                 data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                                style: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? AppStyles.white000Size13Fw400FfMont
+                                    : AppStyles.black000Size13Fw400FfMont,
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
+                              backgroundColor: controller
+                                      .isCheckChooseType(data.typeNub)
+                                      .value
+                                  ? ColorConstants.primaryButton
+                                  : const Color(0xFFedf1f7),
                             ),
                           );
                         }).toList(),
@@ -130,14 +161,22 @@ class BottomSheetTypeTour extends StatelessWidget {
                         children: controller.typeServiceCultural.map((data) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
+                              controller.setTypeServiceChip(data.typeNub);
                             },
                             child: Chip(
                               label: Text(
                                 data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                                style: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? AppStyles.white000Size13Fw400FfMont
+                                    : AppStyles.black000Size13Fw400FfMont,
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
+                              backgroundColor: controller
+                                      .isCheckChooseType(data.typeNub)
+                                      .value
+                                  ? ColorConstants.primaryButton
+                                  : const Color(0xFFedf1f7),
                             ),
                           );
                         }).toList(),
@@ -157,14 +196,22 @@ class BottomSheetTypeTour extends StatelessWidget {
                         children: controller.typeServiceTravel.map((data) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
+                              controller.setTypeServiceChip(data.typeNub);
                             },
                             child: Chip(
                               label: Text(
                                 data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                                style: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? AppStyles.white000Size13Fw400FfMont
+                                    : AppStyles.black000Size13Fw400FfMont,
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
+                              backgroundColor: controller
+                                      .isCheckChooseType(data.typeNub)
+                                      .value
+                                  ? ColorConstants.primaryButton
+                                  : const Color(0xFFedf1f7),
                             ),
                           );
                         }).toList(),
@@ -184,14 +231,22 @@ class BottomSheetTypeTour extends StatelessWidget {
                         children: controller.typeServiceFood.map((data) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
+                              controller.setTypeServiceChip(data.typeNub);
                             },
                             child: Chip(
                               label: Text(
                                 data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                                style: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? AppStyles.white000Size13Fw400FfMont
+                                    : AppStyles.black000Size13Fw400FfMont,
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
+                              backgroundColor: controller
+                                      .isCheckChooseType(data.typeNub)
+                                      .value
+                                  ? ColorConstants.primaryButton
+                                  : const Color(0xFFedf1f7),
                             ),
                           );
                         }).toList(),
@@ -211,14 +266,22 @@ class BottomSheetTypeTour extends StatelessWidget {
                         children: controller.typeServiceHotel.map((data) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
+                              controller.setTypeServiceChip(data.typeNub);
                             },
                             child: Chip(
                               label: Text(
                                 data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                                style: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? AppStyles.white000Size13Fw400FfMont
+                                    : AppStyles.black000Size13Fw400FfMont,
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
+                              backgroundColor: controller
+                                      .isCheckChooseType(data.typeNub)
+                                      .value
+                                  ? ColorConstants.primaryButton
+                                  : const Color(0xFFedf1f7),
                             ),
                           );
                         }).toList(),
@@ -238,14 +301,22 @@ class BottomSheetTypeTour extends StatelessWidget {
                         children: controller.typeServiceOther.map((data) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: data);
+                              controller.setTypeServiceChip(data.typeNub);
                             },
                             child: Chip(
                               label: Text(
                                 data.valueType,
-                                style: AppStyles.black000Size13Fw400FfMont,
+                                style: controller
+                                        .isCheckChooseType(data.typeNub)
+                                        .value
+                                    ? AppStyles.white000Size13Fw400FfMont
+                                    : AppStyles.black000Size13Fw400FfMont,
                               ),
-                              backgroundColor: const Color(0xFFedf1f7),
+                              backgroundColor: controller
+                                      .isCheckChooseType(data.typeNub)
+                                      .value
+                                  ? ColorConstants.primaryButton
+                                  : const Color(0xFFedf1f7),
                             ),
                           );
                         }).toList(),
@@ -314,7 +385,10 @@ class BottomSheetTypeTour extends StatelessWidget {
                           right: getSize(20),
                         ),
                         child: GestureDetector(
-                          onTap: () => controller.getTourSearch(''),
+                          onTap: () {
+                            controller.getTourSearchType();
+                            Get.back();
+                          },
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(

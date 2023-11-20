@@ -23,6 +23,8 @@ class TourController extends GetxController {
   TextEditingController searchController = TextEditingController();
   final items = Rxn<List<String>>([]);
 
+  final FocusNode focusSearchScreen = FocusNode();
+
   Rx<bool> isShowLoading = true.obs;
   SMITrigger? check;
   SMITrigger? error;
