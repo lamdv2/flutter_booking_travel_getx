@@ -81,6 +81,7 @@ class SearchWidget extends StatelessWidget {
               onSubmitted: (value) {
                 if (value.isNotEmpty) {
                   Get.toNamed(Routes.SEARCH_TOUR_SCREEN, arguments: value);
+                  searchController.searchTourEditingController.text = value;
                   searchController.addSearchTour(value);
                   searchController.getAllSearch();
                   searchController.setHistorySearch(value);
