@@ -288,12 +288,11 @@ class _buildItemHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(12),
-        vertical: getSize(10),
+      padding: EdgeInsets.all(
+        getSize(12),
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(getSize(16)),
         color: ColorConstants.lightCard,
       ),
       child: Row(
@@ -326,7 +325,7 @@ class _buildItemHistory extends StatelessWidget {
                   height: getSize(8),
                 ),
                 Text(
-                  '${tourModel?.price} VND',
+                  '${historyModel?.totalPrice} VND',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyles.blue000Size14Fw400FfMont,

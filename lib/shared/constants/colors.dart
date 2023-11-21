@@ -104,7 +104,6 @@ class ColorConstants {
   static const kIndicatorColor = Color(0XFFCBCCD5);
   static const kBackgroundColor = Color(0XFFF6F8FF);
   static const kDividerColor = Color(0XFFF6F6F6);
-
 }
 
 Color hexToColor(String hex) {

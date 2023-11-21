@@ -117,6 +117,7 @@ class AssetHelper {
   static const String icPassword = 'assets/icons/svg/ic_password.svg';
   static const String icPlay = 'assets/icons/svg/ic_play.svg';
   static const String icPlus = 'assets/icons/svg/ic_plus.svg';
+  static const String icMinus = 'assets/icons/svg/ic_minus.svg';
   static const String icProfile = 'assets/icons/svg/ic_profile.svg';
   static const String icScan = 'assets/icons/svg/ic_scan.svg';
   static const String icSearch = 'assets/icons/svg/ic_search.svg';
