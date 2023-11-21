@@ -22,7 +22,7 @@ class BookingController extends GetxController {
   }
 
   Future<void> bookingTour(String userId, String tourId, Timestamp bookingDate,
-      String status) async {
+      String status, double adult, double children, double totalPrice) async {
     if (userId.isEmpty || tourId.isEmpty) {
       Get.snackbar('Error', 'Booking fail !!!');
     } else {
@@ -32,6 +32,9 @@ class BookingController extends GetxController {
         'isActive': true,
         'bookingDate': bookingDate,
         'status': status,
+        'adult': adult,
+        'children': children,
+        'totalPrice': totalPrice,
       });
       Get.snackbar('Success', 'Booking successfully !!!');
 

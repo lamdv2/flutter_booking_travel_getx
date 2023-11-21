@@ -1,7 +1,5 @@
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
-import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
-import 'package:doan_clean_achitec/modules/booking/booking.dart';
-import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/booking/booking_request.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -9,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class BookingRequiedScreen extends GetView<BookingController> {
+class BookingRequiedScreen extends GetView<BookingRequestController> {
   BookingRequiedScreen({super.key});
 
   final TourModel? tourModel = Get.arguments;
-  final UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
+    controller.setPrice(tourModel?.price ?? 0);
     return Scaffold(
       backgroundColor: ColorConstants.graySecond,
       resizeToAvoidBottomInset: false,
@@ -24,15 +22,18 @@ class BookingRequiedScreen extends GetView<BookingController> {
         padding: EdgeInsets.only(
           top: getSize(60),
           bottom: getSize(40),
-          right: getSize(40),
-          left: getSize(40),
+          right: getSize(36),
+          left: getSize(36),
         ),
         child: Stack(
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(
-                getSize(28),
+              padding: EdgeInsets.only(
+                top: getSize(48),
+                bottom: getSize(80),
+                right: getSize(24),
+                left: getSize(24),
               ),
               decoration: BoxDecoration(
                 color: ColorConstants.white,
@@ -40,12 +41,8 @@ class BookingRequiedScreen extends GetView<BookingController> {
                   getSize(8),
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
-                  SizedBox(
-                    height: getSize(16),
-                  ),
                   Text(
                     tourModel?.nameTour ?? '',
                     style: AppStyles.black000Size18Fw600FfMont,
@@ -55,7 +52,7 @@ class BookingRequiedScreen extends GetView<BookingController> {
                   ),
                   SizedBox(height: getSize(16)),
                   Text(
-                    tourModel?.duration ?? '',
+                    "Start at ${tourModel?.duration ?? 'Hotel'}",
                     style: AppStyles.black000Size14Fw400FfMont,
                   ),
                   SizedBox(height: getSize(16)),
@@ -67,7 +64,7 @@ class BookingRequiedScreen extends GetView<BookingController> {
                         style: AppStyles.black000Size14Fw400FfMont,
                       ),
                       Text(
-                        '\$ ${tourModel?.price}',
+                        'VND ${tourModel?.price}',
                         style: AppStyles.black000Size16Fw500FfMont,
                       ),
                     ],
@@ -102,148 +99,399 @@ class BookingRequiedScreen extends GetView<BookingController> {
                           'No data',
                           style: AppStyles.black000Size14Fw400FfMont,
                         ),
-                  SizedBox(height: getSize(60)),
+                  SizedBox(height: getSize(32)),
                   Text(
                     'Payment Method',
                     style: AppStyles.black000Size18Fw500FfMont,
                   ),
                   SizedBox(height: getSize(24)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: EdgeInsets.all(
-                            getSize(10),
-                          ),
-                          decoration: BoxDecoration(
-                            color: ColorConstants.grayTextField,
-                            borderRadius: BorderRadius.circular(
-                              getSize(16),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (controller.isCheckQR.value) {
+                                controller.isCheckQR.value = false;
+                              } else {
+                                controller.isCheckQR.value = true;
+                                controller.isCheckBanking.value = false;
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                getSize(10),
+                              ),
+                              decoration: BoxDecoration(
+                                color: controller.isCheckQR.value
+                                    ? ColorConstants.primaryButton
+                                    : ColorConstants.grayTextField,
+                                borderRadius: BorderRadius.circular(
+                                  getSize(16),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SvgPicture.asset(
+                                    AssetHelper.icScan,
+                                    height: getSize(36),
+                                    width: getSize(36),
+                                    color: controller.isCheckQR.value
+                                        ? ColorConstants.lightCard
+                                        : ColorConstants.darkAppBar,
+                                  ),
+                                  SizedBox(height: getSize(28)),
+                                  Text(
+                                    'QR Code',
+                                    style: controller.isCheckQR.value
+                                        ? AppStyles.white000Size12Fw400FfMont
+                                        : AppStyles.black000Size12Fw400FfMont,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset(
-                                AssetHelper.icScan,
-                                height: getSize(36),
-                                width: getSize(36),
-                              ),
-                              SizedBox(height: getSize(28)),
-                              Text(
-                                'QR Code',
-                                style: AppStyles.black000Size12Fw400FfMont,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                softWrap: false,
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: getSize(20),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: EdgeInsets.all(
-                            getSize(10),
-                          ),
-                          decoration: BoxDecoration(
-                            color: ColorConstants.grayTextField,
-                            borderRadius: BorderRadius.circular(
-                              getSize(16),
+                        SizedBox(
+                          width: getSize(20),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (controller.isCheckBanking.value) {
+                                controller.isCheckBanking.value = false;
+                              } else {
+                                controller.isCheckBanking.value = true;
+                                controller.isCheckQR.value = false;
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                getSize(10),
+                              ),
+                              decoration: BoxDecoration(
+                                color: controller.isCheckBanking.value
+                                    ? ColorConstants.primaryButton
+                                    : ColorConstants.grayTextField,
+                                borderRadius: BorderRadius.circular(
+                                  getSize(16),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SvgPicture.asset(
+                                    AssetHelper.icWallet,
+                                    height: getSize(36),
+                                    width: getSize(36),
+                                    color: controller.isCheckBanking.value
+                                        ? ColorConstants.lightCard
+                                        : ColorConstants.darkAppBar,
+                                  ),
+                                  SizedBox(height: getSize(28)),
+                                  Text(
+                                    'Banking',
+                                    style: controller.isCheckBanking.value
+                                        ? AppStyles.white000Size12Fw400FfMont
+                                        : AppStyles.black000Size12Fw400FfMont,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset(
-                                AssetHelper.icBag,
-                                height: getSize(36),
-                                width: getSize(36),
-                              ),
-                              SizedBox(height: getSize(28)),
-                              Text(
-                                'Cash',
-                                style: AppStyles.black000Size12Fw400FfMont,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                softWrap: false,
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: getSize(20),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: EdgeInsets.all(
-                            getSize(10),
-                          ),
-                          decoration: BoxDecoration(
-                            color: ColorConstants.grayTextField,
-                            borderRadius: BorderRadius.circular(
-                              getSize(16),
+                        SizedBox(
+                          width: getSize(20),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () => Get.snackbar(
+                                "Notification", "Future coming soon!"),
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                getSize(10),
+                              ),
+                              decoration: BoxDecoration(
+                                color: ColorConstants.grayTextField,
+                                borderRadius: BorderRadius.circular(
+                                  getSize(16),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SvgPicture.asset(
+                                    AssetHelper.icBag,
+                                    height: getSize(36),
+                                    width: getSize(36),
+                                  ),
+                                  SizedBox(height: getSize(28)),
+                                  Text(
+                                    'Cash',
+                                    style: AppStyles.black000Size12Fw400FfMont,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset(
-                                AssetHelper.icWallet,
-                                height: getSize(36),
-                                width: getSize(36),
-                              ),
-                              SizedBox(height: getSize(28)),
-                              Text(
-                                'Wallet',
-                                style: AppStyles.black000Size12Fw400FfMont,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                softWrap: false,
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const Spacer(),
+                  SizedBox(height: getSize(48)),
+                  Text(
+                    'Choose people',
+                    style: AppStyles.black000Size18Fw500FfMont,
+                  ),
+                  SizedBox(height: getSize(24)),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getSize(40),
-                    ),
-                    child: ButtonWidget(
-                      textBtn: 'Yêu cầu đặt',
-                      onTap: () async {
-                        // await controller.bookingTour(
-                        //   homeController.userModel.value?.id ?? '',
-                        //   tourModel?.idTour ?? '',
-                        //   controller.formatDateTime(DateTime.now().toString()),
-                        //   'waiting',
-                        // );
-                        // Get.offAndToNamed(Routes.HISTORY_TOUR_SCREEN);
-                        Get.offAndToNamed(Routes.ABOUT_APP_SCREEN);
-                      },
+                    padding: EdgeInsets.only(bottom: getSize(16)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Adult',
+                                  style: AppStyles.black000Size14Fw500FfMont,
+                                ),
+                                SizedBox(height: getSize(4)),
+                                Text(
+                                  'from 141 cm tall',
+                                  style: AppStyles.black000Size12Fw400FfMont,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                ),
+                                SizedBox(height: getSize(4)),
+                                RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: 'VND ',
+                                        style:
+                                            AppStyles.black000Size12Fw400FfMont,
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '${controller.adultPrice.toInt()}',
+                                        style:
+                                            AppStyles.blue000Size14Fw500FfMont,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Obx(
+                              () => Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.adultNumb.value =
+                                          controller.setMinus(
+                                        controller.adultNumb.value ?? 0,
+                                      );
+                                      controller.calcuPrice();
+                                    },
+                                    child: SvgPicture.asset(
+                                      AssetHelper.icMinus,
+                                      color: ColorConstants.green,
+                                    ),
+                                  ),
+                                  SizedBox(width: getSize(10)),
+                                  SizedBox(
+                                    width: getSize(32),
+                                    child: Text(
+                                      "${controller.adultNumb.toInt()}",
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          AppStyles.black000Size16Fw400FfMont,
+                                    ),
+                                  ),
+                                  SizedBox(width: getSize(10)),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.adultNumb.value =
+                                          controller.setPlus(
+                                        controller.adultNumb.value ?? 0,
+                                      );
+                                      controller.calcuPrice();
+                                    },
+                                    child: SvgPicture.asset(
+                                      AssetHelper.icPlus,
+                                      color: ColorConstants.green,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: getSize(16),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Children',
+                                  style: AppStyles.black000Size14Fw500FfMont,
+                                ),
+                                SizedBox(height: getSize(4)),
+                                Text(
+                                  '140 cm tall or less',
+                                  style: AppStyles.black000Size12Fw400FfMont,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                ),
+                                SizedBox(height: getSize(4)),
+                                RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: 'VND ',
+                                        style:
+                                            AppStyles.black000Size12Fw400FfMont,
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '${controller.childrenPrice.toInt()}',
+                                        style:
+                                            AppStyles.blue000Size14Fw500FfMont,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Obx(
+                              () => Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.childrenNumb.value =
+                                          controller.setMinus(
+                                        controller.childrenNumb.value ?? 0,
+                                      );
+                                      controller.calcuPrice();
+                                    },
+                                    child: SvgPicture.asset(
+                                      AssetHelper.icMinus,
+                                      color: ColorConstants.green,
+                                    ),
+                                  ),
+                                  SizedBox(width: getSize(10)),
+                                  SizedBox(
+                                    width: getSize(32),
+                                    child: Text(
+                                      "${controller.childrenNumb.toInt()}",
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          AppStyles.black000Size16Fw400FfMont,
+                                    ),
+                                  ),
+                                  SizedBox(width: getSize(10)),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.childrenNumb.value =
+                                          controller.setPlus(
+                                        controller.childrenNumb.value ?? 0,
+                                      );
+                                      controller.calcuPrice();
+                                    },
+                                    child: SvgPicture.asset(
+                                      AssetHelper.icPlus,
+                                      color: ColorConstants.green,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: getSize(28)),
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: () => Get.back(),
+                  child: SvgPicture.asset(AssetHelper.icCloseSquare),
+                ),
+              ),
+            ),
             Positioned(
-              top: getSize(8),
-              right: getSize(8),
-              child: InkWell(
-                onTap: () => Get.back(),
-                child: SvgPicture.asset(AssetHelper.icCloseSquare),
+              bottom: getSize(16),
+              left: getSize(24),
+              right: getSize(24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(
+                    () => RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '${controller.totalPrice.toInt()} ',
+                            style: AppStyles.blue000Size16Fw500FfMont,
+                          ),
+                          TextSpan(
+                            text: 'VND ',
+                            style: AppStyles.black000Size14Fw400FfMont,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ButtonWidget(
+                    textBtn: 'Continue',
+                    onTap: ()  {
+                     
+                      if (controller.adultNumb.value == 0 &&
+                          controller.childrenNumb.value == 0) {
+                        Get.snackbar("Warning",
+                            "You need to choose the number of people!");
+                      } else {
+                        Get.toNamed(Routes.BOOKING_OPTION_SCREEN,
+                            arguments: tourModel);
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
           ],

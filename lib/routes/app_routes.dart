@@ -36,4 +36,6 @@ abstract class Routes {
   static const CHANGE_PASSWORD_SCREEN = '/change_password_screen';
   static const ABOUT_APP_SCREEN = '/about_app_screen';
   static const FEED_BACK = '/feed_back';
+  static const BOOKING_OPTION_SCREEN = '/booking_option_screen';
+  static const BOOKING_PAYMENT_SCREEN = '/booking_payment_screen';
 }

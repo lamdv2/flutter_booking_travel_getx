@@ -1,3 +1,5 @@
+import 'package:doan_clean_achitec/shared/constants/app_style.dart';
+import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -18,25 +20,27 @@ class ButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
+        padding: EdgeInsets.symmetric(
+          vertical: getSize(kTopPadding),
+          horizontal: getSize(kDefaultPadding),
+        ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kMediumPadding),
+          borderRadius: BorderRadius.circular(kTopPadding),
           gradient: gradient == null
               ? Gradients.defaultGradientBackground
               : Gradients.defaultGradientButtonCancel,
         ),
         alignment: Alignment.center,
-        child: Text(textBtn,
-            style: color == null
-                ? const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  )
-                : const TextStyle(
-                    color: ColorConstants.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  )),
+        child: Text(
+          textBtn,
+          style: color == null
+              ? AppStyles.white000Size18Fw500FfMont
+              : const TextStyle(
+                  fontSize: 18,
+                  color: ColorConstants.primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+        ),
       ),
     );
   }
