@@ -4,6 +4,7 @@ import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/carousel_slide.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/category_bar.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/home_header.dart';
+import 'package:doan_clean_achitec/modules/home/widgets/special_sale.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/title_des.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -19,7 +20,8 @@ import 'widgets/special_offer.dart';
 class HomeTab extends GetView<HomeController> {
   HomeTab({super.key});
 
-  final SearchDesController searchDesController = Get.find();
+  final SearchDesController searchDesController =
+      Get.put(SearchDesController());
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +111,10 @@ class HomeTab extends GetView<HomeController> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    height: getSize(32),
+                  ),
+                  SpecialSale(),
                 ],
               ),
             ),

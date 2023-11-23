@@ -144,8 +144,8 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: CachedNetworkImage(
-                                imageUrl: tourModel?.imgqr ??
-                                    "https://images.pexels.com/photos/1477430/pexels-photo-1477430.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+                                imageUrl:
+                                    "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Fbidv_dovanlam.jpg?alt=media&token=7929a623-8adc-4b41-ad00-514542802fe3",
                                 height: MediaQuery.of(context).size.width,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,
@@ -197,7 +197,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                           bookingController
                               .formatDateTime(DateTime.now().toString()),
                           'waiting',
-                          bookingRequestController.adultNumb.value ??0,
+                          bookingRequestController.adultNumb.value ?? 0,
                           bookingRequestController.childrenNumb.value ?? 0,
                           bookingRequestController.totalPrice.value ?? 0,
                         );
