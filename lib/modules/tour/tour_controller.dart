@@ -18,6 +18,7 @@ class TourController extends GetxController {
   final cityModel = Rxn<CityModel>();
   final getListTour = Rxn<List<TourModel>>();
   final getListTourTop10 = Rxn<List<TourModel>>();
+  final getListTourTop10Sale = Rxn<List<TourModel>>();
   final filterListTourData = Rxn<List<TourModel>>();
   final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
@@ -96,6 +97,7 @@ class TourController extends GetxController {
     getListTour.value = listTourData;
     filterListTourData.value = listTourData;
     await getTop10Tour(listTourData);
+    await getTop10TourSale(listTourData);
   }
 
   // Get Top 10 Tour By Star
@@ -110,6 +112,22 @@ class TourController extends GetxController {
         }
       } else {
         getListTourTop10.value = getListTour;
+      }
+    }
+  }
+
+  // Get Top 10 Tour Sale
+  Future<void> getTop10TourSale(List<TourModel> getListTour) async {
+    if (getListTour.isNotEmpty) {
+      getListTour.sort((a, b) => (b.rating ?? 0).compareTo(a.rating ?? 0));
+
+      final allSaleTours =
+          getListTour.where((tour) => tour.status == "sale").toList();
+
+      if (allSaleTours.length >= 10) {
+        getListTourTop10Sale.value = allSaleTours.take(10).toList();
+      } else {
+        getListTourTop10Sale.value = allSaleTours;
       }
     }
   }

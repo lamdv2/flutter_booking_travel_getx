@@ -10,8 +10,8 @@ import '../home_controller.dart';
 import 'special_offer_card.dart';
 import 'title_des.dart';
 
-class SpecialOffers extends StatelessWidget {
-  SpecialOffers({
+class SpecialSale extends StatelessWidget {
+  SpecialSale({
     Key? key,
   }) : super(key: key);
   final HomeController homecontroller = Get.find();
@@ -24,7 +24,7 @@ class SpecialOffers extends StatelessWidget {
       () => Column(
         children: [
           TitleDes(
-            largeTitle: 'Special for you',
+            largeTitle: 'Tour sale',
             seeAll: StringConst.seeAll.tr,
             onTap: () {
               homecontroller.currentIndex.value = 2;
@@ -35,39 +35,41 @@ class SpecialOffers extends StatelessWidget {
             height: getSize(160),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: tourController.getListTourTop10.value != null &&
-                      tourController.getListTourTop10.value!.isNotEmpty
+              child: tourController.getListTourTop10Sale.value != null &&
+                      tourController.getListTourTop10Sale.value!.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount:
-                          tourController.getListTourTop10.value?.length ?? 0,
+                          tourController.getListTourTop10Sale.value?.length ??
+                              0,
                       itemBuilder: (BuildContext context, int rowIndex) {
                         return SpecialOfferCard(
-                          image: tourController.getListTourTop10
+                          image: tourController.getListTourTop10Sale
                                           .value?[rowIndex].images !=
                                       null &&
-                                  tourController.getListTourTop10
+                                  tourController.getListTourTop10Sale
                                       .value![rowIndex].images!.isNotEmpty
-                              ? tourController.getListTourTop10.value![rowIndex]
-                                  .images!.first
+                              ? tourController.getListTourTop10Sale
+                                  .value![rowIndex].images!.first
                               : "",
-                          category: tourController
-                                  .getListTourTop10.value?[rowIndex].nameTour ??
+                          category: tourController.getListTourTop10Sale
+                                  .value?[rowIndex].nameTour ??
                               "",
-                          numOfBrands: tourController
-                                  .getListTourTop10.value?[rowIndex].rating ??
+                          numOfBrands: tourController.getListTourTop10Sale
+                                  .value?[rowIndex].rating ??
                               0,
                           press: () async {
                             await searchDesController.setHistoryCurrentTour(
-                              tourController.getListTourTop10.value![rowIndex],
+                              tourController
+                                  .getListTourTop10Sale.value![rowIndex],
                             );
                             await searchDesController.getHistoryCurrentTour();
                             Get.toNamed(
                               Routes.TOUR_DETAILS,
                               arguments: tourController
-                                  .getListTourTop10.value?[rowIndex],
+                                  .getListTourTop10Sale.value?[rowIndex],
                             );
                           },
                         );

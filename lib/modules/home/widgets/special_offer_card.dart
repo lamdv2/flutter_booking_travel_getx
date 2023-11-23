@@ -12,7 +12,7 @@ class SpecialOfferCard extends StatelessWidget {
   }) : super(key: key);
 
   final String category, image;
-  final int numOfBrands;
+  final double numOfBrands;
   final GestureTapCallback press;
 
   @override
@@ -76,7 +76,7 @@ class SpecialOfferCard extends StatelessWidget {
                         height: getSize(4),
                       ),
                       Text(
-                        "$numOfBrands Tours",
+                        "$numOfBrands Star",
                         style: const TextStyle(color: ColorConstants.white),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

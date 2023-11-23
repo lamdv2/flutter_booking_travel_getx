@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     Future.wait([getUserDetails(userController.userEmail.value)]);
-    getAllCityModelData();
+    getAllCityData();
   }
 
   RxInt currentIndex = 0.obs;
@@ -59,6 +59,10 @@ class HomeController extends GetxController {
 
     listCitys.value = listCityData;
     filterListCityData.value = listCityData;
+  }
+
+  void getAllCityData() async {
+    await getAllCityModelData();
   }
 
   void openDrawer() {
