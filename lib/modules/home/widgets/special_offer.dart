@@ -45,31 +45,8 @@ class SpecialOffers extends StatelessWidget {
                           tourController.getListTourTop10.value?.length ?? 0,
                       itemBuilder: (BuildContext context, int rowIndex) {
                         return SpecialOfferCard(
-                          image: tourController.getListTourTop10
-                                          .value?[rowIndex].images !=
-                                      null &&
-                                  tourController.getListTourTop10
-                                      .value![rowIndex].images!.isNotEmpty
-                              ? tourController.getListTourTop10.value![rowIndex]
-                                  .images!.first
-                              : "",
-                          category: tourController
-                                  .getListTourTop10.value?[rowIndex].nameTour ??
-                              "",
-                          numOfBrands: tourController
-                                  .getListTourTop10.value?[rowIndex].rating ??
-                              0,
-                          press: () async {
-                            await searchDesController.setHistoryCurrentTour(
+                          tourModel:
                               tourController.getListTourTop10.value![rowIndex],
-                            );
-                            await searchDesController.getHistoryCurrentTour();
-                            Get.toNamed(
-                              Routes.TOUR_DETAILS,
-                              arguments: tourController
-                                  .getListTourTop10.value?[rowIndex],
-                            );
-                          },
                         );
                       },
                     )

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -23,6 +24,7 @@ class SearchTourScreen extends GetView<SearchTourController> {
   final AppController appController = Get.find();
   final SearchDesController searchDesController = Get.find();
   final String? dataSearch = Get.arguments;
+  final TourController tourcontroller = Get.put(TourController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,10 @@ class SearchTourScreen extends GetView<SearchTourController> {
 
     return Obx(
       () => RefreshIndicator(
-        onRefresh: () =>
-            searchDesController.getAllTourSearchData(dataSearch ?? ""),
+        onRefresh: () async {
+          searchDesController.getAllTourSearchData(dataSearch ?? "");
+          tourcontroller.getAllTourModelData();
+        },
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
@@ -324,9 +328,13 @@ class buildItemTourSearch extends GetView<SearchDesController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await searchDesController.setHistoryCurrentTour(tourModel!);
-        await searchDesController.getHistoryCurrentTour();
-        Get.toNamed(Routes.TOUR_DETAILS, arguments: tourModel);
+        if (tourModel!.active) {
+          await searchDesController.setHistoryCurrentTour(tourModel!);
+          await searchDesController.getHistoryCurrentTour();
+          Get.toNamed(Routes.TOUR_DETAILS, arguments: tourModel);
+        } else {
+          Get.snackbar("Notification", "The tour is on hold!");
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -335,21 +343,45 @@ class buildItemTourSearch extends GetView<SearchDesController> {
         ),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(getSize(8)),
-              child: tourModel?.images != null && tourModel?.images != []
-                  ? CachedNetworkImage(
-                      height: getSize(200),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      imageUrl: tourModel?.images?.first ?? '',
-                    )
-                  : Image.asset(
-                      height: getSize(200),
-                      width: double.infinity,
-                      AssetHelper.imgPrevHotel01,
-                      fit: BoxFit.cover,
-                    ),
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(getSize(8)),
+                  child: tourModel?.images != null && tourModel?.images != []
+                      ? CachedNetworkImage(
+                          height: getSize(200),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          imageUrl: tourModel?.images?.first ?? '',
+                        )
+                      : Image.asset(
+                          height: getSize(200),
+                          width: double.infinity,
+                          AssetHelper.imgPrevHotel01,
+                          fit: BoxFit.cover,
+                        ),
+                ),
+                tourModel?.active ?? true
+                    ? const SizedBox.shrink()
+                    : Positioned(
+                        bottom: 4,
+                        right: 0,
+                        child: Padding(
+                          padding: EdgeInsets.all(getSize(8)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: ColorConstants.white.withOpacity(.8),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: EdgeInsets.all(getSize(8)),
+                            child: Text(
+                              "Stopped",
+                              style: AppStyles.blue000Size14Fw500FfMont,
+                            ),
+                          ),
+                        ),
+                      ),
+              ],
             ),
             Container(
               padding: EdgeInsets.symmetric(

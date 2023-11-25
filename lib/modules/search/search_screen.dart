@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/search/search_controller.dart';
 import 'package:doan_clean_achitec/modules/search/tab_search.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -17,6 +18,7 @@ class SearchScreen extends GetView<SearchDesController> {
   SearchScreen({super.key});
 
   final AppController appController = Get.find();
+  final TourController tourController = Get.put(TourController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class SearchScreen extends GetView<SearchDesController> {
           controller.getAllCityModelData();
           controller.getHistoryCurrentTour();
           controller.getHistoryCurrentDestination();
+          tourController.getAllTourModelData();
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,

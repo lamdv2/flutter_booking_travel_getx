@@ -396,12 +396,16 @@ class ItemTourSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await searchDesController.setHistoryCurrentTour(tourModel);
-        await searchDesController.getHistoryCurrentTour();
-        Get.toNamed(
-          Routes.TOUR_DETAILS,
-          arguments: tourModel,
-        );
+        if (tourModel.active) {
+          await searchDesController.setHistoryCurrentTour(tourModel);
+          await searchDesController.getHistoryCurrentTour();
+          Get.toNamed(
+            Routes.TOUR_DETAILS,
+            arguments: tourModel,
+          );
+        } else {
+          Get.snackbar("Notification", "The tour is on hold!");
+        }
       },
       child: SizedBox(
         height: height ?? getSize(180),
@@ -409,20 +413,43 @@ class ItemTourSearch extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(getSize(16)),
-                child: tourModel.images != null && tourModel.images != []
-                    ? CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: tourModel.images?.first ?? '',
-                      )
-                    : Image.asset(
-                        AssetHelper.imgPrevHotel01,
-                        fit: BoxFit.cover,
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(getSize(16)),
+                    child: tourModel.images != null && tourModel.images != []
+                        ? CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: tourModel.images?.first ?? '',
+                          )
+                        : Image.asset(
+                            AssetHelper.imgPrevHotel01,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+                tourModel.active
+                    ? const SizedBox.shrink()
+                    : Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(getSize(8)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: ColorConstants.white.withOpacity(.8),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: EdgeInsets.all(getSize(8)),
+                            child: Text(
+                              "Temporarily stopped",
+                              style: AppStyles.blue000Size12Fw400FfMont,
+                            ),
+                          ),
+                        ),
                       ),
-              ),
+              ],
             ),
             SizedBox(
               height: getSize(10),

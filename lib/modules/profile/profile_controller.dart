@@ -48,6 +48,7 @@ class ProfileController extends GetxController {
   RxString imageUrl = ''.obs;
 
   Rx<List<AssetEntity>> imageFonts = Rx([]);
+  final userModelImg = Rxn<List<String>>();
 
   @override
   void onInit() {
@@ -55,6 +56,20 @@ class ProfileController extends GetxController {
     Future.wait([
       homeController.getUserDetails(userController.userEmail.value),
     ]);
+    getThumbnails();
+  }
+
+  void getThumbnails() async {
+    List<String> thumbnails = [];
+    var myVideos = await _firestore
+        .collection('videos')
+        .where('uid', isEqualTo: homeController.userModel.value?.id ?? "")
+        .get();
+
+    for (int i = 0; i < myVideos.docs.length; i++) {
+      thumbnails.add((myVideos.docs[i].data() as dynamic)['thumbnail']);
+    }
+    userModelImg.value = thumbnails;
   }
 
   void getDeleteImage(String nameImage) async {
@@ -236,6 +251,7 @@ class ProfileController extends GetxController {
           ),
         )
         .catchError(
+          // ignore: body_might_complete_normally_catch_error
           (error) {
             Get.snackbar(
               "Error",
@@ -433,4 +449,71 @@ class ProfileController extends GetxController {
       },
     );
   }
+
+  // final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
+  // Map<String, dynamic> get user => _user.value;
+
+  // int likes = 0;
+  //   int followers = 0;
+  //   int following = 0;
+  //   bool isFollowing = false;
+
+  // void getUserFollow(){
+  //   _user.value = {
+  //     'followers': followers.toString(),
+  //     'following': following.toString(),
+  //     'isFollowing': isFollowing,
+  //     'likes': likes.toString(),
+  //     'profilePhoto': profilePhoto,
+  //     'name': name,
+  //     'thumbnails': thumbnails,
+  //   };
+  // }
+
+  // followUser() async {
+  //   var doc = await _firestore
+  //       .collection('users')
+  //       .doc(_uid.value)
+  //       .collection('followers')
+  //       .doc(authController.user.uid)
+  //       .get();
+
+  //   if (!doc.exists) {
+  //     await _firestore
+  //         .collection('users')
+  //         .doc(_uid.value)
+  //         .collection('followers')
+  //         .doc(authController.user.uid)
+  //         .set({});
+  //     await _firestore
+  //         .collection('users')
+  //         .doc(authController.user.uid)
+  //         .collection('following')
+  //         .doc(_uid.value)
+  //         .set({});
+  //     _user.value.update(
+  //       'followers',
+  //       (value) => (int.parse(value) + 1).toString(),
+  //     );
+  //   } else {
+  //     await _firestore
+  //         .collection('users')
+  //         .doc(_uid.value)
+  //         .collection('followers')
+  //         .doc(authController.user.uid)
+  //         .delete();
+  //     await _firestore
+  //         .collection('users')
+  //         .doc(authController.user.uid)
+  //         .collection('following')
+  //         .doc(_uid.value)
+  //         .delete();
+  //     _user.value.update(
+  //       'followers',
+  //       (value) => (int.parse(value) - 1).toString(),
+  //     );
+  //   }
+  //   _user.value.update('isFollowing', (value) => !value);
+  //   update();
+  // }
 }

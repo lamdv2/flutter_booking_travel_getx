@@ -33,9 +33,13 @@ class TourItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ??
           () async {
-            await searchDesController.setHistoryCurrentTour(listTour);
-            await searchDesController.getHistoryCurrentTour();
-            Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour);
+            if (listTour.active) {
+              await searchDesController.setHistoryCurrentTour(listTour);
+              await searchDesController.getHistoryCurrentTour();
+              Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour);
+            } else {
+              Get.snackbar("Notification", "The tour is on hold!");
+            }
           },
       child: Container(
         width: MediaQuery.of(context).size.width - getSize(40),
@@ -112,6 +116,27 @@ class TourItemWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+                    listTour.active
+                        ? const SizedBox.shrink()
+                        : Positioned(
+                            bottom: 4,
+                            right: 0,
+                            left: 0,
+                            child: Padding(
+                              padding: EdgeInsets.all(getSize(8)),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorConstants.white.withOpacity(.8),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                padding: EdgeInsets.all(getSize(8)),
+                                child: Text(
+                                  "Stopped",
+                                  style: AppStyles.blue000Size14Fw500FfMont,
+                                ),
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),

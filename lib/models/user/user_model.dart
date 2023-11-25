@@ -10,6 +10,7 @@ class UserModel {
   final String phoneNub;
   final String? location;
   final bool isActive;
+  List<String>? imgThumbnails;
 
   UserModel({
     this.id,
@@ -21,6 +22,7 @@ class UserModel {
     required this.phoneNub,
     this.location,
     required this.isActive,
+    this.imgThumbnails,
   });
 
   toJson() {
@@ -34,6 +36,7 @@ class UserModel {
       'phoneNub': phoneNub,
       'location': location,
       'isActive': isActive,
+      'imgThumbnails': imgThumbnails,
     };
   }
 
@@ -50,6 +53,9 @@ class UserModel {
       phoneNub: data['phoneNub'],
       location: data['location'],
       isActive: data['isActive'],
+      imgThumbnails: data['imgThumbnails'] != null
+          ? List<String>.from(data['imgThumbnails'])
+          : null,
     );
   }
 }

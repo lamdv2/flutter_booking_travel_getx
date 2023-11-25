@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
-import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/drawer_widget.dart';
@@ -26,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    profileController.getThumbnails();
     return Scaffold(
       drawer: DrawerWidget(),
       appBar: CustomAppBar(
@@ -105,21 +106,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            "86",
-                            style: TextStyle(
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.white
-                                  : ColorConstants.black.withOpacity(0.8),
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
+                          Obx(
+                            () => Text(
+                              "${profileController.userModelImg.value?.length ?? 0}",
+                              style: TextStyle(
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.black.withOpacity(0.8),
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           Text(
-                            StringConst.photo.tr,
+                            "Video".tr,
                             style: TextStyle(
                               color: appController.isDarkModeOn.value
                                   ? ColorConstants.white
@@ -130,142 +133,94 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "4k",
-                            style: TextStyle(
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.white
-                                  : ColorConstants.black.withOpacity(0.8),
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
+                      GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "0",
+                              style: TextStyle(
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.black.withOpacity(0.8),
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            StringConst.followers.tr,
-                            style: TextStyle(
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.white
-                                  : ColorConstants.black.withOpacity(0.4),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                            const SizedBox(
+                              height: 8,
                             ),
-                          )
-                        ],
+                            Text(
+                              StringConst.followers.tr,
+                              style: TextStyle(
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.black.withOpacity(0.4),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "120",
-                            style: TextStyle(
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.white
-                                  : ColorConstants.black.withOpacity(0.8),
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
+                      GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "0",
+                              style: TextStyle(
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.black.withOpacity(0.8),
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            StringConst.following.tr,
-                            style: TextStyle(
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.white
-                                  : ColorConstants.black.withOpacity(0.4),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                            const SizedBox(
+                              height: 8,
                             ),
-                          )
-                        ],
+                            Text(
+                              StringConst.following.tr,
+                              style: TextStyle(
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.white
+                                    : ColorConstants.black.withOpacity(0.4),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(getSize(18)),
-                            child: Image.asset(
-                              AssetHelper.city_1,
-                              height: getSize(126),
-                              width: getSize(164),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(getSize(18)),
-                            child: Image.asset(
-                              AssetHelper.city_3,
-                              height: getSize(126),
-                              width: getSize(164),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(getSize(18)),
-                            child: Image.asset(
-                              AssetHelper.city_4,
-                              height: getSize(126),
-                              width: getSize(164),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(getSize(18)),
-                            child: Image.asset(
-                              AssetHelper.city_8,
-                              height: getSize(126),
-                              width: getSize(164),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(getSize(18)),
-                      child: Image.asset(
-                        AssetHelper.city_6,
-                        height: getSize(136),
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover,
+                Obx(() => GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount:
+                          profileController.userModelImg.value?.length ?? 0,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: getSize(8),
+                        mainAxisSpacing: getSize(8),
                       ),
-                    ),
-                  ],
-                ),
+                      itemBuilder: (context, index) {
+                        String thumbnail =
+                            profileController.userModelImg.value![index];
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(getSize(8)),
+                          child: CachedNetworkImage(
+                            imageUrl: thumbnail,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
+                    )),
                 const SizedBox(
                   height: 16,
                 ),

@@ -4,6 +4,7 @@ import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/modules/video_screen/views/screens/video_screen.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../shared/widgets/stateless/drawer_widget.dart';
 import '../auth/user_controller.dart';
-import '../discover/discover_screen.dart';
 import '../setting/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       HomeTab(),
       SearchScreen(),
-      DiscoverScreen(),
+      VideoScreen(),
       BookingScreen(),
       SettingScreen(),
     ];

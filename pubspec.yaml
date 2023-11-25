@@ -112,6 +112,9 @@ dependencies:
   share_plus: ^7.2.1
   flutter_phone_direct_caller: ^2.1.1
   flutter_local_notifications: ^16.1.0
+  timeago: ^3.6.0
+  video_compress: ^3.1.2
+  video_player: ^2.8.1
   
 dev_dependencies:
   flutter_test:

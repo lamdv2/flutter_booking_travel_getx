@@ -7,6 +7,7 @@ import 'package:doan_clean_achitec/modules/home/widgets/home_header.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/special_sale.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/title_des.dart';
 import 'package:doan_clean_achitec/modules/search/search.dart';
+import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -22,13 +23,17 @@ class HomeTab extends GetView<HomeController> {
 
   final SearchDesController searchDesController =
       Get.put(SearchDesController());
+  final TourController tourController = Get.put(TourController());
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Obx(
       () => RefreshIndicator(
-        onRefresh: () => controller.getAllCityModelData(),
+        onRefresh: () async {
+          controller.getAllCityModelData();
+          tourController.getAllTourModelData();
+        },
         child: Scaffold(
           backgroundColor: appController.isDarkModeOn.value
               ? ColorConstants.darkBackground

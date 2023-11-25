@@ -1,5 +1,4 @@
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
-import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,32 +45,8 @@ class SpecialSale extends StatelessWidget {
                               0,
                       itemBuilder: (BuildContext context, int rowIndex) {
                         return SpecialOfferCard(
-                          image: tourController.getListTourTop10Sale
-                                          .value?[rowIndex].images !=
-                                      null &&
-                                  tourController.getListTourTop10Sale
-                                      .value![rowIndex].images!.isNotEmpty
-                              ? tourController.getListTourTop10Sale
-                                  .value![rowIndex].images!.first
-                              : "",
-                          category: tourController.getListTourTop10Sale
-                                  .value?[rowIndex].nameTour ??
-                              "",
-                          numOfBrands: tourController.getListTourTop10Sale
-                                  .value?[rowIndex].rating ??
-                              0,
-                          press: () async {
-                            await searchDesController.setHistoryCurrentTour(
-                              tourController
-                                  .getListTourTop10Sale.value![rowIndex],
-                            );
-                            await searchDesController.getHistoryCurrentTour();
-                            Get.toNamed(
-                              Routes.TOUR_DETAILS,
-                              arguments: tourController
-                                  .getListTourTop10Sale.value?[rowIndex],
-                            );
-                          },
+                          tourModel: tourController
+                              .getListTourTop10Sale.value![rowIndex],
                         );
                       },
                     )
