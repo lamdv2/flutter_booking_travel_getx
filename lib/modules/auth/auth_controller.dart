@@ -184,7 +184,7 @@ class AuthController extends GetxController {
         email: loginEmailController.text,
         password: loginPasswordController.text,
       );
-      await homeController.getUserDetails(userController.userEmail.value);
+      await homeController.getUserDetails(loginEmailController.text);
       final fcmTokenGet = LocalStorageHelper.getValue('fcmToken') ?? "";
       profileController.createPushNotification(
         homeController.userModel.value?.id ?? "",

@@ -2,6 +2,8 @@ import 'package:doan_clean_achitec/modules/about_app/about_app.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_option/booking_option_binding.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_option/booking_option_screen.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_option/booking_payment.dart';
+import 'package:doan_clean_achitec/modules/history_tour/history_tour_binding.dart';
+import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_screen.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/tour_qr_code_detail.dart';
 import 'package:doan_clean_achitec/modules/booking/booking.dart';
 import 'package:doan_clean_achitec/modules/booking/booking_requied.dart';
@@ -209,6 +211,20 @@ class AppPages {
       name: Routes.BOOKING_PAYMENT_SCREEN,
       page: () => BookingPaymentScreen(),
       binding: BookingOptionBinding(),
+    ),
+    GetPage(
+      name: Routes.TOUR_REVIEW,
+      page: () => CommentTourScreen(
+        id: '',
+      ),
+      binding: HistoryTourBinding(),
+    ),
+    GetPage(
+      name: Routes.COMMENT_TOUR_SEE,
+      page: () => CommentTourScreen(
+        id: '',
+      ),
+      binding: HistoryTourBinding(),
     ),
   ];
 }

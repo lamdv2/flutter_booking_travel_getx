@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
-import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
+import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_controller.dart';
+import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_see_screen.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen_all.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/google_map_widget.dart';
@@ -18,13 +19,19 @@ import 'package:doan_clean_achitec/shared/widgets/button_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/item_utility_detail_hotel_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/dash_widget.dart';
 import 'package:lottie/lottie.dart';
+import 'package:timeago/timeago.dart' as tago;
 
+import '../home/home_controller.dart';
+
+// ignore: must_be_immutable
 class TourDetailsScreen extends StatelessWidget {
   TourDetailsScreen({Key? key}) : super(key: key);
   final TourController tourController = Get.find();
   final TourModel? tourModel = Get.arguments;
   final AppController appController = Get.find();
   final int selectedIndex = 0;
+  CommentTourController commentController = Get.put(CommentTourController());
+  final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +123,11 @@ class TourDetailsScreen extends StatelessWidget {
                           _buildPhotoGallery(tourModel),
                           SizedBox(height: getSize(kTop28Padding)),
                           _buildLocation(tourController),
+                          _buildCommentList(
+                            commentController: commentController,
+                            homeController: homeController,
+                            id: tourModel!.idTour ?? "",
+                          ),
                           SizedBox(height: getSize(kMediumPadding)),
                           ButtonWidget(
                             textBtn: StringConst.bookTour.tr,
@@ -266,7 +278,7 @@ class TourDetailsScreen extends StatelessWidget {
           ),
         ),
         Text(
-          '(${tourModel?.reviews?.length} ${StringConst.review.tr})',
+          '(${tourModel?.reviews} ${StringConst.review.tr})',
           style: TextStyle(
             fontSize: 16,
             color: appController.isDarkModeOn.value
@@ -275,12 +287,17 @@ class TourDetailsScreen extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Text(
-          StringConst.seeAll.tr,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: ColorConstants.primaryButton,
+        GestureDetector(
+          onTap: () => Get.to(
+            CommentTourSeeScreen(id: tourModel!.idTour ?? ""),
+          ),
+          child: Text(
+            StringConst.seeAll.tr,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: ColorConstants.primaryButton,
+            ),
           ),
         ),
       ],
@@ -459,6 +476,89 @@ class TourDetailsScreen extends StatelessWidget {
         ),
         SizedBox(height: getSize(kMediumPadding)),
       ],
+    );
+  }
+}
+
+class _buildCommentList extends StatelessWidget {
+  const _buildCommentList({
+    super.key,
+    required this.commentController,
+    required this.homeController,
+    required this.id,
+  });
+
+  final CommentTourController commentController;
+  final HomeController homeController;
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+    commentController.updatePostId(id);
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: commentController.comments.length > 3
+          ? 3
+          : commentController.comments.length,
+      itemBuilder: (context, index) {
+        final comment = commentController.comments[index];
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.black,
+            backgroundImage: NetworkImage(comment.profilePhoto),
+          ),
+          title: Row(
+            children: [
+              Text(
+                "${comment.username}  ",
+                style: AppStyles.blue000Size16Fw600FfMont,
+              ),
+              Expanded(
+                child: Text(
+                  comment.comment,
+                  style: AppStyles.black000Size14Fw400FfMont,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          subtitle: Row(
+            children: [
+              Text(
+                tago.format(
+                  comment.datePublished.toDate(),
+                ),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: ColorConstants.kTextColor,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                '${comment.likes.length} likes',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: ColorConstants.kTextColor,
+                ),
+              )
+            ],
+          ),
+          trailing: InkWell(
+            onTap: () => commentController.likeComment(comment.id),
+            child: Icon(
+              Icons.favorite,
+              size: 25,
+              color: comment.likes.contains(homeController.userModel.value?.id)
+                  ? Colors.red
+                  : ColorConstants.accent1,
+            ),
+          ),
+        );
+      },
     );
   }
 }

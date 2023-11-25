@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/history/history_model.dart';
 import 'package:doan_clean_achitec/modules/history_tour/history_tour_controller.dart';
+import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_screen.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/preytty_qr_code.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -220,6 +221,33 @@ class TourQRCodeDetail extends StatelessWidget {
                             },
                             child: Text(
                               'Cancel tour',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: appController.isDarkModeOn.value
+                                    ? ColorConstants.lightAppBar
+                                    : ColorConstants.lightAppBar,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                getStatus == "completed"
+                    ? Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(getSize(16)),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.center,
+                              backgroundColor: appController.isDarkModeOn.value
+                                  ? ColorConstants.darkCard
+                                  : ColorConstants.primaryButton,
+                            ),
+                            onPressed: () => Get.to(
+                              CommentTourScreen(id: tourModel!.idTour ?? ""),
+                            ),
+                            child: Text(
+                              'Tour review',
                               style: TextStyle(
                                 fontSize: 18,
                                 color: appController.isDarkModeOn.value

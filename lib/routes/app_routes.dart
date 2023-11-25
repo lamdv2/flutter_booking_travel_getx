@@ -38,4 +38,6 @@ abstract class Routes {
   static const FEED_BACK = '/feed_back';
   static const BOOKING_OPTION_SCREEN = '/booking_option_screen';
   static const BOOKING_PAYMENT_SCREEN = '/booking_payment_screen';
+  static const TOUR_REVIEW = '/tour_view';
+  static const COMMENT_TOUR_SEE = '/comment_tour_see';
 }

@@ -416,7 +416,7 @@ class buildItemTourSearch extends GetView<SearchDesController> {
                         width: getSize(16),
                       ),
                       Text(
-                        '${tourModel?.rating.toString()} (${tourModel?.reviews != null && tourModel!.reviews!.isNotEmpty ? tourModel?.reviews?.length : 0})',
+                        '${tourModel?.rating.toString()} (${tourModel?.reviews ?? 0})',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppStyles.titleSearchSize14Fw400FfMont.copyWith(

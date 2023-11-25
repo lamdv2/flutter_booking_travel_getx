@@ -304,7 +304,7 @@ class _buildItemHistory extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  tourModel?.nameTour ?? 'Tour Đà Nẵng - Hội An',
+                  tourModel?.nameTour ?? '',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyles.black000Size16Fw500FfMont,
