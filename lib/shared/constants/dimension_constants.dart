@@ -27,3 +27,5 @@ const BorderRadius kDefaultBorderRadius =
 const BorderRadius kMediaBorderRadius = BorderRadius.all(Radius.circular(16.0));
 const BorderRadius kBigBorderRadius = BorderRadius.all(Radius.circular(20.0));
 const BorderRadius kMaxBorderRadius = BorderRadius.all(Radius.circular(24.0));
+
+const String apiKeyWeather = "9d66b67b67291ceaff907e1e96cafbe9";

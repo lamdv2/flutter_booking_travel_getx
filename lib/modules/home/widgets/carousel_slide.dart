@@ -23,8 +23,7 @@ class CarouselSliderDes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: kDefaultPadding),
-      child: homeController.listCitys.value != null &&
-              homeController.listCitys.value.isNotEmpty
+      child: homeController.listCitys.value.isNotEmpty
           ? CarouselSlider(
               options: CarouselOptions(
                 autoPlay: true,
@@ -89,23 +88,26 @@ class CarouselSliderDes extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                        left: kTenPadding,
-                                        bottom: kDefaultPadding,
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          left: kTenPadding,
+                                          bottom: kDefaultPadding,
+                                        ),
+                                        child: Text(
+                                          itemCity.nameCity,
+                                          style: AppStyles.white000Size18FfMont,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
-                                      child: Text(
-                                        itemCity.nameCity,
-                                        style: AppStyles.white000Size18FfMont,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Container(
                                   alignment: Alignment.bottomRight,

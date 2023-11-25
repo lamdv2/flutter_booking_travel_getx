@@ -21,6 +21,8 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    String dayTimeNow = controller.formatDateTime(DateTime.now());
+    controller.fetchDataWeather(cityModel?.nameCity ?? "");
 
     controller.getAllTourModelData(cityModel?.idCity ?? "");
     return Scaffold(
@@ -119,9 +121,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                           Positioned(
                             top: 24,
                             left: size.width / 3.3,
-                            child: const Text(
-                              "Fri, 22 May 2023",
-                              style: TextStyle(
+                            child: Text(
+                              dayTimeNow,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -140,7 +142,7 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                   height: getSize(24),
                                 ),
                                 Text(
-                                  "  36",
+                                  "  ${controller.temperatureCelsius.toInt()} °C",
                                   style: TextStyle(
                                     fontSize: getSize(24),
                                     color: Colors.white,
@@ -173,9 +175,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                           fontSize: 12,
                                         ),
                                       ),
-                                      const Text(
-                                        "13 Km/h",
-                                        style: TextStyle(
+                                      Text(
+                                        "${controller.windSpeed} m/s",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
                                         ),
@@ -191,9 +193,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                           fontSize: 12,
                                         ),
                                       ),
-                                      const Text(
-                                        "25",
-                                        style: TextStyle(
+                                      Text(
+                                        "${controller.humidity}",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
                                         ),
@@ -203,15 +205,15 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                   Column(
                                     children: [
                                       Text(
-                                        StringConst.visibility.tr,
+                                        "Visibility".tr,
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
                                       ),
-                                      const Text(
-                                        "10 Km",
-                                        style: TextStyle(
+                                      Text(
+                                        "${controller.cloudiness} %",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
                                         ),
@@ -227,9 +229,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                           fontSize: 12,
                                         ),
                                       ),
-                                      const Text(
-                                        "1010 mb",
-                                        style: TextStyle(
+                                      Text(
+                                        "${controller.pressure} hpa",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
                                         ),
