@@ -9,6 +9,7 @@ import 'package:doan_clean_achitec/modules/history_tour/history_tour.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
+import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/focus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,6 +41,8 @@ class ProfileController extends GetxController {
   final HomeController homeController = Get.put(HomeController());
   final HistoryTourController historyTourController =
       Get.put(HistoryTourController());
+  final SearchDesController searchDesController =
+      Get.put(SearchDesController());
 
   final scaffoldProfileKey = GlobalKey<ScaffoldState>();
 
@@ -364,6 +367,9 @@ class ProfileController extends GetxController {
 
           clearEditController();
           historyTourController.clearData();
+          LocalStorageHelper.clearListHistoryCurrentTour();
+          searchDesController.getListHistoryCurrentTour.value = [];
+          searchDesController.getListHistoryCurrentDes.value = [];
           Get.offNamed(Routes.AUTH);
         } catch (e) {
           wrongMessage("Logout failed: $e");

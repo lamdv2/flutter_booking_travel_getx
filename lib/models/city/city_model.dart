@@ -7,6 +7,7 @@ class CityModel {
   final String? descriptionCity;
   final String? imageCity;
   final String? idCountry;
+  final List<String>? listArt;
 
   CityModel({
     this.id,
@@ -15,6 +16,7 @@ class CityModel {
     this.descriptionCity,
     this.imageCity,
     this.idCountry,
+    this.listArt,
   });
 
   factory CityModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -24,8 +26,9 @@ class CityModel {
       idCity: json['idCity'],
       nameCity: json['nameCity'],
       descriptionCity: json['descriptionCity'],
-      imageCity: json['imageCity'],
+      imageCity: _parseImageCity(json['imageCity']),
       idCountry: json['idCountry'],
+      listArt: _parseListArt(json['listArt']),
     );
   }
 
@@ -35,9 +38,24 @@ class CityModel {
       idCity: json['idCity'],
       nameCity: json['nameCity'],
       descriptionCity: json['descriptionCity'],
-      imageCity: json['imageCity'],
+      imageCity: _parseImageCity(json['imageCity']),
       idCountry: json['idCountry'],
+      listArt: _parseListArt(json['listArt']),
     );
+  }
+
+  static String? _parseImageCity(dynamic imageCity) {
+    if (imageCity is String) {
+      return imageCity;
+    }
+    return null;
+  }
+
+  static List<String>? _parseListArt(dynamic listArt) {
+    if (listArt is List) {
+      return listArt.map((item) => item.toString()).toList().cast<String>();
+    }
+    return null;
   }
 
   toJson() {
@@ -48,6 +66,7 @@ class CityModel {
       'descriptionCity': descriptionCity,
       'imageCity': imageCity,
       'idCountry': idCountry,
+      'listArt': listArt,
     };
   }
 }

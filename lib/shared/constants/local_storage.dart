@@ -109,6 +109,13 @@ class LocalStorageHelper {
     }
   }
 
+  // clear sharedPrefences logout
+  static Future<void> clearListHistoryCurrentTour() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('setListHistoryCurrentTour');
+    await prefs.remove('setListHistoryCurrentDes');
+  }
+
   // history current des
   static Future<void> setListHistoryCurrentDes(CityModel cityModel) async {
     final listCityModel = await getListHistoryCurrentDes();
