@@ -52,9 +52,8 @@ class TourModel {
       nameTour: json['nameTour'],
       description: json['description'],
       idCity: json['idCity'],
-      startDate:
-          json['startDate'] != null ? json['startDate'] as Timestamp : null,
-      endDate: json['endDate'] != null ? json['endDate'] as Timestamp : null,
+      startDate: _parseTimestamp(json['startDate']),
+      endDate: _parseTimestamp(json['endDate']),
       // ignore: prefer_null_aware_operators
       price: json['price'] != null ? json['price'].toDouble() : null,
       images: json['images'] != null ? List<String>.from(json['images']) : null,

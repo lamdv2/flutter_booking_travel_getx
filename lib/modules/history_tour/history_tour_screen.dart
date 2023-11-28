@@ -147,8 +147,9 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount:
-                            controller.listTourCurrentTabs.value?.length ?? 2,
+                        itemCount: controller
+                                .listTourCurrentTabsToDate.value?.length ??
+                            0,
                         itemBuilder: (BuildContext context, int rowIndex) {
                           return GestureDetector(
                             onTap: () {

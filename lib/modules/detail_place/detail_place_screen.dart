@@ -205,7 +205,7 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                   Column(
                                     children: [
                                       Text(
-                                        "Visibility".tr,
+                                        "Cloudiness".tr,
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
