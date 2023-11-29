@@ -447,8 +447,7 @@ class TourDetailsScreen extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () =>
-                  tourController.launchMap(tourModel?.description ?? ''),
+              onTap: () => tourController.launchMap(tourModel?.location ?? ''),
               child: Text(
                 StringConst.showMap.tr,
                 style: const TextStyle(
@@ -470,7 +469,8 @@ class TourDetailsScreen extends StatelessWidget {
         SizedBox(height: getSize(kDefaultPadding)),
         GestureDetector(
           onDoubleTap: () {
-            Get.toNamed(Routes.GOOGLE_MAP_SCREEN);
+            Get.toNamed(Routes.GOOGLE_MAP_SCREEN,
+                arguments: tourModel?.location ?? "");
           },
           child: const GoogleMapWidget(),
         ),

@@ -89,10 +89,8 @@ class VideoScreen extends StatelessWidget {
             final data = videoController.videoList[index];
             return Stack(
               children: [
-                Flexible(
-                  child: VideoPlayerItem(
-                    videoUrl: data.videoUrl,
-                  ),
+                VideoPlayerItem(
+                  videoUrl: data.videoUrl,
                 ),
                 Column(
                   children: [

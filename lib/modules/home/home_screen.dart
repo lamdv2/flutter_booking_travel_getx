@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initializeUser() {
     user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    if (user != null && user!.email != null) {
       if (user!.email!.isNotEmpty) {
         StringConst.userName = user!.email!.toString().substring(0, 3);
         userController.userName.value = user!.email!.toString().substring(0, 5);

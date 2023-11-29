@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:doan_clean_achitec/modules/home/home_controller.dart';
@@ -34,9 +35,11 @@ class AuthController extends GetxController {
   final _auth = FirebaseAuth.instance;
   late final Rx<User> firebaseUser;
   RxString veriticationId = ''.obs;
+  int? resendToken;
 
-  void signInPhoneAuthentication(String phoneNub, UserModel userModel) {
-    phoneAuthentication(phoneNub, userModel);
+  void signInPhoneAuthentication(
+      String phoneNub, UserModel userModel, TourModel tourModel) {
+    phoneAuthentication(phoneNub, userModel, tourModel);
   }
 
   void clearControllLogin() {
@@ -47,7 +50,44 @@ class AuthController extends GetxController {
     registerConfirmPasswordController.clear();
   }
 
-  Future<void> phoneAuthentication(String phoneNub, UserModel userModel) async {
+  Future<void> phoneAuthentication(
+      String phoneNub, UserModel userModel, TourModel tourModel) async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNub,
+        verificationCompleted: (credential) async {
+          await _auth.signInWithCredential(credential);
+        },
+        codeSent: (String verificationId, int? resendToken) async {
+          veriticationId.value = verificationId;
+          Get.toNamed(
+            Routes.OTP_SCREEN,
+            arguments: {
+              'arg1': userModel,
+              'arg2': tourModel,
+            },
+          );
+          this.resendToken = resendToken;
+        },
+        codeAutoRetrievalTimeout: (veriticationId) {
+          this.veriticationId.value = veriticationId;
+        },
+        timeout: const Duration(seconds: 120),
+        verificationFailed: (e) {
+          if (e.code == 'invalid-phone-number') {
+            Get.snackbar("Error", "The phone number invalid!");
+          } else {
+            Get.snackbar("Error", "${e.code}. Try again!");
+          }
+        },
+      );
+    } catch (e) {
+      resendVerificationCode(phoneNub, userModel, tourModel);
+    }
+  }
+
+  Future<void> resendVerificationCode(
+      String phoneNub, UserModel userModel, TourModel tourModel) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNub,
       verificationCompleted: (credential) async {
@@ -55,20 +95,26 @@ class AuthController extends GetxController {
       },
       codeSent: (String verificationId, int? resendToken) async {
         veriticationId.value = verificationId;
-        Get.toNamed(Routes.OTP_SCREEN, arguments: userModel);
+        Get.toNamed(
+          Routes.OTP_SCREEN,
+          arguments: {
+            'arg1': userModel,
+            'arg2': tourModel,
+          },
+        );
       },
-      codeAutoRetrievalTimeout: (veriticationId) {
-        this.veriticationId.value = veriticationId;
+      codeAutoRetrievalTimeout: (verificationId) {
+        veriticationId.value = verificationId;
       },
       timeout: const Duration(seconds: 60),
       verificationFailed: (e) {
         if (e.code == 'invalid-phone-number') {
-          Get.snackbar("Error", "The phone number invalid!");
+          Get.snackbar("Error", "The phone number is invalid!");
         } else {
-          // Get.snackbar("Error", "Something went wrong. Try again!");
           Get.snackbar("Error", "${e.code}. Try again!");
         }
       },
+      forceResendingToken: resendToken,
     );
   }
 

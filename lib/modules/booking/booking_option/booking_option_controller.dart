@@ -33,4 +33,16 @@ class BookingOptionController extends GetxController {
       return 'Lỗi: $e';
     }
   }
+
+  String formatPhoneNumber(String phoneNumber) {
+    phoneNumber = phoneNumber.replaceAll(RegExp(r'[^\d]'), '');
+
+    if (phoneNumber.startsWith('0')) {
+      phoneNumber = '+84${phoneNumber.substring(1)}';
+    } else {
+      phoneNumber = '+84$phoneNumber';
+    }
+
+    return phoneNumber;
+  }
 }

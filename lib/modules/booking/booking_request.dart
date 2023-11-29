@@ -5,7 +5,7 @@ class BookingRequestController extends GetxController {
   final childrenNumb = Rxn<double>(0);
   final adultPrice = Rxn<double>(0);
   final childrenPrice = Rxn<double>(0);
-  final totalPrice = Rxn<double>(1);
+  final totalPrice = Rxn<double>(0);
   final isCheckQR = RxBool(false);
   final isCheckBanking = RxBool(false);
 
@@ -13,7 +13,7 @@ class BookingRequestController extends GetxController {
   void onInit() {
     adultNumb.value = 0;
     childrenNumb.value = 0;
-    totalPrice.value = 1;
+    totalPrice.value = 0;
     super.onInit();
   }
 

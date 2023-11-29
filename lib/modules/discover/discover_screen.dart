@@ -10,6 +10,6 @@ class DiscoverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return VideoScreen();
+    return const SizedBox.shrink();
   }
 }

@@ -1,6 +1,5 @@
 import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_controller.dart';
-import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
@@ -9,15 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../models/tour/tour_model.dart';
+
 // ignore: must_be_immutable
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
 
   final OtpController _otpController = Get.find();
-  final ProfileController _profileController = Get.find();
   // ignore: prefer_typing_uninitialized_variables
   var otp;
-  final userModel = Get.arguments as UserModel;
+  final UserModel userModel = Get.arguments['arg1'];
+  final TourModel tourModel = Get.arguments['arg2'];
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +59,7 @@ class OtpScreen extends StatelessWidget {
                 height: getSize(24),
               ),
               Text(
-                _profileController.editPhoneNumberController.text.isNotEmpty
-                    ? _profileController.editPhoneNumberController.text
-                    : "+84 123 456 789",
+                userModel.phoneNub,
                 style: AppStyles.black000Size18Fw600FfMont,
               ),
               SizedBox(
@@ -76,7 +75,7 @@ class OtpScreen extends StatelessWidget {
                 ),
                 onCompleted: (value) {
                   otp = value;
-                  _otpController.verifyOTP(value, userModel);
+                  _otpController.verifyOTP(value, userModel, tourModel);
                 },
               ),
               SizedBox(
@@ -85,7 +84,8 @@ class OtpScreen extends StatelessWidget {
               SizedBox(
                 child: ElevatedButton(
                   child: const Text("NEXT"),
-                  onPressed: () => _otpController.verifyOTP(otp, userModel),
+                  onPressed: () =>
+                      _otpController.verifyOTP(otp, userModel, tourModel),
                 ),
               )
             ],
