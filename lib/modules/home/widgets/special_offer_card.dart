@@ -111,7 +111,7 @@ class SpecialOfferCard extends StatelessWidget {
                             ),
                             padding: EdgeInsets.all(getSize(8)),
                             child: Text(
-                              "Temporarily stopped",
+                              "Coming soon",
                               style: AppStyles.blue000Size14Fw500FfMont,
                             ),
                           ),

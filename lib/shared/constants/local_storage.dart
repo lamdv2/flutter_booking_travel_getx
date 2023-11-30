@@ -42,6 +42,10 @@ class LocalStorageHelper {
     await _shared._preferences.setString(key, value);
   }
 
+  static void getBoolNotification(){
+    LocalStorageHelper.getValue('isNotificationOn');
+  }
+
   // history search string
   static Future<void> setListHistorySearch(String value) async {
     Set<String> setHistorySearch =

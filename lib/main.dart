@@ -2,6 +2,7 @@ import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/constants/local_storage.dart';
+import 'package:doan_clean_achitec/shared/services/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -40,6 +41,8 @@ void main() async {
   } else {
     print('fcmToken is null');
   }
+  final handler = NotificationHandler();
+  handler.setListeners();
 
   runApp(MyApp());
 }
