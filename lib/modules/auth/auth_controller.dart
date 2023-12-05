@@ -55,9 +55,7 @@ class AuthController extends GetxController {
     try {
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNub,
-        verificationCompleted: (credential) async {
-          await _auth.signInWithCredential(credential);
-        },
+        verificationCompleted: (credential) async {},
         codeSent: (String verificationId, int? resendToken) async {
           veriticationId.value = verificationId;
           Get.toNamed(

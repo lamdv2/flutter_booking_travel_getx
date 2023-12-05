@@ -21,6 +21,7 @@ import 'package:doan_clean_achitec/modules/intro/intro_screen.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_binding.dart';
 import 'package:doan_clean_achitec/modules/otp/otp_screen.dart';
 import 'package:doan_clean_achitec/modules/pay/pay.dart';
+import 'package:doan_clean_achitec/modules/pay/pay_stripe.dart';
 import 'package:doan_clean_achitec/modules/profile/change_password/change_password_binding.dart';
 import 'package:doan_clean_achitec/modules/profile/change_password/change_password_screen.dart';
 import 'package:doan_clean_achitec/modules/profile/edit_profile.dart';
@@ -225,6 +226,11 @@ class AppPages {
         id: '',
       ),
       binding: HistoryTourBinding(),
+    ),
+    GetPage(
+      name: Routes.PAY_STRIPE_SCREEN,
+      page: () => const PayStripeScreen(),
+      binding: PayBinding(),
     ),
   ];
 }

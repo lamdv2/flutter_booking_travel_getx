@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../modules/profile/profile_screen.dart';
 import '../../../routes/app_pages.dart';
 import '../../utils/size_utils.dart';
 

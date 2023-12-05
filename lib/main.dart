@@ -8,6 +8,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
 import 'modules/lang/translation_service.dart';
@@ -19,6 +20,9 @@ void main() async {
 
   await darkMode.loadDarkMode();
   await LocalStorageHelper.initLocalStorageHelper();
+
+  Stripe.publishableKey =
+      "pk_test_51OIMAyHdpKm7MB8qqvzh6yB053y1lg8vJlUhPZ05Omb93IrEljTl9pC4YAuay0jh1cvxfQfHAkWMnkiGhfB3l92Y00XANULzRX";
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(

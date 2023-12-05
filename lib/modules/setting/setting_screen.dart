@@ -75,6 +75,7 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     BuildSettingsItem(
+                      onTap: () => Get.toNamed(Routes.PAY_STRIPE_SCREEN),
                       imageAsset: AssetHelper.icNotification,
                       widgetTitle: Text(
                         StringConst.notificationAndChat.tr,

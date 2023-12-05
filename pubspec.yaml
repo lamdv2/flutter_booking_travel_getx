@@ -117,6 +117,7 @@ dependencies:
   video_player: ^2.8.1
   weather: ^3.1.1
   geocoding: ^2.1.1
+  flutter_stripe: ^9.5.0+1
   
 dev_dependencies:
   flutter_test:
