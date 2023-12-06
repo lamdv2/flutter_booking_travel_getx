@@ -55,7 +55,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Payment banking',
+                            StringConst.paymentBanking.tr,
                             style: AppStyles.black000Size18Fw600FfMont,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -68,7 +68,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "5621 000 123 4567",
+                                "5621 000 246 6118",
                                 style: AppStyles.black000Size16Fw400FfMont,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -97,7 +97,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "Banking",
+                                    StringConst.banking.tr,
                                     style: AppStyles.white000Size16Fw500FfMont,
                                   ),
                                 ),
@@ -130,7 +130,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Scan QR code',
+                            StringConst.scanQRCode.tr,
                             style: AppStyles.black000Size18Fw600FfMont,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -189,7 +189,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                       ),
                     ),
                     ButtonWidget(
-                      textBtn: 'Finish',
+                      textBtn: StringConst.finish.tr,
                       onTap: () async {
                         await bookingController.bookingTour(
                           homeController.userModel.value?.id ?? '',

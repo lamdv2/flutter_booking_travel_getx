@@ -3,6 +3,9 @@ import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../shared/constants/string_constants.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
@@ -40,7 +43,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         key: scaffoldKey,
         backgroundColor: ColorConstants.white,
         appBar: CustomAppBar(
-          titles: 'Payment',
+          titles: StringConst.payment.tr,
         ),
         body: SafeArea(
           top: true,

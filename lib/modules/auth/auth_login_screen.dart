@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                                 controller.login(context);
                               }
                             },
-                            textBtn: 'Sign In',
+                            textBtn: StringConst.signin.tr,
                           ),
                         ],
                       ),
@@ -189,7 +189,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Not a member?',
+                          StringConst.notAMember.tr,
                           style: TextStyle(
                             color: Colors.grey.shade700,
                           ),
@@ -199,12 +199,13 @@ class LoginScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: onTap,
-                          child: const Text(
-                            'Register',
-                            style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold),
+                          child: Text(
+                            StringConst.register.tr,
+                            style: const TextStyle(
+                              color: Colors.blueAccent,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         )
                       ],

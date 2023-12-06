@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../constants/string_constants.dart';
+
 // ignore: must_be_immutable
 class SelectDateScreen extends StatelessWidget {
   SelectDateScreen({Key? key}) : super(key: key);
@@ -28,11 +30,12 @@ class SelectDateScreen extends StatelessWidget {
               height: getSize(40),
             ),
             Text(
-              'Select Date',
+              StringConst.selectDate.tr,
               style: AppStyles.black000Size18Fw500FfMont.copyWith(
-                  color: appController.isDarkModeOn.value
-                      ? ColorConstants.white
-                      : ColorConstants.black),
+                color: appController.isDarkModeOn.value
+                    ? ColorConstants.white
+                    : ColorConstants.black,
+              ),
             ),
             SizedBox(
               height: getSize(60),
@@ -62,7 +65,7 @@ class SelectDateScreen extends StatelessWidget {
               height: getSize(32),
             ),
             ButtonWidget(
-              textBtn: 'Select',
+              textBtn: StringConst.select.tr,
               onTap: () {
                 Get.back(result: [rangeStartDate, rangeEndDate]);
               },
@@ -71,7 +74,7 @@ class SelectDateScreen extends StatelessWidget {
               height: kDefaultPadding,
             ),
             ButtonWidget(
-              textBtn: 'Cancel',
+              textBtn: StringConst.cancel.tr,
               color: Colors.white70,
               onTap: () {
                 Get.back();

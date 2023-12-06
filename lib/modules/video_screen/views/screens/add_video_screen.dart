@@ -32,14 +32,14 @@ class AddVideoScreen extends StatelessWidget {
         children: [
           SimpleDialogOption(
             onPressed: () => pickVideo(ImageSource.gallery, context),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.image),
+                const Icon(Icons.image),
                 Padding(
-                  padding: EdgeInsets.all(7.0),
+                  padding: const EdgeInsets.all(7.0),
                   child: Text(
-                    'Gallery',
-                    style: TextStyle(fontSize: 20),
+                    StringConst.gallery.tr,
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ],
@@ -47,14 +47,14 @@ class AddVideoScreen extends StatelessWidget {
           ),
           SimpleDialogOption(
             onPressed: () => pickVideo(ImageSource.camera, context),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.camera_alt),
+                const Icon(Icons.camera_alt),
                 Padding(
-                  padding: EdgeInsets.all(7.0),
+                  padding: const EdgeInsets.all(7.0),
                   child: Text(
-                    'Camera',
-                    style: TextStyle(fontSize: 20),
+                    StringConst.camera.tr,
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ],
@@ -62,14 +62,14 @@ class AddVideoScreen extends StatelessWidget {
           ),
           SimpleDialogOption(
             onPressed: () => Get.back(),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.cancel),
+                const Icon(Icons.cancel),
                 Padding(
-                  padding: EdgeInsets.all(7.0),
+                  padding: const EdgeInsets.all(7.0),
                   child: Text(
-                    'Cancel',
-                    style: TextStyle(fontSize: 20),
+                    StringConst.cancel.tr,
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ],

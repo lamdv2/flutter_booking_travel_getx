@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:doan_clean_achitec/shared/constants/local_storage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+
+import '../constants/string_constants.dart';
 
 class NotificationHandler {
   final FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -14,42 +15,6 @@ class NotificationHandler {
     createNotificationChannel();
     setListeners();
   }
-
-  // void initializeFcmNotification() async {
-  //   await messaging.requestPermission(
-  //     alert: true,
-  //     announcement: false,
-  //     badge: true,
-  //     carPlay: false,
-  //     provisional: false,
-  //     sound: true,
-  //   );
-
-  //   const AndroidInitializationSettings initializationSettingsAndroid =
-  //       AndroidInitializationSettings('@mipmap/ic_launcher');
-
-  //   final IOSInitializationSettings initializationSettingsIOS =
-  //       IOSInitializationSettings(
-  //           onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-
-  //   final InitializationSettings initializationSettings =
-  //       InitializationSettings(
-  //           android: initializationSettingsAndroid,
-  //           iOS: initializationSettingsIOS);
-
-  //   flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-  //   if (Platform.isIOS) {
-  //     await flutterLocalNotificationsPlugin
-  //         .resolvePlatformSpecificImplementation<
-  //             IOSFlutterLocalNotificationsPlugin>()
-  //         ?.requestPermissions(
-  //           alert: true,
-  //           badge: true,
-  //           sound: true,
-  //         );
-  //   }
-  // }
 
   void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) {}
@@ -69,15 +34,7 @@ class NotificationHandler {
       print(e);
     }
 
-    // messaging.setForegroundNotificationPresentationOptions(
-    //   alert: true,
-    //   sound: true,
-    //   badge: true,
-    // );
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      final isNotificationOnLocal =
-          LocalStorageHelper.getValue('isNotificationOn');
 
       print('Message data: ${message.data}');
 
@@ -105,7 +62,7 @@ class NotificationHandler {
           );
         }
       } catch (e) {
-        Get.snackbar('Error', "$e");
+        Get.snackbar(StringConst.error.tr, "$e");
       }
     });
 

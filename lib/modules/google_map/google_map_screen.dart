@@ -275,10 +275,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         }
         _addPolyLine();
       } else if (status.isDenied) {
-        Get.snackbar('Error!!!', 'Error permission!');
+        Get.snackbar('${StringConst.error.tr}!!!', 'Error permission!');
       }
     } catch (e) {
-      Get.snackbar('Error!!!', e.toString());
+      Get.snackbar('${StringConst.error.tr}!!!', e.toString());
     }
   }
 
@@ -291,7 +291,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       );
       polylineCoordinates.clear();
     } else if (status.isDenied) {
-      Get.snackbar('Error!!!', 'Error permission!');
+      Get.snackbar('${StringConst.error.tr}!!!', 'Error permission!');
     }
   }
 

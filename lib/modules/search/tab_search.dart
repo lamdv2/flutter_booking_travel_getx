@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../shared/constants/string_constants.dart';
 import '../../shared/utils/size_utils.dart';
 
 class TabSearchWidget extends GetView<SearchDesController> {
@@ -404,7 +405,10 @@ class ItemTourSearch extends StatelessWidget {
             arguments: tourModel,
           );
         } else {
-          Get.snackbar("Notification", "The tour is on hold!");
+          Get.snackbar(
+            StringConst.notification.tr,
+            "${StringConst.theTourIsOnHold.tr}!",
+          );
         }
       },
       child: SizedBox(
@@ -443,7 +447,7 @@ class ItemTourSearch extends StatelessWidget {
                             ),
                             padding: EdgeInsets.all(getSize(8)),
                             child: Text(
-                              "Temporarily stopped",
+                              StringConst.comingSoon.tr,
                               style: AppStyles.blue000Size12Fw400FfMont,
                             ),
                           ),

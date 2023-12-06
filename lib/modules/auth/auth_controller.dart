@@ -14,6 +14,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../shared/constants/string_constants.dart';
+
 class AuthController extends GetxController {
   final registerEmailController = TextEditingController();
   final registerPasswordController = TextEditingController();
@@ -73,9 +75,9 @@ class AuthController extends GetxController {
         timeout: const Duration(seconds: 120),
         verificationFailed: (e) {
           if (e.code == 'invalid-phone-number') {
-            Get.snackbar("Error", "The phone number invalid!");
+            Get.snackbar(StringConst.error.tr, "The phone number invalid!");
           } else {
-            Get.snackbar("Error", "${e.code}. Try again!");
+            Get.snackbar(StringConst.error.tr, "${e.code}. Try again!");
           }
         },
       );
@@ -107,9 +109,9 @@ class AuthController extends GetxController {
       timeout: const Duration(seconds: 60),
       verificationFailed: (e) {
         if (e.code == 'invalid-phone-number') {
-          Get.snackbar("Error", "The phone number is invalid!");
+          Get.snackbar(StringConst.error.tr, "The phone number is invalid!");
         } else {
-          Get.snackbar("Error", "${e.code}. Try again!");
+          Get.snackbar(StringConst.error.tr, "${e.code}. Try again!");
         }
       },
       forceResendingToken: resendToken,

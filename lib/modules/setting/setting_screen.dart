@@ -216,7 +216,7 @@ class SettingScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: getSize(16)),
                   child: Text(
-                    'QR Code',
+                    StringConst.qrCode.tr,
                     style: appController.isDarkModeOn.value
                         ? AppStyles.white000Size16Fw500FfMont
                         : AppStyles.gray800Size16Fw500FfMont,
@@ -243,6 +243,7 @@ class SettingScreen extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
+                          style: AppStyles.black000Size16Fw500FfMont,
                         ),
                         SizedBox(
                           width: getSize(16),

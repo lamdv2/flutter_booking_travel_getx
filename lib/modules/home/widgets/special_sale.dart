@@ -23,7 +23,7 @@ class SpecialSale extends StatelessWidget {
       () => Column(
         children: [
           TitleDes(
-            largeTitle: 'Tour sale',
+            largeTitle: StringConst.tourSale.tr,
             seeAll: StringConst.seeAll.tr,
             onTap: () {
               homecontroller.currentIndex.value = 2;

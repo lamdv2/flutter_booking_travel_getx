@@ -38,7 +38,10 @@ class TourItemWidget extends StatelessWidget {
               await searchDesController.getHistoryCurrentTour();
               Get.toNamed(Routes.TOUR_DETAILS, arguments: listTour);
             } else {
-              Get.snackbar("Notification", "The tour is on hold!");
+              Get.snackbar(
+                StringConst.notification.tr,
+                "${StringConst.theTourIsOnHold.tr}!",
+              );
             }
           },
       child: Container(
@@ -131,7 +134,7 @@ class TourItemWidget extends StatelessWidget {
                                 ),
                                 padding: EdgeInsets.all(getSize(8)),
                                 child: Text(
-                                  "Stopped",
+                                  StringConst.stopped.tr,
                                   style: AppStyles.blue000Size14Fw500FfMont,
                                 ),
                               ),
@@ -212,7 +215,7 @@ class TourItemWidget extends StatelessWidget {
                         ),
                         Text(
                           listTour.reviews != null
-                              ? '${listTour.reviews} reviews'
+                              ? '${listTour.reviews} ${StringConst.reviews.tr}'
                               : '',
                           style: AppStyles.graySecondSize14Fw400FfMont.copyWith(
                               color: appController.isDarkModeOn.value
@@ -229,7 +232,7 @@ class TourItemWidget extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: listTour.price != 0
-                                ? '\$${listTour.price}'
+                                ? 'VND${listTour.price}'
                                 : "\$143",
                             style: TextStyle(
                               color: appController.isDarkModeOn.value
@@ -240,7 +243,7 @@ class TourItemWidget extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: "/night",
+                            text: "/${StringConst.night.tr}",
                             style: AppStyles.botTitle000Size14Fw400FfMont
                                 .copyWith(
                                     color: appController.isDarkModeOn.value

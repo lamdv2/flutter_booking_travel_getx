@@ -53,7 +53,7 @@ class HomeTab extends GetView<HomeController> {
                   SizedBox(
                     height: getSize(16),
                   ),
-                  ItemServiceWidget(),
+                  const ItemServiceWidget(),
                   SizedBox(
                     height: getSize(32),
                   ),
@@ -64,10 +64,7 @@ class HomeTab extends GetView<HomeController> {
                   TitleDes(
                     largeTitle: StringConst.popularDestination.tr,
                     seeAll: StringConst.seeAll.tr,
-                    onTap: () {
-                      // controller.currentIndex.value = 2;
-                      // Get.toNamed(Routes.SEARCH_SCREEN);
-                    },
+                    onTap: () {},
                   ),
                   SizedBox(
                     height: getSize(8),

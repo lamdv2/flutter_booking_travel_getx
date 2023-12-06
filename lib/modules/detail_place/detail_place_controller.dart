@@ -28,7 +28,7 @@ class DetailPlaceController extends GetxController {
       getWeather();
     } catch (e) {
       print("Error fetching weather data: $e");
-      Get.snackbar("warning", "$e");
+      Get.snackbar(StringConst.warning.tr, "$e");
     }
   }
 

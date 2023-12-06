@@ -52,7 +52,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                   ),
                   SizedBox(height: getSize(16)),
                   Text(
-                    "Start at ${tourModel?.duration ?? 'Hotel'}",
+                    "${StringConst.startAt.tr} ${tourModel?.duration ?? 'Hotel'}",
                     style: AppStyles.black000Size14Fw400FfMont,
                   ),
                   SizedBox(height: getSize(16)),
@@ -60,7 +60,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Price:',
+                        '${StringConst.price.tr}:',
                         style: AppStyles.black000Size14Fw400FfMont,
                       ),
                       Text(
@@ -73,7 +73,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                     height: getSize(50),
                   ),
                   Text(
-                    'Service Excluded',
+                    StringConst.serviceExcluded.tr,
                     style: AppStyles.black000Size18Fw500FfMont,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -96,12 +96,12 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                               .toList(),
                         )
                       : Text(
-                          'No data',
+                          StringConst.noData.tr,
                           style: AppStyles.black000Size14Fw400FfMont,
                         ),
                   SizedBox(height: getSize(32)),
                   Text(
-                    'Payment Method',
+                    StringConst.paymentMethod.tr,
                     style: AppStyles.black000Size18Fw500FfMont,
                   ),
                   SizedBox(height: getSize(24)),
@@ -146,7 +146,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                                   ),
                                   SizedBox(height: getSize(28)),
                                   Text(
-                                    'QR Code',
+                                    StringConst.qrCode,
                                     style: controller.isCheckQR.value
                                         ? AppStyles.white000Size12Fw400FfMont
                                         : AppStyles.black000Size12Fw400FfMont,
@@ -199,7 +199,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                                   ),
                                   SizedBox(height: getSize(28)),
                                   Text(
-                                    'Banking',
+                                    StringConst.banking.tr,
                                     style: controller.isCheckBanking.value
                                         ? AppStyles.white000Size12Fw400FfMont
                                         : AppStyles.black000Size12Fw400FfMont,
@@ -219,7 +219,9 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                           flex: 1,
                           child: GestureDetector(
                             onTap: () => Get.snackbar(
-                                "Notification", "Future coming soon!"),
+                              StringConst.notification.tr,
+                              "${StringConst.futureComingSoon.tr}!",
+                            ),
                             child: Container(
                               padding: EdgeInsets.all(
                                 getSize(10),
@@ -241,7 +243,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                                   ),
                                   SizedBox(height: getSize(28)),
                                   Text(
-                                    'Cash',
+                                    StringConst.cash.tr,
                                     style: AppStyles.black000Size12Fw400FfMont,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
@@ -257,7 +259,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                   ),
                   SizedBox(height: getSize(48)),
                   Text(
-                    'Choose people',
+                    StringConst.choosePeople.tr,
                     style: AppStyles.black000Size18Fw500FfMont,
                   ),
                   SizedBox(height: getSize(24)),
@@ -275,12 +277,12 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Adult',
+                                  StringConst.adult.tr,
                                   style: AppStyles.black000Size14Fw500FfMont,
                                 ),
                                 SizedBox(height: getSize(4)),
                                 Text(
-                                  'from 141 cm tall',
+                                  StringConst.from141cmtall.tr,
                                   style: AppStyles.black000Size12Fw400FfMont,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
@@ -362,12 +364,12 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Children',
+                                  StringConst.children.tr,
                                   style: AppStyles.black000Size14Fw500FfMont,
                                 ),
                                 SizedBox(height: getSize(4)),
                                 Text(
-                                  '140 cm tall or less',
+                                  StringConst.to140cmtallorless.tr,
                                   style: AppStyles.black000Size12Fw400FfMont,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
@@ -478,13 +480,14 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                     ),
                   ),
                   ButtonWidget(
-                    textBtn: 'Continue',
-                    onTap: ()  {
-                     
+                    textBtn: StringConst.continue_.tr,
+                    onTap: () {
                       if (controller.adultNumb.value == 0 &&
                           controller.childrenNumb.value == 0) {
-                        Get.snackbar("Warning",
-                            "You need to choose the number of people!");
+                        Get.snackbar(
+                          StringConst.warning.tr,
+                          StringConst.youneedtochoosethenumberofpeople.tr,
+                        );
                       } else {
                         Get.toNamed(Routes.BOOKING_OPTION_SCREEN,
                             arguments: tourModel);

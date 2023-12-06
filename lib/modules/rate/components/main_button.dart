@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/modules/rate/components/rounded_button.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainButton extends StatelessWidget {
   const MainButton({
@@ -12,22 +13,19 @@ class MainButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Text(
-          'Submit',
-          style: TextStyle(
-            color: ColorConstants.lightBlueNon,
-            fontWeight: FontWeight.bold,
-            fontSize: 18
-          ),
+        Text(
+          StringConst.submit.tr,
+          style: const TextStyle(
+              color: ColorConstants.lightBlueNon,
+              fontWeight: FontWeight.bold,
+              fontSize: 18),
         ),
         const SizedBox(width: kDefaultPadding),
-
         RoundedButton(
-          icon: const Icon(Icons.arrow_forward),
-          iconColor: Colors.white,
-          bgColor: ColorConstants.lightBlueNon,
-          tap: () {}
-        )
+            icon: const Icon(Icons.arrow_forward),
+            iconColor: Colors.white,
+            bgColor: ColorConstants.lightBlueNon,
+            tap: () {})
       ],
     );
   }

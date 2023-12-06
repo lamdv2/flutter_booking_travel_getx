@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/modules/history_tour/history_tour.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +25,7 @@ class BookingController extends GetxController {
   Future<void> bookingTour(String userId, String tourId, Timestamp bookingDate,
       String status, double adult, double children, double totalPrice) async {
     if (userId.isEmpty || tourId.isEmpty) {
-      Get.snackbar('Error', 'Booking fail !!!');
+      Get.snackbar(StringConst.error, 'Booking fail !!!');
     } else {
       await _db.collection('historyModel').add({
         'idUser': userId,
@@ -36,7 +37,7 @@ class BookingController extends GetxController {
         'children': children,
         'totalPrice': totalPrice,
       });
-      Get.snackbar('Success', 'Booking successfully !!!');
+      Get.snackbar(StringConst.success.tr, StringConst.bookingSuccessfully.tr);
 
       await historyTourController.getAllTourModelData();
     }

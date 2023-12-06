@@ -1,4 +1,5 @@
 import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,10 +22,10 @@ class SearchScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               filled: false,
-              hintText: 'Search',
-              hintStyle: TextStyle(
+              hintText: StringConst.search.tr,
+              hintStyle: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
@@ -33,10 +34,10 @@ class SearchScreen extends StatelessWidget {
           ),
         ),
         body: searchController.searchedUsers.isEmpty
-            ? const Center(
+            ? Center(
                 child: Text(
-                  'Search for users!',
-                  style: TextStyle(
+                  '${StringConst.searchForUsers.tr}!',
+                  style: const TextStyle(
                     fontSize: 25,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

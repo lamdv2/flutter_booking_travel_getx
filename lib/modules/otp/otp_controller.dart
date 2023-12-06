@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../shared/constants/string_constants.dart';
 import '../profile/profile_controller.dart';
 
 class OtpController extends GetxController {
@@ -20,8 +21,8 @@ class OtpController extends GetxController {
         arguments: tourModel,
       );
       Get.snackbar(
-        'Successfully',
-        'OTP Verification Successfully',
+        StringConst.success.tr,
+        StringConst.otpVerificationSuccessfully.tr,
         backgroundColor: Colors.blue,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
@@ -30,8 +31,8 @@ class OtpController extends GetxController {
       profileController.updateUserProfile(userModel);
     } else {
       Get.snackbar(
-        'OTP Verification Failed',
-        'Please enter a valid OTP.',
+        StringConst.otpVerificationFailed.tr,
+        StringConst.pleaseEnterAValidOTP.tr,
         backgroundColor: Colors.red,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,

@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class AboutAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        titles: "About app".tr,
+        titles: StringConst.aboutApp.tr,
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
@@ -41,7 +42,7 @@ class AboutAppScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                'Embark on a Journey with Our App',
+                StringConst.embark.tr,
                 style: TextStyle(
                   color: appController.isDarkModeOn.value
                       ? ColorConstants.gray100
@@ -54,7 +55,7 @@ class AboutAppScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Unlock a World of Possibilities",
+                  StringConst.unlockAWorld.tr,
                   style: AppStyles.black000Size18Fw600FfMont,
                 ),
               ),
@@ -65,42 +66,42 @@ class AboutAppScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Effortless Trip Planning",
+                      StringConst.effortless.tr,
                       style: AppStyles.gray600Size16Fw500FfMont,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Discover, plan, and book seamlessly. Your all-in-one travel companion.",
+                      StringConst.discoverPlan.tr,
                       style: AppStyles.gray600Size14Fw400FfMont,
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      "Exclusive Deals and Offers",
+                      StringConst.exculusive.tr,
                       style: AppStyles.gray600Size16Fw500FfMont,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Access special discounts with our top-rated partners.",
+                      StringConst.access.tr,
                       style: AppStyles.gray600Size14Fw400FfMont,
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      "Discover Local Gems",
+                      StringConst.discoverLocal.tr,
                       style: AppStyles.gray600Size16Fw500FfMont,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Immerse in local culture with curated recommendations.",
+                      StringConst.immerse.tr,
                       style: AppStyles.gray600Size14Fw400FfMont,
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      "Capture Every Moment",
+                      StringConst.capture.tr,
                       style: AppStyles.gray600Size16Fw500FfMont,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Share and connect with a community of fellow travelers.",
+                      StringConst.shareAndConnect.tr,
                       style: AppStyles.gray600Size14Fw400FfMont,
                     ),
                   ],
@@ -108,7 +109,7 @@ class AboutAppScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                "Experience the World Like Never Before",
+                StringConst.experienceTheWorld.tr,
                 style: AppStyles.black000Size18Fw600FfMont,
               ),
             ],

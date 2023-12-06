@@ -1,5 +1,4 @@
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
-import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +23,7 @@ class SpecialOffers extends StatelessWidget {
       () => Column(
         children: [
           TitleDes(
-            largeTitle: 'Special for you',
+            largeTitle: StringConst.specialForYou.tr,
             seeAll: StringConst.seeAll.tr,
             onTap: () {
               homecontroller.currentIndex.value = 2;

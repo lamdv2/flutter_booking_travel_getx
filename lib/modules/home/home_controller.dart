@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../models/city/city_model.dart';
 import '../../models/history/history_model.dart';
+import '../../shared/constants/string_constants.dart';
 
 class HomeController extends GetxController {
   @override
@@ -46,7 +47,10 @@ class HomeController extends GetxController {
     if (email != null) {
       return getUserDetails(email);
     } else {
-      Get.snackbar('Error', 'Login to continue !!!');
+      Get.snackbar(
+        StringConst.error.tr,
+        '${StringConst.loginToContinue.tr} !!!',
+      );
     }
   }
 

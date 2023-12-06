@@ -28,7 +28,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
           ? ColorConstants.darkBackground
           : ColorConstants.lightBackground,
       appBar: CustomAppBar(
-        titles: 'Change password',
+        titles: StringConst.changePassword.tr,
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
@@ -50,7 +50,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                         height: getSize(24),
                       ),
                       Text(
-                        "Old password",
+                        StringConst.oldPassword.tr,
                         style: TextStyle(
                           color: appController.isDarkModeOn.value
                               ? ColorConstants.lightBackground
@@ -104,7 +104,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                         height: getSize(16),
                       ),
                       Text(
-                        "New password",
+                        StringConst.newPassword.tr,
                         style: TextStyle(
                           color: appController.isDarkModeOn.value
                               ? ColorConstants.lightBackground
@@ -158,7 +158,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                         height: getSize(16),
                       ),
                       Text(
-                        "Confirm new password",
+                        StringConst.confirmNewPassword.tr,
                         style: TextStyle(
                           color: appController.isDarkModeOn.value
                               ? ColorConstants.lightBackground

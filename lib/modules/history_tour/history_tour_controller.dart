@@ -4,6 +4,7 @@ import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/prey
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -200,9 +201,10 @@ class HistoryTourController extends GetxController {
       final result = await ImageGallerySaver.saveImage(screenshotData);
 
       if (result['isSuccess']) {
-        Get.snackbar('Success!!!', 'Save Success!');
+        Get.snackbar(
+            '${StringConst.success.tr}!!!', '${StringConst.saveSuccess.tr}!');
       } else {
-        Get.snackbar('Success!!!', 'fails!');
+        Get.snackbar('${StringConst.error.tr}!!!', 'fails!');
       }
     }
   }
@@ -220,12 +222,14 @@ class HistoryTourController extends GetxController {
         if (result != null &&
             result.containsKey('isSuccess') &&
             result['isSuccess'] == true) {
-          Get.snackbar('Success!!!', 'Save Success!');
+          Get.snackbar(
+              '${StringConst.success.tr}!!!', '${StringConst.saveSuccess.tr}!');
         } else {
-          Get.snackbar('Error', 'Save Failed: ${result['errorMessage']}');
+          Get.snackbar(StringConst.error.tr,
+              '${StringConst.saveSuccess.tr}: ${result['errorMessage']}');
         }
       } catch (e) {
-        Get.snackbar('Error', 'Save Failed: $e');
+        Get.snackbar(StringConst.error.tr, '${StringConst.saveFailed.tr}: $e');
       }
     }
   }
@@ -252,13 +256,15 @@ class HistoryTourController extends GetxController {
         .doc(historyModel.id)
         .update(historyModel.toJson())
         .then((value) {
-      Get.snackbar("Success!", 'You canceled tour successfully',
+      Get.snackbar("${StringConst.success.tr}!",
+          StringConst.youCanceledTourSuccessfully.tr,
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
       Future.wait([
         getAllTourModelData(),
       ]);
     }).catchError((onError) {
-      Get.snackbar("Error!!!", 'Cancel tour error: ${onError.toString()}',
+      Get.snackbar(
+          "${StringConst.error.tr}!!!", '${StringConst.cancelTourError.tr}!!!',
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
     });
   }

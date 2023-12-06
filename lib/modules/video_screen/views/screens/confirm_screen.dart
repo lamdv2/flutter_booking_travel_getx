@@ -73,7 +73,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     width: MediaQuery.of(context).size.width - 20,
                     child: TextInputField(
                       controller: _songController,
-                      labelText: 'Caption',
+                      labelText: StringConst.caption.tr,
                       icon: Icons.closed_caption,
                     ),
                   ),
@@ -85,7 +85,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     width: MediaQuery.of(context).size.width - 20,
                     child: TextInputField(
                       controller: _captionController,
-                      labelText: 'Hashtag',
+                      labelText: StringConst.hashtag.tr,
                       icon: Icons.tag,
                     ),
                   ),
@@ -97,9 +97,9 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                         _songController.text,
                         "#${_captionController.text}",
                         widget.videoPath),
-                    child: const Text(
-                      'Share!',
-                      style: TextStyle(
+                    child: Text(
+                      StringConst.share.tr,
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),

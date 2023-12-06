@@ -214,7 +214,7 @@ class ListSearchTour extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Lịch sử tìm kiếm',
+                                        StringConst.searchHistory.tr,
                                         style:
                                             AppStyles.black000Size16Fw500FfMont,
                                       ),
@@ -283,7 +283,7 @@ class ListSearchTour extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Tìm kiếm nhiều nhất',
+                          StringConst.searchMost.tr,
                           style: AppStyles.black000Size16Fw500FfMont,
                         ),
                       ),

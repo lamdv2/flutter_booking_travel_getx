@@ -131,7 +131,10 @@ class ProfileController extends GetxController {
           imageFonts.value = resultList;
         }
       } else {
-        Get.snackbar("Warning!!!", "Permission denied");
+        Get.snackbar(
+          "${StringConst.warning.tr}!!!",
+          StringConst.permissionDenied.tr,
+        );
         showAdaptiveDialog(
           context: context,
           builder: (BuildContext context) => CupertinoAlertDialog(
@@ -140,11 +143,11 @@ class ProfileController extends GetxController {
                 "To pick images, allow access to gallery and photos in app settings."),
             actions: [
               CupertinoDialogAction(
-                child: const Text("Cancel"),
+                child: Text(StringConst.cancel.tr),
                 onPressed: () => Get.back(),
               ),
               CupertinoDialogAction(
-                child: const Text("Settings"),
+                child: Text(StringConst.settingSystem.tr),
                 onPressed: () async {
                   await openAppSettings();
                 },
@@ -200,14 +203,16 @@ class ProfileController extends GetxController {
         .update(userModel.toJson())
         .then((value) {
       Get.back();
-      Get.snackbar("Success!", 'Edit profile successfully',
+      Get.snackbar(
+          "${StringConst.success.tr}!", StringConst.editProfileSuccessfully.tr,
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
       Future.wait([
         homeController
             .getUserDetails(homeController.userModel.value?.email ?? '')
       ]);
     }).catchError((onError) {
-      Get.snackbar("Error!!!", 'Edit profile error: ${onError.toString()}',
+      Get.snackbar("${StringConst.error.tr}!!!",
+          '${StringConst.editProfileError.tr}: ${onError.toString()}',
           snackPosition: SnackPosition.BOTTOM, colorText: Colors.black87);
     });
   }
@@ -218,8 +223,8 @@ class ProfileController extends GetxController {
         .add(userModel.toJson())
         .whenComplete(
           () => Get.snackbar(
-            "Success",
-            "Your account have been created!",
+            StringConst.success.tr,
+            "${StringConst.yourAccount.tr}!",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: ColorConstants.blue.withOpacity(.1),
             colorText: ColorConstants.blue,
@@ -228,7 +233,7 @@ class ProfileController extends GetxController {
         // ignore: body_might_complete_normally_catch_error
         .catchError((error) {
       Get.snackbar(
-        "Error",
+        StringConst.error.tr,
         "Something went wrong. Try again!",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: ColorConstants.red.withOpacity(.1),
@@ -246,8 +251,8 @@ class ProfileController extends GetxController {
         })
         .whenComplete(
           () => Get.snackbar(
-            "Success",
-            "Saved successfully!",
+            StringConst.success.tr,
+            "${StringConst.saveSuccess.tr}!",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: ColorConstants.blue.withOpacity(.1),
             colorText: ColorConstants.blue,
@@ -257,7 +262,7 @@ class ProfileController extends GetxController {
           // ignore: body_might_complete_normally_catch_error
           (error) {
             Get.snackbar(
-              "Error",
+              StringConst.error.tr,
               "Something went wrong. Try again!",
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: ColorConstants.red.withOpacity(.1),
@@ -301,7 +306,7 @@ class ProfileController extends GetxController {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
-          content: const Text("Do you want to logout?"),
+          content: Text(StringConst.doLogout.tr),
           actions: [
             TextButton(
               onPressed: Get.back,
@@ -337,7 +342,7 @@ class ProfileController extends GetxController {
 
     confirmLogoutDialog(
       context,
-      'Logout',
+      StringConst.logout.tr,
       () async {
         Get.back();
 

@@ -144,7 +144,7 @@ class HotelItemVerticalWidget extends StatelessWidget {
                           width: getSize(8.0),
                         ),
                         Text(
-                          "(3241 reviews)",
+                          "(3241 ${StringConst.reviews.tr})",
                           style: AppStyles.graySecondSize14Fw400FfMont,
                         ),
                       ],
@@ -164,7 +164,7 @@ class HotelItemVerticalWidget extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: "/night",
+                            text: "/${StringConst.night.tr}",
                             style: AppStyles.botTitle000Size14Fw400FfMont,
                           ),
                         ],

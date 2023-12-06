@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/video/comment.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -81,7 +82,7 @@ class CommentTourController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error While Commenting',
+        StringConst.error.tr,
         e.toString(),
       );
     }

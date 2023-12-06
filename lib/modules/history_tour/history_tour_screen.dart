@@ -154,10 +154,14 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                           return GestureDetector(
                             onTap: () {
                               if (status == "waiting") {
-                                Get.snackbar('Notice',
-                                    'Wait for the admin to approve the tour');
+                                Get.snackbar(
+                                  StringConst.notification.tr,
+                                  StringConst
+                                      .waitForTheAdminToApproveTheTour.tr,
+                                );
                               } else if (status == "canceled") {
-                                Get.snackbar('Notice', 'Tour canceled!!!');
+                                Get.snackbar(StringConst.notification.tr,
+                                    '${StringConst.tourCanceled.tr}!!!');
                               } else if (status == "coming") {
                                 Get.toNamed(
                                   Routes.TOUR_QR_CODE_DETAIL,
@@ -227,7 +231,7 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                               horizontal: getSize(48.0),
                             ),
                             child: Text(
-                              'Looks like you haven\'t booked any tours yet. Booking your first tour right now!',
+                              '${StringConst.looksLike.tr}!',
                               style:
                                   AppStyles.black000Size14Fw400FfMont.copyWith(
                                 color: appController.isDarkModeOn.value
@@ -258,7 +262,7 @@ class HistoryItemFinish extends GetView<HistoryTourController> {
                                 ),
                                 InkWell(
                                   child: Text(
-                                    'See Tour',
+                                    StringConst.seeTour.tr,
                                     style: AppStyles.blueSize16Fw400FfMont,
                                   ),
                                 )

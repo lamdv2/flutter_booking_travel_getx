@@ -1,6 +1,7 @@
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/history_tour/history_tour_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
@@ -147,7 +148,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
                     key: UniqueKey(),
                     value: PrettyQrSmoothSymbol,
                     child: Text(
-                      'Smooth',
+                      StringConst.smooth.tr,
                       style: appController.isDarkModeOn.value
                           ? AppStyles.lightDarkModeSize16Fw500FfMont
                           : AppStyles.gray600Size16Fw500FfMont,
@@ -157,7 +158,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
                     key: UniqueKey(),
                     value: PrettyQrRoundedSymbol,
                     child: Text(
-                      'RoundedRectangle',
+                      StringConst.roundedRectangle.tr,
                       style: appController.isDarkModeOn.value
                           ? AppStyles.lightDarkModeSize16Fw500FfMont
                           : AppStyles.gray600Size16Fw500FfMont,
@@ -168,13 +169,13 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
               child: ListTile(
                 leading: const Icon(Icons.format_paint_outlined),
                 title: Text(
-                  'Style',
+                  StringConst.style.tr,
                   style: AppStyles.gray600Size16Fw500FfMont,
                 ),
                 trailing: Text(
                   widget.decoration.shape is PrettyQrSmoothSymbol
-                      ? 'Smooth'
-                      : 'RoundedRectangle',
+                      ? StringConst.smooth.tr
+                      : StringConst.roundedRectangle.tr,
                   style: appController.isDarkModeOn.value
                       ? AppStyles.lightDarkModeSize16Fw500FfMont
                       : AppStyles.gray600Size16Fw500FfMont,
@@ -188,7 +189,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
           onChanged: (value) => toggleColor(),
           secondary: const Icon(Icons.color_lens_outlined),
           title: Text(
-            'Colored',
+            StringConst.colored.tr,
             style: appController.isDarkModeOn.value
                 ? AppStyles.lightDarkModeSize16Fw500FfMont
                 : AppStyles.gray600Size16Fw500FfMont,
@@ -199,7 +200,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
           onChanged: (value) => toggleRoundedCorners(),
           secondary: const Icon(Icons.rounded_corner),
           title: Text(
-            'RoundedCorners',
+            StringConst.roundedCorners.tr,
             style: appController.isDarkModeOn.value
                 ? AppStyles.lightDarkModeSize16Fw500FfMont
                 : AppStyles.gray600Size16Fw500FfMont,
@@ -215,7 +216,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
                 : Icons.hide_image_outlined,
           ),
           title: Text(
-            'Image',
+            StringConst.image.tr,
             style: appController.isDarkModeOn.value
                 ? AppStyles.lightDarkModeSize16Fw500FfMont
                 : AppStyles.gray600Size16Fw500FfMont,
@@ -226,7 +227,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
             enabled: widget.decoration.image != null,
             leading: const Icon(Icons.layers_outlined),
             title: Text(
-              'ImagePosition',
+              StringConst.imagePosition.tr,
               style: appController.isDarkModeOn.value
                   ? AppStyles.lightDarkModeSize16Fw500FfMont
                   : AppStyles.gray600Size16Fw500FfMont,
@@ -239,7 +240,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
                   PopupMenuItem(
                     value: PrettyQrDecorationImagePosition.embedded,
                     child: Text(
-                      'Embedded',
+                      StringConst.embedded.tr,
                       style: appController.isDarkModeOn.value
                           ? AppStyles.lightDarkModeSize16Fw500FfMont
                           : AppStyles.gray600Size16Fw500FfMont,
@@ -248,7 +249,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
                   PopupMenuItem(
                     value: PrettyQrDecorationImagePosition.foreground,
                     child: Text(
-                      'Foreground',
+                      StringConst.foreground.tr,
                       style: appController.isDarkModeOn.value
                           ? AppStyles.lightDarkModeSize16Fw500FfMont
                           : AppStyles.gray600Size16Fw500FfMont,
@@ -257,7 +258,7 @@ class PrettyQrSettingsState extends State<PrettyQrSettings> {
                   PopupMenuItem(
                     value: PrettyQrDecorationImagePosition.background,
                     child: Text(
-                      'Background',
+                      StringConst.background.tr,
                       style: appController.isDarkModeOn.value
                           ? AppStyles.lightDarkModeSize16Fw500FfMont
                           : AppStyles.gray600Size16Fw500FfMont,

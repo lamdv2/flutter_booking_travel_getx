@@ -75,7 +75,7 @@ class CommentScreen extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                '${comment.likes.length} likes',
+                                '${comment.likes.length} ${StringConst.likes.tr}',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: ColorConstants.kTextColor,
@@ -107,19 +107,19 @@ class CommentScreen extends StatelessWidget {
                     fontSize: 16,
                     color: ColorConstants.kTextColor,
                   ),
-                  decoration: const InputDecoration(
-                    labelText: 'Comment',
-                    labelStyle: TextStyle(
+                  decoration: InputDecoration(
+                    labelText: StringConst.comment.tr,
+                    labelStyle: const TextStyle(
                       fontSize: 20,
                       color: ColorConstants.kTextColor,
                       fontWeight: FontWeight.w700,
                     ),
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red,
                       ),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red,
                       ),
@@ -134,9 +134,9 @@ class CommentScreen extends StatelessWidget {
                     commentController.commentEditingController.clear();
                     FocusScope.of(context).unfocus();
                   },
-                  child: const Text(
-                    'Send',
-                    style: TextStyle(
+                  child: Text(
+                    StringConst.send.tr,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: ColorConstants.kTextColor,
                     ),

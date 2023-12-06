@@ -46,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ? ColorConstants.darkBackground
           : ColorConstants.lightBackground,
       appBar: CustomAppBar(
-        titles: 'Change Profile',
+        titles: StringConst.changeProfile.tr,
         backgroundColor: appController.isDarkModeOn.value
             ? ColorConstants.darkAppBar
             : ColorConstants.primaryButton,
@@ -164,7 +164,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(36),
                     ),
                     Text(
-                      "Email",
+                      StringConst.email.tr,
                       style: TextStyle(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.lightBackground
@@ -186,7 +186,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(36),
                     ),
                     Text(
-                      "First name",
+                      StringConst.firstName.tr,
                       style: TextStyle(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.lightBackground
@@ -200,14 +200,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     MyTextField(
                       controller: profileController.editFirstNameController,
-                      hintText: 'Enter your firstname',
+                      hintText: StringConst.enterYourFirstname.tr,
                       obscureText: false,
                     ),
                     SizedBox(
                       height: getSize(36),
                     ),
                     Text(
-                      "Last name",
+                      StringConst.lastName.tr,
                       style: TextStyle(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.lightBackground
@@ -221,14 +221,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     MyTextField(
                       controller: profileController.editLastNameController,
-                      hintText: 'Enter your last name',
+                      hintText: StringConst.enterYourLastName.tr,
                       obscureText: false,
                     ),
                     SizedBox(
                       height: getSize(36),
                     ),
                     Text(
-                      "Phone number",
+                      StringConst.phoneNumber.tr,
                       style: TextStyle(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.lightBackground
@@ -242,7 +242,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     MyTextField(
                       controller: profileController.editPhoneNumberController,
-                      hintText: "Enter your phone number",
+                      hintText: StringConst.enterYourPhoneNumber.tr,
                       obscureText: false,
                       isTypeNumb: true,
                       validatorCheck: (value) {
@@ -256,7 +256,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: getSize(36),
                     ),
                     Text(
-                      "Location",
+                      StringConst.location.tr,
                       style: TextStyle(
                         color: appController.isDarkModeOn.value
                             ? ColorConstants.lightBackground
@@ -270,7 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     MyTextField(
                       controller: profileController.editLocationController,
-                      hintText: "Enter your location",
+                      hintText: StringConst.enterYourLocation.tr,
                       obscureText: false,
                     ),
                     SizedBox(

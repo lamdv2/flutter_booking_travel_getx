@@ -7,7 +7,7 @@ import 'package:doan_clean_achitec/modules/booking/booking_option/booking_option
 import 'package:doan_clean_achitec/modules/booking/booking_request.dart';
 import 'package:doan_clean_achitec/modules/home/home_controller.dart';
 import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
-import 'package:doan_clean_achitec/shared/constants/colors.dart';
+import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/regex.dart';
 import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/button_widget.dart';
@@ -72,7 +72,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(16),
                             ),
                             Text(
-                              'Start location',
+                              StringConst.startLocation.tr,
                               style: AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -92,7 +92,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(16),
                             ),
                             Text(
-                              'Start Date',
+                              StringConst.startDateTour.tr,
                               style: AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -113,7 +113,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(16),
                             ),
                             Text(
-                              'Quantity',
+                              StringConst.quantity.tr,
                               style: AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -123,7 +123,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(2),
                             ),
                             Text(
-                              "Adult x ${bookingRequestController.adultNumb.value?.toInt()}, children x ${bookingRequestController.childrenNumb.value?.toInt()}",
+                              "${StringConst.adult.tr} x ${bookingRequestController.adultNumb.value?.toInt()}, ${StringConst.children.tr} x ${bookingRequestController.childrenNumb.value?.toInt()}",
                               style: AppStyles.black000Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -145,7 +145,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Information Customer',
+                              StringConst.informationCustomer.tr,
                               style: AppStyles.black000Size18Fw600FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -159,7 +159,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'First name',
+                                    StringConst.firstName.tr,
                                     style: AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
@@ -171,14 +171,14 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   MyTextField(
                                     controller:
                                         controller.firstNameConfirmController,
-                                    hintText: "Enter your first name",
+                                    hintText: StringConst.enterYourFirstname.tr,
                                     obscureText: false,
                                   ),
                                   SizedBox(
                                     height: getSize(24),
                                   ),
                                   Text(
-                                    'Last name',
+                                    StringConst.lastName.tr,
                                     style: AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
@@ -189,14 +189,14 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   ),
                                   MyTextField(
                                     controller: controller.lastNameController,
-                                    hintText: "Enter your last name",
+                                    hintText: StringConst.enterYourLastName.tr,
                                     obscureText: false,
                                   ),
                                   SizedBox(
                                     height: getSize(24),
                                   ),
                                   Text(
-                                    'Email',
+                                    StringConst.email.tr,
                                     style: AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
@@ -207,7 +207,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   ),
                                   MyTextField(
                                     controller: controller.emailController,
-                                    hintText: "Enter your email",
+                                    hintText: StringConst.enterYourEmail.tr,
                                     obscureText: false,
                                     isCheckReadOnly: true,
                                   ),
@@ -215,7 +215,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                     height: getSize(24),
                                   ),
                                   Text(
-                                    'Phone number',
+                                    StringConst.phoneNumber.tr,
                                     style: AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
@@ -227,7 +227,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   MyTextField(
                                     controller:
                                         controller.phoneNumberController,
-                                    hintText: "Enter your phone number",
+                                    hintText: StringConst.enterYourPhoneNumber.tr,
                                     obscureText: false,
                                     isTypeNumb: true,
                                     validatorCheck: (value) {
@@ -260,7 +260,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Payment Method",
+                              StringConst.paymentMethod.tr,
                               style: AppStyles.black000Size18Fw600FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -270,7 +270,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(16),
                             ),
                             Text(
-                              'Scan QR code',
+                              StringConst.scanQRCode.tr,
                               style: AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -280,7 +280,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(2),
                             ),
                             Text(
-                              'Scanner with QR',
+                              StringConst.scannerWithQR.tr,
                               style: AppStyles.black000Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -290,7 +290,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(16),
                             ),
                             Text(
-                              'Banking',
+                              StringConst.banking.tr,
                               style: AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -300,7 +300,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               height: getSize(2),
                             ),
                             Text(
-                              "5621 000 123 4567",
+                              "5621 000 246 6118",
                               style: AppStyles.black000Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -354,7 +354,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                         ),
                       ),
                       ButtonWidget(
-                        textBtn: 'Payment',
+                        textBtn: StringConst.payment.tr,
                         onTap: () {
                           final userOtp = UserModel(
                             id: homeController.userModel.value?.id ?? '',

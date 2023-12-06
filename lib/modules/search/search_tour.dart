@@ -98,7 +98,7 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        "Destination",
+                                        StringConst.destination.tr,
                                         style:
                                             AppStyles.black000Size13Fw400FfMont,
                                       ),
@@ -333,7 +333,10 @@ class buildItemTourSearch extends GetView<SearchDesController> {
           await searchDesController.getHistoryCurrentTour();
           Get.toNamed(Routes.TOUR_DETAILS, arguments: tourModel);
         } else {
-          Get.snackbar("Notification", "The tour is on hold!");
+          Get.snackbar(
+            StringConst.notification.tr,
+            "${StringConst.theTourIsOnHold.tr}!",
+          );
         }
       },
       child: Container(
@@ -375,7 +378,7 @@ class buildItemTourSearch extends GetView<SearchDesController> {
                             ),
                             padding: EdgeInsets.all(getSize(8)),
                             child: Text(
-                              "Stopped",
+                              StringConst.stopped.tr,
                               style: AppStyles.blue000Size14Fw500FfMont,
                             ),
                           ),
@@ -517,7 +520,7 @@ class buildItemHistory extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  tourModel?.nameTour ?? 'Tour Đà Nẵng - Hội An',
+                  tourModel?.nameTour ?? '',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyles.black000Size16Fw500FfMont,
@@ -526,7 +529,7 @@ class buildItemHistory extends StatelessWidget {
                   height: getSize(8),
                 ),
                 Text(
-                  'abc',
+                  '',
                   style: AppStyles.black000Size14Fw400FfMont,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

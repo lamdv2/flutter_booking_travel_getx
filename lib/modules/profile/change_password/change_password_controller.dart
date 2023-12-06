@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../shared/constants/string_constants.dart';
+
 class ChangePasswordController extends GetxController {
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
@@ -24,7 +26,10 @@ class ChangePasswordController extends GetxController {
       final user = FirebaseAuth.instance.currentUser;
 
       if (newPass != newConfirm) {
-        Get.snackbar("Error", "New password and confirm password do not match");
+        Get.snackbar(
+          StringConst.error.tr,
+          "New password and confirm password do not match",
+        );
         return;
       }
 
@@ -51,23 +56,38 @@ class ChangePasswordController extends GetxController {
                 .update({
               'passWord': newPass,
             }).then((value) {
-              Get.snackbar("Success", "Password changed successfully");
+              Get.snackbar(
+                StringConst.success.tr,
+                StringConst.passwordChangedSuccessfully.tr,
+              );
             }).catchError((error) {
-              Get.snackbar("Error", "Error updating password: $error");
+              Get.snackbar(
+                StringConst.error.tr,
+                "${StringConst.errorUpdatingPassword.tr}: $error",
+              );
             });
           } else {
-            Get.snackbar("Error", "Document does not exist");
+            Get.snackbar(
+              StringConst.error.tr,
+              StringConst.documentDoesNotExist.tr,
+            );
           }
         }).catchError((error) {
-          Get.snackbar("Error", "Error getting document: $error");
+          Get.snackbar(
+            StringConst.error.tr,
+            "${StringConst.errorGettingDocument.tr}: $error",
+          );
         });
       } else {
-        Get.snackbar("Error", "Errorrrr");
+        Get.snackbar(StringConst.error.tr, StringConst.error.tr);
       }
     } on FirebaseAuthException catch (e) {
-      Get.snackbar("Error", e.message!);
+      Get.snackbar(StringConst.error.tr, e.message!);
     } catch (e) {
-      Get.snackbar("Error", "An unexpected error occurred");
+      Get.snackbar(
+        StringConst.error.tr,
+        StringConst.anUnexpectedErrorOccurred.tr,
+      );
     }
   }
 }

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
+import '../../shared/constants/string_constants.dart';
+
 class PayStripeScreen extends StatefulWidget {
   const PayStripeScreen({Key? key}) : super(key: key);
 
@@ -103,10 +105,15 @@ class _PayStripeScreenState extends State<PayStripeScreen> {
 
   displayPaymentSheet() async {
     try {
-      await Stripe.instance.presentPaymentSheet().then((value) {
-        print("Payment Successfully");
-        Get.snackbar("Successfully", "Finish!!!");
-      });
+      await Stripe.instance.presentPaymentSheet().then(
+        (value) {
+          print("Payment Successfully");
+          Get.snackbar(
+            StringConst.success.tr,
+            "${StringConst.finish.tr}!!!",
+          );
+        },
+      );
     } catch (e) {
       print('$e');
     }

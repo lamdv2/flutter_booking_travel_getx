@@ -138,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                                 controller.register(context);
                               }
                             },
-                            textBtn: 'Sign Up',
+                            textBtn: StringConst.signup.tr,
                           ),
                         ],
                       ),
@@ -218,7 +218,7 @@ class RegisterScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Already have a account ?',
+                          StringConst.alreadly.tr,
                           style: TextStyle(
                             color: Colors.grey.shade700,
                           ),

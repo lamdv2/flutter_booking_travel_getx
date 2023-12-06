@@ -78,7 +78,7 @@ class CommentTourSeeScreen extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                '${comment.likes.length} likes',
+                                '${comment.likes.length} ${StringConst.likes.tr}',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: ColorConstants.kTextColor,

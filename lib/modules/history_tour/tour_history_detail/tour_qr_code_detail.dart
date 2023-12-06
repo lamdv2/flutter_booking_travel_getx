@@ -184,7 +184,7 @@ class TourQRCodeDetail extends StatelessWidget {
                       onPressed: () =>
                           historyTourController.saveLocalImage(globalKey),
                       child: Text(
-                        'Take ScreenShot',
+                        StringConst.takeScreenShot.tr,
                         style: TextStyle(
                           fontSize: 18,
                           color: appController.isDarkModeOn.value
@@ -220,7 +220,7 @@ class TourQRCodeDetail extends StatelessWidget {
                               Get.back();
                             },
                             child: Text(
-                              'Cancel tour',
+                              StringConst.cancelTour.tr,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: appController.isDarkModeOn.value
@@ -247,7 +247,7 @@ class TourQRCodeDetail extends StatelessWidget {
                               CommentTourScreen(id: tourModel!.idTour ?? ""),
                             ),
                             child: Text(
-                              'Tour review',
+                              StringConst.tourReview.tr,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: appController.isDarkModeOn.value

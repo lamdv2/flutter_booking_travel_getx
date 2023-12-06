@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../constants/string_constants.dart';
+
 class AuthService {
   final ProfileController profileController =
       Get.put<ProfileController>(ProfileController());
@@ -61,7 +63,7 @@ class AuthService {
 
       return user;
     } catch (error) {
-      Get.snackbar('Error signing in with Google', '$error');
+      Get.snackbar(StringConst.errorSigningInWithGoogle.tr, '$error');
       return null;
     }
   }

@@ -4,6 +4,7 @@ import 'package:doan_clean_achitec/modules/search/search.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
+import 'package:doan_clean_achitec/shared/widgets/stateless/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,10 @@ class SpecialOfferCard extends StatelessWidget {
               arguments: tourModel,
             );
           } else {
-            Get.snackbar("Notification", "The tour is on hold!");
+            Get.snackbar(
+              StringConst.notification.tr,
+              "${StringConst.theTourIsOnHold.tr}!",
+            );
           }
         },
         child: SizedBox(
@@ -89,11 +93,20 @@ class SpecialOfferCard extends StatelessWidget {
                       SizedBox(
                         height: getSize(4),
                       ),
-                      Text(
-                        "${tourModel.rating} Star",
-                        style: const TextStyle(color: ColorConstants.white),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${tourModel.rating}",
+                            style: const TextStyle(color: ColorConstants.white),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            width: getSize(4),
+                          ),
+                          const StarWidget(),
+                        ],
                       )
                     ],
                   ),
@@ -111,7 +124,7 @@ class SpecialOfferCard extends StatelessWidget {
                             ),
                             padding: EdgeInsets.all(getSize(8)),
                             child: Text(
-                              "Coming soon",
+                              StringConst.comingSoon.tr,
                               style: AppStyles.blue000Size14Fw500FfMont,
                             ),
                           ),
