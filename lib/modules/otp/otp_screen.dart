@@ -19,6 +19,7 @@ class OtpScreen extends StatelessWidget {
   var otp;
   final UserModel userModel = Get.arguments['arg1'];
   final TourModel tourModel = Get.arguments['arg2'];
+  final String statusPayment = Get.arguments['arg3'];
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,12 @@ class OtpScreen extends StatelessWidget {
                 ),
                 onCompleted: (value) {
                   otp = value;
-                  _otpController.verifyOTP(value, userModel, tourModel);
+                  _otpController.verifyOTP(
+                    value,
+                    userModel,
+                    tourModel,
+                    statusPayment,
+                  );
                 },
               ),
               SizedBox(
@@ -84,8 +90,12 @@ class OtpScreen extends StatelessWidget {
               SizedBox(
                 child: ElevatedButton(
                   child: const Text("NEXT"),
-                  onPressed: () =>
-                      _otpController.verifyOTP(otp, userModel, tourModel),
+                  onPressed: () => _otpController.verifyOTP(
+                    otp,
+                    userModel,
+                    tourModel,
+                    statusPayment,
+                  ),
                 ),
               )
             ],

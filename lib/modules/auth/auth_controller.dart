@@ -40,8 +40,12 @@ class AuthController extends GetxController {
   int? resendToken;
 
   void signInPhoneAuthentication(
-      String phoneNub, UserModel userModel, TourModel tourModel) {
-    phoneAuthentication(phoneNub, userModel, tourModel);
+    String phoneNub,
+    UserModel userModel,
+    TourModel tourModel,
+    String statusPayment,
+  ) {
+    phoneAuthentication(phoneNub, userModel, tourModel, statusPayment);
   }
 
   void clearControllLogin() {
@@ -53,7 +57,11 @@ class AuthController extends GetxController {
   }
 
   Future<void> phoneAuthentication(
-      String phoneNub, UserModel userModel, TourModel tourModel) async {
+    String phoneNub,
+    UserModel userModel,
+    TourModel tourModel,
+    String statusPayment,
+  ) async {
     try {
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNub,
@@ -65,6 +73,7 @@ class AuthController extends GetxController {
             arguments: {
               'arg1': userModel,
               'arg2': tourModel,
+              'arg3': statusPayment,
             },
           );
           this.resendToken = resendToken;

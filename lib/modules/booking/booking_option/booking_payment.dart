@@ -127,6 +127,7 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                     child: Padding(
                       padding: EdgeInsets.all(getSize(20)),
                       child: Column(
+                        
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(

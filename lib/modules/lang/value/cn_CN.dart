@@ -209,7 +209,7 @@ const Map<String, String> cn = {
   'noData': '没有数据',
   'paymentMethod': '支付方式',
   'banking': '银行转账',
-  'cash': '现金',
+  'cash': '签证卡',
   'choosePeople': '选择人数',
   'adult': '成人',
   'from141cmtall': '141厘米以上',

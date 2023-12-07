@@ -121,20 +121,20 @@ class TourDetailsScreen extends StatelessWidget {
                           SizedBox(height: getSize(kPadding)),
                           _buildTripPlan(tourModel),
                           _buildPhotoGallery(tourModel),
-                          SizedBox(height: getSize(kTop28Padding)),
+                          SizedBox(height: getSize(28)),
                           _buildLocation(tourController),
                           _buildCommentList(
                             commentController: commentController,
                             homeController: homeController,
                             id: tourModel!.idTour ?? "",
                           ),
-                          SizedBox(height: getSize(kMediumPadding)),
+                          SizedBox(height: getSize(16)),
                           ButtonWidget(
                             textBtn: StringConst.bookTour.tr,
                             onTap: () => Get.toNamed(Routes.BOOKING_REQUIED,
                                 arguments: tourModel),
                           ),
-                          SizedBox(height: getSize(kMediumPadding)),
+                          SizedBox(height: getSize(32)),
                         ],
                       ),
                     ),
@@ -241,9 +241,9 @@ class TourDetailsScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '\$${tourModel?.price.toString()}',
+                  '${tourModel?.price.toString()} đ',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: appController.isDarkModeOn.value
                         ? ColorConstants.lightBackground
@@ -458,15 +458,7 @@ class TourDetailsScreen extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(height: getSize(kDefaultPadding)),
-        Text(
-          tourController.cityModel.value?.descriptionCity ?? '',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(height: getSize(kDefaultPadding)),
+        SizedBox(height: getSize(24)),
         GestureDetector(
           onDoubleTap: () {
             Get.toNamed(Routes.GOOGLE_MAP_SCREEN,
@@ -480,6 +472,7 @@ class TourDetailsScreen extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class _buildCommentList extends StatelessWidget {
   const _buildCommentList({
     super.key,
@@ -495,70 +488,73 @@ class _buildCommentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     commentController.updatePostId(id);
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: commentController.comments.length > 3
-          ? 3
-          : commentController.comments.length,
-      itemBuilder: (context, index) {
-        final comment = commentController.comments[index];
-        return ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.black,
-            backgroundImage: NetworkImage(comment.profilePhoto),
-          ),
-          title: Row(
-            children: [
-              Text(
-                "${comment.username}  ",
-                style: AppStyles.blue000Size16Fw600FfMont,
-              ),
-              Expanded(
-                child: Text(
-                  comment.comment,
-                  style: AppStyles.black000Size14Fw400FfMont,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+    return commentController.comments.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: commentController.comments.length > 3
+                ? 3
+                : commentController.comments.length,
+            itemBuilder: (context, index) {
+              final comment = commentController.comments[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  backgroundImage: NetworkImage(comment.profilePhoto),
                 ),
-              ),
-            ],
-          ),
-          subtitle: Row(
-            children: [
-              Text(
-                tago.format(
-                  comment.datePublished.toDate(),
+                title: Row(
+                  children: [
+                    Text(
+                      "${comment.username}  ",
+                      style: AppStyles.blue000Size16Fw600FfMont,
+                    ),
+                    Expanded(
+                      child: Text(
+                        comment.comment,
+                        style: AppStyles.black000Size14Fw400FfMont,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: ColorConstants.kTextColor,
+                subtitle: Row(
+                  children: [
+                    Text(
+                      tago.format(
+                        comment.datePublished.toDate(),
+                      ),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: ColorConstants.kTextColor,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '${comment.likes.length} likes',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: ColorConstants.kTextColor,
+                      ),
+                    )
+                  ],
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                '${comment.likes.length} likes',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: ColorConstants.kTextColor,
+                trailing: InkWell(
+                  onTap: () => commentController.likeComment(comment.id),
+                  child: Icon(
+                    Icons.favorite,
+                    size: 25,
+                    color: comment.likes
+                            .contains(homeController.userModel.value?.id)
+                        ? Colors.red
+                        : ColorConstants.accent1,
+                  ),
                 ),
-              )
-            ],
-          ),
-          trailing: InkWell(
-            onTap: () => commentController.likeComment(comment.id),
-            child: Icon(
-              Icons.favorite,
-              size: 25,
-              color: comment.likes.contains(homeController.userModel.value?.id)
-                  ? Colors.red
-                  : ColorConstants.accent1,
-            ),
-          ),
-        );
-      },
-    );
+              );
+            },
+          )
+        : const SizedBox.shrink();
   }
 }

@@ -159,7 +159,9 @@ class LoginScreen extends StatelessWidget {
                               barrierDismissible: false,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: const Text('Warning!!!'),
+                                  title: Text(
+                                    '${StringConst.comingSoon.tr}!!!',
+                                  ),
                                   content:
                                       const Text("The feature is coming soon"),
                                   actions: [

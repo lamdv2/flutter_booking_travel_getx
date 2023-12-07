@@ -44,7 +44,6 @@ class BookingController extends GetxController {
   }
 
   // format datetime
-
   Timestamp formatDateTime(String startDateText) {
     DateTime startDate;
 

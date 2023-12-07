@@ -6,8 +6,10 @@ class BookingRequestController extends GetxController {
   final adultPrice = Rxn<double>(0);
   final childrenPrice = Rxn<double>(0);
   final totalPrice = Rxn<double>(0);
-  final isCheckQR = RxBool(false);
+  final isCheckQR = RxBool(true);
   final isCheckBanking = RxBool(false);
+  final isVisaCard = RxBool(false);
+  final paymentMothod = RxnString("qrcode");
 
   @override
   void onInit() {
@@ -15,6 +17,27 @@ class BookingRequestController extends GetxController {
     childrenNumb.value = 0;
     totalPrice.value = 0;
     super.onInit();
+  }
+
+  void setStatusQRcode() {
+    isCheckQR.value = true;
+    isCheckBanking.value = false;
+    isVisaCard.value = false;
+    paymentMothod.value = "qrcode";
+  }
+
+  void setStatusBanking() {
+    isCheckQR.value = false;
+    isCheckBanking.value = true;
+    isVisaCard.value = false;
+    paymentMothod.value = "banking";
+  }
+
+  void setStatusVisaCard() {
+    isCheckQR.value = false;
+    isCheckBanking.value = false;
+    isVisaCard.value = true;
+    paymentMothod.value = "visacard";
   }
 
   double setPlus(double plus) {

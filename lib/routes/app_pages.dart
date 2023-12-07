@@ -229,7 +229,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.PAY_STRIPE_SCREEN,
-      page: () => const PayStripeScreen(),
+      page: () => PayStripeScreen(),
       binding: PayBinding(),
     ),
   ];

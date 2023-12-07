@@ -112,14 +112,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                         Expanded(
                           flex: 1,
                           child: GestureDetector(
-                            onTap: () {
-                              if (controller.isCheckQR.value) {
-                                controller.isCheckQR.value = false;
-                              } else {
-                                controller.isCheckQR.value = true;
-                                controller.isCheckBanking.value = false;
-                              }
-                            },
+                            onTap: () => controller.setStatusQRcode(),
                             child: Container(
                               padding: EdgeInsets.all(
                                 getSize(10),
@@ -146,7 +139,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                                   ),
                                   SizedBox(height: getSize(28)),
                                   Text(
-                                    StringConst.qrCode,
+                                    StringConst.qrCode.tr,
                                     style: controller.isCheckQR.value
                                         ? AppStyles.white000Size12Fw400FfMont
                                         : AppStyles.black000Size12Fw400FfMont,
@@ -165,14 +158,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                         Expanded(
                           flex: 1,
                           child: GestureDetector(
-                            onTap: () {
-                              if (controller.isCheckBanking.value) {
-                                controller.isCheckBanking.value = false;
-                              } else {
-                                controller.isCheckBanking.value = true;
-                                controller.isCheckQR.value = false;
-                              }
-                            },
+                            onTap: () => controller.setStatusBanking(),
                             child: Container(
                               padding: EdgeInsets.all(
                                 getSize(10),
@@ -190,7 +176,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   SvgPicture.asset(
-                                    AssetHelper.icWallet,
+                                    AssetHelper.icDocument,
                                     height: getSize(36),
                                     width: getSize(36),
                                     color: controller.isCheckBanking.value
@@ -218,16 +204,15 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                         Expanded(
                           flex: 1,
                           child: GestureDetector(
-                            onTap: () => Get.snackbar(
-                              StringConst.notification.tr,
-                              "${StringConst.futureComingSoon.tr}!",
-                            ),
+                            onTap: () => controller.setStatusVisaCard(),
                             child: Container(
                               padding: EdgeInsets.all(
                                 getSize(10),
                               ),
                               decoration: BoxDecoration(
-                                color: ColorConstants.grayTextField,
+                                color: controller.isVisaCard.value
+                                    ? ColorConstants.primaryButton
+                                    : ColorConstants.grayTextField,
                                 borderRadius: BorderRadius.circular(
                                   getSize(16),
                                 ),
@@ -237,14 +222,19 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   SvgPicture.asset(
-                                    AssetHelper.icBag,
+                                    AssetHelper.icWallet,
                                     height: getSize(36),
                                     width: getSize(36),
+                                    color: controller.isVisaCard.value
+                                        ? ColorConstants.lightCard
+                                        : ColorConstants.darkAppBar,
                                   ),
                                   SizedBox(height: getSize(28)),
                                   Text(
                                     StringConst.cash.tr,
-                                    style: AppStyles.black000Size12Fw400FfMont,
+                                    style: controller.isVisaCard.value
+                                        ? AppStyles.white000Size12Fw400FfMont
+                                        : AppStyles.black000Size12Fw400FfMont,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     softWrap: false,
@@ -489,8 +479,13 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
                           StringConst.youneedtochoosethenumberofpeople.tr,
                         );
                       } else {
-                        Get.toNamed(Routes.BOOKING_OPTION_SCREEN,
-                            arguments: tourModel);
+                        Get.toNamed(
+                          Routes.BOOKING_OPTION_SCREEN,
+                          arguments: {
+                            'arg1': tourModel,
+                            'arg2': controller.paymentMothod.value,
+                          },
+                        );
                       }
                     },
                   ),

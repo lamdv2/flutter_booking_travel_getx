@@ -23,7 +23,8 @@ import '../booking_controller.dart';
 class BookingOptionScreen extends GetView<BookingOptionController> {
   BookingOptionScreen({super.key});
 
-  final TourModel? tourModel = Get.arguments;
+  final TourModel? tourModel = Get.arguments['arg1'];
+  final String statusPaymentMethod = Get.arguments['arg2'];
 
   final AppController appController = Get.find();
   final AuthController authController = Get.find();
@@ -227,7 +228,8 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   MyTextField(
                                     controller:
                                         controller.phoneNumberController,
-                                    hintText: StringConst.enterYourPhoneNumber.tr,
+                                    hintText:
+                                        StringConst.enterYourPhoneNumber.tr,
                                     obscureText: false,
                                     isTypeNumb: true,
                                     validatorCheck: (value) {
@@ -269,53 +271,105 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             SizedBox(
                               height: getSize(16),
                             ),
-                            Text(
-                              StringConst.scanQRCode.tr,
-                              style: AppStyles.gray600Size14Fw400FfMont,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                            ),
-                            SizedBox(
-                              height: getSize(2),
-                            ),
-                            Text(
-                              StringConst.scannerWithQR.tr,
-                              style: AppStyles.black000Size14Fw400FfMont,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                            ),
-                            SizedBox(
-                              height: getSize(16),
-                            ),
-                            Text(
-                              StringConst.banking.tr,
-                              style: AppStyles.gray600Size14Fw400FfMont,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                            ),
-                            SizedBox(
-                              height: getSize(2),
-                            ),
-                            Text(
-                              "5621 000 246 6118",
-                              style: AppStyles.black000Size14Fw400FfMont,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                            ),
-                            SizedBox(
-                              height: getSize(2),
-                            ),
-                            Text(
-                              "BIDV DO VAN LAM",
-                              style: AppStyles.black000Size14Fw400FfMont,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                            ),
+                            statusPaymentMethod == "qrcode"
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        StringConst.scanQRCode.tr,
+                                        style:
+                                            AppStyles.gray600Size16Fw400FfMont,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                      ),
+                                      SizedBox(
+                                        height: getSize(2),
+                                      ),
+                                      Text(
+                                        StringConst.scannerWithQR.tr,
+                                        style:
+                                            AppStyles.black000Size14Fw400FfMont,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                      ),
+                                    ],
+                                  )
+                                : statusPaymentMethod == "banking"
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            StringConst.banking.tr,
+                                            style: AppStyles
+                                                .gray600Size16Fw400FfMont,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                          SizedBox(
+                                            height: getSize(2),
+                                          ),
+                                          Text(
+                                            "5621 000 246 6118",
+                                            style: AppStyles
+                                                .black000Size14Fw400FfMont,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                          SizedBox(
+                                            height: getSize(2),
+                                          ),
+                                          Text(
+                                            "BIDV DO VAN LAM",
+                                            style: AppStyles
+                                                .black000Size14Fw400FfMont,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                        ],
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            StringConst.cash.tr,
+                                            style: AppStyles
+                                                .gray600Size16Fw400FfMont,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                          SizedBox(
+                                            height: getSize(2),
+                                          ),
+                                          Text(
+                                            "4242 4242 4242 4242",
+                                            style: AppStyles
+                                                .black000Size14Fw400FfMont,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                          SizedBox(
+                                            height: getSize(2),
+                                          ),
+                                          Text(
+                                            "DO VAN LAM",
+                                            style: AppStyles
+                                                .black000Size14Fw400FfMont,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                        ],
+                                      ),
                           ],
                         ),
                       ),
@@ -378,6 +432,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                 controller.phoneNumberController.text),
                             userOtp,
                             tourModel!,
+                            statusPaymentMethod,
                           );
                         },
                       ),

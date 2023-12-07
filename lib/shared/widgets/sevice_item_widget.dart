@@ -24,28 +24,27 @@ class SeviceItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: getSize(12),
-            vertical: getSize(20),
-          ),
-          width: getSize(78),
-          height: getSize(78),
-          decoration: BoxDecoration(
-            color: isCheckActive
-                ? ColorConstants.primaryButton
-                : appController.isDarkModeOn.value
-                    ? ColorConstants.darkCard
-                    : ColorConstants.white,
-            borderRadius: BorderRadius.circular(500),
-            border: Border.all(
-              color: ColorConstants.darkGray.withOpacity(.2),
-              width: 1,
-            ),
-          ),
-          child: InkWell(
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(20),
+      ),
+      width: getSize(84),
+      decoration: BoxDecoration(
+        color: isCheckActive
+            ? ColorConstants.primaryButton
+            : appController.isDarkModeOn.value
+                ? ColorConstants.darkCard
+                : ColorConstants.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: ColorConstants.darkGray.withOpacity(.2),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        children: [
+          InkWell(
             onTap: () => onTap,
             child: FittedBox(
               fit: BoxFit.scaleDown,
@@ -64,24 +63,24 @@ class SeviceItemWidget extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Text(
-          seviceTitle,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          softWrap: false,
-          style: isCheckActive
-              ? AppStyles.blue000Size12Fw400FfMont
-              : AppStyles.black000Size12Fw400FfMont.copyWith(
-                  color: appController.isDarkModeOn.value
-                      ? ColorConstants.lightBackground
-                      : ColorConstants.darkStatusBar,
-                ),
-        ),
-      ],
+          const SizedBox(
+            height: 12,
+          ),
+          Text(
+            seviceTitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
+            style: isCheckActive
+                ? AppStyles.white000Size12Fw400FfMont
+                : AppStyles.black000Size12Fw400FfMont.copyWith(
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightBackground
+                        : ColorConstants.darkStatusBar,
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

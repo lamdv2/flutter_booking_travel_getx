@@ -210,7 +210,7 @@ const Map<String, String> vi = {
   'noData': 'Không có dữ liệu',
   'paymentMethod': 'Phương thức thanh toán',
   'banking': 'Chuyển khoản ngân hàng',
-  'cash': 'Tiền mặt',
+  'cash': 'Thẻ Visa',
   'choosePeople': 'Chọn số người',
   'adult': 'Người lớn',
   'from141cmtall': 'Từ 141 cm trở lên',
