@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
@@ -79,10 +81,10 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                                   const String bidvAppUrl =
                                       'https://play.google.com/store/apps/details?id=com.vnpay.bidv';
                                   try {
-                                    // ignore: deprecated_member_use
                                     await launch(bidvAppUrl);
-                                    // ignore: empty_catches
-                                  } catch (e) {}
+                                  } catch (e) {
+                                    return;
+                                  }
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -127,7 +129,6 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                     child: Padding(
                       padding: EdgeInsets.all(getSize(20)),
                       child: Column(
-                        
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -150,6 +151,244 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                                 height: MediaQuery.of(context).size.width,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: getSize(16),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    color: ColorConstants.lightCard,
+                    child: Padding(
+                      padding: EdgeInsets.all(getSize(20)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            StringConst.banking.tr,
+                            style: AppStyles.black000Size18Fw600FfMont,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                          ),
+                          SizedBox(
+                            height: getSize(24),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=com.vnpay.Agribank3g',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Fagribank-logo-1CEEE70C76-seeklogo.com.png?alt=media&token=1f6ed96c-ff56-40a8-9df1-d01e2c12ece7",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=com.vietinbank.ipay',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Fviettinbank.jpg?alt=media&token=bfccb256-289a-48f6-b3f8-18fa42e6dfcb",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=com.VCB',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Fvietcombank-logo.jpg?alt=media&token=faf7c9bf-5063-4fd9-811e-5cb5b104daa6",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=com.vnpay.bidv',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Flogo-bidv-20220426071253.jpg?alt=media&token=60da452f-c8bf-44c6-899f-20ec1cf72ae3",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=com.mbmobile',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2F62ce8018d5cacb6b28727421_MB%20bank%20logo.jpg?alt=media&token=0c5c23ef-0bec-4189-8a3c-4af895ea59d0",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=vn.com.techcombank.bb.app',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Flogo-techcombank-inkythuatso-10-15-11-46.jpg?alt=media&token=8d37493c-4b19-4c40-8d53-c4e9be7714a7",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async => await launch(
+                                      'https://play.google.com/store/apps/details?id=com.vnpay.vpbankonline',
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(getSize(8)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: ColorConstants.blue
+                                              .withOpacity(.5),
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://firebasestorage.googleapis.com/v0/b/doan-final-travel.appspot.com/o/assets%2Fsystem%2Fvpbank.png?alt=media&token=a671084b-5409-4993-9c87-3798745396d9",
+                                          height: getSize(64),
+                                          width: getSize(64),
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: getSize(24),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

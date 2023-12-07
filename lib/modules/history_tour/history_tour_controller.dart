@@ -139,12 +139,13 @@ class HistoryTourController extends GetxController {
 
     final listTourHistoryData =
         snapShot.docs.map((doc) => HistoryModel.fromJson(doc)).toList();
+    List<HistoryModel> listTourHistorySort =
+        sortToursHistoryByBookingDate(listTourHistoryData);
 
     List<TourModel> listTourModel = [];
-    List<TourModel> listTourModelTamp = [];
 
     if (listTourHistoryData.isNotEmpty) {
-      for (var item in listTourHistoryData) {
+      for (var item in listTourHistorySort) {
         final snapShotTour =
             await _db.collection('tourModel').doc(item.idTour).get();
 
@@ -158,34 +159,33 @@ class HistoryTourController extends GetxController {
 
     if (status == 'waiting') {
       getListHisWaitingToDate.value?.clear();
-      getListHisWaitingToDate.value = listTourHistoryData;
+      getListHisWaitingToDate.value = listTourHistorySort;
     } else if (status == 'done') {
       getListHisUpComingToDate.value = [];
       getListHisHappenningToDate.value = [];
       getListHisCompletedToDate.value = [];
       final now = Timestamp.now();
 
-      listTourModelTamp = [];
       for (int i = 0; i < listTourModel.length; i++) {
         if (listTourModel[i].startDate!.millisecondsSinceEpoch >
             now.millisecondsSinceEpoch) {
-          getListHisUpComingToDate.value?.add(listTourHistoryData[i]);
+          getListHisUpComingToDate.value?.add(listTourHistorySort[i]);
           getListUpComing.value?.add(listTourModel[i]);
         } else if (listTourModel[i].startDate!.millisecondsSinceEpoch <=
                 now.millisecondsSinceEpoch &&
             listTourModel[i].endDate!.millisecondsSinceEpoch >=
                 now.millisecondsSinceEpoch) {
-          getListHisHappenningToDate.value?.add(listTourHistoryData[i]);
+          getListHisHappenningToDate.value?.add(listTourHistorySort[i]);
           getListHisHappenning.value?.add(listTourModel[i]);
         } else if (listTourModel[i].startDate!.millisecondsSinceEpoch <
             now.millisecondsSinceEpoch) {
-          getListHisCompletedToDate.value?.add(listTourHistoryData[i]);
+          getListHisCompletedToDate.value?.add(listTourHistorySort[i]);
           getListHisCompleted.value?.add(listTourModel[i]);
         }
       }
     } else if (status == 'canceled') {
       getListHisCancelToDate.value?.clear();
-      getListHisCancelToDate.value = listTourHistoryData;
+      getListHisCancelToDate.value = listTourHistorySort;
     }
 
     return listTourModel;
@@ -362,6 +362,22 @@ class HistoryTourController extends GetxController {
   void loadIndicatorRive() {
     isShowLoading.value = true;
     indicatorRive();
+  }
+
+  List<HistoryModel> sortToursHistoryByBookingDate(
+      List<HistoryModel> historyBooking) {
+    historyBooking.sort((a, b) {
+      if (a.bookingDate == null && b.bookingDate == null) {
+        return 0;
+      } else if (a.bookingDate == null) {
+        return 1;
+      } else if (b.bookingDate == null) {
+        return -1;
+      }
+      return b.bookingDate!.compareTo(a.bookingDate!);
+    });
+
+    return historyBooking;
   }
 
   void clearData() {
