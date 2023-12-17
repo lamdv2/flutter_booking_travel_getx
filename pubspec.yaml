@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
 
   # flutter_lints
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
   cupertino_icons: ^1.0.5
   get: ^4.6.5
   shared_preferences: ^2.0.15
@@ -54,7 +54,7 @@ dependencies:
   # carousel_slider:
   carousel_slider: ^4.2.1
   # chart:
-  fl_chart: ^0.63.0
+  fl_chart: ^0.65.0
 
   # flutter_svg:
   flutter_svg: ^2.0.0
@@ -80,7 +80,7 @@ dependencies:
   # google_maps_flutter
   google_maps_flutter: ^2.5.0
   # rive:
-  rive: ^0.11.17
+  rive: ^0.12.3
   # uuid:
   uuid: ^4.0.0
 
@@ -103,7 +103,7 @@ dependencies:
   url_launcher: ^6.1.14
   flutter_speed_dial: ^7.0.0
   lottie: ^2.6.0
-  adaptive_dialog: ^1.9.0+2
+  adaptive_dialog: ^2.0.0
   cached_network_image: ^3.3.0
   permission_handler: ^11.0.1
   image_gallery_saver: ^2.0.3
@@ -118,6 +118,7 @@ dependencies:
   weather: ^3.1.1
   geocoding: ^2.1.1
   flutter_stripe: ^9.5.0+1
+  photo_manager: ^3.0.0-dev.2
   
 dev_dependencies:
   flutter_test:

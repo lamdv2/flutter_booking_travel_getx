@@ -101,7 +101,7 @@ class _IntroScreenState extends State<IntroScreen> {
             child: Row(
               children: [
                 Expanded(
-                  flex: 6,
+                  flex: 4,
                   child: SmoothPageIndicator(
                     controller: _pageController,
                     count: 3,

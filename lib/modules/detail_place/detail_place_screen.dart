@@ -13,6 +13,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../models/city/city_model.dart';
 import '../../shared/utils/size_utils.dart';
+import '../profile/image_full_screen.dart';
 
 class DetailPlaceScreen extends GetView<DetailPlaceController> {
   DetailPlaceScreen({super.key});
@@ -157,10 +158,18 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                             left: 0,
                             bottom: 0,
                             child: Container(
-                              color: ColorConstants.darkGray.withOpacity(.6),
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              height: getSize(56),
+                              padding: EdgeInsets.symmetric(
+                                vertical: getSize(8),
+                              ),
+                              height: getSize(60),
                               alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: ColorConstants.darkGray.withOpacity(.6),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(getSize(8)),
+                                  bottomRight: Radius.circular(getSize(8)),
+                                ),
+                              ),
                               width: size.width,
                               child: Row(
                                 mainAxisAlignment:
@@ -249,42 +258,54 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                   SizedBox(
                     height: getSize(20),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SeviceItemWidget(
-                        onTap: (GetSnackBar snack) {
-                          Get.toNamed(Routes.HOTEL);
-                        },
-                        icon: AssetHelper.icWallet,
-                        seviceTitle: StringConst.tours.tr,
-                        isCheckActive: true,
-                      ),
-                      SeviceItemWidget(
-                        onTap: (snack) {
-                          Get.toNamed(Routes.HOTEL);
-                        },
-                        icon: AssetHelper.icoHotel,
-                        seviceTitle: StringConst.hotels.tr,
-                        isCheckActive: false,
-                      ),
-                      SeviceItemWidget(
-                        onTap: (GetSnackBar snack) {
-                          Get.toNamed(Routes.HOTEL);
-                        },
-                        icon: AssetHelper.icoPlane,
-                        seviceTitle: StringConst.flights.tr,
-                        isCheckActive: false,
-                      ),
-                      SeviceItemWidget(
-                        onTap: (GetSnackBar snack) {
-                          Get.toNamed(Routes.HOTEL);
-                        },
-                        icon: AssetHelper.icoRestau,
-                        seviceTitle: StringConst.restaurants.tr,
-                        isCheckActive: false,
-                      ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SeviceItemWidget(
+                          onTap: (GetSnackBar snack) {
+                            Get.toNamed(Routes.HOTEL);
+                          },
+                          icon: AssetHelper.icWallet,
+                          seviceTitle: StringConst.tours.tr,
+                          isCheckActive: true,
+                        ),
+                        SizedBox(
+                          width: getSize(10),
+                        ),
+                        SeviceItemWidget(
+                          onTap: (snack) {
+                            Get.toNamed(Routes.HOTEL);
+                          },
+                          icon: AssetHelper.icoHotel,
+                          seviceTitle: StringConst.hotels.tr,
+                          isCheckActive: false,
+                        ),
+                        SizedBox(
+                          width: getSize(10),
+                        ),
+                        SeviceItemWidget(
+                          onTap: (GetSnackBar snack) {
+                            Get.toNamed(Routes.HOTEL);
+                          },
+                          icon: AssetHelper.icoPlane,
+                          seviceTitle: StringConst.flights.tr,
+                          isCheckActive: false,
+                        ),
+                        SizedBox(
+                          width: getSize(10),
+                        ),
+                        SeviceItemWidget(
+                          onTap: (GetSnackBar snack) {
+                            Get.toNamed(Routes.HOTEL);
+                          },
+                          icon: AssetHelper.icoRestau,
+                          seviceTitle: StringConst.restaurants.tr,
+                          isCheckActive: false,
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: getSize(28),
@@ -341,7 +362,7 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                   ),
                   cityModel?.listArt != null && cityModel!.listArt!.isNotEmpty
                       ? SizedBox(
-                          height: getSize(280),
+                          height: getSize(200),
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -353,17 +374,25 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                                     SizedBox(
                                       width: getSize(16),
                                     ),
-                                  Container(
-                                    height: size.height / 5,
-                                    width: size.width / 3 * 2,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: CachedNetworkImageProvider(
-                                          cityModel?.listArt?[rowIndex] ?? '',
-                                        ),
+                                  GestureDetector(
+                                    onTap: () => Get.to(
+                                      FullImageScreen(
+                                        imageUrl:
+                                            cityModel?.listArt?[rowIndex] ?? "",
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Container(
+                                      height: getSize(180),
+                                      width: size.width / 3 * 2,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: CachedNetworkImageProvider(
+                                            cityModel?.listArt?[rowIndex] ?? '',
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -376,7 +405,7 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                           child: Row(
                             children: [
                               Container(
-                                height: size.height / 5,
+                                height: getSize(180),
                                 width: size.width / 3 * 2,
                                 decoration: BoxDecoration(
                                   image: const DecorationImage(
@@ -389,7 +418,7 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                               Container(
                                 margin: const EdgeInsets.only(
                                     top: 16, left: 16, bottom: 16),
-                                height: size.height / 5,
+                                height: getSize(180),
                                 width: size.width / 3 * 2,
                                 decoration: BoxDecoration(
                                   image: const DecorationImage(
@@ -401,7 +430,7 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                               ),
                               Container(
                                 margin: const EdgeInsets.all(16),
-                                height: size.height / 5,
+                                height: getSize(180),
                                 width: size.width / 3 * 2,
                                 decoration: BoxDecoration(
                                   image: const DecorationImage(

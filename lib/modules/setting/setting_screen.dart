@@ -160,8 +160,8 @@ class SettingScreen extends StatelessWidget {
                         () => Switch(
                           value: appController.isDarkModeOn.value,
                           activeTrackColor: appController.isDarkModeOn.value
-                              ? Colors.white
-                              : Colors.blueGrey,
+                              ? ColorConstants.grey800
+                              : ColorConstants.grey800,
                           activeColor: appController.isDarkModeOn.value
                               ? Colors.white
                               : Colors.lightBlue,

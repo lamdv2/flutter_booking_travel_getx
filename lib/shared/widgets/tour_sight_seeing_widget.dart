@@ -97,9 +97,14 @@ class TourSightSeeingWidget extends StatelessWidget {
                       SizedBox(
                         width: getFontSize(8),
                       ),
-                      Text(
-                        tourController.getNameCityById(tourModel.idCity ?? ""),
-                        style: AppStyles.white000Size12Fw500FfMont,
+                      Expanded(
+                        child: Text(
+                          tourController
+                              .getNameCityById(tourModel.idCity ?? ""),
+                          style: AppStyles.white000Size12Fw500FfMont,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),

@@ -1,4 +1,7 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_controller.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_see_screen.dart';
@@ -257,6 +260,17 @@ class TourDetailsScreen extends StatelessWidget {
               ],
             ),
           ],
+        ),
+        SizedBox(
+          height: getSize(8),
+        ),
+        Text(
+          "${tourController.formatTimeStampToString(
+            tourModel?.startDate ?? Timestamp.now(),
+          )} - ${tourController.formatTimeStampEndToString(
+            tourModel?.endDate ?? Timestamp.now(),
+          )}",
+          style: AppStyles.black000Size14Fw500FfMont,
         ),
       ],
     );

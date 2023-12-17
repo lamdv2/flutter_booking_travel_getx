@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -149,6 +150,15 @@ class TourController extends GetxController {
     }
   }
 
+  Future<void> getAllCityModelData() async {
+    final snapShot = await _db.collection('cityModel').get();
+    final listCityData =
+        snapShot.docs.map((doc) => CityModel.fromJson(doc)).toList();
+
+    // listCitys.value = listCityData;
+    // filterListCityData.value = listCityData;
+  }
+
   // Location intent Map
 
   Future<void> launchMap(String address) async {
@@ -231,6 +241,30 @@ class TourController extends GetxController {
                 ),
           )
           .toList();
+    }
+  }
+
+  String formatTimeStampToString(Timestamp timestamp) {
+    try {
+      DateTime dateTime = timestamp.toDate();
+
+      String formattedDate = DateFormat('dd/MM').format(dateTime);
+
+      return formattedDate;
+    } catch (e) {
+      return 'Lỗi: $e';
+    }
+  }
+
+  String formatTimeStampEndToString(Timestamp timestamp) {
+    try {
+      DateTime dateTime = timestamp.toDate();
+
+      String formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
+
+      return formattedDate;
+    } catch (e) {
+      return 'Lỗi: $e';
     }
   }
 

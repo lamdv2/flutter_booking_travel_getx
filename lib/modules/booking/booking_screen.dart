@@ -336,7 +336,7 @@ class BookingScreen extends GetView<BookingController> {
                           },
                           child: Text(
                             StringConst.booking.tr,
-                            style: const TextStyle(fontSize: 18),
+                            style: AppStyles.white000Size18Fw500FfMont,
                           ),
                         ),
                       ),
@@ -361,12 +361,7 @@ class BookingScreen extends GetView<BookingController> {
                           },
                           child: Text(
                             StringConst.cancel.tr,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: appController.isDarkModeOn.value
-                                  ? ColorConstants.lightAppBar
-                                  : ColorConstants.black,
-                            ),
+                            style: AppStyles.black000Size18Fw500FfMont,
                           ),
                         ),
                       ),

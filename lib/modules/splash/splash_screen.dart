@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Container(
           width: double.infinity,
-          height: getSize(260),
+          height: getSize(300),
           decoration: BoxDecoration(
             color: ColorConstants.blur,
             borderRadius: const BorderRadius.only(
@@ -34,22 +34,31 @@ class SplashScreen extends StatelessWidget {
               top: getSize(16),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Center(
                   child: Text(
-                    "Your Journey In\nYour Hands",
+                    "Your Journey In",
                     style: TextStyle(
                       fontSize: 32,
                       color: ColorConstants.white,
                       fontWeight: FontWeight.w800,
                     ),
-                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const Center(
+                  child: Text(
+                    "Your Hands",
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: ColorConstants.white,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: getSize(20),
+                    top: getSize(24),
                   ),
                   child: const Text(
                     "The best travel app in 2023,",
@@ -72,16 +81,19 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: getSize(10),
+                  height: getSize(16),
                 ),
                 CircleAvatar(
-                  backgroundColor: ColorConstants.primaryButton,
+                  backgroundColor: ColorConstants.primaryColor,
                   maxRadius: 24,
                   child: SvgPicture.asset(
                     AssetHelper.icoNextRight,
                     height: getSize(32),
                     width: getSize(32),
                   ),
+                ),
+                SizedBox(
+                  height: getSize(16),
                 ),
               ],
             ),

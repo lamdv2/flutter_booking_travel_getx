@@ -412,7 +412,7 @@ class ItemTourSearch extends StatelessWidget {
         }
       },
       child: SizedBox(
-        height: height ?? getSize(180),
+        height: height ?? getSize(200),
         width: width ?? getSize(180),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -32,7 +32,7 @@ const Map<String, String> en = {
   'selectDate': 'Select Date',
   'pleaseSelect': 'Please select your start date',
   'search': 'Search',
-  'cancel': 'CANCEL',
+  'cancel': 'Cancel',
 
   //Profile
   'appSetting': 'App Setting',
