@@ -136,7 +136,9 @@ class TabSearchWidget extends GetView<SearchDesController> {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(getSize(20)),
-              color: Theme.of(context).cardColor,
+              color: appController.isDarkModeOn.value
+                  ? ColorConstants.darkCard
+                  : ColorConstants.lightCard,
             ),
             child: Padding(
               padding: EdgeInsets.all(getSize(24)),

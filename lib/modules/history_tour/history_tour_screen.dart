@@ -42,6 +42,9 @@ class HistoryScreen extends GetView<HistoryTourController> {
               : ColorConstants.primaryButton,
           iconBgrColor: ColorConstants.grayTextField,
         ),
+        backgroundColor: appController.isDarkModeOn.value
+            ? ColorConstants.darkBackground
+            : ColorConstants.lightBackground,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -289,6 +292,7 @@ class _buildItemHistory extends StatelessWidget {
 
   HistoryTourController historyTourController =
       Get.put(HistoryTourController());
+  AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -298,7 +302,9 @@ class _buildItemHistory extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(16)),
-        color: ColorConstants.lightCard,
+        color: appController.isDarkModeOn.value
+            ? ColorConstants.darkCard
+            : ColorConstants.lightCard,
       ),
       child: Row(
         children: [
@@ -312,7 +318,9 @@ class _buildItemHistory extends StatelessWidget {
                   tourModel?.nameTour ?? '',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: AppStyles.black000Size16Fw500FfMont,
+                  style: appController.isDarkModeOn.value
+                      ? AppStyles.white000Size16Fw500FfMont
+                      : AppStyles.black000Size16Fw500FfMont,
                 ),
                 SizedBox(
                   height: getSize(8),
@@ -322,7 +330,9 @@ class _buildItemHistory extends StatelessWidget {
                       ? "failing"
                       : historyTourController.timestampToString(
                           historyModel?.bookingDate ?? Timestamp.now()),
-                  style: AppStyles.black000Size14Fw400FfMont,
+                  style: appController.isDarkModeOn.value
+                      ? AppStyles.white000Size14Fw400FfMont
+                      : AppStyles.black000Size14Fw400FfMont,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

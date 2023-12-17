@@ -73,12 +73,13 @@ class SearchScreen extends GetView<SearchDesController> {
 }
 
 class ListSearchTour extends StatelessWidget {
-  const ListSearchTour({
+  ListSearchTour({
     super.key,
     required this.controller,
   });
 
   final SearchDesController controller;
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +285,9 @@ class ListSearchTour extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           StringConst.searchMost.tr,
-                          style: AppStyles.black000Size16Fw500FfMont,
+                          style: appController.isDarkModeOn.value
+                              ? AppStyles.white000Size16Fw500FfMont
+                              : AppStyles.black000Size16Fw500FfMont,
                         ),
                       ),
                     ),
@@ -308,7 +311,20 @@ class ListSearchTour extends StatelessWidget {
                                     },
                                     child: Chip(
                                       label: Text(data.value ?? ''),
-                                      backgroundColor: const Color(0xFFedf1f7),
+                                      backgroundColor:
+                                          appController.isDarkModeOn.value
+                                              ? ColorConstants.darkCard
+                                              : const Color(0xFFedf1f7),
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                          color: appController
+                                                  .isDarkModeOn.value
+                                              ? ColorConstants.accent1
+                                              : ColorConstants.lightStatusBar,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
                                     ),
                                   );
                                 }).toList()
@@ -321,6 +337,16 @@ class ListSearchTour extends StatelessWidget {
                                     child: Chip(
                                       label: Text(data),
                                       backgroundColor: const Color(0xFFedf1f7),
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                          color: appController
+                                                  .isDarkModeOn.value
+                                              ? ColorConstants.accent1
+                                              : ColorConstants.lightStatusBar,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
                                     ),
                                   );
                                 }).toList(),

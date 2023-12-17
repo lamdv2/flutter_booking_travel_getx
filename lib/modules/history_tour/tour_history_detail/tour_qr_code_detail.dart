@@ -37,6 +37,9 @@ class TourQRCodeDetail extends StatelessWidget {
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(

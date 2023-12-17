@@ -159,9 +159,7 @@ class SettingScreen extends StatelessWidget {
                       trailing: Obx(
                         () => Switch(
                           value: appController.isDarkModeOn.value,
-                          activeTrackColor: appController.isDarkModeOn.value
-                              ? ColorConstants.grey800
-                              : ColorConstants.grey800,
+                          activeTrackColor: ColorConstants.accent1,
                           activeColor: appController.isDarkModeOn.value
                               ? Colors.white
                               : Colors.lightBlue,
@@ -243,7 +241,9 @@ class SettingScreen extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
-                          style: AppStyles.black000Size16Fw500FfMont,
+                          style: appController.isDarkModeOn.value
+                              ? AppStyles.white000Size16Fw500FfMont
+                              : AppStyles.black000Size16Fw500FfMont,
                         ),
                         SizedBox(
                           width: getSize(16),

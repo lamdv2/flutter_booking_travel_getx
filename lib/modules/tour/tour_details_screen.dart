@@ -1,4 +1,4 @@
-// ignore_for_file: use_super_parameters
+// ignore_for_file: use_super_parameters, must_be_immutable, camel_case_types
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,7 +26,6 @@ import 'package:timeago/timeago.dart' as tago;
 
 import '../home/home_controller.dart';
 
-// ignore: must_be_immutable
 class TourDetailsScreen extends StatelessWidget {
   TourDetailsScreen({Key? key}) : super(key: key);
   final TourController tourController = Get.find();
@@ -465,8 +464,8 @@ class TourDetailsScreen extends StatelessWidget {
               child: Text(
                 StringConst.showMap.tr,
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
                 ),
               ),
             )
@@ -486,9 +485,8 @@ class TourDetailsScreen extends StatelessWidget {
   }
 }
 
-// ignore: camel_case_types
 class _buildCommentList extends StatelessWidget {
-  const _buildCommentList({
+  _buildCommentList({
     super.key,
     required this.commentController,
     required this.homeController,
@@ -498,6 +496,7 @@ class _buildCommentList extends StatelessWidget {
   final CommentTourController commentController;
   final HomeController homeController;
   final String id;
+  AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -525,7 +524,9 @@ class _buildCommentList extends StatelessWidget {
                     Expanded(
                       child: Text(
                         comment.comment,
-                        style: AppStyles.black000Size14Fw400FfMont,
+                        style: appController.isDarkModeOn.value
+                            ? AppStyles.white000Size14Fw400FfMont
+                            : AppStyles.black000Size14Fw400FfMont,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -538,9 +539,11 @@ class _buildCommentList extends StatelessWidget {
                       tago.format(
                         comment.datePublished.toDate(),
                       ),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: ColorConstants.kTextColor,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.gray400
+                            : ColorConstants.kTextColor,
                       ),
                     ),
                     const SizedBox(
@@ -548,9 +551,11 @@ class _buildCommentList extends StatelessWidget {
                     ),
                     Text(
                       '${comment.likes.length} likes',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: ColorConstants.kTextColor,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.gray400
+                            : ColorConstants.kTextColor,
                       ),
                     )
                   ],

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/tour/tour_controller.dart';
@@ -338,11 +340,15 @@ class BookingScreen extends GetView<BookingController> {
                                 : ColorConstants.btnCanCel,
                           ),
                           onPressed: () {
-                            Get.toNamed(Routes.LOADING_IMAGE);
+                            if (homeController.currentIndex.value != 0) {
+                              homeController.currentIndex.value = 0;
+                            }
                           },
                           child: Text(
                             StringConst.cancel.tr,
-                            style: AppStyles.black000Size18Fw500FfMont,
+                            style: appController.isDarkModeOn.value
+                                ? AppStyles.white000Size18Fw500FfMont
+                                : AppStyles.black000Size18Fw500FfMont,
                           ),
                         ),
                       ),

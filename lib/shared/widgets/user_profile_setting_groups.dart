@@ -52,7 +52,9 @@ class BuildSettingsGroup extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: appController.isDarkModeOn.value
+                  ? ColorConstants.darkCard
+                  : ColorConstants.lightCard,
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.only(top: 10, bottom: 10),

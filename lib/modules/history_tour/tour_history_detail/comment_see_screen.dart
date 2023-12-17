@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_controller.dart';
 import 'package:doan_clean_achitec/modules/home/home_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as tago;
 
+import '../../../dark_mode.dart';
 import '../../../shared/constants/app_style.dart';
 
 // ignore: must_be_immutable
@@ -18,6 +21,7 @@ class CommentTourSeeScreen extends StatelessWidget {
 
   CommentTourController commentController = Get.put(CommentTourController());
   final HomeController homeController = Get.put(HomeController());
+  AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,9 @@ class CommentTourSeeScreen extends StatelessWidget {
       appBar: CustomAppBar(
         iconBgrColor: ColorConstants.lightBackground,
       ),
-      backgroundColor: ColorConstants.lightBackground,
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       body: SingleChildScrollView(
         child: SizedBox(
           width: size.width,
@@ -44,7 +50,6 @@ class CommentTourSeeScreen extends StatelessWidget {
                         final comment = commentController.comments[index];
                         return ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: Colors.black,
                             backgroundImage: NetworkImage(comment.profilePhoto),
                           ),
                           title: Row(
@@ -56,7 +61,9 @@ class CommentTourSeeScreen extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   comment.comment,
-                                  style: AppStyles.black000Size14Fw400FfMont,
+                                  style: appController.isDarkModeOn.value
+                                      ? AppStyles.white000Size14Fw400FfMont
+                                      : AppStyles.black000Size14Fw400FfMont,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -69,19 +76,23 @@ class CommentTourSeeScreen extends StatelessWidget {
                                 tago.format(
                                   comment.datePublished.toDate(),
                                 ),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 12,
-                                  color: ColorConstants.kTextColor,
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.gray400
+                                      : ColorConstants.kTextColor,
                                 ),
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
                               Text(
-                                '${comment.likes.length} ${StringConst.likes.tr}',
-                                style: const TextStyle(
+                                '${comment.likes.length} likes',
+                                style: TextStyle(
                                   fontSize: 12,
-                                  color: ColorConstants.kTextColor,
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.gray400
+                                      : ColorConstants.kTextColor,
                                 ),
                               )
                             ],

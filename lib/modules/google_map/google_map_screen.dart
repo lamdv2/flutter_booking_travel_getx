@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'dart:async';
 
 import 'package:doan_clean_achitec/shared/shared.dart';
@@ -45,7 +47,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   void getLocation() async {
-    locations.value = await locationFromAddress(location ?? "");
+    if (location != null && location != "") {
+      locations.value = await locationFromAddress(location!);
+    }
   }
 
   @override
@@ -125,6 +129,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   child: const Icon(
                     Icons.map,
                     size: 20,
+                    color: ColorConstants.white,
                   ),
                 ),
                 SizedBox(
@@ -138,6 +143,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   child: const Icon(
                     Icons.maps_ugc,
                     size: 20,
+                    color: ColorConstants.white,
                   ),
                 ),
                 SizedBox(
@@ -152,6 +158,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   child: const Icon(
                     Icons.maps_home_work,
                     size: 20,
+                    color: ColorConstants.white,
                   ),
                 ),
                 SizedBox(
@@ -166,6 +173,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   child: const Icon(
                     Icons.home,
                     size: 20,
+                    color: ColorConstants.white,
                   ),
                 ),
                 SizedBox(
@@ -221,13 +229,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     ],
                   ),
                   child: GestureDetector(
-                    onTap: () => locations.isNotEmpty
-                        ? getPolyline(
-                            locations[0].latitude, locations[0].longitude)
-                        : getPolyline(
-                            16.05786987902542,
-                            108.21159745424494,
-                          ),
+                    onTap: () => location != null && location != ""
+                        ? locations.isNotEmpty
+                            ? getPolyline(
+                                locations[0].latitude, locations[0].longitude)
+                            : getPolyline(
+                                16.05786987902542,
+                                108.21159745424494,
+                              )
+                        : () {},
                     child: CircleAvatar(
                       radius: 24,
                       backgroundColor: ColorConstants.white,

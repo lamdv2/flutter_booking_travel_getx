@@ -46,6 +46,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.lightBackground,
       ),
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -57,7 +60,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                   children: [
                     Container(
                       width: double.infinity,
-                      color: ColorConstants.lightCard,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.darkCard
+                          : ColorConstants.lightCard,
                       child: Padding(
                         padding: EdgeInsets.all(getSize(20)),
                         child: Column(
@@ -65,7 +70,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                           children: [
                             Text(
                               tourModel?.nameTour ?? '',
-                              style: AppStyles.black000Size18Fw600FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.white000Size18Fw600FfMont
+                                  : AppStyles.black000Size18Fw600FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -75,7 +82,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             ),
                             Text(
                               StringConst.startLocation.tr,
-                              style: AppStyles.gray600Size14Fw400FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.gray400Size14Fw400FfMont
+                                  : AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -85,7 +94,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             ),
                             Text(
                               '${tourModel?.accommodation}',
-                              style: AppStyles.black000Size14Fw400FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.white000Size14Fw400FfMont
+                                  : AppStyles.black000Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -95,7 +106,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             ),
                             Text(
                               StringConst.startDateTour.tr,
-                              style: AppStyles.gray600Size14Fw400FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.gray400Size14Fw400FfMont
+                                  : AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -106,7 +119,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             Text(
                               controller.formatTimeStampToString(
                                   tourModel?.startDate ?? Timestamp.now()),
-                              style: AppStyles.black000Size14Fw400FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.white000Size14Fw400FfMont
+                                  : AppStyles.black000Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -116,7 +131,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             ),
                             Text(
                               StringConst.quantity.tr,
-                              style: AppStyles.gray600Size14Fw400FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.gray400Size14Fw400FfMont
+                                  : AppStyles.gray600Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -126,7 +143,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                             ),
                             Text(
                               "${StringConst.adult.tr} x ${bookingRequestController.adultNumb.value?.toInt()}, ${StringConst.children.tr} x ${bookingRequestController.childrenNumb.value?.toInt()}",
-                              style: AppStyles.black000Size14Fw400FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.white000Size14Fw400FfMont
+                                  : AppStyles.black000Size14Fw400FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -140,7 +159,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                     ),
                     Container(
                       width: double.infinity,
-                      color: ColorConstants.lightCard,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.darkCard
+                          : ColorConstants.lightCard,
                       child: Padding(
                         padding: EdgeInsets.all(getSize(20)),
                         child: Column(
@@ -148,7 +169,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                           children: [
                             Text(
                               StringConst.informationCustomer.tr,
-                              style: AppStyles.black000Size18Fw600FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.white000Size18Fw600FfMont
+                                  : AppStyles.black000Size18Fw600FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -162,7 +185,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                 children: [
                                   Text(
                                     StringConst.firstName.tr,
-                                    style: AppStyles.black000Size14Fw400FfMont,
+                                    style: appController.isDarkModeOn.value
+                                        ? AppStyles.gray400Size14Fw400FfMont
+                                        : AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,
@@ -181,7 +206,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   ),
                                   Text(
                                     StringConst.lastName.tr,
-                                    style: AppStyles.black000Size14Fw400FfMont,
+                                    style: appController.isDarkModeOn.value
+                                        ? AppStyles.white000Size14Fw400FfMont
+                                        : AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,
@@ -199,7 +226,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   ),
                                   Text(
                                     StringConst.email.tr,
-                                    style: AppStyles.black000Size14Fw400FfMont,
+                                    style: appController.isDarkModeOn.value
+                                        ? AppStyles.white000Size14Fw400FfMont
+                                        : AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,
@@ -218,7 +247,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                   ),
                                   Text(
                                     StringConst.phoneNumber.tr,
-                                    style: AppStyles.black000Size14Fw400FfMont,
+                                    style: appController.isDarkModeOn.value
+                                        ? AppStyles.white000Size14Fw400FfMont
+                                        : AppStyles.black000Size14Fw400FfMont,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,
@@ -256,7 +287,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                     ),
                     Container(
                       width: double.infinity,
-                      color: ColorConstants.lightCard,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.darkCard
+                          : ColorConstants.lightCard,
                       child: Padding(
                         padding: EdgeInsets.all(getSize(20)),
                         child: Column(
@@ -264,7 +297,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                           children: [
                             Text(
                               StringConst.paymentMethod.tr,
-                              style: AppStyles.black000Size18Fw600FfMont,
+                              style: appController.isDarkModeOn.value
+                                  ? AppStyles.white000Size18Fw600FfMont
+                                  : AppStyles.black000Size18Fw600FfMont,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -279,8 +314,10 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                     children: [
                                       Text(
                                         StringConst.scanQRCode.tr,
-                                        style:
-                                            AppStyles.gray600Size16Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles.gray400Size16Fw400FfMont
+                                            : AppStyles
+                                                .gray600Size16Fw400FfMont,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
@@ -290,8 +327,11 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                       ),
                                       Text(
                                         StringConst.scannerWithQR.tr,
-                                        style:
-                                            AppStyles.black000Size14Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles
+                                                .white000Size14Fw400FfMont
+                                            : AppStyles
+                                                .black000Size14Fw400FfMont,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
@@ -305,8 +345,12 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                         children: [
                                           Text(
                                             StringConst.banking.tr,
-                                            style: AppStyles
-                                                .gray600Size16Fw400FfMont,
+                                            style: appController
+                                                    .isDarkModeOn.value
+                                                ? AppStyles
+                                                    .gray400Size16Fw400FfMont
+                                                : AppStyles
+                                                    .gray600Size16Fw400FfMont,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -316,8 +360,12 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                           ),
                                           Text(
                                             "5621 000 246 6118",
-                                            style: AppStyles
-                                                .black000Size14Fw400FfMont,
+                                            style: appController
+                                                    .isDarkModeOn.value
+                                                ? AppStyles
+                                                    .white000Size14Fw400FfMont
+                                                : AppStyles
+                                                    .black000Size14Fw400FfMont,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -327,8 +375,12 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                           ),
                                           Text(
                                             "BIDV DO VAN LAM",
-                                            style: AppStyles
-                                                .black000Size14Fw400FfMont,
+                                            style: appController
+                                                    .isDarkModeOn.value
+                                                ? AppStyles
+                                                    .white000Size14Fw400FfMont
+                                                : AppStyles
+                                                    .black000Size14Fw400FfMont,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -387,7 +439,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                 right: 0,
                 child: Container(
                   padding: EdgeInsets.all(getSize(16)),
-                  color: ColorConstants.lightCard,
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.darkCard
+                      : ColorConstants.lightCard,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -402,7 +456,9 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                               ),
                               TextSpan(
                                 text: 'VND ',
-                                style: AppStyles.black000Size14Fw400FfMont,
+                                style: appController.isDarkModeOn.value
+                                    ? AppStyles.white000Size14Fw400FfMont
+                                    : AppStyles.black000Size14Fw400FfMont,
                               ),
                             ],
                           ),
@@ -430,7 +486,8 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                           );
                           authController.signInPhoneAuthentication(
                             controller.formatPhoneNumber(
-                                controller.phoneNumberController.text),
+                              controller.phoneNumberController.text,
+                            ),
                             userOtp,
                             tourModel!,
                             statusPaymentMethod,

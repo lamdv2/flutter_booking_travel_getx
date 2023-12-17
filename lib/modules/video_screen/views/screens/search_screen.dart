@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';

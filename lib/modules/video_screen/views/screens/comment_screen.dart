@@ -1,9 +1,13 @@
+// ignore_for_file: must_be_immutable, use_super_parameters
+
 import 'package:doan_clean_achitec/modules/home/home_controller.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as tago;
 
+import '../../../../dark_mode.dart';
+import '../../../../shared/constants/app_style.dart';
 import '../controllers/comment_controller.dart';
 
 class CommentScreen extends StatelessWidget {
@@ -15,6 +19,7 @@ class CommentScreen extends StatelessWidget {
 
   CommentController commentController = Get.put(CommentController());
   final HomeController homeController = Get.put(HomeController());
+  AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,9 @@ class CommentScreen extends StatelessWidget {
     commentController.updatePostId(id);
 
     return Scaffold(
-      backgroundColor: ColorConstants.lightBackground,
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       body: SingleChildScrollView(
         child: SizedBox(
           width: size.width,
@@ -44,18 +51,16 @@ class CommentScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "${comment.username}  ",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: AppStyles.blue000Size16Fw600FfMont,
                               ),
-                              Text(
-                                comment.comment,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: ColorConstants.kTextColor,
-                                  fontWeight: FontWeight.w500,
+                              Expanded(
+                                child: Text(
+                                  comment.comment,
+                                  style: appController.isDarkModeOn.value
+                                      ? AppStyles.white000Size14Fw400FfMont
+                                      : AppStyles.black000Size14Fw400FfMont,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -66,19 +71,23 @@ class CommentScreen extends StatelessWidget {
                                 tago.format(
                                   comment.datePublished.toDate(),
                                 ),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 12,
-                                  color: ColorConstants.kTextColor,
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.gray400
+                                      : ColorConstants.kTextColor,
                                 ),
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
                               Text(
-                                '${comment.likes.length} ${StringConst.likes.tr}',
-                                style: const TextStyle(
+                                '${comment.likes.length} likes',
+                                style: TextStyle(
                                   fontSize: 12,
-                                  color: ColorConstants.kTextColor,
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.gray400
+                                      : ColorConstants.kTextColor,
                                 ),
                               )
                             ],
@@ -103,15 +112,19 @@ class CommentScreen extends StatelessWidget {
               ListTile(
                 title: TextFormField(
                   controller: commentController.commentEditingController,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
-                    color: ColorConstants.kTextColor,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.gray400
+                        : ColorConstants.kTextColor,
                   ),
                   decoration: InputDecoration(
                     labelText: StringConst.comment.tr,
-                    labelStyle: const TextStyle(
+                    labelStyle: TextStyle(
                       fontSize: 20,
-                      color: ColorConstants.kTextColor,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.gray400
+                          : ColorConstants.kTextColor,
                       fontWeight: FontWeight.w700,
                     ),
                     enabledBorder: const UnderlineInputBorder(
@@ -136,9 +149,11 @@ class CommentScreen extends StatelessWidget {
                   },
                   child: Text(
                     StringConst.send.tr,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: ColorConstants.kTextColor,
+                      color: appController.isDarkModeOn.value
+                          ? ColorConstants.gray400
+                          : ColorConstants.kTextColor,
                     ),
                   ),
                 ),
