@@ -38,6 +38,7 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         titles: "Confirm Booking".tr,
         backgroundColor: appController.isDarkModeOn.value

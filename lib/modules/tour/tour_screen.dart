@@ -103,7 +103,7 @@ class TourScreen extends GetView<TourController> {
                               onTap: () {
                                 controller.isCheckSearch.value =
                                     !controller.isCheckSearch.value;
-                                controller.filterListTourByCity(
+                                controller.filterListTourByNameCity(
                                     bookingController.selectedValue.value);
                               },
                               child: Container(

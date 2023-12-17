@@ -10,7 +10,7 @@ class BookingController extends GetxController {
   final HistoryTourController historyTourController =
       Get.put(HistoryTourController());
 
-  RxString selectedValue = '50HCM'.obs;
+  RxString selectedValue = 'Thành phố Hồ Chí Minh'.obs;
 
   String convertToDDMM(String inputDate) {
     final parts = inputDate.split('-');

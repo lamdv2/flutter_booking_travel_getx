@@ -8,6 +8,7 @@ import 'package:doan_clean_achitec/modules/video_screen/views/screens/video_scre
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -64,6 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: ColorConstants.blue,
+    ));
     return Obx(
       () => Scaffold(
         resizeToAvoidBottomInset: false,

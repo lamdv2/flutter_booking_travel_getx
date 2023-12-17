@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -202,12 +203,10 @@ class TourController extends GetxController {
   }
 
   void loadCity() {
-    if (cityList.value != null) {
+    if (homeController.listCitys.value.isNotEmpty) {
       items.value?.clear();
-      for (var city in cityList.value!) {
-        city.forEach((key, value) {
-          items.value?.add(key);
-        });
+      for (var city in homeController.listCitys.value) {
+        items.value?.add(city.nameCity);
       }
     }
   }
@@ -297,6 +296,32 @@ class TourController extends GetxController {
           )
           .toList();
     }
+  }
+
+  // Filter by Name City
+  Future<void> filterListTourByNameCity(String keyword) async {
+    if (keyword.isEmpty) {
+      getListTour.value = filterListTourData.value;
+    } else {
+      getListTour.value = filterListTourData.value
+          ?.where(
+            (listTour) => listTour.idCity!.toLowerCase().contains(
+                  getIdCity(keyword).toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+  }
+
+  String getIdCity(String nameCity) {
+    if (homeController.listCitys.value.isNotEmpty) {
+      for (var element in homeController.listCitys.value) {
+        if (element.nameCity == nameCity) {
+          return element.idCity ?? "";
+        }
+      }
+    }
+    return "";
   }
 
   String getNameCityById(String cityId) {

@@ -5,6 +5,7 @@ import 'package:doan_clean_achitec/shared/constants/local_storage.dart';
 import 'package:doan_clean_achitec/shared/services/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ void main() async {
 
   await darkMode.loadDarkMode();
   await LocalStorageHelper.initLocalStorageHelper();
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: ColorConstants.blue,
+  ));
 
   Stripe.publishableKey =
       "pk_test_51OIMAyHdpKm7MB8qqvzh6yB053y1lg8vJlUhPZ05Omb93IrEljTl9pC4YAuay0jh1cvxfQfHAkWMnkiGhfB3l92Y00XANULzRX";

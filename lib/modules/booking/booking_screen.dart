@@ -6,6 +6,7 @@ import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../routes/app_pages.dart';
@@ -24,13 +25,16 @@ class BookingScreen extends GetView<BookingController> {
   static String dateSelected = '';
 
   final List<String> items = [
-    '50HCM',
-    '43DN',
-    '30HN',
+    'Thành phố Hồ Chí Minh',
+    'Hà Nội',
+    'Đà Nẵng',
   ];
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: ColorConstants.blue,
+    ));
     return WillPopScope(
       onWillPop: () async {
         if (homeController.currentIndex.value != 0) {
@@ -106,39 +110,16 @@ class BookingScreen extends GetView<BookingController> {
                                         SizedBox(
                                           width: getSize(16),
                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              item,
-                                              style: AppStyles
-                                                  .botTitle000Size14Fw400FfMont
-                                                  .copyWith(
-                                                color: appController
-                                                        .isDarkModeOn.value
+                                        Text(
+                                          item,
+                                          style: AppStyles
+                                              .botTitle000Size14Fw400FfMont
+                                              .copyWith(
+                                            color:
+                                                appController.isDarkModeOn.value
                                                     ? ColorConstants.white
                                                     : ColorConstants.botTitle,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: getSize(4.0),
-                                            ),
-                                            Text(
-                                              item,
-                                              style: AppStyles
-                                                  .botTitle000Size14Fw400FfMont
-                                                  .copyWith(
-                                                color: appController
-                                                        .isDarkModeOn.value
-                                                    ? ColorConstants.white
-                                                    : ColorConstants.botTitle,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
+                                          ),
                                         ),
                                       ],
                                     ),
