@@ -157,7 +157,7 @@ class TabSearchWidget extends GetView<SearchDesController> {
                               children: [
                                 if (rowIndex > 0)
                                   SizedBox(
-                                    height: getSize(16),
+                                    height: getSize(8),
                                   ),
                                 ItemSearchDes(
                                   cityModel:
@@ -238,15 +238,20 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                 space: 8,
                                 tourModel: reversedList![rowIndex],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(bottom: getSize(8)),
-                                child: Divider(
-                                  color: appController.isDarkModeOn.value
-                                      ? ColorConstants.darkGray.withOpacity(.5)
-                                      : ColorConstants.black.withOpacity(.15),
-                                  thickness: 0.5,
+                              if (rowIndex <
+                                  controller.getListHistoryCurrentTour.value!
+                                          .length -
+                                      1)
+                                Container(
+                                  margin: EdgeInsets.only(bottom: getSize(16)),
+                                  child: Divider(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.darkGray
+                                            .withOpacity(.5)
+                                        : ColorConstants.black.withOpacity(.15),
+                                    thickness: 0.5,
+                                  ),
                                 ),
-                              ),
                             ],
                           );
                         },
@@ -297,7 +302,7 @@ class TabSearchWidget extends GetView<SearchDesController> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (rowIndex > 0) SizedBox(height: getSize(16)),
+                              if (rowIndex > 0) SizedBox(height: getSize(8)),
                               Row(
                                 children: [
                                   ClipRRect(

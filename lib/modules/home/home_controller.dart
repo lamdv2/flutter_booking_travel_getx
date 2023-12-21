@@ -3,6 +3,8 @@ import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../models/city/city_model.dart';
@@ -15,10 +17,12 @@ class HomeController extends GetxController {
     super.onInit();
     Future.wait([getUserDetails(userController.userEmail.value)]);
     getAllCityData();
+    getCurrentCity();
   }
 
   RxInt currentIndex = 0.obs;
   RxInt categoryIndex = 0.obs;
+  RxString currentCity = "".obs;
   final _db = FirebaseFirestore.instance;
   final userModel = Rxn<UserModel>();
 
@@ -40,6 +44,31 @@ class HomeController extends GetxController {
     if (snapShot.docs.isNotEmpty) {
       userModel.value =
           snapShot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    }
+  }
+
+  void getCurrentCity() async {
+    currentCity.value = await getCurrentLocation();
+  }
+
+  Future<String> getCurrentLocation() async {
+    try {
+      Position currentPosition = await Geolocator.getCurrentPosition();
+      double? jobLat = currentPosition.latitude;
+      double? jobLng = currentPosition.longitude;
+
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(jobLat, jobLng);
+
+      if (placemarks.isNotEmpty) {
+        String city = placemarks.first.administrativeArea ?? "Unknown City";
+        return city;
+      } else {
+        return "Unknown City";
+      }
+    } catch (e) {
+      print("Error getting current location: $e");
+      return "Unknown City";
     }
   }
 

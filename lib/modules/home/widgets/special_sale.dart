@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../search/search_controller.dart';
 import '../home_controller.dart';
 import 'special_offer_card.dart';
@@ -11,8 +12,8 @@ import 'title_des.dart';
 
 class SpecialSale extends StatelessWidget {
   SpecialSale({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final HomeController homecontroller = Get.find();
   final TourController tourController = Get.put(TourController());
   final SearchDesController searchDesController = Get.find();
@@ -26,7 +27,7 @@ class SpecialSale extends StatelessWidget {
             largeTitle: StringConst.tourSale.tr,
             seeAll: StringConst.seeAll.tr,
             onTap: () {
-              homecontroller.currentIndex.value = 2;
+              Get.toNamed(Routes.TOUR);
             },
           ),
           SizedBox(height: getSize(20)),

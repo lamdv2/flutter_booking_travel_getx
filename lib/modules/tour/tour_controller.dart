@@ -3,6 +3,7 @@ import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
+import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,9 @@ class TourController extends GetxController {
   final getListTour = Rxn<List<TourModel>>();
   final getListTourTop10 = Rxn<List<TourModel>>();
   final getListTourTop10Sale = Rxn<List<TourModel>>();
+  final getListTourTop10New = Rxn<List<TourModel>>();
+  final getListTourTop10Popular = Rxn<List<TourModel>>();
+  final getListTourTop10CloseHere = Rxn<List<TourModel>>();
   final filterListTourData = Rxn<List<TourModel>>();
   final cityList = Rxn<List<Map<String, String>>>();
   TextEditingController searchController = TextEditingController();
@@ -100,6 +104,9 @@ class TourController extends GetxController {
     filterListTourData.value = listTourData;
     await getTop10Tour(listTourData);
     await getTop10TourSale(listTourData);
+    await getTop10TourNew(listTourData);
+    await getTop10TourPopular(listTourData);
+    await getTop10TourCloseHere(listTourData, homeController.currentCity.value);
   }
 
   // Get Top 10 Tour By Star
@@ -130,6 +137,71 @@ class TourController extends GetxController {
         getListTourTop10Sale.value = allSaleTours.take(10).toList();
       } else {
         getListTourTop10Sale.value = allSaleTours;
+      }
+    }
+  }
+
+  // Get Top 10 Tour Sale
+  Future<void> getTop10TourNew(List<TourModel> getListTour) async {
+    if (getListTour.isNotEmpty) {
+      getListTour.sort((a, b) => (b.rating ?? 0).compareTo(a.rating ?? 0));
+
+      final allSaleTours =
+          getListTour.where((tour) => tour.status == "new").toList();
+
+      if (allSaleTours.length >= 10) {
+        getListTourTop10New.value = allSaleTours.take(10).toList();
+      } else {
+        getListTourTop10New.value = allSaleTours;
+      }
+    }
+  }
+
+  // Get Top 10 Tour Sale
+  Future<void> getTop10TourPopular(List<TourModel> getListTour) async {
+    if (getListTour.isNotEmpty) {
+      getListTour.sort((a, b) => (b.rating ?? 0).compareTo(a.rating ?? 0));
+
+      final allSaleTours =
+          getListTour.where((tour) => tour.status == "popular").toList();
+
+      if (allSaleTours.length >= 10) {
+        getListTourTop10Popular.value = allSaleTours.take(10).toList();
+      } else {
+        getListTourTop10Popular.value = allSaleTours;
+      }
+    }
+  }
+
+  // Get Top 10 Tour Sale
+  Future<void> getTop10TourCloseHere(
+    List<TourModel> getListTour,
+    String nameCity,
+  ) async {
+    if (getListTour.isNotEmpty) {
+      getListTour.sort((a, b) => (b.rating ?? 0).compareTo(a.rating ?? 0));
+
+      final citySnapshot = await FirebaseFirestore.instance
+          .collection('cityModel')
+          .where('nameCity', isEqualTo: nameCity)
+          .get();
+
+      if (citySnapshot.docs.isNotEmpty) {
+        final listCityData =
+            citySnapshot.docs.map((doc) => CityModel.fromJson(doc)).first;
+        String idCity = listCityData.idCity ?? "";
+
+        final allSaleTours =
+            getListTour.where((tour) => tour.idCity == idCity).toList();
+
+        if (allSaleTours.length >= 10) {
+          getListTourTop10CloseHere.value = allSaleTours.take(10).toList();
+        } else {
+          getListTourTop10CloseHere.value = allSaleTours;
+        }
+      } else {
+        Get.snackbar(StringConst.notification.tr,
+            'City not found in the "cityModel" collection.');
       }
     }
   }

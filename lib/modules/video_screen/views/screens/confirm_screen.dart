@@ -1,4 +1,7 @@
+// ignore_for_file: use_super_parameters
+
 import 'dart:io';
+import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -22,11 +25,12 @@ class ConfirmScreen extends StatefulWidget {
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
-  TextEditingController _songController = TextEditingController();
-  TextEditingController _captionController = TextEditingController();
+  final TextEditingController _songController = TextEditingController();
+  final TextEditingController _captionController = TextEditingController();
 
-  UploadVideoController uploadVideoController =
+  final UploadVideoController uploadVideoController =
       Get.put(UploadVideoController());
+  final AppController appController = Get.find();
 
   @override
   void initState() {
@@ -99,9 +103,11 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                         widget.videoPath),
                     child: Text(
                       StringConst.share.tr,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.white
+                            : ColorConstants.accent1,
                       ),
                     ),
                   ),

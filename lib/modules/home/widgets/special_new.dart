@@ -10,8 +10,8 @@ import '../home_controller.dart';
 import 'special_offer_card.dart';
 import 'title_des.dart';
 
-class SpecialOffers extends StatelessWidget {
-  SpecialOffers({
+class SpecialNew extends StatelessWidget {
+  SpecialNew({
     super.key,
   });
   final HomeController homecontroller = Get.find();
@@ -24,7 +24,7 @@ class SpecialOffers extends StatelessWidget {
       () => Column(
         children: [
           TitleDes(
-            largeTitle: StringConst.specialForYou.tr,
+            largeTitle: "Tours new".tr,
             seeAll: StringConst.seeAll.tr,
             onTap: () {
               Get.toNamed(Routes.TOUR);
@@ -35,18 +35,18 @@ class SpecialOffers extends StatelessWidget {
             height: getSize(160),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: tourController.getListTourTop10.value != null &&
-                      tourController.getListTourTop10.value!.isNotEmpty
+              child: tourController.getListTourTop10New.value != null &&
+                      tourController.getListTourTop10New.value!.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount:
-                          tourController.getListTourTop10.value?.length ?? 0,
+                          tourController.getListTourTop10New.value?.length ?? 0,
                       itemBuilder: (BuildContext context, int rowIndex) {
                         return SpecialOfferCard(
-                          tourModel:
-                              tourController.getListTourTop10.value![rowIndex],
+                          tourModel: tourController
+                              .getListTourTop10New.value![rowIndex],
                         );
                       },
                     )

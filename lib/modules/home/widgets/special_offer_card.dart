@@ -10,9 +10,9 @@ import 'package:get/get.dart';
 
 class SpecialOfferCard extends StatelessWidget {
   SpecialOfferCard({
-    Key? key,
+    super.key,
     required this.tourModel,
-  }) : super(key: key);
+  });
 
   final TourModel tourModel;
 

@@ -20,7 +20,7 @@ class CategoryBar extends StatelessWidget {
       StringConst.popular.tr,
       "New".tr,
       "Sale".tr,
-      "Special".tr
+      "Close here".tr
     ];
 
     return Container(
@@ -29,7 +29,7 @@ class CategoryBar extends StatelessWidget {
         bottom: kMediumPadding,
       ),
       child: SizedBox(
-        height: size.height / 20,
+        height: getSize(48),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: menuList.length,
@@ -40,7 +40,7 @@ class CategoryBar extends StatelessWidget {
               },
               child: Obx(
                 () => Container(
-                  width: size.width / 5,
+                  width: getSize(96),
                   alignment: Alignment.center,
                   margin: const EdgeInsets.only(right: kDefaultPadding),
                   decoration: homeController.categoryIndex.value == index
@@ -63,6 +63,7 @@ class CategoryBar extends StatelessWidget {
                     menuList[index].toString(),
                     style: TextStyle(
                       fontSize: getSize(16),
+                      fontWeight: FontWeight.w500,
                       color: homeController.categoryIndex.value == index
                           ? ColorConstants.white
                           : appController.isDarkModeOn.value

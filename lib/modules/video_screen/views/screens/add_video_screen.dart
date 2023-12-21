@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:doan_clean_achitec/shared/shared.dart';
