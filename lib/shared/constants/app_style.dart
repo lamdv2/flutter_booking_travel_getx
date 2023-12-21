@@ -108,6 +108,13 @@ class AppStyles {
     color: ColorConstants.white,
   );
 
+  static TextStyle white000Size14Fw600FfMont = const TextStyle(
+    fontFamily: FontFamily.mont,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: ColorConstants.white,
+  );
+
   static TextStyle white000Size12Fw500FfMont = const TextStyle(
     fontFamily: FontFamily.mont,
     fontSize: 12,

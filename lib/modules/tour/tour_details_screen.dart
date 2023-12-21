@@ -269,7 +269,9 @@ class TourDetailsScreen extends StatelessWidget {
           )} - ${tourController.formatTimeStampEndToString(
             tourModel?.endDate ?? Timestamp.now(),
           )}",
-          style: AppStyles.black000Size14Fw500FfMont,
+          style: appController.isDarkModeOn.value
+              ? AppStyles.white000Size14Fw500FfMont
+              : AppStyles.black000Size14Fw500FfMont,
         ),
       ],
     );

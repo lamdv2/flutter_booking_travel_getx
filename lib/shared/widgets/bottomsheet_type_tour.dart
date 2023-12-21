@@ -39,7 +39,9 @@ class BottomSheetTypeTour extends StatelessWidget {
                       ),
                       Text(
                         "Tickets for entertainment and sightseeing",
-                        style: AppStyles.black000Size15Fw500FfMont,
+                        style: appController.isDarkModeOn.value
+                            ? AppStyles.white000Size14Fw500FfMont
+                            : AppStyles.black000Size15Fw500FfMont,
                       ),
                       SizedBox(
                         height: getSize(8),
@@ -63,13 +65,17 @@ class BottomSheetTypeTour extends StatelessWidget {
                                           .isCheckChooseType(data.typeNub)
                                           .value
                                       ? AppStyles.white000Size13Fw400FfMont
-                                      : AppStyles.black000Size13Fw400FfMont,
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
                                 ),
                                 backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
                                     ? ColorConstants.primaryButton
-                                    : const Color(0xFFedf1f7),
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
                             );
                           }).toList(),
@@ -104,13 +110,17 @@ class BottomSheetTypeTour extends StatelessWidget {
                                           .isCheckChooseType(data.typeNub)
                                           .value
                                       ? AppStyles.white000Size13Fw400FfMont
-                                      : AppStyles.black000Size13Fw400FfMont,
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
                                 ),
                                 backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
                                     ? ColorConstants.primaryButton
-                                    : const Color(0xFFedf1f7),
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
                             );
                           }).toList(),
@@ -142,13 +152,17 @@ class BottomSheetTypeTour extends StatelessWidget {
                                           .isCheckChooseType(data.typeNub)
                                           .value
                                       ? AppStyles.white000Size13Fw400FfMont
-                                      : AppStyles.black000Size13Fw400FfMont,
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
                                 ),
                                 backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
                                     ? ColorConstants.primaryButton
-                                    : const Color(0xFFedf1f7),
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
                             );
                           }).toList(),
@@ -180,13 +194,17 @@ class BottomSheetTypeTour extends StatelessWidget {
                                           .isCheckChooseType(data.typeNub)
                                           .value
                                       ? AppStyles.white000Size13Fw400FfMont
-                                      : AppStyles.black000Size13Fw400FfMont,
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
                                 ),
                                 backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
                                     ? ColorConstants.primaryButton
-                                    : const Color(0xFFedf1f7),
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
                             );
                           }).toList(),
@@ -202,31 +220,37 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children:
-                            controller.typeServiceTravel.value!.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.setTypeServiceChip(data.typeNub);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: controller
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children:
+                              controller.typeServiceTravel.value!.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
-                                    ? AppStyles.white000Size13Fw400FfMont
-                                    : AppStyles.black000Size13Fw400FfMont,
+                                    ? ColorConstants.primaryButton
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: controller
-                                      .isCheckChooseType(data.typeNub)
-                                      .value
-                                  ? ColorConstants.primaryButton
-                                  : const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -238,30 +262,37 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children: controller.typeServiceFood.value!.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.setTypeServiceChip(data.typeNub);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: controller
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children:
+                              controller.typeServiceFood.value!.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
-                                    ? AppStyles.white000Size13Fw400FfMont
-                                    : AppStyles.black000Size13Fw400FfMont,
+                                    ? ColorConstants.primaryButton
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: controller
-                                      .isCheckChooseType(data.typeNub)
-                                      .value
-                                  ? ColorConstants.primaryButton
-                                  : const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -273,31 +304,37 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children:
-                            controller.typeServiceHotel.value!.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.setTypeServiceChip(data.typeNub);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: controller
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children:
+                              controller.typeServiceHotel.value!.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
-                                    ? AppStyles.white000Size13Fw400FfMont
-                                    : AppStyles.black000Size13Fw400FfMont,
+                                    ? ColorConstants.primaryButton
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: controller
-                                      .isCheckChooseType(data.typeNub)
-                                      .value
-                                  ? ColorConstants.primaryButton
-                                  : const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(16),
@@ -309,31 +346,37 @@ class BottomSheetTypeTour extends StatelessWidget {
                       SizedBox(
                         height: getSize(8),
                       ),
-                      Wrap(
-                        spacing: 8.0,
-                        children:
-                            controller.typeServiceOther.value!.map((data) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.setTypeServiceChip(data.typeNub);
-                            },
-                            child: Chip(
-                              label: Text(
-                                data.valueType,
-                                style: controller
+                      Obx(
+                        () => Wrap(
+                          spacing: 8.0,
+                          children:
+                              controller.typeServiceOther.value!.map((data) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.setTypeServiceChip(data.typeNub);
+                              },
+                              child: Chip(
+                                label: Text(
+                                  data.valueType,
+                                  style: controller
+                                          .isCheckChooseType(data.typeNub)
+                                          .value
+                                      ? AppStyles.white000Size13Fw400FfMont
+                                      : appController.isDarkModeOn.value
+                                          ? AppStyles.white000Size13Fw400FfMont
+                                          : AppStyles.black000Size13Fw400FfMont,
+                                ),
+                                backgroundColor: controller
                                         .isCheckChooseType(data.typeNub)
                                         .value
-                                    ? AppStyles.white000Size13Fw400FfMont
-                                    : AppStyles.black000Size13Fw400FfMont,
+                                    ? ColorConstants.primaryButton
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                               ),
-                              backgroundColor: controller
-                                      .isCheckChooseType(data.typeNub)
-                                      .value
-                                  ? ColorConstants.primaryButton
-                                  : const Color(0xFFedf1f7),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       SizedBox(
                         height: getSize(100),
@@ -343,11 +386,13 @@ class BottomSheetTypeTour extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 0,
+                top: getSize(16),
                 left: 0,
                 right: 0,
                 child: Container(
-                  color: ColorConstants.white,
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.darkCard
+                      : ColorConstants.white,
                   padding: EdgeInsets.all(getSize(20)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -357,17 +402,23 @@ class BottomSheetTypeTour extends StatelessWidget {
                         child: Icon(
                           Icons.cancel,
                           size: getSize(30),
-                          color: ColorConstants.grey800,
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.lightStatusBar
+                              : ColorConstants.titleSearch,
                         ),
                       ),
                       Text(
                         "Type Service",
-                        style: AppStyles.black000Size16Fw600FfMont,
+                        style: appController.isDarkModeOn.value
+                            ? AppStyles.white000Size16Fw500FfMont
+                            : AppStyles.black000Size16Fw600FfMont,
                       ),
                       SvgPicture.asset(
                         AssetHelper.icDelete,
-                        colorFilter: const ColorFilter.mode(
-                          ColorConstants.titleSearch,
+                        colorFilter: ColorFilter.mode(
+                          appController.isDarkModeOn.value
+                              ? ColorConstants.lightStatusBar
+                              : ColorConstants.titleSearch,
                           BlendMode.srcIn,
                         ),
                         fit: BoxFit.fitHeight,
@@ -382,7 +433,9 @@ class BottomSheetTypeTour extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: Container(
-                  color: ColorConstants.white,
+                  color: appController.isDarkModeOn.value
+                      ? ColorConstants.darkCard
+                      : ColorConstants.white,
                   child: Column(
                     children: [
                       Divider(

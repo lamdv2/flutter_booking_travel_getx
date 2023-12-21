@@ -75,7 +75,7 @@ class ColorConstants {
   // App bar
   static const Color lightAppBar = Color(0xFFF5F5F5);
   // Background
-  static const Color lightBackground = Color(0xFFFAFAFA);
+  static const Color lightBackground = Color(0xFFF5F5F5);
   // Cards
   static Color? lightCard = white;
 

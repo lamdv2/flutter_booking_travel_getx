@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
 import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/search/search_controller.dart';
 import 'package:doan_clean_achitec/modules/tour/tour.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
@@ -162,6 +163,18 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                   cityModel:
                                       controller.listCitys.value[rowIndex],
                                 ),
+                                SizedBox(
+                                  height: getSize(8),
+                                ),
+                                if (rowIndex <
+                                    controller.listCitys.value.length - 1)
+                                  Divider(
+                                    color: appController.isDarkModeOn.value
+                                        ? ColorConstants.darkGray
+                                            .withOpacity(.5)
+                                        : ColorConstants.black.withOpacity(.15),
+                                    thickness: 0.5,
+                                  ),
                               ],
                             );
                           },
@@ -190,7 +203,9 @@ class TabSearchWidget extends GetView<SearchDesController> {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(getSize(20)),
-            color: Theme.of(context).cardColor,
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.darkCard
+                : ColorConstants.lightCard,
           ),
           child: Padding(
             padding: EdgeInsets.all(getSize(24)),
@@ -223,6 +238,15 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                 space: 8,
                                 tourModel: reversedList![rowIndex],
                               ),
+                              Container(
+                                margin: EdgeInsets.only(bottom: getSize(8)),
+                                child: Divider(
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.darkGray.withOpacity(.5)
+                                      : ColorConstants.black.withOpacity(.15),
+                                  thickness: 0.5,
+                                ),
+                              ),
                             ],
                           );
                         },
@@ -249,7 +273,9 @@ class TabSearchWidget extends GetView<SearchDesController> {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(getSize(20)),
-            color: Theme.of(context).cardColor,
+            color: appController.isDarkModeOn.value
+                ? ColorConstants.darkCard
+                : ColorConstants.lightCard,
           ),
           child: Padding(
             padding: EdgeInsets.all(getSize(24)),
@@ -299,10 +325,23 @@ class TabSearchWidget extends GetView<SearchDesController> {
                                   SizedBox(width: getSize(24)),
                                   Text(
                                     reversedList?[rowIndex].nameCity ?? '',
-                                    style: AppStyles.black000Size14Fw400FfMont,
+                                    style: appController.isDarkModeOn.value
+                                        ? AppStyles.white000Size14Fw400FfMont
+                                        : AppStyles.black000Size14Fw400FfMont,
                                   ),
                                 ],
                               ),
+                              SizedBox(height: getSize(8)),
+                              if (rowIndex <
+                                  controller.getListHistoryCurrentDes.value!
+                                          .length -
+                                      1)
+                                Divider(
+                                  color: appController.isDarkModeOn.value
+                                      ? ColorConstants.darkGray.withOpacity(.5)
+                                      : ColorConstants.black.withOpacity(.15),
+                                  thickness: 0.5,
+                                ),
                             ],
                           );
                         },
@@ -370,7 +409,9 @@ class ItemSearchDes extends StatelessWidget {
             ),
             Text(
               cityModel.nameCity,
-              style: AppStyles.black000Size14Fw400FfMont,
+              style: appController.isDarkModeOn.value
+                  ? AppStyles.white000Size14Fw400FfMont
+                  : AppStyles.black000Size14Fw400FfMont,
             ),
           ],
         ),
@@ -462,7 +503,9 @@ class ItemTourSearch extends StatelessWidget {
             ),
             Text(
               tourModel.nameTour,
-              style: AppStyles.black000Size14Fw400FfMont,
+              style: appController.isDarkModeOn.value
+                  ? AppStyles.white000Size14Fw400FfMont
+                  : AppStyles.black000Size14Fw400FfMont,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

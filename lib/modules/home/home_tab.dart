@@ -48,7 +48,7 @@ class HomeTab extends GetView<HomeController> {
                     size: size,
                     avatar: true,
                   ),
-                  const CategoryBar(),
+                  CategoryBar(),
                   CarouselSliderDes(),
                   SizedBox(
                     height: getSize(16),

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/modules/detail_place/detail_place.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/home/widgets/title_des.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/app_style.dart';
@@ -42,7 +43,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                       Text(
                         cityModel?.nameCity ?? '',
                         style: TextStyle(
-                            color: ColorConstants.black,
+                            color: appController.isDarkModeOn.value
+                                ? ColorConstants.lightCard
+                                : ColorConstants.black,
                             fontSize: 24,
                             fontWeight: FontWeight.w600),
                       ),
@@ -82,7 +85,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                   Text(
                     StringConst.letsExplore.tr,
                     style: TextStyle(
-                        color: ColorConstants.black,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.lightCard
+                            : ColorConstants.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w400),
                   ),
@@ -358,7 +363,9 @@ class DetailPlaceScreen extends GetView<DetailPlaceController> {
                   ),
                   Text(
                     StringConst.topPickArticles.tr,
-                    style: AppStyles.black000Size18Fw500FfMont,
+                    style: appController.isDarkModeOn.value
+                        ? AppStyles.white000Size18Fw500FfMont
+                        : AppStyles.black000Size18Fw500FfMont,
                   ),
                   cityModel?.listArt != null && cityModel!.listArt!.isNotEmpty
                       ? SizedBox(

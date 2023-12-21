@@ -48,12 +48,16 @@ class BottomSheetTour extends GetView<SearchDesController> {
                   child: Icon(
                     Icons.cancel,
                     size: getSize(30),
-                    color: ColorConstants.grey800,
+                    color: appController.isDarkModeOn.value
+                        ? ColorConstants.lightStatusBar
+                        : ColorConstants.titleSearch,
                   ),
                 ),
                 Text(
                   StringConst.destination.tr,
-                  style: AppStyles.black000Size16Fw600FfMont,
+                  style: appController.isDarkModeOn.value
+                      ? AppStyles.white000Size16Fw500FfMont
+                      : AppStyles.black000Size16Fw600FfMont,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -62,8 +66,10 @@ class BottomSheetTour extends GetView<SearchDesController> {
                   },
                   child: SvgPicture.asset(
                     AssetHelper.icDelete,
-                    colorFilter: const ColorFilter.mode(
-                      ColorConstants.titleSearch,
+                    colorFilter: ColorFilter.mode(
+                      appController.isDarkModeOn.value
+                          ? ColorConstants.lightStatusBar
+                          : ColorConstants.titleSearch,
                       BlendMode.srcIn,
                     ),
                     fit: BoxFit.fitHeight,
@@ -97,13 +103,17 @@ class BottomSheetTour extends GetView<SearchDesController> {
                                                 .value !=
                                             null
                                     ? ColorConstants.white
-                                    : ColorConstants.black,
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.lightCard
+                                        : ColorConstants.black,
                               ),
                             ),
                             backgroundColor:
                                 controller.isCheckChooseDes(data.value ?? "")
                                     ? ColorConstants.primaryButton
-                                    : const Color(0xFFedf1f7),
+                                    : appController.isDarkModeOn.value
+                                        ? ColorConstants.darkCard
+                                        : const Color(0xFFedf1f7),
                           ),
                         );
                       }).toList()

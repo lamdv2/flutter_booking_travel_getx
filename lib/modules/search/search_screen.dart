@@ -216,8 +216,11 @@ class ListSearchTour extends StatelessWidget {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         StringConst.searchHistory.tr,
-                                        style:
-                                            AppStyles.black000Size16Fw500FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles
+                                                .white000Size16Fw500FfMont
+                                            : AppStyles
+                                                .black000Size16Fw500FfMont,
                                       ),
                                     ),
                                     const Spacer(),
@@ -227,6 +230,9 @@ class ListSearchTour extends StatelessWidget {
                                       child: SvgPicture.asset(
                                         AssetHelper.icDelete,
                                         height: getSize(24),
+                                        color: appController.isDarkModeOn.value
+                                            ? ColorConstants.lightStatusBar
+                                            : ColorConstants.grey800,
                                       ),
                                     ),
                                     SizedBox(
@@ -254,8 +260,21 @@ class ListSearchTour extends StatelessWidget {
                                             },
                                             child: Chip(
                                               label: Text(data),
-                                              backgroundColor:
-                                                  const Color(0xFFedf1f7),
+                                              backgroundColor: appController
+                                                      .isDarkModeOn.value
+                                                  ? ColorConstants.darkCard
+                                                  : const Color(0xFFedf1f7),
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  color: appController
+                                                          .isDarkModeOn.value
+                                                      ? ColorConstants.accent1
+                                                      : ColorConstants
+                                                          .lightStatusBar,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
                                             ),
                                           );
                                         }).toList()
@@ -269,8 +288,21 @@ class ListSearchTour extends StatelessWidget {
                                             },
                                             child: Chip(
                                               label: Text(data),
-                                              backgroundColor:
-                                                  const Color(0xFFedf1f7),
+                                              backgroundColor: appController
+                                                      .isDarkModeOn.value
+                                                  ? ColorConstants.darkCard
+                                                  : const Color(0xFFedf1f7),
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  color: appController
+                                                          .isDarkModeOn.value
+                                                      ? ColorConstants.accent1
+                                                      : ColorConstants
+                                                          .lightStatusBar,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
                                             ),
                                           );
                                         }).toList(),

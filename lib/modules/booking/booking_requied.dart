@@ -22,7 +22,7 @@ class BookingRequiedScreen extends GetView<BookingRequestController> {
     return Scaffold(
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
-          : ColorConstants.lightBackground,
+          : ColorConstants.lightStatusBar,
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.only(

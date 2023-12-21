@@ -1,18 +1,16 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CategoryBar extends StatefulWidget {
-  const CategoryBar({
+class CategoryBar extends StatelessWidget {
+  CategoryBar({
     super.key,
   });
 
-  @override
-  State<CategoryBar> createState() => _CategoryBarState();
-}
-
-class _CategoryBarState extends State<CategoryBar> {
-  int selectedIndex = 0;
+  HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +18,12 @@ class _CategoryBarState extends State<CategoryBar> {
     List<String> menuList = [
       StringConst.all.tr,
       StringConst.popular.tr,
-      StringConst.asia.tr,
-      StringConst.europe.tr,
-      StringConst.american.tr
+      "New".tr,
+      "Sale".tr,
+      "Special".tr
     ];
 
     return Container(
-      decoration: const BoxDecoration(),
       margin: const EdgeInsets.only(
         top: kDefaultPadding,
         bottom: kMediumPadding,
@@ -39,35 +36,39 @@ class _CategoryBarState extends State<CategoryBar> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
+                homeController.categoryIndex.value = index;
               },
-              child: Container(
-                width: size.width / 5,
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(right: kDefaultPadding),
-                decoration: selectedIndex == index
-                    ? const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            ColorConstants.primaryButton,
-                            Gradients.lightBlue1,
-                          ],
+              child: Obx(
+                () => Container(
+                  width: size.width / 5,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.only(right: kDefaultPadding),
+                  decoration: homeController.categoryIndex.value == index
+                      ? const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              ColorConstants.primaryButton,
+                              Gradients.lightBlue1,
+                            ],
+                          ),
+                          borderRadius: kSmallBorderRadius,
+                        )
+                      : BoxDecoration(
+                          color: appController.isDarkModeOn.value
+                              ? ColorConstants.darkCard
+                              : ColorConstants.lightCard,
+                          borderRadius: kSmallBorderRadius,
                         ),
-                        borderRadius: kSmallBorderRadius,
-                      )
-                    : const BoxDecoration(
-                        color: ColorConstants.grayTextField,
-                        borderRadius: kSmallBorderRadius,
-                      ),
-                child: Text(
-                  menuList[index].toString(),
-                  style: TextStyle(
-                    fontSize: getSize(16),
-                    color: selectedIndex == index
-                        ? ColorConstants.white
-                        : ColorConstants.black,
+                  child: Text(
+                    menuList[index].toString(),
+                    style: TextStyle(
+                      fontSize: getSize(16),
+                      color: homeController.categoryIndex.value == index
+                          ? ColorConstants.white
+                          : appController.isDarkModeOn.value
+                              ? ColorConstants.lightCard
+                              : ColorConstants.black,
+                    ),
                   ),
                 ),
               ),

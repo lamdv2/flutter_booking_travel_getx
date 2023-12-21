@@ -393,8 +393,12 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                         children: [
                                           Text(
                                             StringConst.cash.tr,
-                                            style: AppStyles
-                                                .gray600Size16Fw400FfMont,
+                                            style: appController
+                                                    .isDarkModeOn.value
+                                                ? AppStyles
+                                                    .gray400Size16Fw400FfMont
+                                                : AppStyles
+                                                    .gray600Size16Fw400FfMont,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -404,8 +408,12 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                           ),
                                           Text(
                                             "4242 4242 4242 4242",
-                                            style: AppStyles
-                                                .black000Size14Fw400FfMont,
+                                            style: appController
+                                                    .isDarkModeOn.value
+                                                ? AppStyles
+                                                    .white000Size14Fw400FfMont
+                                                : AppStyles
+                                                    .black000Size14Fw400FfMont,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -415,8 +423,12 @@ class BookingOptionScreen extends GetView<BookingOptionController> {
                                           ),
                                           Text(
                                             "DO VAN LAM",
-                                            style: AppStyles
-                                                .black000Size14Fw400FfMont,
+                                            style: appController
+                                                    .isDarkModeOn.value
+                                                ? AppStyles
+                                                    .white000Size14Fw400FfMont
+                                                : AppStyles
+                                                    .black000Size14Fw400FfMont,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,

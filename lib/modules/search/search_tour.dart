@@ -99,8 +99,11 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                     children: [
                                       Text(
                                         StringConst.destination.tr,
-                                        style:
-                                            AppStyles.black000Size13Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles
+                                                .white000Size13Fw400FfMont
+                                            : AppStyles
+                                                .black000Size13Fw400FfMont,
                                       ),
                                       SizedBox(
                                         width: getSize(4),
@@ -108,6 +111,9 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                       SvgPicture.asset(
                                         AssetHelper.icArrowDown2,
                                         width: getSize(18),
+                                        color: appController.isDarkModeOn.value
+                                            ? ColorConstants.white
+                                            : ColorConstants.black,
                                       ),
                                     ],
                                   ),
@@ -136,8 +142,11 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                     children: [
                                       Text(
                                         "Type tour",
-                                        style:
-                                            AppStyles.black000Size13Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles
+                                                .white000Size13Fw400FfMont
+                                            : AppStyles
+                                                .black000Size13Fw400FfMont,
                                       ),
                                       SizedBox(
                                         width: getSize(4),
@@ -145,6 +154,9 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                       SvgPicture.asset(
                                         AssetHelper.icArrowDown2,
                                         width: getSize(18),
+                                        color: appController.isDarkModeOn.value
+                                            ? ColorConstants.white
+                                            : ColorConstants.black,
                                       ),
                                     ],
                                   ),
@@ -182,8 +194,11 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                     children: [
                                       Text(
                                         "Date",
-                                        style:
-                                            AppStyles.black000Size13Fw400FfMont,
+                                        style: appController.isDarkModeOn.value
+                                            ? AppStyles
+                                                .white000Size13Fw400FfMont
+                                            : AppStyles
+                                                .black000Size13Fw400FfMont,
                                       ),
                                       SizedBox(
                                         width: getSize(4),
@@ -191,6 +206,9 @@ class SearchTourScreen extends GetView<SearchTourController> {
                                       SvgPicture.asset(
                                         AssetHelper.icArrowDown2,
                                         width: getSize(18),
+                                        color: appController.isDarkModeOn.value
+                                            ? ColorConstants.white
+                                            : ColorConstants.black,
                                       ),
                                     ],
                                   ),
@@ -342,7 +360,9 @@ class buildItemTourSearch extends GetView<SearchDesController> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: ColorConstants.lightCard,
+          color: appController.isDarkModeOn.value
+              ? ColorConstants.darkCard
+              : ColorConstants.lightCard,
         ),
         child: Column(
           children: [
@@ -401,7 +421,9 @@ class buildItemTourSearch extends GetView<SearchDesController> {
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     maxLines: 2,
-                    style: AppStyles.black000Size16Fw500FfMont,
+                    style: appController.isDarkModeOn.value
+                        ? AppStyles.white000Size16Fw500FfMont
+                        : AppStyles.black000Size16Fw500FfMont,
                   ),
                   SizedBox(
                     height: getSize(8),
@@ -411,9 +433,7 @@ class buildItemTourSearch extends GetView<SearchDesController> {
                       SvgPicture.asset(
                         AssetHelper.icStar,
                         width: getSize(20),
-                        color: appController.isDarkModeOn.value
-                            ? ColorConstants.dividerColor
-                            : ColorConstants.yellow,
+                        color: ColorConstants.yellow,
                       ),
                       SizedBox(
                         width: getSize(16),

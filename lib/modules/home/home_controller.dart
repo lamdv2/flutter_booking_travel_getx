@@ -18,6 +18,7 @@ class HomeController extends GetxController {
   }
 
   RxInt currentIndex = 0.obs;
+  RxInt categoryIndex = 0.obs;
   final _db = FirebaseFirestore.instance;
   final userModel = Rxn<UserModel>();
 

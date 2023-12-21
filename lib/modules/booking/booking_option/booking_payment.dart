@@ -85,31 +85,39 @@ class BookingPaymentScreen extends GetView<BookingOptionController> {
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: false,
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  const String bidvAppUrl =
-                                      'https://play.google.com/store/apps/details?id=com.vnpay.bidv';
-                                  try {
-                                    await launch(bidvAppUrl);
-                                  } catch (e) {
-                                    return;
-                                  }
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: getSize(8),
-                                    horizontal: getSize(10),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    gradient:
-                                        Gradients.defaultGradientBackground,
-                                    borderRadius:
-                                        BorderRadius.circular(kTopPadding),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    StringConst.banking.tr,
-                                    style: AppStyles.white000Size16Fw500FfMont,
+                              SizedBox(
+                                width: getSize(24),
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    const String bidvAppUrl =
+                                        'https://play.google.com/store/apps/details?id=com.vnpay.bidv';
+                                    try {
+                                      await launch(bidvAppUrl);
+                                    } catch (e) {
+                                      return;
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: getSize(8),
+                                      horizontal: getSize(10),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      gradient:
+                                          Gradients.defaultGradientBackground,
+                                      borderRadius:
+                                          BorderRadius.circular(kTopPadding),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      StringConst.banking.tr,
+                                      style:
+                                          AppStyles.white000Size16Fw500FfMont,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
                               ),
