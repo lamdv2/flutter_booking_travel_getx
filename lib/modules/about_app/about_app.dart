@@ -11,7 +11,7 @@ import 'package:lottie/lottie.dart';
 class AboutAppScreen extends StatelessWidget {
   final AppController appController = Get.find();
 
-  AboutAppScreen({Key? key}) : super(key: key);
+  AboutAppScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,9 @@ class AboutAppScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 'Dream Travel',
-                style: AppStyles.black000Size24Fw500FfMont,
+                style: appController.isDarkModeOn.value
+                    ? AppStyles.white000Size24Fw600FfMont
+                    : AppStyles.black000Size24Fw500FfMont,
               ),
               Text(
                 ' 1.0.0',
@@ -56,7 +58,9 @@ class AboutAppScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   StringConst.unlockAWorld.tr,
-                  style: AppStyles.black000Size18Fw600FfMont,
+                  style: appController.isDarkModeOn.value
+                      ? AppStyles.white000Size18Fw600FfMont
+                      : AppStyles.black000Size18Fw600FfMont,
                 ),
               ),
               const SizedBox(height: 10),
@@ -110,7 +114,9 @@ class AboutAppScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 StringConst.experienceTheWorld.tr,
-                style: AppStyles.black000Size18Fw600FfMont,
+                style: appController.isDarkModeOn.value
+                    ? AppStyles.white000Size18Fw600FfMont
+                    : AppStyles.black000Size18Fw600FfMont,
               ),
             ],
           ),

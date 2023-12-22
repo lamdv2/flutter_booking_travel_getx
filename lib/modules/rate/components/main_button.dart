@@ -16,14 +16,14 @@ class MainButton extends StatelessWidget {
         Text(
           StringConst.submit.tr,
           style: const TextStyle(
-              color: ColorConstants.lightBlueNon,
+              color: ColorConstants.primaryButton,
               fontWeight: FontWeight.bold,
-              fontSize: 18),
+              fontSize: 20),
         ),
         const SizedBox(width: kDefaultPadding),
         RoundedButton(
             icon: const Icon(Icons.arrow_forward),
-            iconColor: Colors.white,
+            iconColor: ColorConstants.primaryButton,
             bgColor: ColorConstants.lightBlueNon,
             tap: () {})
       ],

@@ -1,16 +1,19 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/modules/home/home.dart';
+import 'package:doan_clean_achitec/modules/profile/profile_controller.dart';
 import 'package:doan_clean_achitec/modules/rate/components/app_header.dart';
 import 'package:doan_clean_achitec/modules/rate/components/main_button.dart';
 import 'package:doan_clean_achitec/modules/rate/components/multiline_input.dart';
-import 'package:doan_clean_achitec/modules/rate/components/proportionate.dart';
-import 'package:doan_clean_achitec/modules/rate/components/ride_stat.dart';
+import 'package:doan_clean_achitec/shared/constants/assets_helper.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
-import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
+import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../shared/constants/dimension_constants.dart';
 
@@ -20,11 +23,11 @@ class RateScreen extends StatelessWidget {
 
   var rating = 0.0;
   final AppController appController = Get.find();
+  final HomeController homeController = Get.find();
+  final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: CustomAppBar(
         titles: "Feedback".tr,
@@ -33,6 +36,9 @@ class RateScreen extends StatelessWidget {
             : ColorConstants.primaryButton,
         iconBgrColor: ColorConstants.grayTextField,
       ),
+      backgroundColor: appController.isDarkModeOn.value
+          ? ColorConstants.darkBackground
+          : ColorConstants.lightBackground,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -48,69 +54,78 @@ class RateScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: kDefaultPadding * 2),
-                    Image.asset(
-                      'assets/icons/driver.jpg',
-                      width: getScreenPropotionWidth(166, size),
-                    ),
+                    homeController.userModel.value != null &&
+                            homeController.userModel.value?.imgAvatar != null &&
+                            homeController.userModel.value?.imgAvatar != ""
+                        ? GestureDetector(
+                            onTap: () async {
+                              profileController.showFullImageDialog(
+                                  context,
+                                  homeController.userModel.value?.imgAvatar ??
+                                      "");
+                            },
+                            child: CircleAvatar(
+                              radius: 64,
+                              backgroundImage: CachedNetworkImageProvider(
+                                homeController.userModel.value?.imgAvatar ?? "",
+                              ),
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            backgroundColor: ColorConstants.white,
+                            child: Container(
+                              width: getSize(96),
+                              height: getSize(96),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  colorFilter: ColorFilter.mode(
+                                    appController.isDarkModeOn.value
+                                        ? ColorConstants.white
+                                        : ColorConstants.accent1,
+                                    BlendMode.srcIn,
+                                  ),
+                                  image: const AssetImage(
+                                    AssetHelper.imgUserProfileNon,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
                     const SizedBox(height: kDefaultPadding),
                     const Text(
                       'Welcome to TourBooking!',
                       style: TextStyle(
                           color: ColorConstants.kTextLightColor, fontSize: 14),
                     ),
-                    const Text(
-                      'Your Feedback is Valuable',
-                      style: TextStyle(
-                          color: ColorConstants.kTextColor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: getSize(120),
                     ),
-                    const SizedBox(height: kDefaultPadding),
-                    const Divider(
-                      color: ColorConstants.kTextLightColor,
-                    ),
-                    const SizedBox(height: kDefaultPadding),
-                    const TourStats(),
-                    const SizedBox(height: kDefaultPadding),
-                    const Divider(
-                      color: ColorConstants.kTextLightColor,
-                    ),
-                    const SizedBox(height: kDefaultPadding),
-                    const Text(
-                      'Rate Your Tour Experience',
-                      style: TextStyle(
-                        color: ColorConstants.kTextLightColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const Text(
+                    Text(
                       'How would you rate your recent tour?',
                       style: TextStyle(
-                        color: ColorConstants.kTextColor,
+                        color: appController.isDarkModeOn.value
+                            ? ColorConstants.gray400
+                            : ColorConstants.kTextColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
                       ),
                     ),
+                    const SizedBox(height: kTop28Padding),
+                    MultilineInput(),
                     const SizedBox(height: kDefaultPadding),
-                    // SmoothStarRating(
-                    //   rating: rating,
-                    //   size: 40,
-                    //   filledIconData: Icons.star,
-                    //   halfFilledIconData: Icons.star_half,
-                    //   defaultIconData: Icons.star_border,
-                    //   starCount: 5,
-                    //   allowHalfRating: false,
-                    //   spacing: 2.0,
-                    //   onRatingChanged: (value) {
-                    //     setState(() {
-                    //       rating = value;
-                    //     });
-                    //   },
-                    // ),
-                    const SizedBox(height: kDefaultPadding),
-                    const MultilineInput(),
-                    const SizedBox(height: kDefaultPadding),
-                    const MainButton()
+                    GestureDetector(
+                      onTap: () {
+                        String feedback =
+                            profileController.feedbackController.text;
+                        launchEmailApp(
+                          feedback,
+                          "${homeController.userModel.value?.firstName ?? ""} ${homeController.userModel.value?.lastName ?? ""}",
+                        );
+                      },
+                      child: const MainButton(),
+                    ),
                   ],
                 ),
               ),
@@ -119,5 +134,22 @@ class RateScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void launchEmailApp(String feedback, String nameUser) async {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'dreamtravelappmobile@gmail.com',
+    queryParameters: {
+      'subject': 'Feedback of user $nameUser',
+      'body': feedback,
+    },
+  );
+
+  if (await canLaunch(emailLaunchUri.toString())) {
+    await launch(emailLaunchUri.toString());
+  } else {
+    print('Could not launch email app');
   }
 }

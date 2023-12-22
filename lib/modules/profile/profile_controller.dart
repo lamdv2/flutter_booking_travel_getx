@@ -36,6 +36,7 @@ class ProfileController extends GetxController {
   final editImageAvatarController = TextEditingController();
   final editPhoneNumberController = TextEditingController();
   final editLocationController = TextEditingController();
+  final feedbackController = TextEditingController();
 
   final UserController userController = Get.find();
   final HomeController homeController = Get.put(HomeController());

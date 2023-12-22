@@ -119,6 +119,7 @@ dependencies:
   geocoding: ^2.1.1
   flutter_stripe: ^9.5.0+1
   photo_manager: ^3.0.0-dev.2
+  package_info_plus: ^5.0.1
   
 dev_dependencies:
   flutter_test:
