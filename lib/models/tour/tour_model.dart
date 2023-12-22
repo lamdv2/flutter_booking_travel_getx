@@ -22,6 +22,7 @@ class TourModel {
   final double? type;
   final String? imgqr;
   final String? location;
+  bool? isFavourite;
 
   TourModel({
     this.idTour,
@@ -45,6 +46,7 @@ class TourModel {
     this.type,
     this.imgqr,
     this.location,
+    this.isFavourite,
   });
 
   factory TourModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -82,6 +84,7 @@ class TourModel {
       type: json['type'] != null ? json['price'].toDouble() : null,
       imgqr: json['imgqr'],
       location: json['location'],
+      isFavourite: json['isFavourite'] ?? false,
     );
   }
 
@@ -119,6 +122,7 @@ class TourModel {
       type: json['type'],
       imgqr: json['imgqr'],
       location: json['location'],
+      isFavourite: json['isFavourite'] ?? false,
     );
   }
 
@@ -155,6 +159,7 @@ class TourModel {
       'type': type,
       'imgqr': imgqr,
       'location': location,
+      'isFavourite': isFavourite,
     };
   }
 }

@@ -15,11 +15,46 @@ class FavoriteController extends GetxController {
     super.onInit();
   }
 
-  void getListTourModelFavourite() {
+  void getListTourModelFavourite() async {
     List<TourModel> tourList = [];
     String idUser = homeController.userModel.value?.id ?? "";
+    if (idUser.isNotEmpty) {
+      try {
+        CollectionReference tourFavoriteCollection = FirebaseFirestore.instance
+            .collection('userModel')
+            .doc(idUser)
+            .collection('favouriteTour');
 
-    getListTourFavourite.value = tourList;
+        QuerySnapshot tourFavoriteSnapshot = await tourFavoriteCollection.get();
+
+        List<String> idTourList = tourFavoriteSnapshot.docs
+            .map((document) => document['idTour'] as String)
+            .toList();
+
+        final tourModelCollection =
+            FirebaseFirestore.instance.collection('tourModel');
+
+        final tourModelSnapshot = await tourModelCollection
+            .where(FieldPath.documentId, whereIn: idTourList)
+            .get();
+
+        tourList = tourModelSnapshot.docs
+            .map((document) => TourModel.fromJson(document))
+            .toList();
+
+        for (TourModel tour in tourList) {
+          tour.isFavourite = true;
+        }
+
+        getListTourFavourite.value = tourList;
+
+        print('List of favorite tours retrieved successfully.');
+      } catch (e) {
+        print('Error getting favorite tours: $e');
+      }
+    } else {
+      print('User is not logged in.');
+    }
   }
 
   void getListModelDestination() async {
@@ -28,30 +63,30 @@ class FavoriteController extends GetxController {
 
     if (idUser.isNotEmpty) {
       try {
-        CollectionReference tourFavoriteCollection = FirebaseFirestore.instance
+        CollectionReference desFavoriteCollection = FirebaseFirestore.instance
             .collection('userModel')
             .doc(idUser)
             .collection('favourite');
 
-        QuerySnapshot tourFavoriteSnapshot = await tourFavoriteCollection.get();
+        QuerySnapshot tourFavoriteSnapshot = await desFavoriteCollection.get();
 
-        List<String> idTourList = tourFavoriteSnapshot.docs
+        List<String> idDesList = tourFavoriteSnapshot.docs
             .map((document) => document['idDes'] as String)
             .toList();
 
         final tourModelCollection =
             FirebaseFirestore.instance.collection('cityModel');
 
-        final tourModelSnapshot = await tourModelCollection
-            .where(FieldPath.documentId, whereIn: idTourList)
+        final desModelSnapshot = await tourModelCollection
+            .where(FieldPath.documentId, whereIn: idDesList)
             .get();
 
-        desList = tourModelSnapshot.docs
+        desList = desModelSnapshot.docs
             .map((document) => CityModel.fromJson(document))
             .toList();
 
-        for (var des in desList) {
-          des.isFavourite = true;
+        for (CityModel city in desList) {
+          city.isFavourite = true;
         }
 
         getListDestination.value = desList;
@@ -72,7 +107,7 @@ class FavoriteController extends GetxController {
       CollectionReference tourFavoriteCollection = FirebaseFirestore.instance
           .collection('userModel')
           .doc(idUser)
-          .collection('favourite');
+          .collection('favouriteTour');
 
       await tourFavoriteCollection.add({'idTour': idTour});
       getListTourModelFavourite();
@@ -122,9 +157,39 @@ class FavoriteController extends GetxController {
     }
   }
 
+  void removeTourFavourite(String idTour) async {
+    String idUser = homeController.userModel.value?.id ?? "";
+
+    if (idUser.isNotEmpty) {
+      try {
+        CollectionReference favouriteCollection = FirebaseFirestore.instance
+            .collection('userModel')
+            .doc(idUser)
+            .collection('favouriteTour');
+
+        QuerySnapshot desSnapshot =
+            await favouriteCollection.where('idTour', isEqualTo: idTour).get();
+
+        if (desSnapshot.docs.isNotEmpty) {
+          await favouriteCollection.doc(desSnapshot.docs.first.id).delete();
+
+          getListTourModelFavourite();
+        } else {}
+        // ignore: empty_catches
+      } catch (e) {}
+    }
+  }
+
   bool isCheckFavourite(idCity) {
     for (CityModel city in getListDestination.value ?? []) {
       if (city.id == idCity) return true;
+    }
+    return false;
+  }
+
+  bool isCheckFavouriteTour(idTour) {
+    for (TourModel tour in getListTourFavourite.value ?? []) {
+      if (tour.idTour == idTour) return true;
     }
     return false;
   }

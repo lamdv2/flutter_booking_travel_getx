@@ -14,7 +14,6 @@ class CategoryBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     List<String> menuList = [
       StringConst.all.tr,
       StringConst.popular.tr,

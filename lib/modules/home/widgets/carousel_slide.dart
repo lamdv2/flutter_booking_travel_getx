@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:doan_clean_achitec/modules/favorite/favorite_controller.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/routes/app_pages.dart';
 import 'package:doan_clean_achitec/shared/constants/colors.dart';
@@ -18,6 +19,7 @@ class CarouselSliderDes extends StatelessWidget {
 
   final HomeController homeController = Get.find();
   final SearchDesController searchDesController = Get.find();
+  final FavoriteController favoriteController = Get.put(FavoriteController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,8 @@ class CarouselSliderDes extends StatelessWidget {
                 viewportFraction: 0.7,
               ),
               items: homeController.listCitys.value.map((itemCity) {
+                bool isFavor = favoriteController.isCheckFavourite(itemCity.id);
+
                 return Builder(
                   builder: (BuildContext context) {
                     return GestureDetector(
@@ -117,14 +121,19 @@ class CarouselSliderDes extends StatelessWidget {
                                   ),
                                   child: LikeButton(
                                     onTap: (isLiked) async {
-                                      // setState(() {
-                                      //   desList.isFavorite = !desList.isFavorite;
-                                      // });
+                                      if (isFavor == false) {
+                                        favoriteController
+                                            .setDesFavourite(itemCity.id ?? "");
+                                      } else {
+                                        favoriteController.removeDesFavourite(
+                                            itemCity.id ?? "");
+                                      }
                                       return Future.value(!isLiked);
                                     },
-                                    isLiked: false,
+                                    isLiked: isFavor,
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     size: 40,
                                     circleColor: const CircleColor(
                                         start: Color(0xff00ddff),
@@ -138,7 +147,7 @@ class CarouselSliderDes extends StatelessWidget {
                                         FontAwesomeIcons.solidHeart,
                                         color:
                                             isLiked ? Colors.red : Colors.white,
-                                        size: 24,
+                                        size: 18,
                                       );
                                     },
                                   ),

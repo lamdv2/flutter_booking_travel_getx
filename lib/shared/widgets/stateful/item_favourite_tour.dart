@@ -2,16 +2,17 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
+import 'package:doan_clean_achitec/modules/favorite/favorite_controller.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
-import '../../../models/city/city_model.dart';
 import '../stateless/star_widget.dart';
 
 class ItemFavouriteTour extends StatelessWidget {
-  const ItemFavouriteTour({
+  ItemFavouriteTour({
     super.key,
     required this.tourModel,
     required this.heightSize,
@@ -20,17 +21,20 @@ class ItemFavouriteTour extends StatelessWidget {
   final TourModel tourModel;
   final double heightSize;
 
+  final FavoriteController favoriteController = Get.put(FavoriteController());
+
   @override
   Widget build(BuildContext context) {
-    bool isFavor = false;
+    bool isFavor =
+        favoriteController.isCheckFavouriteTour(tourModel.idTour ?? "");
 
     return Container(
       height: heightSize,
       margin: const EdgeInsets.only(
         top: 16,
       ),
-      decoration: tourModel.images != null && tourModel.images!.isNotEmpty
-          ? tourModel.images!.first.isNotEmpty
+      decoration: tourModel.images != null
+          ? tourModel.images!.first.isEmpty
               ? const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(AssetHelper.des1),
@@ -100,15 +104,18 @@ class ItemFavouriteTour extends StatelessWidget {
               height: 46,
               child: LikeButton(
                 onTap: (isLiked) async {
-                  // setState(() {
-                  //   isFavor = !isFavor;
-                  // });
+                  if (isFavor == false) {
+                    favoriteController.setTourFavorite(tourModel.idTour ?? "");
+                  } else {
+                    favoriteController
+                        .removeTourFavourite(tourModel.idTour ?? "");
+                  }
                   return Future.value(!isLiked);
                 },
                 isLiked: isFavor,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                size: 40,
+                size: 32,
                 circleColor: const CircleColor(
                     start: Color(0xff00ddff), end: Color(0xff0099cc)),
                 bubblesColor: const BubblesColor(

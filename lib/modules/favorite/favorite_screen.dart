@@ -5,7 +5,6 @@ import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/favorite/favorite.dart';
 import 'package:doan_clean_achitec/shared/constants/constants.dart';
 import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
-import 'package:doan_clean_achitec/shared/widgets/stateful/DestinationItem.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/item_favourite.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateful/item_favourite_tour.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +22,8 @@ class FavoriteScreen extends GetView<FavoriteController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.getListTourModelFavourite();
+    controller.getListModelDestination();
     return DefaultTabController(
       length: 2,
       child: Scaffold(

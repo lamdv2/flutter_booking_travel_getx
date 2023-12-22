@@ -103,7 +103,7 @@ class DestinationItem extends StatelessWidget {
               height: 46,
               child: LikeButton(
                 onTap: (isLiked) async {
-                  if (cityModel.isFavourite == false) {
+                  if (isFavor == false) {
                     favoriteController.setDesFavourite(cityModel.id ?? "");
                   } else {
                     favoriteController.removeDesFavourite(cityModel.id ?? "");

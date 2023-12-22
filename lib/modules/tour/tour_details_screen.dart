@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_clean_achitec/dark_mode.dart';
+import 'package:doan_clean_achitec/modules/favorite/favorite_controller.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_controller.dart';
 import 'package:doan_clean_achitec/modules/history_tour/tour_history_detail/comment_see_screen.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen_all.dart';
@@ -21,6 +22,7 @@ import 'package:doan_clean_achitec/shared/utils/size_utils.dart';
 import 'package:doan_clean_achitec/shared/widgets/button_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/item_utility_detail_hotel_widget.dart';
 import 'package:doan_clean_achitec/shared/widgets/stateless/dash_widget.dart';
+import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:timeago/timeago.dart' as tago;
 
@@ -29,14 +31,18 @@ import '../home/home_controller.dart';
 class TourDetailsScreen extends StatelessWidget {
   TourDetailsScreen({Key? key}) : super(key: key);
   final TourController tourController = Get.find();
-  final TourModel? tourModel = Get.arguments;
+  final TourModel tourModel = Get.arguments;
   final AppController appController = Get.find();
   final int selectedIndex = 0;
   CommentTourController commentController = Get.put(CommentTourController());
   final HomeController homeController = Get.put(HomeController());
+  final FavoriteController favoriteController = Get.put(FavoriteController());
 
   @override
   Widget build(BuildContext context) {
+    bool isFavor =
+        favoriteController.isCheckFavouriteTour(tourModel.idTour ?? "");
+
     return Scaffold(
       backgroundColor: appController.isDarkModeOn.value
           ? ColorConstants.darkBackground
@@ -45,17 +51,17 @@ class TourDetailsScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           Positioned.fill(
-            child: tourModel?.images != null && tourModel?.images != []
+            child: tourModel.images != null && tourModel.images != []
                 ? GestureDetector(
                     onTap: () => Get.to(
                       FullImageScreenAll(
-                        imageUrl: tourModel?.images?.first ?? '',
+                        imageUrl: tourModel.images?.first ?? '',
                         isCheckNetwork: true,
                       ),
                     ),
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
-                      imageUrl: tourModel?.images?.first ?? '',
+                      imageUrl: tourModel.images?.first ?? '',
                     ),
                   )
                 : GestureDetector(
@@ -82,7 +88,42 @@ class TourDetailsScreen extends StatelessWidget {
           Positioned(
             top: kMediumPadding * 2,
             right: kPadding,
-            child: _buildFavoriteButton(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(.5),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(12),
+                ),
+              ),
+              child: LikeButton(
+                onTap: (isLiked) async {
+                  if (isFavor == false) {
+                    favoriteController.setTourFavorite(tourModel.idTour ?? "");
+                  } else {
+                    favoriteController
+                        .removeTourFavourite(tourModel.idTour ?? "");
+                  }
+                  return Future.value(!isLiked);
+                },
+                isLiked: isFavor,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                size: 32,
+                circleColor: const CircleColor(
+                    start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                bubblesColor: const BubblesColor(
+                  dotPrimaryColor: Color(0xff33b5e5),
+                  dotSecondaryColor: Color(0xff0099cc),
+                ),
+                likeBuilder: (bool isLiked) {
+                  return Icon(
+                    FontAwesomeIcons.solidHeart,
+                    color: isLiked ? Colors.red : Colors.white,
+                    size: 18,
+                  );
+                },
+              ),
+            ),
           ),
           DraggableScrollableSheet(
             initialChildSize: 0.4,
@@ -128,7 +169,7 @@ class TourDetailsScreen extends StatelessWidget {
                           _buildCommentList(
                             commentController: commentController,
                             homeController: homeController,
-                            id: tourModel!.idTour ?? "",
+                            id: tourModel.idTour ?? "",
                           ),
                           SizedBox(height: getSize(16)),
                           ButtonWidget(
@@ -168,23 +209,6 @@ class TourDetailsScreen extends StatelessWidget {
           BlendMode.srcIn,
         ),
         fit: BoxFit.fitHeight,
-      ),
-    );
-  }
-
-  Widget _buildFavoriteButton() {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.all(getSize(kItemPadding)),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(kDefaultPadding)),
-        ),
-        child: const Icon(
-          FontAwesomeIcons.heart,
-          color: Colors.red,
-        ),
       ),
     );
   }
@@ -287,13 +311,13 @@ class TourDetailsScreen extends StatelessWidget {
         ),
         SizedBox(width: getSize(kTopPadding)),
         Text(
-          '${tourModel?.rating}${StringConst.five.tr} ',
+          '${tourModel.rating}${StringConst.five.tr} ',
           style: const TextStyle(
             fontSize: 16,
           ),
         ),
         Text(
-          '(${tourModel?.reviews} ${StringConst.review.tr})',
+          '(${tourModel.reviews} ${StringConst.review.tr})',
           style: TextStyle(
             fontSize: 16,
             color: appController.isDarkModeOn.value
@@ -304,7 +328,7 @@ class TourDetailsScreen extends StatelessWidget {
         const Spacer(),
         GestureDetector(
           onTap: () => Get.to(
-            CommentTourSeeScreen(id: tourModel!.idTour ?? ""),
+            CommentTourSeeScreen(id: tourModel.idTour ?? ""),
           ),
           child: Text(
             StringConst.seeAll.tr,
@@ -319,7 +343,7 @@ class TourDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTourDescription(TourModel? tourModel) {
+  Widget _buildTourDescription(TourModel tourModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -332,7 +356,7 @@ class TourDetailsScreen extends StatelessWidget {
         ),
         SizedBox(height: getSize(kDefaultPadding)),
         Text(
-          tourModel?.description ?? '',
+          tourModel.description ?? '',
           style: const TextStyle(fontSize: 16),
         ),
       ],
@@ -462,7 +486,7 @@ class TourDetailsScreen extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => tourController.launchMap(tourModel?.location ?? ''),
+              onTap: () => tourController.launchMap(tourModel.location ?? ''),
               child: Text(
                 StringConst.showMap.tr,
                 style: const TextStyle(
@@ -477,7 +501,7 @@ class TourDetailsScreen extends StatelessWidget {
         GestureDetector(
           onDoubleTap: () {
             Get.toNamed(Routes.GOOGLE_MAP_SCREEN,
-                arguments: tourModel?.location ?? "");
+                arguments: tourModel.location ?? "");
           },
           child: const GoogleMapWidget(),
         ),
@@ -489,7 +513,6 @@ class TourDetailsScreen extends StatelessWidget {
 
 class _buildCommentList extends StatelessWidget {
   _buildCommentList({
-    super.key,
     required this.commentController,
     required this.homeController,
     required this.id,
