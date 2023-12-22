@@ -8,6 +8,7 @@ class CityModel {
   final String? imageCity;
   final String? idCountry;
   final List<String>? listArt;
+  bool? isFavourite;
 
   CityModel({
     this.id,
@@ -17,6 +18,7 @@ class CityModel {
     this.imageCity,
     this.idCountry,
     this.listArt,
+    this.isFavourite,
   });
 
   factory CityModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -29,6 +31,7 @@ class CityModel {
       imageCity: _parseImageCity(json['imageCity']),
       idCountry: json['idCountry'],
       listArt: _parseListArt(json['listArt']),
+      isFavourite: json['isFavourite'] ?? false,
     );
   }
 
@@ -41,6 +44,7 @@ class CityModel {
       imageCity: _parseImageCity(json['imageCity']),
       idCountry: json['idCountry'],
       listArt: _parseListArt(json['listArt']),
+      isFavourite: json['isFavourite'] ?? false,
     );
   }
 
@@ -67,6 +71,7 @@ class CityModel {
       'imageCity': imageCity,
       'idCountry': idCountry,
       'listArt': listArt,
+      'isFavourite': isFavourite,
     };
   }
 }

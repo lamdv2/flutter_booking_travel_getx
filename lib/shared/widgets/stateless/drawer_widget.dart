@@ -170,7 +170,6 @@ class DrawerWidget extends StatelessWidget {
             ),
             onTap: () {
               Get.toNamed(Routes.FAVORITE);
-              Get.back();
             },
           ),
           Divider(

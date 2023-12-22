@@ -3,9 +3,10 @@ import 'package:doan_clean_achitec/models/city/city_model.dart';
 import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/modules/home/home.dart';
 import 'package:doan_clean_achitec/modules/profile/image_full_screen.dart';
-import 'package:doan_clean_achitec/shared/constants/string_constants.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
@@ -18,6 +19,7 @@ class TourController extends GetxController {
 
   RxBool isCheckSearch = false.obs;
   RxString idTour = ''.obs;
+  RxString currentCity = "".obs;
   final cityModel = Rxn<CityModel>();
   final getListTour = Rxn<List<TourModel>>();
   final getListTourTop10 = Rxn<List<TourModel>>();
@@ -47,6 +49,7 @@ class TourController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getCurrentCity();
     getAllTourModelData();
     indicatorRive();
   }
@@ -71,6 +74,32 @@ class TourController extends GetxController {
           .update(updatedTour.toJson());
     } catch (e) {
       throw Exception("Error updating tour: $e");
+    }
+  }
+
+  // get location current of user
+  Future<void> getCurrentCity() async {
+    currentCity.value = await getCurrentLocation();
+  }
+
+  Future<String> getCurrentLocation() async {
+    try {
+      Position currentPosition = await Geolocator.getCurrentPosition();
+      double? currentLat = currentPosition.latitude;
+      double? currentLong = currentPosition.longitude;
+
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(currentLat, currentLong);
+
+      if (placemarks.isNotEmpty) {
+        String city = placemarks.first.administrativeArea ?? "Unknown City";
+        return city;
+      } else {
+        return "Unknown City";
+      }
+    } catch (e) {
+      print("Error getting current location: $e");
+      return "Unknown City";
     }
   }
 
@@ -106,7 +135,7 @@ class TourController extends GetxController {
     await getTop10TourSale(listTourData);
     await getTop10TourNew(listTourData);
     await getTop10TourPopular(listTourData);
-    await getTop10TourCloseHere(listTourData, homeController.currentCity.value);
+    await getTop10TourCloseHere(listTourData, currentCity.value);
   }
 
   // Get Top 10 Tour By Star
@@ -200,8 +229,8 @@ class TourController extends GetxController {
           getListTourTop10CloseHere.value = allSaleTours;
         }
       } else {
-        Get.snackbar(StringConst.notification.tr,
-            'City not found in the "cityModel" collection.');
+        // Get.snackbar(StringConst.notification.tr,
+        //     'City not found in the "cityModel" collection.');
       }
     }
   }
@@ -221,15 +250,6 @@ class TourController extends GetxController {
         cityList.value!.add(item);
       }
     }
-  }
-
-  Future<void> getAllCityModelData() async {
-    final snapShot = await _db.collection('cityModel').get();
-    final listCityData =
-        snapShot.docs.map((doc) => CityModel.fromJson(doc)).toList();
-
-    // listCitys.value = listCityData;
-    // filterListCityData.value = listCityData;
   }
 
   // Location intent Map

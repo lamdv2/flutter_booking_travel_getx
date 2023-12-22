@@ -136,8 +136,7 @@ class PopularWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(4),
                   child: DestinationItem(
                     heightSize: randomItemHeight,
-                    textDes: controller.listCitys.value[index].nameCity,
-                    img: controller.listCitys.value[index].imageCity ?? "",
+                    cityModel: controller.listCitys.value[index],
                   ),
                 ),
               );
@@ -225,8 +224,7 @@ class AllWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(4),
                   child: DestinationItem(
                     heightSize: randomItemHeight,
-                    textDes: controller.listCitys.value[index].nameCity,
-                    img: controller.listCitys.value[index].imageCity ?? "",
+                    cityModel: controller.listCitys.value[index],
                   ),
                 ),
               );
@@ -302,8 +300,7 @@ class NewWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(4),
                   child: DestinationItem(
                     heightSize: randomItemHeight,
-                    textDes: controller.listCitys.value[index].nameCity,
-                    img: controller.listCitys.value[index].imageCity ?? "",
+                    cityModel: controller.listCitys.value[index],
                   ),
                 ),
               );
@@ -378,8 +375,7 @@ class SaleWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(4),
                   child: DestinationItem(
                     heightSize: randomItemHeight,
-                    textDes: controller.listCitys.value[index].nameCity,
-                    img: controller.listCitys.value[index].imageCity ?? "",
+                    cityModel: controller.listCitys.value[index],
                   ),
                 ),
               );
@@ -454,8 +450,7 @@ class CloseHereWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(4),
                   child: DestinationItem(
                     heightSize: randomItemHeight,
-                    textDes: controller.listCitys.value[index].nameCity,
-                    img: controller.listCitys.value[index].imageCity ?? "",
+                    cityModel: controller.listCitys.value[index],
                   ),
                 ),
               );

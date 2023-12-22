@@ -22,7 +22,7 @@ void main() async {
   await darkMode.loadDarkMode();
   await LocalStorageHelper.initLocalStorageHelper();
 
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle( 
     statusBarColor: ColorConstants.blue,
   ));
 

@@ -1,39 +1,36 @@
 // ignore_for_file: file_names
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:doan_clean_achitec/models/city/city_model.dart';
-import 'package:doan_clean_achitec/modules/favorite/favorite.dart';
+import 'package:doan_clean_achitec/models/tour/tour_model.dart';
 import 'package:doan_clean_achitec/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
+import '../../../models/city/city_model.dart';
 import '../stateless/star_widget.dart';
 
-class DestinationItem extends StatelessWidget {
-  DestinationItem({
+class ItemFavouriteTour extends StatelessWidget {
+  const ItemFavouriteTour({
     super.key,
+    required this.tourModel,
     required this.heightSize,
-    required this.cityModel,
   });
 
+  final TourModel tourModel;
   final double heightSize;
-  final CityModel cityModel;
-
-  final FavoriteController favoriteController = Get.put(FavoriteController());
 
   @override
   Widget build(BuildContext context) {
-    bool isFavor = favoriteController.isCheckFavourite(cityModel.id);
+    bool isFavor = false;
 
     return Container(
       height: heightSize,
       margin: const EdgeInsets.only(
         top: 16,
       ),
-      decoration: cityModel.imageCity != null
-          ? cityModel.imageCity!.isEmpty
+      decoration: tourModel.images != null && tourModel.images!.isNotEmpty
+          ? tourModel.images!.first.isNotEmpty
               ? const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(AssetHelper.des1),
@@ -44,7 +41,7 @@ class DestinationItem extends StatelessWidget {
               : BoxDecoration(
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
-                      cityModel.imageCity ?? "",
+                      tourModel.images!.first,
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -63,7 +60,7 @@ class DestinationItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(bottom: 40, left: kItemPadding),
             child: Text(
-              cityModel.nameCity,
+              tourModel.nameTour,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -80,14 +77,14 @@ class DestinationItem extends StatelessWidget {
               color: Colors.white.withOpacity(0.6),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: const Row(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                StarWidget(),
+                const StarWidget(),
                 Text(
-                  "4.5",
-                  style: TextStyle(
+                  "${tourModel.rating ?? 0}",
+                  style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -103,11 +100,9 @@ class DestinationItem extends StatelessWidget {
               height: 46,
               child: LikeButton(
                 onTap: (isLiked) async {
-                  if (cityModel.isFavourite == false) {
-                    favoriteController.setDesFavourite(cityModel.id ?? "");
-                  } else {
-                    favoriteController.removeDesFavourite(cityModel.id ?? "");
-                  }
+                  // setState(() {
+                  //   isFavor = !isFavor;
+                  // });
                   return Future.value(!isLiked);
                 },
                 isLiked: isFavor,

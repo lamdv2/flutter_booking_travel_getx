@@ -3,9 +3,8 @@ import 'package:doan_clean_achitec/models/user/user_model.dart';
 import 'package:doan_clean_achitec/modules/auth/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../models/city/city_model.dart';
 import '../../models/history/history_model.dart';
@@ -15,14 +14,13 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _requestLocationPermission();
     Future.wait([getUserDetails(userController.userEmail.value)]);
     getAllCityData();
-    getCurrentCity();
   }
 
   RxInt currentIndex = 0.obs;
   RxInt categoryIndex = 0.obs;
-  RxString currentCity = "".obs;
   final _db = FirebaseFirestore.instance;
   final userModel = Rxn<UserModel>();
 
@@ -47,31 +45,6 @@ class HomeController extends GetxController {
     }
   }
 
-  void getCurrentCity() async {
-    currentCity.value = await getCurrentLocation();
-  }
-
-  Future<String> getCurrentLocation() async {
-    try {
-      Position currentPosition = await Geolocator.getCurrentPosition();
-      double? jobLat = currentPosition.latitude;
-      double? jobLng = currentPosition.longitude;
-
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(jobLat, jobLng);
-
-      if (placemarks.isNotEmpty) {
-        String city = placemarks.first.administrativeArea ?? "Unknown City";
-        return city;
-      } else {
-        return "Unknown City";
-      }
-    } catch (e) {
-      print("Error getting current location: $e");
-      return "Unknown City";
-    }
-  }
-
   getUserData() {
     final email = FirebaseAuth.instance.currentUser?.email;
     if (email != null) {
@@ -81,6 +54,17 @@ class HomeController extends GetxController {
         StringConst.error.tr,
         '${StringConst.loginToContinue.tr} !!!',
       );
+    }
+  }
+
+  Future<void> _requestLocationPermission() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      // Get.snackbar("ok", 'Quyền truy cập vị trí đã được cấp');
+    } else if (status.isDenied) {
+      // Get.snackbar("error", 'Người dùng từ chối quyền truy cập vị trí');
+    } else if (status.isPermanentlyDenied) {
+      openAppSettings();
     }
   }
 

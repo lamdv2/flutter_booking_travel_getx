@@ -277,7 +277,7 @@ const Map<String, String> en = {
   'editProfileError': 'editProfileError',
   'enterYourLocation': 'enterYourLocation',
   'yourAccount': 'yourAccount',
-  'doLogout': 'doLogout',
+  'doLogout': 'Do you want to logout',
   'passwordChangedSuccessfully': 'passwordChangedSuccessfully',
   'errorUpdatingPassword': 'errorUpdatingPassword',
   'documentDoesNotExist': 'documentDoesNotExist',

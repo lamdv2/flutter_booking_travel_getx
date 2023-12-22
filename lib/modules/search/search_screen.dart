@@ -421,9 +421,7 @@ class ListSearchTour extends StatelessWidget {
                         margin: const EdgeInsets.all(4),
                         child: DestinationItem(
                           heightSize: randomItemHeight,
-                          textDes: controller.listCitys.value[index].nameCity,
-                          img:
-                              controller.listCitys.value[index].imageCity ?? "",
+                          cityModel: controller.listCitys.value[index],
                         ),
                       ),
                     );
