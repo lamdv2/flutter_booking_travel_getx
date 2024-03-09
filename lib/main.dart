@@ -34,11 +34,11 @@ void main() async {
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyAHthPE5I3tqFM0IH27imDAQlsduedNNNs",
-      appId: "1:997595921202:android:f72bbf84b5ebfe912fb52b",
-      messagingSenderId: "997595921202",
-      projectId: "doan-final-travel",
-      storageBucket: "doan-final-travel.appspot.com",
+      apiKey: "AIzaSyCQvc7I3bcAxtYeJiy4uMT6hK5zxFmOutQ",
+      appId: "1:194072923569:android:32a6ad1c7adce23d6a8190",
+      messagingSenderId: "194072923569",
+      projectId: "booking-travel-flutter",
+      storageBucket: "booking-travel-flutter.appspot.com",
     ),
   );
   final fcmToken = await FirebaseMessaging.instance.getToken();

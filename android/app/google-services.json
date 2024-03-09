@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "997595921202",
-    "firebase_url": "https://doan-final-travel-default-rtdb.firebaseio.com",
-    "project_id": "doan-final-travel",
-    "storage_bucket": "doan-final-travel.appspot.com"
+    "project_number": "194072923569",
+    "project_id": "booking-travel-flutter",
+    "storage_bucket": "booking-travel-flutter.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:997595921202:android:f72bbf84b5ebfe912fb52b",
+        "mobilesdk_app_id": "1:194072923569:android:32a6ad1c7adce23d6a8190",
         "android_client_info": {
           "package_name": "com.example.doan_clean_achitec"
         }
       },
       "oauth_client": [
         {
-          "client_id": "997595921202-hmk6ae1hadnvjna7ns1tpb9t3kvjdvgc.apps.googleusercontent.com",
+          "client_id": "194072923569-36i68g1n5umr31neim36j91180b7qoj3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAHthPE5I3tqFM0IH27imDAQlsduedNNNs"
+          "current_key": "AIzaSyCQvc7I3bcAxtYeJiy4uMT6hK5zxFmOutQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "997595921202-hmk6ae1hadnvjna7ns1tpb9t3kvjdvgc.apps.googleusercontent.com",
+              "client_id": "194072923569-36i68g1n5umr31neim36j91180b7qoj3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
