@@ -22,7 +22,7 @@ void main() async {
   await darkMode.loadDarkMode();
   await LocalStorageHelper.initLocalStorageHelper();
 
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle( 
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: ColorConstants.blue,
   ));
 
@@ -32,15 +32,17 @@ void main() async {
   Stripe.urlScheme = 'flutterstripe';
   await Stripe.instance.applySettings();
 
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyCQvc7I3bcAxtYeJiy4uMT6hK5zxFmOutQ",
-      appId: "1:194072923569:android:32a6ad1c7adce23d6a8190",
-      messagingSenderId: "194072923569",
-      projectId: "booking-travel-flutter",
-      storageBucket: "booking-travel-flutter.appspot.com",
-    ),
-  );
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyBnxG2DPmtPin5oPhI-riYcAPm5VAyu6jk",
+        appId: "1:997595921202:android:5e21d60a3a3526212fb52b",
+        messagingSenderId: "997595921202",
+        projectId: "doan-final-travel",
+        storageBucket: "doan-final-travel.appspot.com",
+      ),
+    );
+  }
   final fcmToken = await FirebaseMessaging.instance.getToken();
   if (fcmToken != null) {
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {

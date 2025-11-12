@@ -264,25 +264,25 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         currentPosition = await geolocator.Geolocator.getCurrentPosition(
           desiredAccuracy: geolocator.LocationAccuracy.best,
         );
-        final result = await polylinePoints.getRouteBetweenCoordinates(
-          'AIzaSyB-Lyksir7H6TAkkMk4PxNUkOz3KyuV9y4',
-          // AIzaSyBD6fP1hIB0vbwy9s8AixLhVhYTLaSLw8Y
-          PointLatLng(currentPosition?.latitude ?? 16.05786987902542,
-              currentPosition?.longitude ?? 108.21159745424494),
-          PointLatLng(
-            destLatitude,
-            destLongitude,
-          ),
-          travelMode: TravelMode.transit,
-        );
+        // final result = await polylinePoints.getRouteBetweenCoordinates(
+        //   'AIzaSyB-Lyksir7H6TAkkMk4PxNUkOz3KyuV9y4',
+        //   // AIzaSyBD6fP1hIB0vbwy9s8AixLhVhYTLaSLw8Y
+        //   PointLatLng(currentPosition?.latitude ?? 16.05786987902542,
+        //       currentPosition?.longitude ?? 108.21159745424494),
+        //   PointLatLng(
+        //     destLatitude,
+        //     destLongitude,
+        //   ),
+        //   // travelMode: TravelMode.transit,
+        // );
 
-        polylineCoordinates.clear();
+        // polylineCoordinates.clear();
 
-        if (result.points.isNotEmpty) {
-          for (final point in result.points) {
-            polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-          }
-        }
+        // if (result.points.isNotEmpty) {
+        //   for (final point in result.points) {
+        //     polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        //   }
+        // }
         _addPolyLine();
       } else if (status.isDenied) {
         Get.snackbar('${StringConst.error.tr}!!!', 'Error permission!');

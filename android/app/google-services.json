@@ -1,33 +1,93 @@
 {
   "project_info": {
-    "project_number": "194072923569",
-    "project_id": "booking-travel-flutter",
-    "storage_bucket": "booking-travel-flutter.appspot.com"
+    "project_number": "997595921202",
+    "firebase_url": "https://doan-final-travel-default-rtdb.firebaseio.com",
+    "project_id": "doan-final-travel",
+    "storage_bucket": "doan-final-travel.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:194072923569:android:32a6ad1c7adce23d6a8190",
+        "mobilesdk_app_id": "1:997595921202:android:5e21d60a3a3526212fb52b",
         "android_client_info": {
-          "package_name": "com.example.doan_clean_achitec"
+          "package_name": "com.admin.dreamtravel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "194072923569-36i68g1n5umr31neim36j91180b7qoj3.apps.googleusercontent.com",
+          "client_id": "997595921202-t3551ctbsitl8dq7nsmn4veg33lhc2cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.admin.dreamtravel",
+            "certificate_hash": "64b0c8a60c34d610bbc04b446590ae1f0f2a968e"
+          }
+        },
+        {
+          "client_id": "997595921202-9j0lnktetpbk9cd0nivke77r9te369if.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCQvc7I3bcAxtYeJiy4uMT6hK5zxFmOutQ"
+          "current_key": "AIzaSyBnxG2DPmtPin5oPhI-riYcAPm5VAyu6jk"
+        },
+        {
+          "current_key": "AIzaSyAHthPE5I3tqFM0IH27imDAQlsduedNNNs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "194072923569-36i68g1n5umr31neim36j91180b7qoj3.apps.googleusercontent.com",
+              "client_id": "997595921202-9j0lnktetpbk9cd0nivke77r9te369if.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997595921202:android:f72bbf84b5ebfe912fb52b",
+        "android_client_info": {
+          "package_name": "com.example.doan_clean_achitec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997595921202-8976nd1pegkrcs9nko920c2aoplissmn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.doan_clean_achitec",
+            "certificate_hash": "64b0c8a60c34d610bbc04b446590ae1f0f2a968e"
+          }
+        },
+        {
+          "client_id": "997595921202-dontuqenpmj9krsd1clqnr5ubhobiuqp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.doan_clean_achitec",
+            "certificate_hash": "45edc21164c83595570029822d2ccf1faa65b61c"
+          }
+        },
+        {
+          "client_id": "997595921202-9j0lnktetpbk9cd0nivke77r9te369if.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnxG2DPmtPin5oPhI-riYcAPm5VAyu6jk"
+        },
+        {
+          "current_key": "AIzaSyAHthPE5I3tqFM0IH27imDAQlsduedNNNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997595921202-9j0lnktetpbk9cd0nivke77r9te369if.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

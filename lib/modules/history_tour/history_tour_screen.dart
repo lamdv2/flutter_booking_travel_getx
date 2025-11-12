@@ -12,7 +12,7 @@ import 'package:doan_clean_achitec/shared/utils/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rive/rive.dart';
+import 'package:rive/rive.dart' hide Image;
 
 import '../../shared/shared.dart';
 

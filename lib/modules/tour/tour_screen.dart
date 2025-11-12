@@ -108,11 +108,11 @@ class TourScreen extends GetView<TourController> {
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: getSize(20),
+                                  vertical: getSize(12),
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(
-                                    getSize(22),
+                                    getSize(16),
                                   ),
                                   boxShadow: const [],
                                   color: controller.isCheckSearch.value
@@ -148,11 +148,11 @@ class TourScreen extends GetView<TourController> {
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: getSize(20),
+                                  vertical: getSize(12),
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(
-                                    getSize(22),
+                                    getSize(16),
                                   ),
                                   boxShadow: const [],
                                   color: controller.isCheckSearch.value

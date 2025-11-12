@@ -37,7 +37,6 @@ class ThemeConfig {
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAliasWithSaveLayer,
       ),
-      backgroundColor: background,
       primaryColor: accentColor,
       hintColor: accentColor,
       // textSelectionColor: accentColor,
@@ -48,7 +47,6 @@ class ThemeConfig {
         selectionHandleColor: accentColor,
         cursorColor: accentColor,
       ),
-      toggleableActiveColor: accentColor,
       appBarTheme: AppBarTheme(
         // brightness: brightness,
         color: cardBackground,
@@ -66,7 +64,6 @@ class ThemeConfig {
         color: secondaryText,
         size: 16.0,
       ),
-      errorColor: error,
       buttonTheme: ButtonThemeData(
         textTheme: ButtonTextTheme.primary,
         colorScheme: ColorScheme(
@@ -105,70 +102,127 @@ class ThemeConfig {
       fontFamily: 'Montserrat',
       unselectedWidgetColor: hexToColor('#DADCDD'),
       textTheme: TextTheme(
-        headline1: baseTextTheme.headline1!.copyWith(
+        displayLarge: baseTextTheme.displayLarge!.copyWith(
           color: primaryText,
           fontSize: 34.0,
           fontWeight: FontWeight.bold,
         ),
-        headline2: baseTextTheme.headline2!.copyWith(
+        displayMedium: baseTextTheme.displayMedium!.copyWith(
           color: primaryText,
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
-        headline3: baseTextTheme.headline3!.copyWith(
+        displaySmall: baseTextTheme.displaySmall!.copyWith(
           color: secondaryText,
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
-        headline4: baseTextTheme.headline4!.copyWith(
+        headlineMedium: baseTextTheme.headlineMedium!.copyWith(
           color: primaryText,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
-        headline5: baseTextTheme.headline5!.copyWith(
+        headlineSmall: baseTextTheme.headlineSmall!.copyWith(
           color: primaryText,
           fontSize: 16,
           fontWeight: FontWeight.w700,
         ),
-        headline6: baseTextTheme.headline6!.copyWith(
+        titleLarge: baseTextTheme.titleLarge!.copyWith(
           color: primaryText,
           fontSize: 14,
           fontWeight: FontWeight.w700,
         ),
-        bodyText1: baseTextTheme.bodyText1!.copyWith(
+        bodyLarge: baseTextTheme.bodyLarge!.copyWith(
           color: secondaryText,
           fontSize: 15,
         ),
-        bodyText2: baseTextTheme.bodyText2!.copyWith(
+        bodyMedium: baseTextTheme.bodyMedium!.copyWith(
           color: primaryText,
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
-        button: baseTextTheme.button!.copyWith(
+        labelLarge: baseTextTheme.labelLarge!.copyWith(
           color: primaryText,
           fontSize: 12.0,
           fontWeight: FontWeight.w700,
         ),
-        caption: baseTextTheme.caption!.copyWith(
+        labelMedium: baseTextTheme.labelMedium!.copyWith(
           color: primaryText,
           fontSize: 11.0,
           fontWeight: FontWeight.w300,
         ),
-        overline: baseTextTheme.overline!.copyWith(
+        labelSmall: baseTextTheme.labelSmall!.copyWith(
           color: secondaryText,
           fontSize: 11.0,
           fontWeight: FontWeight.w500,
         ),
-        subtitle1: baseTextTheme.subtitle1!.copyWith(
+        titleMedium: baseTextTheme.titleMedium!.copyWith(
           color: primaryText,
           fontSize: 16.0,
           fontWeight: FontWeight.w700,
         ),
-        subtitle2: baseTextTheme.subtitle2!.copyWith(
+        titleSmall: baseTextTheme.titleSmall!.copyWith(
           color: secondaryText,
           fontSize: 11.0,
           fontWeight: FontWeight.w500,
         ),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return accentColor;
+          }
+          return null;
+        }),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return accentColor;
+          }
+          return null;
+        }),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return accentColor;
+          }
+          return null;
+        }),
+        trackColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return accentColor;
+          }
+          return null;
+        }),
+      ),
+      colorScheme: ColorScheme(
+        brightness: brightness,
+        primary: accentColor,
+        onPrimary: buttonText,
+        secondary: accentColor,
+        onSecondary: buttonText,
+        error: error,
+        onError: buttonText,
+        surface: background,
+        onSurface: buttonText,
       ),
     );
   }
